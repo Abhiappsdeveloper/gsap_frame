@@ -3356,7 +3356,7 @@
              ============================================================ */
           function initMagnetic() {
             const isMobile = window.matchMedia("(hover:none), (pointer:coarse)").matches;
-            if (prefersReduced || isMobile) return; // Skip on mobile + reduced motion
+            if (prefersReduced) return;
             gsap.utils.toArray(".magnetic").forEach(btn => {
               const qx = gsap.quickTo(btn, "x", { duration: .35, ease: "power3" });
               const qy = gsap.quickTo(btn, "y", { duration: .35, ease: "power3" });
