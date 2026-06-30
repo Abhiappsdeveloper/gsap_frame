@@ -3722,6 +3722,52 @@
 
       });
     });
+    // ============================================================
+    // CRITICAL: Wait for all resources (fonts, images) before starting animations
+    // ============================================================
+    function waitForPageReady() {
+      return new Promise((resolve) => {
+        if (document.readyState === "complete") {
+          resolve();
+        } else {
+          window.addEventListener("load", resolve, { once: true });
+        }
+      });
+    }
+
+    // Also wait for fonts to be ready
+    async function ensureFontsLoaded() {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+    }
+
+    // Wrap the entire initialization
+    async function initializeApp() {
+      // Wait for page load
+      await waitForPageReady();
+
+      // Wait for fonts
+      await ensureFontsLoaded();
+
+      // Give browser time to render
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+      // Now refresh ScrollTrigger to get correct measurements
+      if (typeof ScrollTrigger !== "undefined") {
+        ScrollTrigger.refresh(true);
+      }
+
+      // Trigger the load event again to ensure all animations initialize
+      window.dispatchEvent(new Event("load"));
+    }
+
+    // Start initialization
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeApp, { once: true });
+    } else {
+      initializeApp();
+    }
   </script>
 </body>
 
