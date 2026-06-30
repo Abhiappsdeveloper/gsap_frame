@@ -4002,10 +4002,8 @@
               await document.fonts.ready;
             }
 
-            // Wait longer for all intro animations to complete
-            await new Promise(resolve => setTimeout(resolve, 2800));
-
-            // Then refresh ScrollTrigger in next paint cycle
+            // Refresh ScrollTrigger immediately after fonts load
+            // This ensures scroll positions are accurate without blocking animations
             requestAnimationFrame(() => {
               ScrollTrigger.refresh(true);
             });
