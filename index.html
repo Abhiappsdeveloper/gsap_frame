@@ -3998,49 +3998,54 @@
           });
         });
         // ============================================================
-        // CRITICAL: Wait for all resources (fonts, images) before starting animations
+        // CRITICAL: Multi-Stage Resource Loading with Layout Stabilization
         // ============================================================
-        function waitForPageReady() {
-          return new Promise((resolve) => {
-            if (document.readyState === "complete") {
-              resolve();
-            } else {
-              window.addEventListener("load", resolve, { once: true });
-            }
-          });
-        }
-
-        // Also wait for fonts to be ready
-        async function ensureFontsLoaded() {
-          if (document.fonts && document.fonts.ready) {
-            await document.fonts.ready;
-          }
-        }
-
-        // Wrap the entire initialization
         async function initializeApp() {
-          // Wait for page load
-          await waitForPageReady();
+          // STAGE 1: Wait for page load completion
+          if (document.readyState !== "complete") {
+            await new Promise(resolve => window.addEventListener("load", resolve, { once: true }));
+          }
 
-          // Wait for fonts
-          await ensureFontsLoaded();
+          // STAGE 2: Wait for fonts to be ready (if supported)
+          if (document.fonts && document.fonts.ready) {
+            try {
+              await document.fonts.ready;
+            } catch (e) {
+              console.warn("Font loading failed (non-critical):", e);
+            }
+          }
 
-          // Give browser time to render
-          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+          // STAGE 3: Multiple micro-delays to ensure layout is stable
+          // First delay: let browser reflow after fonts load
+          await new Promise(resolve => requestAnimationFrame(resolve));
 
-          // Now refresh ScrollTrigger to get correct measurements
+          // Second delay: ensure paint/composite is complete
+          await new Promise(resolve => requestAnimationFrame(resolve));
+
+          // STAGE 4: Force ScrollTrigger to recalculate all measurements
+          // This is crucial - it picks up the ACTUAL layout after all resources load
           if (typeof ScrollTrigger !== "undefined") {
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill(true, true));
             ScrollTrigger.refresh(true);
           }
 
-          // Trigger the load event again to ensure all animations initialize
+          // STAGE 5: Additional safety delay before re-triggering load event
+          // This ensures DOM is fully stable before animations begin
+          await new Promise(resolve => {
+            setTimeout(() => requestAnimationFrame(resolve), 100);
+          });
+
+          // STAGE 6: Re-dispatch load to trigger GSAP context initialization
+          // This ensures all event listeners pick up correct measurements
           window.dispatchEvent(new Event("load"));
         }
 
-        // Start initialization
+        // Start the initialization chain
+        // Handle both DOMContentLoaded and already-loaded states
         if (document.readyState === "loading") {
           document.addEventListener("DOMContentLoaded", initializeApp, { once: true });
         } else {
+          // Page already loaded, run initialization immediately
           initializeApp();
         }
       </script>
