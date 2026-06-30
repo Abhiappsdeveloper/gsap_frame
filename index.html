@@ -3272,7 +3272,7 @@
             if (!field) return;
             const isMobile = window.matchMedia("(max-width: 768px)").matches;
             const isTablet = window.matchMedia("(max-width: 1024px) and (min-width: 769px)").matches;
-            const count = isMobile ? 28 : (isTablet ? 32 : 40);  // Add tablet support
+            const count = isMobile ? 32 : (isTablet ? 36 : 40);  // CHANGED: 28→32, 32→36 (more particles for visibility)
             const frag = document.createDocumentFragment();
             const parts = [];
 
@@ -3307,7 +3307,7 @@
               const qy = gsap.quickTo(field, "y", { duration: .9, ease: "power3" });
               const moveHandler = (e) => {
                 const isMobileDevice = window.matchMedia("(max-width: 768px)").matches;
-                const multiplier = isMobileDevice ? 12 : 24;  // Reduced mobile intensity
+                const multiplier = isMobileDevice ? 18 : 24;      // CHANGED: 12 → 18 (more dramatic mobile effect)
                 const relX = (e.clientX / window.innerWidth - .5) * multiplier;
                 const relY = (e.clientY / window.innerHeight - .5) * multiplier;
                 qx(relX);
@@ -3455,12 +3455,12 @@
 
               btn.addEventListener("mouseleave", () => { qx(0); qy(0); });
 
-              // Add mobile touch feedback
               btn.addEventListener("touchstart", () => {
                 gsap.to(btn, {
-                  scale: 0.94,              // More dramatic press
-                  y: 2,                     // Slight downward movement
-                  duration: .15,            // Faster response
+                  scale: 0.90,              // CHANGED: 0.94 → 0.90 (more visible press)
+                  y: 4,                     // CHANGED: 2 → 4 (deeper feedback)
+                  boxShadow: "0 2px 8px rgba(0,230,168,.1)",  // Added: shadow feedback
+                  duration: .12,            // CHANGED: .15 → .12 (snappier)
                   overwrite: "auto"
                 });
               }, { passive: true });
@@ -3468,8 +3468,8 @@
               btn.addEventListener("touchend", () => {
                 gsap.to(btn, {
                   scale: 1,
-                  duration: .25,
-                  ease: "back.out(2)",
+                  duration: .22,            // CHANGED: .25 → .22 (snappier release)
+                  ease: "back.out(3)",      // CHANGED: back.out(2) → back.out(3) (more bounce)
                   overwrite: "auto"
                 });
               }, { passive: true });
@@ -3518,13 +3518,13 @@
             if (split) {
               gsap.set(split.chars, { display: "inline-block" });
               introTl.from(split.chars, {
-                yPercent: isMobileDevice ? 120 : 130,      // Slightly more dramatic on mobile
-                rotateX: isMobileDevice ? -75 : -90,       // Increased mobile rotation
+                yPercent: isMobileDevice ? 100 : 130,      // CHANGED: 120 → 100 (more compact on mobile)
+                rotateX: isMobileDevice ? -60 : -90,       // CHANGED: -75 → -60 (smoother rotation)
                 opacity: 0,
                 filter: "blur(10px)",
                 transformOrigin: "50% 100% -20",
-                stagger: { each: isMobileDevice ? .008 : .018, from: "random" },  // Faster stagger
-                duration: isMobileDevice ? .65 : 1,        // Snappier on mobile
+                stagger: { each: isMobileDevice ? .010 : .018, from: "random" },  // CHANGED: .008 → .010
+                duration: isMobileDevice ? .7 : 1,         // CHANGED: .65 → .7 (better pacing)
                 ease: "power4.out"
               });
             }
@@ -3625,10 +3625,10 @@
 
               card.addEventListener("touchstart", () => {
                 gsap.to(card, {
-                  scale: 1.08,              // Increased from 1.06
-                  rotateX: -5,              // Add subtle rotation
-                  rotateY: 5,               // Add subtle rotation
-                  duration: .2,             // Faster response
+                  scale: 1.10,              // CHANGED: 1.08 → 1.10 (more visible on mobile)
+                  rotateX: -8,              // CHANGED: -5 → -8 (increased rotation)
+                  rotateY: 8,               // CHANGED: 5 → 8 (increased rotation)
+                  duration: .18,            // CHANGED: .2 → .18 (snappier)
                   overwrite: "auto"
                 });
               }, { passive: true });
@@ -3638,9 +3638,9 @@
                 const b = card.getBoundingClientRect();
                 const px = (e.touches[0].clientX - b.left) / b.width - .5;
                 const py = (e.touches[0].clientY - b.top) / b.height - .5;
-                qRX(py * -10);            // Increased from -8
-                qRY(px * 12);             // Increased from 10
-                qS(1.08);                 // Match touchstart scale
+                qRX(py * -12);            // CHANGED: -10 → -12 (stronger rotation)
+                qRY(px * 14);             // CHANGED: 12 → 14 (stronger rotation)
+                qS(1.10);                 // Match touchstart scale
               }, { passive: true });
 
               card.addEventListener("touchend", () => {
@@ -3722,10 +3722,10 @@
 
               gsap.from(items, {
                 opacity: 0,
-                y: isMobile ? 35 : 60,           // Slightly less on mobile
-                scale: isMobile ? .96 : .96,      // More visible scale change on mobile
-                rotateX: isMobile ? -15 : -8,     // Add 3D rotation on mobile
-                duration: isMobile ? .65 : .9,    // Slightly faster on mobile
+                y: isMobile ? 30 : 60,           // CHANGED: 35 → 30 (less Y movement on mobile)
+                scale: isMobile ? .94 : .96,      // CHANGED: .96 → .94 (more scale change on mobile)
+                rotateX: isMobile ? -12 : -8,     // CHANGED: -15 → -12 (subtle 3D effect)
+                duration: isMobile ? .6 : .9,     // CHANGED: .65 → .6 (faster on mobile)
                 ease: "power3.out",
                 stagger: staggerAmount,
                 scrollTrigger: { trigger: items[0].closest("section"), start: "top 75%" }
