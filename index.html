@@ -3198,6 +3198,10 @@
                 qx(relX);
                 qy(relY);
               });
+              window.addEventListener("pointermove", moveHandler, { passive: true });
+
+              // Store for cleanup
+              field._moveHandler = moveHandler;
             }
           }
 
