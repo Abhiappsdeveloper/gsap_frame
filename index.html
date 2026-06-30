@@ -3323,6 +3323,14 @@
                   clientY: e.touches[0].clientY
                 });
               }, { passive: true });
+              // Preserve particle animation state across refreshes
+              if (!field._particlesInitialized) {
+                field._particlesInitialized = true;
+                // Now run the animation setup only once
+                parts.forEach(p => {
+                  gsap.to(p, { /* animation */ });
+                });
+              }
 
               field._moveHandler = moveHandler;
             }
@@ -3905,16 +3913,25 @@
 
             });
 
+            let isRendering = false;
             ScrollTrigger.create({
               trigger: canvas,
               start: "top bottom",
               end: "bottom top",
               onToggle: self => {
-                if (self.isActive && !prefersReduced) gsap.ticker.add(render);
-                else gsap.ticker.remove(render);
+                if (self.isActive && !prefersReduced) {
+                  if (!isRendering) {
+                    gsap.ticker.add(render);
+                    isRendering = true;
+                  }
+                } else {
+                  if (isRendering) {
+                    gsap.ticker.remove(render);
+                    isRendering = false;
+                  }
+                }
               }
             });
-
             function render() {
               ctx2d.clearRect(0, 0, w, h);
               dots.forEach(d => {
@@ -3982,15 +3999,12 @@
             if (document.fonts) {
               await document.fonts.ready;
             }
+            // Delay refresh to let initial animations complete
+            await new Promise(resolve => setTimeout(resolve, 500));
 
             requestAnimationFrame(() => {
-              ScrollTrigger.refresh(true);
-
-              requestAnimationFrame(() => {
-                ScrollTrigger.refresh(true);
-                // Only refresh, don't revert or reinitialize
-                // Animations initialized on DOMContentLoaded remain active
-              });
+              ScrollTrigger.refresh();  // Remove 'true' parameter
+              // Don't nest another refresh call
             });
           });
         });
