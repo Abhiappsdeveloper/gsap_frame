@@ -621,13 +621,18 @@
       line-height: 1.8;
     }
 
-    .hero-ctas {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 48px;
-      flex-wrap: wrap;
+    @media (max-width: 768px) {
+      .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+        margin-top: 32px;
+      }
+
+      .hero-ctas .btn {
+        width: 100%;
+        padding: 14px 24px;
+      }
     }
 
     .hero-scroll-cue {
@@ -3266,7 +3271,7 @@
             const field = document.getElementById("particlesField");
             if (!field) return;
             const isMobile = window.matchMedia("(max-width: 768px)").matches;
-            const count = isMobile ? 12 : 40; // Reduce particle count on mobile
+            const count = isMobile ? 24 : 40; // CHANGED: 12 → 24 (more visible on mobile)
             const frag = document.createDocumentFragment();
             const parts = [];
 
@@ -3510,13 +3515,13 @@
             if (split) {
               gsap.set(split.chars, { display: "inline-block" });
               introTl.from(split.chars, {
-                yPercent: isMobileDevice ? 80 : 130,  // Reduced Y on mobile
-                rotateX: isMobileDevice ? -45 : -90,  // Reduced rotation on mobile
+                yPercent: isMobileDevice ? 100 : 130,  // CHANGED: 80 → 100 (more dramatic entrance)
+                rotateX: isMobileDevice ? -60 : -90,   // CHANGED: -45 → -60 (more rotation)
                 opacity: 0,
                 filter: "blur(10px)",
                 transformOrigin: "50% 100% -20",
-                stagger: { each: isMobileDevice ? .012 : .018, from: "random" },  // Faster stagger on mobile
-                duration: isMobileDevice ? .8 : 1,  // Faster on mobile
+                stagger: { each: isMobileDevice ? .010 : .018, from: "random" },  // CHANGED: .012 → .010
+                duration: isMobileDevice ? .7 : 1,     // CHANGED: .8 → .7 (faster)
                 ease: "power4.out"
               });
             }
@@ -3545,7 +3550,7 @@
               ({
                 x: gsap.quickTo(b, "x", { duration: 1.4, ease: "power3" }),
                 y: gsap.quickTo(b, "y", { duration: 1.4, ease: "power3" }),
-                depth: (i + 1) * (isMobileDevice ? 8 : 14)  // Reduced blob parallax on mobile
+                depth: (i + 1) * (isMobileDevice ? 12 : 14)  // CHANGED: 8 → 12 (increased mobile intensity)
               })
               );
 
@@ -3630,9 +3635,9 @@
                 const px = (e.touches[0].clientX - b.left) / b.width - .5;
                 const py = (e.touches[0].clientY - b.top) / b.height - .5;
 
-                // Reduced intensity on mobile (tilt up to 6 degrees instead of 10)
-                qRX(py * -6);
-                qRY(px * 8);
+                // CHANGED: Increased mobile tilt intensity (6 → 8, 8 → 10)
+                qRX(py * -8);
+                qRY(px * 10);
                 qS(1.06);
               }, { passive: true });
 
@@ -3710,7 +3715,7 @@
 
               // Adaptive stagger timing
               let staggerAmount = .12;  // Desktop default
-              if (isMobile) staggerAmount = .08;  // Mobile: faster stagger
+              if (isMobile) staggerAmount = .06;  // CHANGED: .08 → .06 (faster, more dynamic)
               else if (isTablet) staggerAmount = .1;  // Tablet: medium stagger
 
               gsap.from(items, {
@@ -3874,7 +3879,7 @@
             const ctx2d = canvas.getContext("2d");
             let w, h, dpr;
             const isMobile = window.matchMedia("(max-width: 768px)").matches;
-            const dotCount = isMobile ? 12 : 28; // Reduce particles on mobile
+            const dotCount = isMobile ? 18 : 28; // CHANGED: 12 → 18 (more visible on mobile)
             const dots = Array.from({ length: dotCount }, () => ({
               x: Math.random(), y: Math.random(),
               vx: (Math.random() - .5) * .0006,
