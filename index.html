@@ -3324,6 +3324,7 @@
                 });
               }, { passive: true });
               // Preserve particle animation state across refreshes
+              // OLD CODE TO REMOVE (lines ~360-367):
               if (!field._particlesInitialized) {
                 field._particlesInitialized = true;
                 // Now run the animation setup only once
