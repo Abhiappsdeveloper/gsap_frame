@@ -712,7 +712,6 @@
       transform-style: preserve-3d;
       will-change: transform;
       transition: all .4s var(--ease-out);
-      group: "service-card";
     }
 
     .service-card::before {
@@ -3192,12 +3191,12 @@
               // subtle parallax via quickTo, driven by mousemove
               const qx = gsap.quickTo(field, "x", { duration: .9, ease: "power3" });
               const qy = gsap.quickTo(field, "y", { duration: .9, ease: "power3" });
-              window.addEventListener("pointermove", e => {
+              const moveHandler = (e) => {
                 const relX = (e.clientX / window.innerWidth - .5) * 24;
                 const relY = (e.clientY / window.innerHeight - .5) * 24;
                 qx(relX);
                 qy(relY);
-              });
+              };
               window.addEventListener("pointermove", moveHandler, { passive: true });
 
               // Store for cleanup
