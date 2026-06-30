@@ -4000,12 +4000,13 @@
             if (document.fonts) {
               await document.fonts.ready;
             }
-            // Delay refresh to let initial animations complete
-            await new Promise(resolve => setTimeout(resolve, 500));
 
+            // Wait longer for all intro animations to complete
+            await new Promise(resolve => setTimeout(resolve, 2800));
+
+            // Then refresh ScrollTrigger in next paint cycle
             requestAnimationFrame(() => {
-              ScrollTrigger.refresh();  // Remove 'true' parameter
-              // Don't nest another refresh call
+              ScrollTrigger.refresh(true);
             });
           });
         });
