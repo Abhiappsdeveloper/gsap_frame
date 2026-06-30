@@ -3996,44 +3996,11 @@
         });
 
 
-        // Initialization flag to prevent duplicate runs
-        let isInitialized = false;
-
-        function safeInitialize() {
-          if (isInitialized) return;
-          isInitialized = true;
-
-          // Small delay ensures DOM is fully ready
-          setTimeout(() => {
-            ctx = gsap.context(() => {
-              initAuroraCanvas();
-              initParticles();
-              initCursor();
-              initNavbar();
-              initMagnetic();
-              initRipple();
-              initHero();
-              initTiltCards();
-              initCounters();
-              initReveals();
-              initAboutReveal();
-              initTestimonials();
-              initCtaParticles();
-              initFooterHovers();
-            });
-          }, 50);
-        }
-
-        // Handle both DOMContentLoaded and already-loaded states
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", safeInitialize, { once: true });
-        } else {
-          safeInitialize();
-        }
-
-        // Ensure cleanup on reload/navigation
+        // Cleanup on page unload
         window.addEventListener("beforeunload", () => {
-          if (ctx) ctx.revert();
+          if (typeof ctx !== "undefined" && ctx) {
+            ctx.revert();
+          }
         });
       </script>
     </div>
