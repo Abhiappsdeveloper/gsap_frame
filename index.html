@@ -2143,12 +2143,11 @@
     }
 
     @media (max-width: 820px) {
-      /* Existing code stays here... */
+      /* Existing code from line 1080 stays here... */
 
       /* NEW: Mobile animation optimizations */
       .particle {
         opacity: .3 !important;
-        /* Reduce opacity for battery efficiency */
       }
 
       .service-card,
@@ -2159,21 +2158,17 @@
       .benefit-item,
       .industry-card {
         transition: all .3s var(--ease-out);
-        /* Reduce from .4s-.45s */
       }
 
       .hero-heading .word {
         will-change: auto;
-        /* Reduce memory on mobile */
       }
 
-      /* Disable expensive blob animations on mobile */
       .blob {
         opacity: .2 !important;
         will-change: auto;
       }
 
-      /* Reduce shadow intensity on mobile for performance */
       .btn-primary {
         box-shadow: 0 4px 16px rgba(0, 230, 168, .2) !important;
       }
@@ -2201,16 +2196,13 @@
 
       .particle {
         opacity: .15 !important;
-        /* Even lighter on small phones */
       }
 
-      /* Disable any transform3d on very small devices */
       .tilt-card {
         will-change: opacity;
       }
-    }
 
-    @media (max-width:480px) {
+      /* Hero CTA buttons stack on small screens */
       .hero-ctas {
         flex-direction: column;
         width: 100%;
@@ -2234,6 +2226,8 @@
         align-items: flex-start;
       }
     }
+
+    /* DELETE: Remove any duplicate @media (max-width:480px) block below */
   </style>
 </head>
 
@@ -3592,23 +3586,8 @@
                 scale: .96,
                 duration: .9,
                 ease: "power3.out",
-                stagger: isMobile ? .06 : .12, // Reduce stagger delay on mobile
+                stagger: isMobile ? .06 : .12,  // ✅ Dynamic based on device
                 scrollTrigger: { trigger: items[0].closest("section"), start: "top 75%" }
-              });
-            });
-
-            // SplitText reveal for section titles
-            document.querySelectorAll(".section-title").forEach(title => {
-              let s;
-              try { s = SplitText.create(title, { type: "lines", linesClass: "split-line" }); }
-              catch (e) { return; }
-              gsap.from(s.lines, {
-                yPercent: 110,
-                opacity: 0,
-                duration: .9,
-                ease: "power4.out",
-                stagger: .08,
-                scrollTrigger: { trigger: title, start: "top 88%" }
               });
             });
           }
