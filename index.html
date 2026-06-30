@@ -3256,20 +3256,17 @@
               });
 
               // Parallax only on desktop (NOT on mobile)
-              if (!isMobile) {
-                const qx = gsap.quickTo(field, "x", { duration: .9, ease: "power3" });
-                const qy = gsap.quickTo(field, "y", { duration: .9, ease: "power3" });
-                const moveHandler = (e) => {
-                  const relX = (e.clientX / window.innerWidth - .5) * 24;
-                  const relY = (e.clientY / window.innerHeight - .5) * 24;
-                  qx(relX);
-                  qy(relY);
-                };
-                window.addEventListener("pointermove", moveHandler, { passive: true });
-                field._moveHandler = moveHandler;
-              } else {
-                field._moveHandler = null;
-              }
+              // Enable parallax on ALL devices (mobile + desktop)
+              const qx = gsap.quickTo(field, "x", { duration: .9, ease: "power3" });
+              const qy = gsap.quickTo(field, "y", { duration: .9, ease: "power3" });
+              const moveHandler = (e) => {
+                const relX = (e.clientX / window.innerWidth - .5) * 24;
+                const relY = (e.clientY / window.innerHeight - .5) * 24;
+                qx(relX);
+                qy(relY);
+              };
+              window.addEventListener("pointermove", moveHandler, { passive: true });
+              field._moveHandler = moveHandler;
             }
           }
 
@@ -3442,8 +3439,8 @@
               .from(".hero-scroll-cue", { opacity: 0, duration: .6 }, "-=.4");
 
             // mouse parallax on hero blobs + heading
-            const isMobile = window.matchMedia("(hover:none), (pointer:coarse)").matches;
-            if (!prefersReduced && !isMobile) {
+            // mouse/touch parallax on hero blobs + heading (all devices)
+            if (!prefersReduced) {
               const qHeadX = gsap.quickTo(heading, "x", { duration: .9, ease: "power3" });
               const qHeadY = gsap.quickTo(heading, "y", { duration: .9, ease: "power3" });
               const blobTargets = gsap.utils.toArray("[data-blob]");
@@ -3455,13 +3452,15 @@
               })
               );
 
-              document.querySelector(".hero").addEventListener("mousemove", e => {
+              const handleMove = (e) => {
                 const relX = (e.clientX / innerWidth - .5);
                 const relY = (e.clientY / innerHeight - .5);
                 qHeadX(relX * 16);
                 qHeadY(relY * 10);
                 blobSetters.forEach(s => { s.x(relX * s.depth); s.y(relY * s.depth); });
-              });
+              };
+
+              document.querySelector(".hero").addEventListener("pointermove", handleMove, { passive: true });
             }
             // scroll-driven hero exit choreography
             gsap.timeline({
@@ -3485,41 +3484,38 @@
           function initTiltCards() {
             const isMobile = window.matchMedia("(hover:none), (pointer:coarse)").matches;
             if (prefersReduced) return;
-
             gsap.utils.toArray(".tilt-card").forEach(card => {
               gsap.set(card, { rotateX: 0, rotateY: 0, scale: 1, force3D: true });
 
-              if (!isMobile) {
-                // Desktop: 3D tilt on mouse move
-                const qRX = gsap.quickTo(card, "rotateX", { duration: .5, ease: "power3" });
-                const qRY = gsap.quickTo(card, "rotateY", { duration: .5, ease: "power3" });
-                const qS = gsap.quickTo(card, "scale", { duration: .4, ease: "power3" });
+              // 3D tilt works on ALL devices (mobile + desktop)
+              const qRX = gsap.quickTo(card, "rotateX", { duration: .5, ease: "power3" });
+              const qRY = gsap.quickTo(card, "rotateY", { duration: .5, ease: "power3" });
+              const qS = gsap.quickTo(card, "scale", { duration: .4, ease: "power3" });
 
-                const onMove = (e) => {
-                  const b = card.getBoundingClientRect();
-                  const px = (e.clientX - b.left) / b.width - .5;
-                  const py = (e.clientY - b.top) / b.height - .5;
-                  qRX(py * -10);
-                  qRY(px * 12);
-                  qS(1.02);
-                };
+              const onMove = (e) => {
+                const b = card.getBoundingClientRect();
+                const px = (e.clientX - b.left) / b.width - .5;
+                const py = (e.clientY - b.top) / b.height - .5;
+                qRX(py * -10);
+                qRY(px * 12);
+                qS(1.02);
+              };
 
-                const onLeave = () => {
-                  qRX(0); qRY(0); qS(1);
-                };
+              const onLeave = () => {
+                qRX(0); qRY(0); qS(1);
+              };
 
-                card.addEventListener("mousemove", onMove);
-                card.addEventListener("mouseleave", onLeave);
-                card._tiltListeners = { onMove, onLeave };
-              } else {
-                // Mobile: simple scale on tap
-                card.addEventListener("touchstart", () => {
-                  gsap.to(card, { scale: 1.02, duration: .3, ease: "power3" });
-                }, { passive: true });
-                card.addEventListener("touchend", () => {
-                  gsap.to(card, { scale: 1, duration: .3, ease: "power3" });
-                }, { passive: true });
-              }
+              card.addEventListener("mousemove", onMove);
+              card.addEventListener("mouseleave", onLeave);
+              card._tiltListeners = { onMove, onLeave };
+
+              // Also respond to touch on mobile
+              card.addEventListener("touchstart", () => {
+                gsap.to(card, { scale: 1.05, rotateX: -8, rotateY: 6, duration: .4, ease: "power3" });
+              }, { passive: true });
+              card.addEventListener("touchend", () => {
+                qRX(0); qRY(0); qS(1);
+              }, { passive: true });
             });
           }
           /* ============================================================
@@ -3610,7 +3606,8 @@
               .from(".about-floating-card", { opacity: 0, y: 24, duration: .7, ease: "power3.out" }, "-=.5");
 
             // Parallax scroll only on desktop (NOT on mobile)
-            if (!prefersReduced && !isMobile) {
+            // Parallax scroll on ALL devices
+            if (!prefersReduced) {
               gsap.to(img, {
                 yPercent: -8,
                 ease: "none",
