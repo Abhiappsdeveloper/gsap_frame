@@ -2142,6 +2142,74 @@
       }
     }
 
+    @media (max-width: 820px) {
+      /* Existing code stays here... */
+
+      /* NEW: Mobile animation optimizations */
+      .particle {
+        opacity: .3 !important;
+        /* Reduce opacity for battery efficiency */
+      }
+
+      .service-card,
+      .testi-card,
+      .workshop-card,
+      .process-step,
+      .stat-card,
+      .benefit-item,
+      .industry-card {
+        transition: all .3s var(--ease-out);
+        /* Reduce from .4s-.45s */
+      }
+
+      .hero-heading .word {
+        will-change: auto;
+        /* Reduce memory on mobile */
+      }
+
+      /* Disable expensive blob animations on mobile */
+      .blob {
+        opacity: .2 !important;
+        will-change: auto;
+      }
+
+      /* Reduce shadow intensity on mobile for performance */
+      .btn-primary {
+        box-shadow: 0 4px 16px rgba(0, 230, 168, .2) !important;
+      }
+
+      .stat-card:hover,
+      .service-card:hover,
+      .process-step:hover {
+        box-shadow: 0 8px 24px rgba(0, 230, 168, .1) !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      /* Extra small mobile optimizations */
+      .service-cards {
+        gap: 12px;
+      }
+
+      .stats-grid,
+      .process-grid,
+      .workshop-grid,
+      .industries-grid {
+        gap: 16px;
+      }
+
+      .particle {
+        opacity: .15 !important;
+        /* Even lighter on small phones */
+      }
+
+      /* Disable any transform3d on very small devices */
+      .tilt-card {
+        will-change: opacity;
+      }
+    }
+
     @media (max-width:480px) {
       .hero-ctas {
         flex-direction: column;
@@ -3117,8 +3185,11 @@
 
             function resize() {
               dpr = Math.min(window.devicePixelRatio || 1, 2);
-              w = canvas.width = innerWidth * dpr;
-              h = canvas.height = innerHeight * 1.4 * dpr;
+              const isMobile = window.matchMedia("(max-width: 768px)").matches;
+              // Reduce DPR on mobile for performance
+              const finalDpr = isMobile ? Math.min(dpr, 1) : dpr;
+              w = canvas.width = innerWidth * finalDpr;
+              h = canvas.height = innerHeight * 1.4 * finalDpr;
               canvas.style.width = innerWidth + "px";
               canvas.style.height = (innerHeight * 1.4) + "px";
             }
@@ -3159,9 +3230,11 @@
           function initParticles() {
             const field = document.getElementById("particlesField");
             if (!field) return;
-            const count = mm.add ? (window.innerWidth < 768 ? 18 : 40) : 40;
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            const count = isMobile ? 12 : 40; // Reduce particle count on mobile
             const frag = document.createDocumentFragment();
             const parts = [];
+
             for (let i = 0; i < count; i++) {
               const p = document.createElement("span");
               p.className = "particle";
@@ -3188,21 +3261,21 @@
                 });
               });
 
-              // subtle parallax via quickTo, driven by mousemove
-              const qx = gsap.quickTo(field, "x", { duration: .9, ease: "power3" });
-              const qy = gsap.quickTo(field, "y", { duration: .9, ease: "power3" });
-              const moveHandler = (e) => {
-                const relX = (e.clientX / window.innerWidth - .5) * 24;
-                const relY = (e.clientY / window.innerHeight - .5) * 24;
-                qx(relX);
-                qy(relY);
-              };
-              window.addEventListener("pointermove", moveHandler, { passive: true });
-
-              // Store for cleanup
-              field._moveHandler = moveHandler;
-            } else {
-              field._moveHandler = null;
+              // Parallax only on desktop (NOT on mobile)
+              if (!isMobile) {
+                const qx = gsap.quickTo(field, "x", { duration: .9, ease: "power3" });
+                const qy = gsap.quickTo(field, "y", { duration: .9, ease: "power3" });
+                const moveHandler = (e) => {
+                  const relX = (e.clientX / window.innerWidth - .5) * 24;
+                  const relY = (e.clientY / window.innerHeight - .5) * 24;
+                  qx(relX);
+                  qy(relY);
+                };
+                window.addEventListener("pointermove", moveHandler, { passive: true });
+                field._moveHandler = moveHandler;
+              } else {
+                field._moveHandler = null;
+              }
             }
           }
 
@@ -3213,6 +3286,7 @@
             if (window.matchMedia("(hover:none), (pointer:coarse)").matches) return;
             const dot = document.querySelector(".cursor-dot");
             const ring = document.querySelector(".cursor-ring");
+            if (!dot || !ring) return; // Safety check added
             const dotX = gsap.quickTo(dot, "x", { duration: .12, ease: "power3" });
             const dotY = gsap.quickTo(dot, "y", { duration: .12, ease: "power3" });
             const ringX = gsap.quickTo(ring, "x", { duration: .4, ease: "power3" });
@@ -3290,7 +3364,8 @@
              MAGNETIC BUTTONS
              ============================================================ */
           function initMagnetic() {
-            if (prefersReduced) return;
+            const isMobile = window.matchMedia("(hover:none), (pointer:coarse)").matches;
+            if (prefersReduced || isMobile) return; // Skip on mobile + reduced motion
             gsap.utils.toArray(".magnetic").forEach(btn => {
               const qx = gsap.quickTo(btn, "x", { duration: .35, ease: "power3" });
               const qy = gsap.quickTo(btn, "y", { duration: .35, ease: "power3" });
@@ -3373,7 +3448,8 @@
               .from(".hero-scroll-cue", { opacity: 0, duration: .6 }, "-=.4");
 
             // mouse parallax on hero blobs + heading
-            if (!prefersReduced) {
+            const isMobile = window.matchMedia("(hover:none), (pointer:coarse)").matches;
+            if (!prefersReduced && !isMobile) {
               const qHeadX = gsap.quickTo(heading, "x", { duration: .9, ease: "power3" });
               const qHeadY = gsap.quickTo(heading, "y", { duration: .9, ease: "power3" });
               const blobTargets = gsap.utils.toArray("[data-blob]");
@@ -3393,7 +3469,6 @@
                 blobSetters.forEach(s => { s.x(relX * s.depth); s.y(relY * s.depth); });
               });
             }
-
             // scroll-driven hero exit choreography
             gsap.timeline({
               scrollTrigger: {
@@ -3414,33 +3489,43 @@
              3D TILT CARDS (service / workshop / industry)
              ============================================================ */
           function initTiltCards() {
-            if (window.matchMedia("(hover:none), (pointer:coarse)").matches || prefersReduced) return;
+            const isMobile = window.matchMedia("(hover:none), (pointer:coarse)").matches;
+            if (prefersReduced) return;
+
             gsap.utils.toArray(".tilt-card").forEach(card => {
-              // Set initial values to prevent reset warnings
               gsap.set(card, { rotateX: 0, rotateY: 0, scale: 1, force3D: true });
 
-              const qRX = gsap.quickTo(card, "rotateX", { duration: .5, ease: "power3" });
-              const qRY = gsap.quickTo(card, "rotateY", { duration: .5, ease: "power3" });
-              const qS = gsap.quickTo(card, "scale", { duration: .4, ease: "power3" });
+              if (!isMobile) {
+                // Desktop: 3D tilt on mouse move
+                const qRX = gsap.quickTo(card, "rotateX", { duration: .5, ease: "power3" });
+                const qRY = gsap.quickTo(card, "rotateY", { duration: .5, ease: "power3" });
+                const qS = gsap.quickTo(card, "scale", { duration: .4, ease: "power3" });
 
-              const onMove = (e) => {
-                const b = card.getBoundingClientRect();
-                const px = (e.clientX - b.left) / b.width - .5;
-                const py = (e.clientY - b.top) / b.height - .5;
-                qRX(py * -10);
-                qRY(px * 12);
-                qS(1.02);
-              };
+                const onMove = (e) => {
+                  const b = card.getBoundingClientRect();
+                  const px = (e.clientX - b.left) / b.width - .5;
+                  const py = (e.clientY - b.top) / b.height - .5;
+                  qRX(py * -10);
+                  qRY(px * 12);
+                  qS(1.02);
+                };
 
-              const onLeave = () => {
-                qRX(0); qRY(0); qS(1);
-              };
+                const onLeave = () => {
+                  qRX(0); qRY(0); qS(1);
+                };
 
-              card.addEventListener("mousemove", onMove);
-              card.addEventListener("mouseleave", onLeave);
-
-              // Store for cleanup
-              card._tiltListeners = { onMove, onLeave };
+                card.addEventListener("mousemove", onMove);
+                card.addEventListener("mouseleave", onLeave);
+                card._tiltListeners = { onMove, onLeave };
+              } else {
+                // Mobile: simple scale on tap
+                card.addEventListener("touchstart", () => {
+                  gsap.to(card, { scale: 1.02, duration: .3, ease: "power3" });
+                }, { passive: true });
+                card.addEventListener("touchend", () => {
+                  gsap.to(card, { scale: 1, duration: .3, ease: "power3" });
+                }, { passive: true });
+              }
             });
           }
           /* ============================================================
@@ -3500,13 +3585,14 @@
             [".stats-grid .stat-card", ".process-grid .process-step", ".workshop-grid .workshop-card", ".industries-grid .industry-card", ".benefits-list .benefit-item"].forEach(sel => {
               const items = gsap.utils.toArray(sel);
               if (!items.length) return;
+              const isMobile = window.matchMedia("(max-width: 768px)").matches;
               gsap.from(items, {
                 opacity: 0,
                 y: 60,
                 scale: .96,
                 duration: .9,
                 ease: "power3.out",
-                stagger: .12,
+                stagger: isMobile ? .06 : .12, // Reduce stagger delay on mobile
                 scrollTrigger: { trigger: items[0].closest("section"), start: "top 75%" }
               });
             });
@@ -3535,6 +3621,7 @@
             if (!media) return;
             const img = media.querySelector("img");
             const panel = media.querySelector(".reveal-panel");
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
             gsap.timeline({
               scrollTrigger: { trigger: media, start: "top 80%" }
@@ -3543,7 +3630,8 @@
               .from(img, { scale: 1.4, duration: 1.4, ease: "power3.out" }, 0)
               .from(".about-floating-card", { opacity: 0, y: 24, duration: .7, ease: "power3.out" }, "-=.5");
 
-            if (!prefersReduced) {
+            // Parallax scroll only on desktop (NOT on mobile)
+            if (!prefersReduced && !isMobile) {
               gsap.to(img, {
                 yPercent: -8,
                 ease: "none",
@@ -3672,7 +3760,9 @@
             if (!canvas) return;
             const ctx2d = canvas.getContext("2d");
             let w, h, dpr;
-            const dots = Array.from({ length: 28 }, () => ({
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            const dotCount = isMobile ? 12 : 28; // Reduce particles on mobile
+            const dots = Array.from({ length: dotCount }, () => ({
               x: Math.random(), y: Math.random(),
               vx: (Math.random() - .5) * .0006,
               vy: (Math.random() - .5) * .0006
