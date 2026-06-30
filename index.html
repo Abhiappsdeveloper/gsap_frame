@@ -2421,6 +2421,10 @@
         </div>
       </section>
 
+      <div id="cube-container-3d"
+        style="position: absolute; bottom: -120px; right: 5%; width: 280px; height: 280px; z-index: 1; opacity: 0;"
+        aria-hidden="true"></div>
+
       <!-- ============================================================
      SERVICES SECTION
      ============================================================ -->
@@ -2623,6 +2627,11 @@
           </div>
         </div>
       </section>
+
+      <div id="sphere-container-3d"
+        style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 320px; height: 320px; z-index: 1; opacity: 0;"
+        aria-hidden="true"></div>
+
 
       <!-- ============================================================
      HIRING TIMELINE
@@ -3042,6 +3051,24 @@
         </div>
       </section>
 
+      <section
+        style="position: relative; padding: 80px 0; overflow: hidden; background: linear-gradient(135deg, rgba(0,230,168,.05), rgba(22,200,255,.02));">
+        <div class="container" style="position: relative; z-index: 2;">
+          <div id="pyramid-container-3d"
+            style="position: absolute; left: -15%; top: 50%; transform: translateY(-50%); width: 400px; height: 400px; opacity: 0;"
+            aria-hidden="true"></div>
+
+          <div style="position: relative; z-index: 3; text-align: center; max-width: 600px; margin: 0 auto;">
+            <span class="section-eyebrow" style="display: inline-block; margin-bottom: 16px;">Journey to Success</span>
+            <h2 class="section-title" style="margin-bottom: 24px;">Your Career <span
+                class="accent-text">Transformation</span></h2>
+            <p style="color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 32px;">From opportunity
+              discovery to career triumph, Ukonnect guides every step of your professional journey with data-driven
+              precision and human care.</p>
+          </div>
+        </div>
+      </section>
+
       <!-- ============================================================
      CTA BANNER
      ============================================================ -->
@@ -3122,6 +3149,369 @@
         </div>
       </footer>
 
+      <script>
+        // ============================================================
+        // 3D CUBE ANIMATION (Hero Section Enhancement)
+        // ============================================================
+        function init3DCube() {
+          const container = document.getElementById("cube-container-3d");
+          if (!container) return;
+
+          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (prefersReduced) return;
+
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+          camera.position.z = 2.5;
+          renderer.setSize(280, 280);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+          container.appendChild(renderer.domElement);
+
+          // Create cube with gradient material
+          const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+          const materials = [
+            new THREE.MeshStandardMaterial({ color: 0x00e6a8, metalness: 0.7, roughness: 0.2, emissive: 0x00e6a8, emissiveIntensity: 0.3 }),
+            new THREE.MeshStandardMaterial({ color: 0x16c8ff, metalness: 0.7, roughness: 0.2, emissive: 0x16c8ff, emissiveIntensity: 0.3 }),
+            new THREE.MeshStandardMaterial({ color: 0x4d7cff, metalness: 0.7, roughness: 0.2, emissive: 0x4d7cff, emissiveIntensity: 0.3 }),
+            new THREE.MeshStandardMaterial({ color: 0x00e6a8, metalness: 0.7, roughness: 0.2 }),
+            new THREE.MeshStandardMaterial({ color: 0x16c8ff, metalness: 0.7, roughness: 0.2 }),
+            new THREE.MeshStandardMaterial({ color: 0x4d7cff, metalness: 0.7, roughness: 0.2 })
+          ];
+          const cube = new THREE.Mesh(geometry, materials);
+          scene.add(cube);
+
+          // Lighting
+          const light1 = new THREE.PointLight(0x00e6a8, 1.5, 100);
+          light1.position.set(5, 5, 5);
+          scene.add(light1);
+
+          const light2 = new THREE.PointLight(0x16c8ff, 1, 100);
+          light2.position.set(-5, -5, 5);
+          scene.add(light2);
+
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+          scene.add(ambientLight);
+
+          let mouseX = 0, mouseY = 0;
+          let isVisible = false;
+
+          // Fade in animation
+          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.8 });
+
+          // Intersection Observer for performance
+          const observer = new IntersectionObserver((entries) => {
+            isVisible = entries[0].isIntersecting;
+          });
+          observer.observe(container);
+
+          // Mouse tracking
+          window.addEventListener("mousemove", (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+          });
+
+          // Animation loop
+          function animate() {
+            requestAnimationFrame(animate);
+
+            if (isVisible) {
+              cube.rotation.x += 0.005;
+              cube.rotation.y += 0.008;
+              cube.rotation.z += 0.003;
+
+              cube.position.x = mouseX * 0.3;
+              cube.position.y = mouseY * 0.3;
+
+              // Pulsing scale effect
+              const scale = 1 + Math.sin(Date.now() * 0.001) * 0.08;
+              cube.scale.set(scale, scale, scale);
+            }
+
+            renderer.render(scene, camera);
+          }
+          animate();
+
+          // Responsive resize
+          window.addEventListener("resize", () => {
+            renderer.setSize(280, 280);
+          });
+        }
+
+        // Initialize when page loads
+        window.addEventListener("load", () => {
+          setTimeout(init3DCube, 500);
+        });
+      </script>
+
+      <script>
+        // ============================================================
+        // 3D NETWORK SPHERE ANIMATION (Benefits Section)
+        // ============================================================
+        function init3DSphere() {
+          const container = document.getElementById("sphere-container-3d");
+          if (!container) return;
+
+          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (prefersReduced) return;
+
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+          camera.position.z = 3;
+          renderer.setSize(320, 320);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+          container.appendChild(renderer.domElement);
+
+          // Main sphere
+          const sphereGeometry = new THREE.IcosahedronGeometry(1, 5);
+          const sphereMaterial = new THREE.MeshStandardMaterial({
+            color: 0x00e6a8,
+            metalness: 0.4,
+            roughness: 0.6,
+            wireframe: true,
+            emissive: 0x00e6a8,
+            emissiveIntensity: 0.2
+          });
+          const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+          scene.add(sphere);
+
+          // Network nodes (particles)
+          const nodeGeometry = new THREE.SphereGeometry(0.08, 8, 8);
+          const nodeMaterial = new THREE.MeshStandardMaterial({
+            color: 0x16c8ff,
+            metalness: 0.8,
+            roughness: 0.2,
+            emissive: 0x16c8ff,
+            emissiveIntensity: 0.8
+          });
+
+          const nodes = [];
+          for (let i = 0; i < 12; i++) {
+            const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
+            const phi = Math.acos(-1 + (2 * i) / 12);
+            const theta = Math.sqrt(12 * Math.PI) * phi;
+            node.position.setFromSpherical(new THREE.Spherical(1.3, phi, theta));
+            nodes.push({ mesh: node, angle: Math.random() * Math.PI * 2 });
+            scene.add(node);
+          }
+
+          // Connecting lines
+          const lineGeometry = new THREE.BufferGeometry();
+          const positions = [];
+          for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+              positions.push(nodes[i].mesh.position.x, nodes[i].mesh.position.y, nodes[i].mesh.position.z);
+              positions.push(nodes[j].mesh.position.x, nodes[j].mesh.position.y, nodes[j].mesh.position.z);
+            }
+          }
+          lineGeometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(positions), 3));
+          const lineMaterial = new THREE.LineBasicMaterial({ color: 0x4d7cff, transparent: true, opacity: 0.3 });
+          const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+          scene.add(lines);
+
+          // Lighting
+          const light1 = new THREE.PointLight(0x00e6a8, 1.2, 100);
+          light1.position.set(3, 3, 3);
+          scene.add(light1);
+
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+          scene.add(ambientLight);
+
+          let isVisible = false;
+          let scrollProgress = 0;
+
+          // Fade in
+          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.5 });
+
+          const observer = new IntersectionObserver((entries) => {
+            isVisible = entries[0].isIntersecting;
+          });
+          observer.observe(container);
+
+          // Scroll tracking for animation variation
+          ScrollTrigger.create({
+            trigger: container,
+            start: "top 80%",
+            end: "bottom 20%",
+            onUpdate: (self) => { scrollProgress = self.progress; }
+          });
+
+          function animate() {
+            requestAnimationFrame(animate);
+
+            if (isVisible) {
+              sphere.rotation.x += 0.002;
+              sphere.rotation.y += 0.004;
+
+              // Pulsing effect
+              const pulse = 0.95 + Math.sin(Date.now() * 0.002) * 0.08;
+              sphere.scale.set(pulse, pulse, pulse);
+
+              // Animate nodes
+              nodes.forEach((node, i) => {
+                node.angle += 0.01 + scrollProgress * 0.005;
+                node.mesh.position.x = Math.cos(node.angle) * 1.3;
+                node.mesh.position.y = Math.sin(node.angle * 0.7) * 1.3;
+                node.mesh.position.z = Math.sin(node.angle * 0.5) * 1.3;
+
+                // Node glow
+                node.mesh.scale.set(
+                  1 + Math.sin(Date.now() * 0.003 + i) * 0.3,
+                  1 + Math.sin(Date.now() * 0.003 + i) * 0.3,
+                  1 + Math.sin(Date.now() * 0.003 + i) * 0.3
+                );
+              });
+            }
+
+            renderer.render(scene, camera);
+          }
+          animate();
+
+          window.addEventListener("resize", () => {
+            renderer.setSize(320, 320);
+          });
+        }
+
+        window.addEventListener("load", () => {
+          setTimeout(init3DSphere, 600);
+        });
+      </script>
+
+      <script>
+        // ============================================================
+        // 3D MORPHING PYRAMID ANIMATION (CTA Pre-section)
+        // ============================================================
+        function init3DPyramid() {
+          const container = document.getElementById("pyramid-container-3d");
+          if (!container) return;
+
+          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (prefersReduced) return;
+
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+          camera.position.z = 3;
+          renderer.setSize(400, 400);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+          container.appendChild(renderer.domElement);
+
+          // Create pyramid
+          const pyramidGeometry = new THREE.TetrahedronGeometry(1.2, 0);
+          const pyramidMaterial = new THREE.MeshStandardMaterial({
+            color: 0x4d7cff,
+            metalness: 0.6,
+            roughness: 0.3,
+            emissive: 0x4d7cff,
+            emissiveIntensity: 0.4,
+            wireframe: false
+          });
+          const pyramid = new THREE.Mesh(pyramidGeometry, pyramidMaterial);
+          scene.add(pyramid);
+
+          // Particle emitters at pyramid vertices
+          const particles = [];
+          const particleGeometry = new THREE.SphereGeometry(0.04, 4, 4);
+          const particleMaterial = new THREE.MeshStandardMaterial({
+            color: 0x00e6a8,
+            metalness: 0.9,
+            roughness: 0.1,
+            emissive: 0x00e6a8,
+            emissiveIntensity: 0.9
+          });
+
+          for (let i = 0; i < 20; i++) {
+            const particle = new THREE.Mesh(particleGeometry, particleMaterial.clone());
+            particle.position.copy(pyramid.position);
+            particle.velocity = new THREE.Vector3(
+              (Math.random() - 0.5) * 0.05,
+              (Math.random() - 0.5) * 0.05,
+              (Math.random() - 0.5) * 0.05
+            );
+            particle.life = 1;
+            particles.push(particle);
+            scene.add(particle);
+          }
+
+          // Lighting
+          const light1 = new THREE.PointLight(0x4d7cff, 1.5, 100);
+          light1.position.set(5, 5, 5);
+          scene.add(light1);
+
+          const light2 = new THREE.PointLight(0x00e6a8, 1, 100);
+          light2.position.set(-5, -5, 5);
+          scene.add(light2);
+
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+          scene.add(ambientLight);
+
+          let isVisible = false;
+          let time = 0;
+
+          // Fade in
+          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.7 });
+
+          const observer = new IntersectionObserver((entries) => {
+            isVisible = entries[0].isIntersecting;
+          });
+          observer.observe(container);
+
+          function animate() {
+            requestAnimationFrame(animate);
+
+            if (isVisible) {
+              time += 0.01;
+
+              // Morph between pyramid and sphere
+              const morphInfluence = 0.5 + Math.sin(time * 0.5) * 0.5;
+              pyramid.scale.set(
+                1 + Math.sin(time * 0.3) * 0.2,
+                1 + Math.cos(time * 0.4) * 0.2,
+                1 + Math.sin(time * 0.35) * 0.2
+              );
+
+              pyramid.rotation.x += 0.003;
+              pyramid.rotation.y += 0.005;
+              pyramid.rotation.z += 0.002;
+
+              // Update particles
+              particles.forEach((p, i) => {
+                p.position.add(p.velocity);
+                p.life -= 0.02;
+                p.material.opacity = p.life;
+
+                if (p.life <= 0) {
+                  p.position.copy(pyramid.position);
+                  p.life = 1;
+                  p.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.05,
+                    (Math.random() - 0.5) * 0.05,
+                    (Math.random() - 0.5) * 0.05
+                  );
+                }
+
+                p.scale.set(p.life, p.life, p.life);
+              });
+            }
+
+            renderer.render(scene, camera);
+          }
+          animate();
+
+          window.addEventListener("resize", () => {
+            renderer.setSize(400, 400);
+          });
+        }
+
+        window.addEventListener("load", () => {
+          setTimeout(init3DPyramid, 700);
+        });
+      </script>
+
       <!-- ============================================================
      SCRIPTS
      ============================================================ -->
@@ -3133,6 +3523,7 @@
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/InertiaPlugin.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
       <script>
         /* ============================================================
