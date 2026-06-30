@@ -2172,7 +2172,6 @@
 
 <body>
 
-  <!-- Background Layers -->
   <canvas id="aurora-canvas" aria-hidden="true"></canvas>
   <canvas id="mesh-canvas" aria-hidden="true"></canvas>
   <div class="noise-overlay" aria-hidden="true"></div>
@@ -2182,1593 +2181,1638 @@
   <div class="cursor-ring" aria-hidden="true"></div>
   <div class="cursor-dot" aria-hidden="true"></div>
 
-  <!-- ============================================================
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      <div class="cursor-dot" aria-hidden="true"></div>
+
+      <!-- ============================================================
      NAVBAR
      ============================================================ -->
-  <header class="navbar" id="navbar">
-    <a href="#home" class="nav-logo" aria-label="Ukonnect Staffing home">
-      <span class="dot"></span><span class="logo-text">Ukonnect</span>
-    </a>
+      <header class="navbar" id="navbar">
+        <a href="#home" class="nav-logo" aria-label="Ukonnect Staffing home">
+          <span class="dot"></span><span class="logo-text">Ukonnect</span>
+        </a>
 
-    <nav aria-label="Primary">
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home" class="active" data-nav><span>Home</span></a></li>
-        <li><a href="#services" data-nav><span>Services</span></a></li>
-        <li><a href="#process" data-nav><span>Process</span></a></li>
-        <li><a href="#benefits" data-nav><span>Benefits</span></a></li>
-        <li><a href="#about" data-nav><span>About</span></a></li>
-        <li><a href="#industries" data-nav><span>Industries</span></a></li>
-        <li><a href="#workshop" data-nav><span>Workshop</span></a></li>
-        <li><a href="#testimonials" data-nav><span>Testimonials</span></a></li>
-        <li><a href="#contact" data-nav><span>Contact</span></a></li>
-      </ul>
-    </nav>
+        <nav aria-label="Primary">
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active" data-nav><span>Home</span></a></li>
+            <li><a href="#services" data-nav><span>Services</span></a></li>
+            <li><a href="#process" data-nav><span>Process</span></a></li>
+            <li><a href="#benefits" data-nav><span>Benefits</span></a></li>
+            <li><a href="#about" data-nav><span>About</span></a></li>
+            <li><a href="#industries" data-nav><span>Industries</span></a></li>
+            <li><a href="#workshop" data-nav><span>Workshop</span></a></li>
+            <li><a href="#testimonials" data-nav><span>Testimonials</span></a></li>
+            <li><a href="#contact" data-nav><span>Contact</span></a></li>
+          </ul>
+        </nav>
 
-    <div class="nav-cta">
-      <a href="#contact" class="btn btn-ghost magnetic">Sign In</a>
-      <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect!</a>
-    </div>
+        <div class="nav-cta">
+          <a href="#contact" class="btn btn-ghost magnetic">Sign In</a>
+          <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect!</a>
+        </div>
 
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-    </button>
-  </header>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+        </button>
+      </header>
 
-  <!-- ============================================================
+      <!-- ============================================================
      HERO SECTION
      ============================================================ -->
-  <section class="hero" id="home">
-    <div class="hero-bg-shapes" aria-hidden="true">
-      <div class="blob blob-a" data-blob></div>
-      <div class="blob blob-b" data-blob></div>
-      <div class="blob blob-c" data-blob></div>
-    </div>
-    <div class="particles-field" id="particlesField" aria-hidden="true"></div>
-
-    <div class="hero-inner" id="heroInner">
-      <span class="hero-eyebrow"><span class="pulse"></span> USA Staffing &amp; Workforce Solutions</span>
-
-      <h1 class="hero-heading" id="heroHeading">
-        <span class="line"><span class="word">PEOPLE.</span></span>
-        <span class="line"><span class="word">POSITIONS.</span></span>
-        <span class="line"><span class="word grad">PERFECTLY</span></span>
-        <span class="line"><span class="word grad">UKONNECTED</span></span>
-      </h1>
-
-      <p class="hero-sub">We connect exceptional talent with America's most ambitious companies — through smart
-        sourcing, seamless compliance, and people-first hiring at every stage.</p>
-
-      <div class="hero-ctas">
-        <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span></a>
-        <a href="#services" class="btn btn-ghost magnetic">Explore Services</a>
-      </div>
-
-      <div class="service-cards" id="serviceCards">
-        <div class="service-card tilt-card">
-          <div class="glow"></div>
-          <div class="icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01" />
-            </svg>
-          </div>
-          <h3>Outsourcing Solutions</h3>
-          <p>End-to-end workforce outsourcing tailored to scale with your business.</p>
+      <section class="hero" id="home">
+        <div class="hero-bg-shapes" aria-hidden="true">
+          <div class="blob blob-a" data-blob></div>
+          <div class="blob blob-b" data-blob></div>
+          <div class="blob blob-c" data-blob></div>
         </div>
-        <div class="service-card tilt-card">
-          <div class="glow"></div>
-          <div class="icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
-            </svg>
-          </div>
-          <h3>Payroll &amp; Compliance</h3>
-          <p>Accurate, on-time payroll backed by full regulatory compliance.</p>
-        </div>
-        <div class="service-card tilt-card">
-          <div class="glow"></div>
-          <div class="icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-5 0-8 2.5-8 5v2h16v-2c0-2.5-3-5-8-5z" />
-            </svg>
-          </div>
-          <h3>Executive Search</h3>
-          <p>Precision-led search for leadership and hard-to-fill senior roles.</p>
-        </div>
-        <div class="service-card tilt-card">
-          <div class="glow"></div>
-          <div class="icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-            </svg>
-          </div>
-          <h3>Contract Staffing</h3>
-          <p>Flexible, vetted contract talent ready to deploy on demand.</p>
-        </div>
-      </div>
-    </div>
+        <div class="particles-field" id="particlesField" aria-hidden="true"></div>
 
-    <div class="hero-scroll-cue" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+        <div class="hero-inner" id="heroInner">
+          <span class="hero-eyebrow"><span class="pulse"></span> USA Staffing &amp; Workforce Solutions</span>
 
-  <!-- ============================================================
+          <h1 class="hero-heading" id="heroHeading">
+            <span class="line"><span class="word">PEOPLE.</span></span>
+            <span class="line"><span class="word">POSITIONS.</span></span>
+            <span class="line"><span class="word grad">PERFECTLY</span></span>
+            <span class="line"><span class="word grad">UKONNECTED</span></span>
+          </h1>
+
+          <p class="hero-sub">We connect exceptional talent with America's most ambitious companies — through smart
+            sourcing, seamless compliance, and people-first hiring at every stage.</p>
+
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span></a>
+            <a href="#services" class="btn btn-ghost magnetic">Explore Services</a>
+          </div>
+
+          <div class="service-cards" id="serviceCards">
+            <div class="service-card tilt-card">
+              <div class="glow"></div>
+              <div class="icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01" />
+                </svg>
+              </div>
+              <h3>Outsourcing Solutions</h3>
+              <p>End-to-end workforce outsourcing tailored to scale with your business.</p>
+            </div>
+            <div class="service-card tilt-card">
+              <div class="glow"></div>
+              <div class="icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+                </svg>
+              </div>
+              <h3>Payroll &amp; Compliance</h3>
+              <p>Accurate, on-time payroll backed by full regulatory compliance.</p>
+            </div>
+            <div class="service-card tilt-card">
+              <div class="glow"></div>
+              <div class="icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-5 0-8 2.5-8 5v2h16v-2c0-2.5-3-5-8-5z" />
+                </svg>
+              </div>
+              <h3>Executive Search</h3>
+              <p>Precision-led search for leadership and hard-to-fill senior roles.</p>
+            </div>
+            <div class="service-card tilt-card">
+              <div class="glow"></div>
+              <div class="icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+                </svg>
+              </div>
+              <h3>Contract Staffing</h3>
+              <p>Flexible, vetted contract talent ready to deploy on demand.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-scroll-cue" aria-hidden="true">
+          <span>SCROLL</span>
+          <div class="scroll-line"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================
      SERVICES SECTION
      ============================================================ -->
-  <section class="stats-section section-pad" id="services" aria-label="Featured services">
-    <div class="container">
-      <div class="section-head reveal-up">
-        <span class="section-eyebrow">Our Core Services</span>
-        <h2 class="section-title">Complete <span class="accent-text">Workforce Solutions</span></h2>
-        <p class="section-sub">From sourcing and placement to compliance and training, we handle every aspect of talent
-          acquisition so you can focus on growth.</p>
-      </div>
-      <div class="stats-bg-line" aria-hidden="true"></div>
-      <div class="stats-grid">
-        <div class="stat-card reveal-up">
-          <div class="stat-glow"></div>
-          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.8">
-              <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 13h.01M15 9h.01M15 13h.01" />
-            </svg></div>
-          <div class="stat-number" data-count="9000" data-suffix="K" data-divide="1000">0</div>
-          <div class="stat-label">Candidates Placed</div>
+      <section class="stats-section section-pad" id="services" aria-label="Featured services">
+        <div class="container">
+          <div class="section-head reveal-up">
+            <span class="section-eyebrow">Our Core Services</span>
+            <h2 class="section-title">Complete <span class="accent-text">Workforce Solutions</span></h2>
+            <p class="section-sub">From sourcing and placement to compliance and training, we handle every aspect of
+              talent
+              acquisition so you can focus on growth.</p>
+          </div>
+          <div class="stats-bg-line" aria-hidden="true"></div>
+          <div class="stats-grid">
+            <div class="stat-card reveal-up">
+              <div class="stat-glow"></div>
+              <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8">
+                  <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 13h.01M15 9h.01M15 13h.01" />
+                </svg></div>
+              <div class="stat-number" data-count="9000" data-suffix="K" data-divide="1000">0</div>
+              <div class="stat-label">Candidates Placed</div>
+            </div>
+            <div class="stat-card reveal-up">
+              <div class="stat-glow"></div>
+              <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8">
+                  <path
+                    d="M20 21v-2a4 4 0 00-3-3.87M4 21v-2a4 4 0 013-3.87M16 3.13a4 4 0 010 7.75M8 3.13a4 4 0 000 7.75" />
+                </svg></div>
+              <div class="stat-number" data-count="5000" data-suffix="K" data-divide="1000">0</div>
+              <div class="stat-label">Client Partnerships</div>
+            </div>
+            <div class="stat-card reveal-up">
+              <div class="stat-glow"></div>
+              <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8">
+                  <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 13h.01M15 9h.01M15 13h.01" />
+                </svg></div>
+              <div class="stat-number" data-count="6000" data-suffix="K" data-divide="1000">0</div>
+              <div class="stat-label">Job Roles Filled</div>
+            </div>
+            <div class="stat-card reveal-up">
+              <div class="stat-glow"></div>
+              <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8">
+                  <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z" />
+                </svg></div>
+              <div class="stat-number" data-count="5" data-suffix="+">0</div>
+              <div class="stat-label">Years of Excellence</div>
+            </div>
+          </div>
         </div>
-        <div class="stat-card reveal-up">
-          <div class="stat-glow"></div>
-          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.8">
-              <path d="M20 21v-2a4 4 0 00-3-3.87M4 21v-2a4 4 0 013-3.87M16 3.13a4 4 0 010 7.75M8 3.13a4 4 0 000 7.75" />
-            </svg></div>
-          <div class="stat-number" data-count="5000" data-suffix="K" data-divide="1000">0</div>
-          <div class="stat-label">Client Partnerships</div>
-        </div>
-        <div class="stat-card reveal-up">
-          <div class="stat-glow"></div>
-          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.8">
-              <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 13h.01M15 9h.01M15 13h.01" />
-            </svg></div>
-          <div class="stat-number" data-count="6000" data-suffix="K" data-divide="1000">0</div>
-          <div class="stat-label">Job Roles Filled</div>
-        </div>
-        <div class="stat-card reveal-up">
-          <div class="stat-glow"></div>
-          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.8">
-              <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z" />
-            </svg></div>
-          <div class="stat-number" data-count="5" data-suffix="+">0</div>
-          <div class="stat-label">Years of Excellence</div>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- ============================================================
+      <!-- ============================================================
      PROCESS SECTION
      ============================================================ -->
-  <section class="process-section section-pad" id="process" aria-label="Our hiring process">
-    <div class="container">
-      <div class="section-head reveal-up">
-        <span class="section-eyebrow">How It Works</span>
-        <h2 class="section-title">Our <span class="accent-text">4-Step Process</span></h2>
-        <p class="section-sub">A streamlined, transparent approach to finding your perfect talent match. From discovery
-          to deployment, we've got you covered.</p>
-      </div>
-
-      <div class="process-grid">
-        <div class="process-step tilt-card reveal-up">
-          <div class="step-number">01</div>
-          <div class="step-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
+      <section class="process-section section-pad" id="process" aria-label="Our hiring process">
+        <div class="container">
+          <div class="section-head reveal-up">
+            <span class="section-eyebrow">How It Works</span>
+            <h2 class="section-title">Our <span class="accent-text">4-Step Process</span></h2>
+            <p class="section-sub">A streamlined, transparent approach to finding your perfect talent match. From
+              discovery
+              to deployment, we've got you covered.</p>
           </div>
-          <h3 class="step-title">Discovery</h3>
-          <p class="step-desc">We deeply understand your needs, culture, and long-term vision to identify the right
-            talent profile for your team.</p>
-        </div>
 
-        <div class="process-step tilt-card reveal-up">
-          <div class="step-number">02</div>
-          <div class="step-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
-            </svg>
+          <div class="process-grid">
+            <div class="process-step tilt-card reveal-up">
+              <div class="step-number">01</div>
+              <div class="step-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+              </div>
+              <h3 class="step-title">Discovery</h3>
+              <p class="step-desc">We deeply understand your needs, culture, and long-term vision to identify the right
+                talent profile for your team.</p>
+            </div>
+
+            <div class="process-step tilt-card reveal-up">
+              <div class="step-number">02</div>
+              <div class="step-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+                </svg>
+              </div>
+              <h3 class="step-title">Sourcing & Screening</h3>
+              <p class="step-desc">Our expert team sources top candidates, conducts rigorous screening, and curates a
+                shortlist of qualified professionals.</p>
+            </div>
+
+            <div class="process-step tilt-card reveal-up">
+              <div class="step-number">03</div>
+              <div class="step-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 8v4l3 3M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                </svg>
+              </div>
+              <h3 class="step-title">Interview & Placement</h3>
+              <p class="step-desc">We facilitate interviews, negotiate terms, and manage the entire placement process
+                with
+                care and precision.</p>
+            </div>
+
+            <div class="process-step tilt-card reveal-up">
+              <div class="step-number">04</div>
+              <div class="step-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                </svg>
+              </div>
+              <h3 class="step-title">Support & Retention</h3>
+              <p class="step-desc">Post-placement support ensures smooth onboarding and lasting success for both
+                candidate
+                and employer.</p>
+            </div>
           </div>
-          <h3 class="step-title">Sourcing & Screening</h3>
-          <p class="step-desc">Our expert team sources top candidates, conducts rigorous screening, and curates a
-            shortlist of qualified professionals.</p>
         </div>
+      </section>
 
-        <div class="process-step tilt-card reveal-up">
-          <div class="step-number">03</div>
-          <div class="step-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M12 8v4l3 3M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
-            </svg>
-          </div>
-          <h3 class="step-title">Interview & Placement</h3>
-          <p class="step-desc">We facilitate interviews, negotiate terms, and manage the entire placement process with
-            care and precision.</p>
-        </div>
-
-        <div class="process-step tilt-card reveal-up">
-          <div class="step-number">04</div>
-          <div class="step-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
-            </svg>
-          </div>
-          <h3 class="step-title">Support & Retention</h3>
-          <p class="step-desc">Post-placement support ensures smooth onboarding and lasting success for both candidate
-            and employer.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
+      <!-- ============================================================
      BENEFITS SECTION
      ============================================================ -->
-  <section class="benefits-section section-pad" id="benefits" aria-label="Why choose Ukonnect">
-    <div class="container">
-      <div class="section-head reveal-up">
-        <span class="section-eyebrow">Why Choose Us</span>
-        <h2 class="section-title">Advantages of <span class="accent-text">Ukonnect Staffing</span></h2>
-      </div>
-
-      <div class="benefits-grid">
-        <div class="benefits-list">
-          <div class="benefit-item tilt-card reveal-up">
-            <div class="check-icon">✓</div>
-            <h3>Industry Expertise</h3>
-            <p>Deep knowledge of IT, Finance, Healthcare, and more. We understand your industry's unique challenges and
-              talent needs.</p>
+      <section class="benefits-section section-pad" id="benefits" aria-label="Why choose Ukonnect">
+        <div class="container">
+          <div class="section-head reveal-up">
+            <span class="section-eyebrow">Why Choose Us</span>
+            <h2 class="section-title">Advantages of <span class="accent-text">Ukonnect Staffing</span></h2>
           </div>
 
-          <div class="benefit-item tilt-card reveal-up">
-            <div class="check-icon">✓</div>
-            <h3>Fast Turnaround</h3>
-            <p>Average 72-hour shortlist delivery. Our streamlined process gets qualified candidates to you in record
-              time.</p>
-          </div>
-
-          <div class="benefit-item tilt-card reveal-up">
-            <div class="check-icon">✓</div>
-            <h3>Compliance Assured</h3>
-            <p>Full regulatory compliance, background checks, and documentation handling — so you can hire with
-              confidence.</p>
-          </div>
-
-          <div class="benefit-item tilt-card reveal-up">
-            <div class="check-icon">✓</div>
-            <h3>Long-term Retention</h3>
-            <p>98% client retention rate. We don't just fill positions; we create lasting matches that drive business
-              growth.</p>
-          </div>
-
-          <div class="benefit-item tilt-card reveal-up">
-            <div class="check-icon">✓</div>
-            <h3>Dedicated Account Manager</h3>
-            <p>Your own staffing partner who knows your business, culture, and goals — available whenever you need
-              support.</p>
-          </div>
-
-          <div class="benefit-item tilt-card reveal-up">
-            <div class="check-icon">✓</div>
-            <h3>Transparent Pricing</h3>
-            <p>No hidden fees. Clear, competitive pricing models tailored to your budget and hiring volume.</p>
-          </div>
-        </div>
-
-        <div class="benefits-visual reveal-up">
-          <div class="benefits-visual-content">
-            <h3>Trusted by 5,000+</h3>
-            <p>Companies across America rely on Ukonnect for their most critical hiring needs. Join the network of smart
-              businesses.</p>
-            <div style="margin-top:28px; display:flex; align-items:center; justify-content:center; gap:12px;">
-              <div
-                style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--secondary)); box-shadow:0 8px 20px rgba(0,230,168,.3);">
+          <div class="benefits-grid">
+            <div class="benefits-list">
+              <div class="benefit-item tilt-card reveal-up">
+                <div class="check-icon">✓</div>
+                <h3>Industry Expertise</h3>
+                <p>Deep knowledge of IT, Finance, Healthcare, and more. We understand your industry's unique challenges
+                  and
+                  talent needs.</p>
               </div>
-              <div
-                style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--secondary)); margin-left:-14px; box-shadow:0 8px 20px rgba(0,230,168,.3);">
+
+              <div class="benefit-item tilt-card reveal-up">
+                <div class="check-icon">✓</div>
+                <h3>Fast Turnaround</h3>
+                <p>Average 72-hour shortlist delivery. Our streamlined process gets qualified candidates to you in
+                  record
+                  time.</p>
               </div>
-              <div
-                style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--secondary)); margin-left:-14px; box-shadow:0 8px 20px rgba(0,230,168,.3);">
+
+              <div class="benefit-item tilt-card reveal-up">
+                <div class="check-icon">✓</div>
+                <h3>Compliance Assured</h3>
+                <p>Full regulatory compliance, background checks, and documentation handling — so you can hire with
+                  confidence.</p>
               </div>
-              <span style="color:var(--muted); font-size:.9rem; margin-left:12px; font-weight:600;">+4,997</span>
+
+              <div class="benefit-item tilt-card reveal-up">
+                <div class="check-icon">✓</div>
+                <h3>Long-term Retention</h3>
+                <p>98% client retention rate. We don't just fill positions; we create lasting matches that drive
+                  business
+                  growth.</p>
+              </div>
+
+              <div class="benefit-item tilt-card reveal-up">
+                <div class="check-icon">✓</div>
+                <h3>Dedicated Account Manager</h3>
+                <p>Your own staffing partner who knows your business, culture, and goals — available whenever you need
+                  support.</p>
+              </div>
+
+              <div class="benefit-item tilt-card reveal-up">
+                <div class="check-icon">✓</div>
+                <h3>Transparent Pricing</h3>
+                <p>No hidden fees. Clear, competitive pricing models tailored to your budget and hiring volume.</p>
+              </div>
+            </div>
+
+            <div class="benefits-visual reveal-up">
+              <div class="benefits-visual-content">
+                <h3>Trusted by 5,000+</h3>
+                <p>Companies across America rely on Ukonnect for their most critical hiring needs. Join the network of
+                  smart
+                  businesses.</p>
+                <div style="margin-top:28px; display:flex; align-items:center; justify-content:center; gap:12px;">
+                  <div
+                    style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--secondary)); box-shadow:0 8px 20px rgba(0,230,168,.3);">
+                  </div>
+                  <div
+                    style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--secondary)); margin-left:-14px; box-shadow:0 8px 20px rgba(0,230,168,.3);">
+                  </div>
+                  <div
+                    style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--secondary)); margin-left:-14px; box-shadow:0 8px 20px rgba(0,230,168,.3);">
+                  </div>
+                  <span style="color:var(--muted); font-size:.9rem; margin-left:12px; font-weight:600;">+4,997</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- ============================================================
+      <!-- ============================================================
      HIRING TIMELINE
      ============================================================ -->
-  <section class="hiring-timeline section-pad" aria-label="Hiring timeline">
-    <div class="container">
-      <div class="section-head reveal-up">
-        <span class="section-eyebrow">Your Hiring Journey</span>
-        <h2 class="section-title">From Application to <span class="accent-text">Day One Success</span></h2>
-      </div>
-
-      <div class="timeline-container">
-        <div class="timeline-line" aria-hidden="true"></div>
-
-        <div class="timeline-events">
-          <div class="timeline-event reveal-up">
-            <div class="event-marker"></div>
-            <div class="event-content">
-              <div class="event-label">Week 1</div>
-              <h4>Job Requirements & Culture Fit</h4>
-              <p>We meet with your team to understand role specifics, company culture, and must-have qualifications for
-                success.</p>
-            </div>
+      <section class="hiring-timeline section-pad" aria-label="Hiring timeline">
+        <div class="container">
+          <div class="section-head reveal-up">
+            <span class="section-eyebrow">Your Hiring Journey</span>
+            <h2 class="section-title">From Application to <span class="accent-text">Day One Success</span></h2>
           </div>
 
-          <div class="timeline-event reveal-up">
-            <div class="event-marker"></div>
-            <div class="event-content">
-              <div class="event-label">Week 1-2</div>
-              <h4>Active Sourcing & Screening</h4>
-              <p>Our recruiters tap into our network and databases, actively sourcing candidates and filtering for
-                quality matches.</p>
-            </div>
-          </div>
+          <div class="timeline-container">
+            <div class="timeline-line" aria-hidden="true"></div>
 
-          <div class="timeline-event reveal-up">
-            <div class="event-marker"></div>
-            <div class="event-content">
-              <div class="event-label">Week 2-3</div>
-              <h4>Interview & Negotiation</h4>
-              <p>Shortlisted candidates interview with your team. We manage the process, coordinate schedules, and
-                negotiate offers.</p>
-            </div>
-          </div>
+            <div class="timeline-events">
+              <div class="timeline-event reveal-up">
+                <div class="event-marker"></div>
+                <div class="event-content">
+                  <div class="event-label">Week 1</div>
+                  <h4>Job Requirements & Culture Fit</h4>
+                  <p>We meet with your team to understand role specifics, company culture, and must-have qualifications
+                    for
+                    success.</p>
+                </div>
+              </div>
 
-          <div class="timeline-event reveal-up">
-            <div class="event-marker"></div>
-            <div class="event-content">
-              <div class="event-label">Week 4+</div>
-              <h4>Onboarding & Support</h4>
-              <p>Post-placement support, benefits setup, payroll compliance, and ongoing communication ensure a smooth
-                transition and long-term success.</p>
+              <div class="timeline-event reveal-up">
+                <div class="event-marker"></div>
+                <div class="event-content">
+                  <div class="event-label">Week 1-2</div>
+                  <h4>Active Sourcing & Screening</h4>
+                  <p>Our recruiters tap into our network and databases, actively sourcing candidates and filtering for
+                    quality matches.</p>
+                </div>
+              </div>
+
+              <div class="timeline-event reveal-up">
+                <div class="event-marker"></div>
+                <div class="event-content">
+                  <div class="event-label">Week 2-3</div>
+                  <h4>Interview & Negotiation</h4>
+                  <p>Shortlisted candidates interview with your team. We manage the process, coordinate schedules, and
+                    negotiate offers.</p>
+                </div>
+              </div>
+
+              <div class="timeline-event reveal-up">
+                <div class="event-marker"></div>
+                <div class="event-content">
+                  <div class="event-label">Week 4+</div>
+                  <h4>Onboarding & Support</h4>
+                  <p>Post-placement support, benefits setup, payroll compliance, and ongoing communication ensure a
+                    smooth
+                    transition and long-term success.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- ============================================================
+      <!-- ============================================================
      ABOUT
      ============================================================ -->
-  <section class="about-section section-pad" id="about" aria-label="About Ukonnect">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-media reveal-up">
-          <div class="img-wrap">
-            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop"
-              alt="Ukonnect team collaborating in a modern office" loading="lazy">
-          </div>
-          <div class="reveal-panel" aria-hidden="true"></div>
-          <div class="about-floating-card">
-            <div class="af-icon" aria-hidden="true"></div>
-            <div class="af-text">
-              <strong>5+ Years</strong>
-              <span>Of trusted staffing excellence</span>
+      <section class="about-section section-pad" id="about" aria-label="About Ukonnect">
+        <div class="container">
+          <div class="about-grid">
+            <div class="about-media reveal-up">
+              <div class="img-wrap">
+                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop"
+                  alt="Ukonnect team collaborating in a modern office" loading="lazy">
+              </div>
+              <div class="reveal-panel" aria-hidden="true"></div>
+              <div class="about-floating-card">
+                <div class="af-icon" aria-hidden="true"></div>
+                <div class="af-text">
+                  <strong>5+ Years</strong>
+                  <span>Of trusted staffing excellence</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-copy reveal-up">
+              <span class="section-eyebrow about-kicker">about ukonnect staffing</span>
+              <h2>Empowering Businesses, Connecting Careers</h2>
+              <span class="about-tagline">Smart Staffing — Stronger Careers</span>
+              <p>Ukonnect Staffing USA was built on a simple belief: the right person in the right role changes
+                everything.
+                We partner with employers across the country to source, vet, and place talent that doesn't just fill a
+                seat
+                — they move the business forward.</p>
+              <p>From outsourcing and payroll compliance to executive search and contract staffing, our team blends
+                data-driven sourcing with a genuinely human approach, so every placement feels less like a transaction
+                and
+                more like a long-term match.</p>
+              <div class="about-stats-mini">
+                <div><strong>98%</strong><span>Client retention</span></div>
+                <div><strong>72hr</strong><span>Avg. time to shortlist</span></div>
+                <div><strong>50</strong><span>States served</span></div>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="about-copy reveal-up">
-          <span class="section-eyebrow about-kicker">about ukonnect staffing</span>
-          <h2>Empowering Businesses, Connecting Careers</h2>
-          <span class="about-tagline">Smart Staffing — Stronger Careers</span>
-          <p>Ukonnect Staffing USA was built on a simple belief: the right person in the right role changes everything.
-            We partner with employers across the country to source, vet, and place talent that doesn't just fill a seat
-            — they move the business forward.</p>
-          <p>From outsourcing and payroll compliance to executive search and contract staffing, our team blends
-            data-driven sourcing with a genuinely human approach, so every placement feels less like a transaction and
-            more like a long-term match.</p>
-          <div class="about-stats-mini">
-            <div><strong>98%</strong><span>Client retention</span></div>
-            <div><strong>72hr</strong><span>Avg. time to shortlist</span></div>
-            <div><strong>50</strong><span>States served</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
+      <!-- ============================================================
      INDUSTRIES
      ============================================================ -->
-  <section class="industries-section section-pad" id="industries" aria-label="Industries served">
-    <div class="container">
-      <div class="section-head reveal-up">
-        <span class="section-eyebrow">Our Industries</span>
-        <h2 class="section-title">Empowering USA Industry with <span class="accent-text">Trusted Talent Solutions</span>
-        </h2>
-      </div>
+      <section class="industries-section section-pad" id="industries" aria-label="Industries served">
+        <div class="container">
+          <div class="section-head reveal-up">
+            <span class="section-eyebrow">Our Industries</span>
+            <h2 class="section-title">Empowering USA Industry with <span class="accent-text">Trusted Talent
+                Solutions</span>
+            </h2>
+          </div>
 
-      <div class="industries-grid">
-        <div class="industry-card tilt-card reveal-up">
-          <div class="ind-bg-light"></div>
-          <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.8">
-              <path d="M8 21h8M12 17v4M3 5h18v10H3z" />
-            </svg></div>
-          <h3>IT &amp; Technology</h3>
-          <p>From cloud engineers to AI specialists, we deliver technical talent that ships, scales, and stays.</p>
+          <div class="industries-grid">
+            <div class="industry-card tilt-card reveal-up">
+              <div class="ind-bg-light"></div>
+              <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8">
+                  <path d="M8 21h8M12 17v4M3 5h18v10H3z" />
+                </svg></div>
+              <h3>IT &amp; Technology</h3>
+              <p>From cloud engineers to AI specialists, we deliver technical talent that ships, scales, and stays.</p>
+            </div>
+            <div class="industry-card tilt-card reveal-up">
+              <div class="ind-bg-light"></div>
+              <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8">
+                  <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+                </svg></div>
+              <h3>Finance &amp; Accounting</h3>
+              <p>Compliance-savvy, detail-driven professionals for controllership, audit, and financial operations.</p>
+            </div>
+            <div class="industry-card tilt-card reveal-up">
+              <div class="ind-bg-light"></div>
+              <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8">
+                  <path
+                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.29 1.51 4.04 3 5.5l7 7z" />
+                </svg></div>
+              <h3>Healthcare</h3>
+              <p>Credentialed clinical and administrative staff placed with rigor, speed, and patient-first care in
+                mind.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="industry-card tilt-card reveal-up">
-          <div class="ind-bg-light"></div>
-          <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.8">
-              <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
-            </svg></div>
-          <h3>Finance &amp; Accounting</h3>
-          <p>Compliance-savvy, detail-driven professionals for controllership, audit, and financial operations.</p>
-        </div>
-        <div class="industry-card tilt-card reveal-up">
-          <div class="ind-bg-light"></div>
-          <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.8">
-              <path
-                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.29 1.51 4.04 3 5.5l7 7z" />
-            </svg></div>
-          <h3>Healthcare</h3>
-          <p>Credentialed clinical and administrative staff placed with rigor, speed, and patient-first care in mind.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- ============================================================
+      <!-- ============================================================
      WORKSHOP
      ============================================================ -->
-  <section class="workshop-section section-pad" id="workshop" aria-label="Online workshop">
-    <div class="container">
-      <div class="section-head reveal-up">
-        <span class="section-eyebrow">Our Online Workshop</span>
-        <h2 class="section-title">Ukonnect <span class="accent-text">Training Programs</span></h2>
-        <p class="workshop-desc">Boost your career with our industry-focused online training courses, crafted to match
-          employer expectations and USA job market demands — taught by practitioners, built for hiring outcomes.</p>
-      </div>
+      <section class="workshop-section section-pad" id="workshop" aria-label="Online workshop">
+        <div class="container">
+          <div class="section-head reveal-up">
+            <span class="section-eyebrow">Our Online Workshop</span>
+            <h2 class="section-title">Ukonnect <span class="accent-text">Training Programs</span></h2>
+            <p class="workshop-desc">Boost your career with our industry-focused online training courses, crafted to
+              match
+              employer expectations and USA job market demands — taught by practitioners, built for hiring outcomes.</p>
+          </div>
 
-      <div class="workshop-grid">
-        <div class="workshop-card tilt-card reveal-up">
-          <div class="wc-media">
-            <div class="wc-num">01</div>
-            <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="1.6">
-                <path d="M3 3v18h18M7 14l4-4 3 3 5-6" />
-              </svg></div>
-          </div>
-          <div class="wc-body">
-            <h3>Online Business Analyst Training</h3>
-            <p>Master requirements gathering, stakeholder management, and process modeling for real-world BA roles.</p>
-            <span class="wc-btn">Enroll Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg></span>
+          <div class="workshop-grid">
+            <div class="workshop-card tilt-card reveal-up">
+              <div class="wc-media">
+                <div class="wc-num">01</div>
+                <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.6">
+                    <path d="M3 3v18h18M7 14l4-4 3 3 5-6" />
+                  </svg></div>
+              </div>
+              <div class="wc-body">
+                <h3>Online Business Analyst Training</h3>
+                <p>Master requirements gathering, stakeholder management, and process modeling for real-world BA roles.
+                </p>
+                <span class="wc-btn">Enroll Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg></span>
+              </div>
+            </div>
+            <div class="workshop-card tilt-card reveal-up">
+              <div class="wc-media">
+                <div class="wc-num">02</div>
+                <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.6">
+                    <path d="M4 19V5M10 19V9M16 19v-7M22 19V3" />
+                  </svg></div>
+              </div>
+              <div class="wc-body">
+                <h3>Online Data Analyst Training</h3>
+                <p>From SQL to dashboards — build the analytical skill set today's employers are actively hiring for.
+                </p>
+                <span class="wc-btn">Enroll Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg></span>
+              </div>
+            </div>
+            <div class="workshop-card tilt-card reveal-up">
+              <div class="wc-media">
+                <div class="wc-num">03</div>
+                <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.6">
+                    <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
+                  </svg></div>
+              </div>
+              <div class="wc-body">
+                <h3>Online Python Training</h3>
+                <p>Hands-on Python fundamentals through automation and data-driven projects, built for job readiness.
+                </p>
+                <span class="wc-btn">Enroll Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg></span>
+              </div>
+            </div>
+            <div class="workshop-card tilt-card reveal-up">
+              <div class="wc-media">
+                <div class="wc-num">04</div>
+                <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.6">
+                    <path d="M12 2l9 4.5v9L12 20l-9-4.5v-9L12 2z" />
+                  </svg></div>
+              </div>
+              <div class="wc-body">
+                <h3>Online Java Training</h3>
+                <p>Core to advanced Java concepts and OOP, paired with interview-ready project portfolios.</p>
+                <span class="wc-btn">Enroll Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg></span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="workshop-card tilt-card reveal-up">
-          <div class="wc-media">
-            <div class="wc-num">02</div>
-            <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="1.6">
-                <path d="M4 19V5M10 19V9M16 19v-7M22 19V3" />
-              </svg></div>
-          </div>
-          <div class="wc-body">
-            <h3>Online Data Analyst Training</h3>
-            <p>From SQL to dashboards — build the analytical skill set today's employers are actively hiring for.</p>
-            <span class="wc-btn">Enroll Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg></span>
-          </div>
-        </div>
-        <div class="workshop-card tilt-card reveal-up">
-          <div class="wc-media">
-            <div class="wc-num">03</div>
-            <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="1.6">
-                <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
-              </svg></div>
-          </div>
-          <div class="wc-body">
-            <h3>Online Python Training</h3>
-            <p>Hands-on Python fundamentals through automation and data-driven projects, built for job readiness.</p>
-            <span class="wc-btn">Enroll Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg></span>
-          </div>
-        </div>
-        <div class="workshop-card tilt-card reveal-up">
-          <div class="wc-media">
-            <div class="wc-num">04</div>
-            <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="1.6">
-                <path d="M12 2l9 4.5v9L12 20l-9-4.5v-9L12 2z" />
-              </svg></div>
-          </div>
-          <div class="wc-body">
-            <h3>Online Java Training</h3>
-            <p>Core to advanced Java concepts and OOP, paired with interview-ready project portfolios.</p>
-            <span class="wc-btn">Enroll Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- ============================================================
+      <!-- ============================================================
      TESTIMONIALS
      ============================================================ -->
-  <section class="testimonials-section section-pad" id="testimonials" aria-label="Client testimonials">
-    <div class="container">
-      <div class="section-head reveal-up">
-        <span class="section-eyebrow">Testimonials</span>
-        <h2 class="section-title">Trusted by people, <span class="accent-text">backed by results</span></h2>
-      </div>
-    </div>
+      <section class="testimonials-section section-pad" id="testimonials" aria-label="Client testimonials">
+        <div class="container">
+          <div class="section-head reveal-up">
+            <span class="section-eyebrow">Testimonials</span>
+            <h2 class="section-title">Trusted by people, <span class="accent-text">backed by results</span></h2>
+          </div>
+        </div>
 
-    <div class="testi-track-wrap" id="testiTrackWrap">
-      <div class="testi-track" id="testiTrack">
-        <article class="testi-card" style="--r:-2deg">
-          <div class="quote-mark">&ldquo;</div>
-          <div class="stars" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-          </div>
-          <p class="quote-text">Ukonnect didn't just send us resumes — they sent us candidates who actually fit our
-            culture and stayed past the first year. The difference was night and day.</p>
-          <div class="testi-person">
-            <div class="testi-avatar">JR</div>
-            <div><strong>James R.</strong><span>Director of Operations</span></div>
-          </div>
-        </article>
+        <div class="testi-track-wrap" id="testiTrackWrap">
+          <div class="testi-track" id="testiTrack">
+            <article class="testi-card" style="--r:-2deg">
+              <div class="quote-mark">&ldquo;</div>
+              <div class="stars" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+              </div>
+              <p class="quote-text">Ukonnect didn't just send us resumes — they sent us candidates who actually fit our
+                culture and stayed past the first year. The difference was night and day.</p>
+              <div class="testi-person">
+                <div class="testi-avatar">JR</div>
+                <div><strong>James R.</strong><span>Director of Operations</span></div>
+              </div>
+            </article>
 
-        <article class="testi-card" style="--r:1.5deg">
-          <div class="quote-mark">&ldquo;</div>
-          <div class="stars" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-          </div>
-          <p class="quote-text">The payroll and compliance support alone saved us from a regulatory headache. Their team
-            is responsive, sharp, and genuinely easy to work with.</p>
-          <div class="testi-person">
-            <div class="testi-avatar">LT</div>
-            <div><strong>Laura T.</strong><span>HR Business Partner</span></div>
-          </div>
-        </article>
+            <article class="testi-card" style="--r:1.5deg">
+              <div class="quote-mark">&ldquo;</div>
+              <div class="stars" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+              </div>
+              <p class="quote-text">The payroll and compliance support alone saved us from a regulatory headache. Their
+                team
+                is responsive, sharp, and genuinely easy to work with.</p>
+              <div class="testi-person">
+                <div class="testi-avatar">LT</div>
+                <div><strong>Laura T.</strong><span>HR Business Partner</span></div>
+              </div>
+            </article>
 
-        <article class="testi-card" style="--r:-1deg">
-          <div class="quote-mark">&ldquo;</div>
-          <div class="stars" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-          </div>
-          <p class="quote-text">We filled an executive role we'd struggled with for six months in under three weeks
-            through Ukonnect's search team. Genuinely impressive turnaround.</p>
-          <div class="testi-person">
-            <div class="testi-avatar">AM</div>
-            <div><strong>Aisha M.</strong><span>VP of People</span></div>
-          </div>
-        </article>
+            <article class="testi-card" style="--r:-1deg">
+              <div class="quote-mark">&ldquo;</div>
+              <div class="stars" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+              </div>
+              <p class="quote-text">We filled an executive role we'd struggled with for six months in under three weeks
+                through Ukonnect's search team. Genuinely impressive turnaround.</p>
+              <div class="testi-person">
+                <div class="testi-avatar">AM</div>
+                <div><strong>Aisha M.</strong><span>VP of People</span></div>
+              </div>
+            </article>
 
-        <!-- Duplicated for seamless loop -->
-        <article class="testi-card" style="--r:-2deg" aria-hidden="true">
-          <div class="quote-mark">&ldquo;</div>
-          <div class="stars" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
+            <!-- Duplicated for seamless loop -->
+            <article class="testi-card" style="--r:-2deg" aria-hidden="true">
+              <div class="quote-mark">&ldquo;</div>
+              <div class="stars" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+              </div>
+              <p class="quote-text">Ukonnect didn't just send us resumes — they sent us candidates who actually fit our
+                culture and stayed past the first year. The difference was night and day.</p>
+              <div class="testi-person">
+                <div class="testi-avatar">JR</div>
+                <div><strong>James R.</strong><span>Director of Operations</span></div>
+              </div>
+            </article>
+            <article class="testi-card" style="--r:1.5deg" aria-hidden="true">
+              <div class="quote-mark">&ldquo;</div>
+              <div class="stars" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
+                </svg>
+              </div>
+              <p class="quote-text">The payroll and compliance support alone saved us from a regulatory headache. Their
+                team
+                is responsive, sharp, and genuinely easy to work with.</p>
+              <div class="testi-person">
+                <div class="testi-avatar">LT</div>
+                <div><strong>Laura T.</strong><span>HR Business Partner</span></div>
+              </div>
+            </article>
           </div>
-          <p class="quote-text">Ukonnect didn't just send us resumes — they sent us candidates who actually fit our
-            culture and stayed past the first year. The difference was night and day.</p>
-          <div class="testi-person">
-            <div class="testi-avatar">JR</div>
-            <div><strong>James R.</strong><span>Director of Operations</span></div>
-          </div>
-        </article>
-        <article class="testi-card" style="--r:1.5deg" aria-hidden="true">
-          <div class="quote-mark">&ldquo;</div>
-          <div class="stars" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.401 8.168L12 18.896l-7.335 3.865 1.401-8.168L.132 9.211l8.2-1.193z" />
-            </svg>
-          </div>
-          <p class="quote-text">The payroll and compliance support alone saved us from a regulatory headache. Their team
-            is responsive, sharp, and genuinely easy to work with.</p>
-          <div class="testi-person">
-            <div class="testi-avatar">LT</div>
-            <div><strong>Laura T.</strong><span>HR Business Partner</span></div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+        </div>
+      </section>
 
-  <!-- ============================================================
+      <!-- ============================================================
      CTA BANNER
      ============================================================ -->
-  <section class="cta-section" id="contact" aria-label="Call to action">
-    <div class="container">
-      <div class="cta-banner reveal-up">
-        <canvas class="cta-particles" id="ctaParticles" aria-hidden="true"></canvas>
-        <h2>Partner with Ukonnect Staffing for People-First Hiring Solutions</h2>
-        <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-     FOOTER
-     ============================================================ -->
-  <footer id="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="#home" class="nav-logo"><span class="dot"></span><span>Ukonnect</span></a>
-          <p>People-first staffing, outsourcing, and executive search built for the modern American workforce.</p>
-          <div class="footer-social">
-            <a href="#" aria-label="LinkedIn" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
-                fill="currentColor">
-                <path
-                  d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.55c0-1.32-.02-3.02-1.84-3.02-1.85 0-2.13 1.44-2.13 2.93V21H9z" />
-              </svg></a>
-            <a href="#" aria-label="Twitter / X" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
-                fill="currentColor">
-                <path
-                  d="M22 5.92a8.4 8.4 0 01-2.36.65 4.1 4.1 0 001.8-2.27 8.2 8.2 0 01-2.6 1 4.1 4.1 0 00-7 3.74A11.65 11.65 0 013 4.9a4.1 4.1 0 001.27 5.47A4.1 4.1 0 012.4 9.7v.05a4.1 4.1 0 003.29 4.02 4.1 4.1 0 01-1.85.07 4.1 4.1 0 003.83 2.85A8.23 8.23 0 012 18.4a11.6 11.6 0 006.29 1.84c7.55 0 11.68-6.25 11.68-11.68 0-.18 0-.36-.01-.53A8.3 8.3 0 0022 5.92z" />
-              </svg></a>
-            <a href="#" aria-label="Instagram" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
-                fill="currentColor">
-                <path
-                  d="M12 2c2.7 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.5.5.86 1.05 1.15 1.76.25.64.42 1.37.47 2.43.05 1.06.06 1.41.06 4.13s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 01-1.15 1.76c-.5.5-1.05.86-1.76 1.15-.64.25-1.37.42-2.43.47-1.06.05-1.41.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 01-1.76-1.15 4.9 4.9 0 01-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.7 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43a4.9 4.9 0 011.15-1.76A4.9 4.9 0 015.45.54C6.09.29 6.82.12 7.88.07 8.94.02 9.3 0 12 0zm0 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zm0 10.16a4 4 0 110-8 4 4 0 010 8zm6.4-10.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
-              </svg></a>
+      <section class="cta-section" id="contact" aria-label="Call to action">
+        <div class="container">
+          <div class="cta-banner reveal-up">
+            <canvas class="cta-particles" id="ctaParticles" aria-hidden="true"></canvas>
+            <h2>Partner with Ukonnect Staffing for People-First Hiring Solutions</h2>
+            <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span></a>
           </div>
         </div>
+      </section>
 
-        <div class="footer-col">
-          <h4>Services</h4>
-          <ul>
-            <li><a href="#services">Outsourcing Solutions</a></li>
-            <li><a href="#services">Payroll &amp; Compliance</a></li>
-            <li><a href="#services">Executive Search</a></li>
-            <li><a href="#services">Contract Staffing</a></li>
-          </ul>
+      <!-- ============================================================
+     FOOTER
+     ============================================================ -->
+      <footer id="footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <a href="#home" class="nav-logo"><span class="dot"></span><span>Ukonnect</span></a>
+              <p>People-first staffing, outsourcing, and executive search built for the modern American workforce.</p>
+              <div class="footer-social">
+                <a href="#" aria-label="LinkedIn" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
+                    fill="currentColor">
+                    <path
+                      d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.55c0-1.32-.02-3.02-1.84-3.02-1.85 0-2.13 1.44-2.13 2.93V21H9z" />
+                  </svg></a>
+                <a href="#" aria-label="Twitter / X" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
+                    fill="currentColor">
+                    <path
+                      d="M22 5.92a8.4 8.4 0 01-2.36.65 4.1 4.1 0 001.8-2.27 8.2 8.2 0 01-2.6 1 4.1 4.1 0 00-7 3.74A11.65 11.65 0 013 4.9a4.1 4.1 0 001.27 5.47A4.1 4.1 0 012.4 9.7v.05a4.1 4.1 0 003.29 4.02 4.1 4.1 0 01-1.85.07 4.1 4.1 0 003.83 2.85A8.23 8.23 0 012 18.4a11.6 11.6 0 006.29 1.84c7.55 0 11.68-6.25 11.68-11.68 0-.18 0-.36-.01-.53A8.3 8.3 0 0022 5.92z" />
+                  </svg></a>
+                <a href="#" aria-label="Instagram" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
+                    fill="currentColor">
+                    <path
+                      d="M12 2c2.7 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.5.5.86 1.05 1.15 1.76.25.64.42 1.37.47 2.43.05 1.06.06 1.41.06 4.13s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 01-1.15 1.76c-.5.5-1.05.86-1.76 1.15-.64.25-1.37.42-2.43.47-1.06.05-1.41.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 01-1.76-1.15 4.9 4.9 0 01-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.7 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43a4.9 4.9 0 011.15-1.76A4.9 4.9 0 015.45.54C6.09.29 6.82.12 7.88.07 8.94.02 9.3 0 12 0zm0 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zm0 10.16a4 4 0 110-8 4 4 0 010 8zm6.4-10.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+                  </svg></a>
+              </div>
+            </div>
+
+            <div class="footer-col">
+              <h4>Services</h4>
+              <ul>
+                <li><a href="#services">Outsourcing Solutions</a></li>
+                <li><a href="#services">Payroll &amp; Compliance</a></li>
+                <li><a href="#services">Executive Search</a></li>
+                <li><a href="#services">Contract Staffing</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>Workshops</h4>
+              <ul>
+                <li><a href="#workshop">Business Analyst Training</a></li>
+                <li><a href="#workshop">Data Analyst Training</a></li>
+                <li><a href="#workshop">Python Training</a></li>
+                <li><a href="#workshop">Java Training</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>Company</h4>
+              <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#industries">Industries</a></li>
+                <li><a href="#process">How It Works</a></li>
+                <li><a href="mailto:hello@ukonnectstaffing.com">hello@ukonnectstaffing.com</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="footer-divider"></div>
+          <div class="footer-bottom">
+            <span>© <span id="year"></span> Ukonnect Staffing USA. All rights reserved.</span>
+            <span><a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a></span>
+          </div>
         </div>
+      </footer>
 
-        <div class="footer-col">
-          <h4>Workshops</h4>
-          <ul>
-            <li><a href="#workshop">Business Analyst Training</a></li>
-            <li><a href="#workshop">Data Analyst Training</a></li>
-            <li><a href="#workshop">Python Training</a></li>
-            <li><a href="#workshop">Java Training</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#industries">Industries</a></li>
-            <li><a href="#process">How It Works</a></li>
-            <li><a href="mailto:hello@ukonnectstaffing.com">hello@ukonnectstaffing.com</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-divider"></div>
-      <div class="footer-bottom">
-        <span>© <span id="year"></span> Ukonnect Staffing USA. All rights reserved.</span>
-        <span><a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a></span>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ============================================================
+      <!-- ============================================================
      SCRIPTS
      ============================================================ -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MotionPathPlugin.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/InertiaPlugin.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MotionPathPlugin.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/InertiaPlugin.min.js"></script>
 
-  <script>
-    /* ============================================================
-       UKONNECT STAFFING USA — SCRIPT.JS
-       Production-quality GSAP 3 interactive experience.
-       ============================================================ */
-    window.addEventListener("load", () => {
+      <script>
+        /* ============================================================
+           UKONNECT STAFFING USA — SCRIPT.JS
+           Production-quality GSAP 3 interactive experience.
+           ============================================================ */
+        window.addEventListener("load", () => {
 
-      "use strict";
+          "use strict";
 
-      document.getElementById("year").textContent = new Date().getFullYear();
+          document.getElementById("year").textContent = new Date().getFullYear();
 
-      // Guard: bail gracefully if GSAP failed to load (offline, blocked CDN, etc.)
-      if (typeof gsap === "undefined") {
-        document.documentElement.style.setProperty("scroll-behavior", "smooth");
-        console.warn("GSAP failed to load — falling back to static layout.");
-        return;
-      }
-
-      gsap.registerPlugin(ScrollTrigger, SplitText, Flip, MotionPathPlugin, Draggable);
-      const hasSmoother = typeof ScrollSmoother !== "undefined";
-      if (hasSmoother) gsap.registerPlugin(ScrollSmoother);
-
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      /* ----------------------------------------------------------
-         ScrollSmoother (skipped entirely under reduced-motion)
-         ---------------------------------------------------------- */
-      let smoother = null;
-      if (hasSmoother && !prefersReduced) {
-        smoother = ScrollSmoother.create({
-          smooth: 1.1,
-          effects: true,
-          normalizeScroll: true,
-          smoothTouch: 0.1
-        });
-      }
-
-      const mm = gsap.matchMedia();
-
-      /* ----------------------------------------------------------
-         GSAP Context — central cleanup container
-         ---------------------------------------------------------- */
-      const ctx = gsap.context(() => {
-
-        /* ====== Aurora / Mesh Gradient Canvas Background ====== */
-        initAuroraCanvas();
-
-        /* ====== Floating Particles in Hero ====== */
-        initParticles();
-
-        /* ====== Custom Cursor ====== */
-        initCursor();
-
-        /* ====== Navbar behaviors ====== */
-        initNavbar();
-
-        /* ====== Magnetic buttons + ripple ====== */
-        initMagnetic();
-        initRipple();
-
-        /* ====== Hero text + parallax + scroll choreography ====== */
-        initHero();
-
-        /* ====== Tilt cards (service / workshop / industry) ====== */
-        initTiltCards();
-
-        /* ====== Stats counters ====== */
-        initCounters();
-
-        /* ====== Section reveal-on-scroll (generic) ====== */
-        initReveals();
-
-        /* ====== About image reveal + parallax ====== */
-        initAboutReveal();
-
-        /* ====== Testimonials draggable loop ====== */
-        initTestimonials();
-
-        /* ====== CTA banner background particles ====== */
-        initCtaParticles();
-
-        /* ====== Footer link hover micro-interaction ====== */
-        initFooterHovers();
-
-      });
-
-      /* ============================================================
-         AURORA / GRADIENT MESH BACKGROUND (Canvas, GPU-light)
-         ============================================================ */
-      function initAuroraCanvas() {
-        const canvas = document.getElementById("aurora-canvas");
-        const c = canvas.getContext("2d");
-        let w, h, dpr;
-        const blobs = [
-          { x: .2, y: .15, r: .5, hue: "0,230,168", t: 0, speed: .15 },
-          { x: .8, y: .3, r: .42, hue: "22,200,255", t: 2, speed: .12 },
-          { x: .5, y: .8, r: .38, hue: "77,124,255", t: 4, speed: .18 }
-        ];
-
-        function resize() {
-          dpr = Math.min(window.devicePixelRatio || 1, 2);
-          w = canvas.width = innerWidth * dpr;
-          h = canvas.height = innerHeight * 1.4 * dpr;
-          canvas.style.width = innerWidth + "px";
-          canvas.style.height = (innerHeight * 1.4) + "px";
-        }
-        resize();
-        window.addEventListener("resize", resize);
-
-        function draw() {
-          c.clearRect(0, 0, w, h);
-          c.fillStyle = "#07121D";
-          c.fillRect(0, 0, w, h);
-          blobs.forEach(b => {
-            const bx = (b.x + Math.sin(b.t) * 0.05) * w;
-            const by = (b.y + Math.cos(b.t * .8) * 0.04) * h;
-            const r = b.r * Math.min(w, h);
-            const grad = c.createRadialGradient(bx, by, 0, bx, by, r);
-            grad.addColorStop(0, `rgba(${b.hue},.20)`);
-            grad.addColorStop(1, `rgba(${b.hue},0)`);
-            c.fillStyle = grad;
-            c.beginPath();
-            c.arc(bx, by, r, 0, Math.PI * 2);
-            c.fill();
-            if (!prefersReduced) b.t += b.speed * 0.01;
-          });
-        }
-
-        gsap.ticker.add(draw);
-        ScrollTrigger.create({
-          trigger: document.body,
-          start: "top top",
-          end: "bottom bottom",
-          onUpdate: () => { } // canvas reads live state each tick already
-        });
-      }
-
-      /* ============================================================
-         FLOATING PARTICLES (hero)
-         ============================================================ */
-      function initParticles() {
-        const field = document.getElementById("particlesField");
-        if (!field) return;
-        const count = mm.add ? (window.innerWidth < 768 ? 18 : 40) : 40;
-        const frag = document.createDocumentFragment();
-        const parts = [];
-        for (let i = 0; i < count; i++) {
-          const p = document.createElement("span");
-          p.className = "particle";
-          const size = gsap.utils.random(2, 4);
-          p.style.width = p.style.height = size + "px";
-          p.style.left = gsap.utils.random(0, 100) + "%";
-          p.style.top = gsap.utils.random(0, 100) + "%";
-          p.style.opacity = gsap.utils.random(.2, .6);
-          frag.appendChild(p);
-          parts.push(p);
-        }
-        field.appendChild(frag);
-
-        if (!prefersReduced) {
-          parts.forEach(p => {
-            gsap.to(p, {
-              y: `random(-60,60)`,
-              x: `random(-40,40)`,
-              duration: gsap.utils.random(4, 9),
-              repeat: -1,
-              yoyo: true,
-              ease: "sine.inOut",
-              delay: gsap.utils.random(0, 3)
-            });
-          });
-
-          // subtle parallax via quickTo, driven by mousemove
-          const qx = gsap.quickTo(field, "x", { duration: .9, ease: "power3" });
-          const qy = gsap.quickTo(field, "y", { duration: .9, ease: "power3" });
-          window.addEventListener("pointermove", e => {
-            const relX = (e.clientX / window.innerWidth - .5) * 24;
-            const relY = (e.clientY / window.innerHeight - .5) * 24;
-            qx(relX);
-            qy(relY);
-          });
-        }
-      }
-
-      /* ============================================================
-         CUSTOM CURSOR (mouse follower + distortion on hover)
-         ============================================================ */
-      function initCursor() {
-        if (window.matchMedia("(hover:none), (pointer:coarse)").matches) return;
-        const dot = document.querySelector(".cursor-dot");
-        const ring = document.querySelector(".cursor-ring");
-        const dotX = gsap.quickTo(dot, "x", { duration: .12, ease: "power3" });
-        const dotY = gsap.quickTo(dot, "y", { duration: .12, ease: "power3" });
-        const ringX = gsap.quickTo(ring, "x", { duration: .4, ease: "power3" });
-        const ringY = gsap.quickTo(ring, "y", { duration: .4, ease: "power3" });
-
-        window.addEventListener("mousemove", e => {
-          dotX(e.clientX); dotY(e.clientY);
-          ringX(e.clientX); ringY(e.clientY);
-        });
-
-        const hoverTargets = "a, button, .tilt-card, .testi-card, [data-nav]";
-        document.addEventListener("mouseover", e => {
-          if (e.target.closest(hoverTargets)) ring.classList.add("is-hover");
-        });
-        document.addEventListener("mouseout", e => {
-          if (e.target.closest(hoverTargets)) ring.classList.remove("is-hover");
-        });
-      }
-
-      /* ============================================================
-         NAVBAR — blur, hide on scroll down / reveal on scroll up,
-         active link indicator with Flip-style smooth movement
-         ============================================================ */
-      function initNavbar() {
-        const navbar = document.getElementById("navbar");
-        let lastY = window.scrollY;
-
-        ScrollTrigger.create({
-          start: "top top",
-          end: 99999,
-          onUpdate: self => {
-            const y = self.scroll();
-            navbar.classList.toggle("nav-scrolled", y > 40);
-            if (y > lastY && y > 140) {
-              navbar.classList.add("nav-hidden");
-            } else {
-              navbar.classList.remove("nav-hidden");
-            }
-            lastY = y;
+          // Guard: bail gracefully if GSAP failed to load (offline, blocked CDN, etc.)
+          if (typeof gsap === "undefined") {
+            document.documentElement.style.setProperty("scroll-behavior", "smooth");
+            console.warn("GSAP failed to load — falling back to static layout.");
+            return;
           }
-        });
 
-        // mobile toggle
-        const toggle = document.getElementById("navToggle");
-        const links = document.getElementById("navLinks");
-        toggle.addEventListener("click", () => {
-          const open = links.style.display === "flex";
-          links.style.display = open ? "" : "flex";
-          links.style.cssText += open ? "" : "position:fixed;top:84px;left:50%;transform:translateX(-50%);flex-direction:column;background:rgba(7,18,29,.95);padding:18px;border-radius:18px;border:1px solid var(--border);width:80vw;";
-          toggle.setAttribute("aria-expanded", String(!open));
-        });
+          gsap.registerPlugin(ScrollTrigger, SplitText, Flip, MotionPathPlugin, Draggable);
+          const hasSmoother = typeof ScrollSmoother !== "undefined";
+          if (hasSmoother) gsap.registerPlugin(ScrollSmoother);
 
-        // active section highlight via ScrollTrigger + smooth indicator
-        const navItems = gsap.utils.toArray("[data-nav]");
-        const sections = navItems.map(a => document.querySelector(a.getAttribute("href")));
+          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        sections.forEach((sec, i) => {
-          if (!sec) return;
-          ScrollTrigger.create({
-            trigger: sec,
-            start: "top center",
-            end: "bottom center",
-            onEnter: () => setActive(i),
-            onEnterBack: () => setActive(i)
-          });
-        });
-
-        function setActive(i) {
-          navItems.forEach(a => a.classList.remove("active"));
-          if (navItems[i]) navItems[i].classList.add("active");
-        }
-      }
-
-      /* ============================================================
-         MAGNETIC BUTTONS
-         ============================================================ */
-      function initMagnetic() {
-        if (prefersReduced) return;
-        gsap.utils.toArray(".magnetic").forEach(btn => {
-          const qx = gsap.quickTo(btn, "x", { duration: .35, ease: "power3" });
-          const qy = gsap.quickTo(btn, "y", { duration: .35, ease: "power3" });
-          btn.addEventListener("mousemove", e => {
-            const b = btn.getBoundingClientRect();
-            const relX = e.clientX - b.left - b.width / 2;
-            const relY = e.clientY - b.top - b.height / 2;
-            qx(relX * .35);
-            qy(relY * .35);
-          });
-          btn.addEventListener("mouseleave", () => { qx(0); qy(0); });
-        });
-      }
-
-      /* ============================================================
-         RIPPLE EFFECT ON BUTTON CLICK
-         ============================================================ */
-      function initRipple() {
-        document.querySelectorAll(".btn").forEach(btn => {
-          btn.addEventListener("click", e => {
-            const span = btn.querySelector(".ripple") || document.createElement("span");
-            if (!btn.querySelector(".ripple")) {
-              span.className = "ripple";
-              btn.appendChild(span);
+          /* ----------------------------------------------------------
+             ScrollSmoother (skipped entirely under reduced-motion)
+             ---------------------------------------------------------- */
+          let smoother = null;
+          if (hasSmoother && !prefersReduced) {
+            try {
+              smoother = ScrollSmoother.create({
+                wrapper: "#smooth-wrapper",
+                content: "#smooth-content",
+                smooth: 1.1,
+                effects: true,
+                normalizeScroll: true,
+                smoothTouch: 0.1,
+                onUpdate: () => ScrollTrigger.update()
+              });
+            } catch (e) {
+              console.warn("ScrollSmoother initialization failed:", e);
+              smoother = null;
             }
-            const rect = btn.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height) * 2;
-            gsap.set(span, {
-              width: size, height: size,
-              left: e.clientX - rect.left, top: e.clientY - rect.top,
-              xPercent: -50, yPercent: -50, scale: 0, opacity: .6
-            });
-            gsap.to(span, { scale: 1, opacity: 0, duration: .7, ease: "power2.out" });
-          });
-        });
-      }
-
-      /* ============================================================
-         HERO — SplitText word animation + scroll-driven choreography
-         ============================================================ */
-      function initHero() {
-        const heading = document.getElementById("heroHeading");
-
-        let split;
-        try {
-          split = SplitText.create(".hero-heading .word", { type: "chars", charsClass: "char" });
-        } catch (e) {
-          split = null;
-        }
-
-        const introTl = gsap.timeline({ delay: .3 });
-
-        if (split) {
-          gsap.set(split.chars, { display: "inline-block" });
-          introTl.from(split.chars, {
-            yPercent: 130,
-            rotateX: -90,
-            opacity: 0,
-            filter: "blur(10px)",
-            transformOrigin: "50% 100% -20",
-            stagger: { each: .018, from: "random" },
-            duration: 1,
-            ease: "power4.out"
-          });
-        } else {
-          introTl.from(".hero-heading .word", { yPercent: 100, opacity: 0, stagger: .08, duration: .9, ease: "power4.out" });
-        }
-
-        introTl
-          .to(".hero-heading .word.grad", {
-            filter: "drop-shadow(0 0 30px rgba(0,230,168,.55))",
-            duration: .6
-          }, "-=.3")
-          .from(".hero-eyebrow", { opacity: 0, y: -14, duration: .6, ease: "power3.out" }, "-=1.1")
-          .from(".hero-sub", { opacity: 0, y: 20, duration: .8, ease: "power3.out" }, "-=.7")
-          .from(".hero-ctas .btn", { opacity: 0, y: 24, stagger: .1, duration: .7, ease: "power3.out" }, "-=.6")
-          .from(".service-card", {
-            opacity: 0, y: 50, rotateX: -10, stagger: .1, duration: .9, ease: "power3.out"
-          }, "-=.5")
-          .from(".hero-scroll-cue", { opacity: 0, duration: .6 }, "-=.4");
-
-        // mouse parallax on hero blobs + heading
-        if (!prefersReduced) {
-          const qHeadX = gsap.quickTo(heading, "x", { duration: .9, ease: "power3" });
-          const qHeadY = gsap.quickTo(heading, "y", { duration: .9, ease: "power3" });
-          const blobTargets = gsap.utils.toArray("[data-blob]");
-          const blobSetters = blobTargets.map((b, i) =>
-          ({
-            x: gsap.quickTo(b, "x", { duration: 1.4, ease: "power3" }),
-            y: gsap.quickTo(b, "y", { duration: 1.4, ease: "power3" }),
-            depth: (i + 1) * 14
-          })
-          );
-
-          document.querySelector(".hero").addEventListener("mousemove", e => {
-            const relX = (e.clientX / innerWidth - .5);
-            const relY = (e.clientY / innerHeight - .5);
-            qHeadX(relX * 16);
-            qHeadY(relY * 10);
-            blobSetters.forEach(s => { s.x(relX * s.depth); s.y(relY * s.depth); });
-          });
-        }
-
-        // scroll-driven hero exit choreography
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: 1
           }
-        })
-          .to(".hero-heading", { scale: .82, opacity: .15, ease: "none" }, 0)
-          .to(".hero-bg-shapes", { rotate: 12, scale: 1.15, ease: "none" }, 0)
-          .to(".service-cards", { y: -40, rotateX: 6, ease: "none" }, 0)
-          .to(".particles-field", { y: -120, ease: "none" }, 0)
-          .to(".hero-eyebrow, .hero-sub, .hero-scroll-cue", { opacity: 0, ease: "none" }, 0);
-      }
 
-      /* ============================================================
-         3D TILT CARDS (service / workshop / industry)
-         ============================================================ */
-      function initTiltCards() {
-        if (window.matchMedia("(hover:none), (pointer:coarse)").matches || prefersReduced) return;
-        gsap.utils.toArray(".tilt-card").forEach(card => {
-          const qRX = gsap.quickTo(card, "rotateX", { duration: .5, ease: "power3" });
-          const qRY = gsap.quickTo(card, "rotateY", { duration: .5, ease: "power3" });
-          const qS = gsap.quickTo(card, "scale", { duration: .4, ease: "power3" });
+          const mm = gsap.matchMedia();
 
-          card.addEventListener("mousemove", e => {
-            const b = card.getBoundingClientRect();
-            const px = (e.clientX - b.left) / b.width - .5;
-            const py = (e.clientY - b.top) / b.height - .5;
-            qRX(py * -10);
-            qRY(px * 12);
-            qS(1.02);
+          /* ----------------------------------------------------------
+             GSAP Context — central cleanup container
+             ---------------------------------------------------------- */
+          const ctx = gsap.context(() => {
+
+            /* ====== Aurora / Mesh Gradient Canvas Background ====== */
+            initAuroraCanvas();
+
+            /* ====== Floating Particles in Hero ====== */
+            initParticles();
+
+            /* ====== Custom Cursor ====== */
+            initCursor();
+
+            /* ====== Navbar behaviors ====== */
+            initNavbar();
+
+            /* ====== Magnetic buttons + ripple ====== */
+            initMagnetic();
+            initRipple();
+
+            /* ====== Hero text + parallax + scroll choreography ====== */
+            initHero();
+
+            /* ====== Tilt cards (service / workshop / industry) ====== */
+            initTiltCards();
+
+            /* ====== Stats counters ====== */
+            initCounters();
+
+            /* ====== Section reveal-on-scroll (generic) ====== */
+            initReveals();
+
+            /* ====== About image reveal + parallax ====== */
+            initAboutReveal();
+
+            /* ====== Testimonials draggable loop ====== */
+            initTestimonials();
+
+            /* ====== CTA banner background particles ====== */
+            initCtaParticles();
+
+            /* ====== Footer link hover micro-interaction ====== */
+            initFooterHovers();
+
           });
-          card.addEventListener("mouseleave", () => {
-            qRX(0); qRY(0); qS(1);
-          });
-        });
-      }
 
-      /* ============================================================
-         STATS — animated counters w/ pulse glow
-         ============================================================ */
-      function initCounters() {
-        gsap.utils.toArray(".stat-number").forEach(el => {
-          const target = parseFloat(el.dataset.count);
-          const divide = parseFloat(el.dataset.divide) || 1;
-          const suffix = el.dataset.suffix || "";
-          const obj = { val: 0 };
+          /* ============================================================
+             AURORA / GRADIENT MESH BACKGROUND (Canvas, GPU-light)
+             ============================================================ */
+          function initAuroraCanvas() {
+            const canvas = document.getElementById("aurora-canvas");
+            const c = canvas.getContext("2d");
+            let w, h, dpr;
+            const blobs = [
+              { x: .2, y: .15, r: .5, hue: "0,230,168", t: 0, speed: .15 },
+              { x: .8, y: .3, r: .42, hue: "22,200,255", t: 2, speed: .12 },
+              { x: .5, y: .8, r: .38, hue: "77,124,255", t: 4, speed: .18 }
+            ];
 
-          ScrollTrigger.create({
-            trigger: el,
-            start: "top 85%",
-            once: true,
-            onEnter: () => {
-              gsap.to(obj, {
-                val: target,
-                duration: 2.1,
-                ease: "power2.out",
-                onUpdate: () => {
-                  const display = divide > 1 ? (obj.val / divide).toFixed(0) : Math.round(obj.val);
-                  el.textContent = display + suffix;
-                },
-                onComplete: () => {
-                  gsap.fromTo(el, { filter: "drop-shadow(0 0 0px rgba(0,230,168,0))" },
-                    { filter: "drop-shadow(0 0 14px rgba(0,230,168,.6))", duration: .5, yoyo: true, repeat: 1 });
-                }
+            function resize() {
+              dpr = Math.min(window.devicePixelRatio || 1, 2);
+              w = canvas.width = innerWidth * dpr;
+              h = canvas.height = innerHeight * 1.4 * dpr;
+              canvas.style.width = innerWidth + "px";
+              canvas.style.height = (innerHeight * 1.4) + "px";
+            }
+            resize();
+            window.addEventListener("resize", resize);
+
+            function draw() {
+              c.clearRect(0, 0, w, h);
+              c.fillStyle = "#07121D";
+              c.fillRect(0, 0, w, h);
+              blobs.forEach(b => {
+                const bx = (b.x + Math.sin(b.t) * 0.05) * w;
+                const by = (b.y + Math.cos(b.t * .8) * 0.04) * h;
+                const r = b.r * Math.min(w, h);
+                const grad = c.createRadialGradient(bx, by, 0, bx, by, r);
+                grad.addColorStop(0, `rgba(${b.hue},.20)`);
+                grad.addColorStop(1, `rgba(${b.hue},0)`);
+                c.fillStyle = grad;
+                c.beginPath();
+                c.arc(bx, by, r, 0, Math.PI * 2);
+                c.fill();
+                if (!prefersReduced) b.t += b.speed * 0.01;
               });
             }
-          });
-        });
 
-        // hover expand
-        gsap.utils.toArray(".stat-card").forEach(card => {
-          card.addEventListener("mouseenter", () => gsap.to(card, { duration: .4, ease: "power3.out", scale: 1.03 }));
-          card.addEventListener("mouseleave", () => gsap.to(card, { duration: .4, ease: "power3.out", scale: 1 }));
-        });
-      }
+            gsap.ticker.add(draw);
+            ScrollTrigger.create({
+              trigger: document.body,
+              start: "top top",
+              end: "bottom bottom",
+              onUpdate: () => { } // canvas reads live state each tick already
+            });
+          }
 
-      /* ============================================================
-         GENERIC SCROLL REVEALS (.reveal-up) + section titles
-         ============================================================ */
-      function initReveals() {
-        gsap.utils.toArray(".reveal-up").forEach(el => {
-          gsap.from(el, {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            ease: "power3.out",
-            scrollTrigger: { trigger: el, start: "top 88%" }
-          });
-        });
+          /* ============================================================
+             FLOATING PARTICLES (hero)
+             ============================================================ */
+          function initParticles() {
+            const field = document.getElementById("particlesField");
+            if (!field) return;
+            const count = mm.add ? (window.innerWidth < 768 ? 18 : 40) : 40;
+            const frag = document.createDocumentFragment();
+            const parts = [];
+            for (let i = 0; i < count; i++) {
+              const p = document.createElement("span");
+              p.className = "particle";
+              const size = gsap.utils.random(2, 4);
+              p.style.width = p.style.height = size + "px";
+              p.style.left = gsap.utils.random(0, 100) + "%";
+              p.style.top = gsap.utils.random(0, 100) + "%";
+              p.style.opacity = gsap.utils.random(.2, .6);
+              frag.appendChild(p);
+              parts.push(p);
+            }
+            field.appendChild(frag);
 
-        // staggered card reveals within grids
-        [".stats-grid .stat-card", ".process-grid .process-step", ".workshop-grid .workshop-card", ".industries-grid .industry-card", ".benefits-list .benefit-item"].forEach(sel => {
-          const items = gsap.utils.toArray(sel);
-          if (!items.length) return;
-          gsap.from(items, {
-            opacity: 0,
-            y: 60,
-            scale: .96,
-            duration: .9,
-            ease: "power3.out",
-            stagger: .12,
-            scrollTrigger: { trigger: items[0].closest("section"), start: "top 75%" }
-          });
-        });
-
-        // SplitText reveal for section titles
-        document.querySelectorAll(".section-title").forEach(title => {
-          let s;
-          try { s = SplitText.create(title, { type: "lines", linesClass: "split-line" }); }
-          catch (e) { return; }
-          gsap.from(s.lines, {
-            yPercent: 110,
-            opacity: 0,
-            duration: .9,
-            ease: "power4.out",
-            stagger: .08,
-            scrollTrigger: { trigger: title, start: "top 88%" }
-          });
-        });
-      }
-
-      /* ============================================================
-         ABOUT — image mask reveal + parallax
-         ============================================================ */
-      function initAboutReveal() {
-        const media = document.querySelector(".about-media");
-        if (!media) return;
-        const img = media.querySelector("img");
-        const panel = media.querySelector(".reveal-panel");
-
-        gsap.timeline({
-          scrollTrigger: { trigger: media, start: "top 80%" }
-        })
-          .to(panel, { scaleY: 0, duration: 1.1, ease: "power4.inOut" }, 0)
-          .from(img, { scale: 1.4, duration: 1.4, ease: "power3.out" }, 0)
-          .from(".about-floating-card", { opacity: 0, y: 24, duration: .7, ease: "power3.out" }, "-=.5");
-
-        if (!prefersReduced) {
-          gsap.to(img, {
-            yPercent: -8,
-            ease: "none",
-            scrollTrigger: { trigger: media, start: "top bottom", end: "bottom top", scrub: true }
-          });
-        }
-      }
-
-      /* ============================================================
-         TESTIMONIALS — infinite draggable horizontal loop
-         ============================================================ */
-      function initTestimonials() {
-        const track = document.getElementById("testiTrack");
-        const wrap = document.getElementById("testiTrackWrap");
-        if (!track) return;
-
-        const cards = gsap.utils.toArray(".testi-card", track);
-        const loop = horizontalLoop(cards, {
-          paused: false,
-          draggable: true,
-          speed: .6,
-          repeat: -1
-        });
-
-        if (loop && loop.draggable) {
-          wrap.addEventListener("mouseenter", () => loop.pause());
-          wrap.addEventListener("mouseleave", () => !loop.draggable.isDragging && loop.play());
-        }
-
-        // Lightweight horizontalLoop helper (GSAP official recipe)
-        function horizontalLoop(items, config) {
-          let timeline;
-          items = gsap.utils.toArray(items);
-          config = config || {};
-          gsap.context(() => {
-            let onChange = config.onChange,
-              lastIndex = 0,
-              tl = gsap.timeline({
-                repeat: config.repeat,
-                onUpdate: onChange && function () {
-                  let i = tl.closestIndex();
-                  if (lastIndex !== i) { lastIndex = i; onChange(items[i], i); }
-                },
-                paused: config.paused,
-                defaults: { ease: "none" },
-                onReverseComplete: () => tl.totalTime(tl.rawTime() + tl.duration() * 100)
-              }),
-              length = items.length,
-              startX = items[0].offsetLeft,
-              times = [], widths = [], spaceBefore = [], xPercents = [],
-              curIndex = 0, indexIsDirty = false,
-              pixelsPerSecond = (config.speed || 1) * 100,
-              snap = config.snap === false ? v => v : gsap.utils.snap(config.snap || 1),
-              totalWidth,
-              container = items[0].parentNode,
-              getTotalWidth = () => items[length - 1].offsetLeft + xPercents[length - 1] / 100 * widths[length - 1] - startX + spaceBefore[0] + items[length - 1].offsetWidth * gsap.getProperty(items[length - 1], "scaleX") + (parseFloat(config.paddingRight) || 0),
-              populateWidths = () => {
-                let b1 = container.getBoundingClientRect(), b2;
-                items.forEach((el, i) => {
-                  widths[i] = parseFloat(gsap.getProperty(el, "width", "px"));
-                  xPercents[i] = snap(parseFloat(gsap.getProperty(el, "x", "px")) / widths[i] * 100 + gsap.getProperty(el, "xPercent"));
-                  b2 = el.getBoundingClientRect();
-                  spaceBefore[i] = b2.left - (i ? b1.right : b1.left);
-                  b1 = b2;
+            if (!prefersReduced) {
+              parts.forEach(p => {
+                gsap.to(p, {
+                  y: `random(-60,60)`,
+                  x: `random(-40,40)`,
+                  duration: gsap.utils.random(4, 9),
+                  repeat: -1,
+                  yoyo: true,
+                  ease: "sine.inOut",
+                  delay: gsap.utils.random(0, 3)
                 });
-                gsap.set(items, { xPercent: i => xPercents[i] });
-                totalWidth = getTotalWidth();
-              },
-              populateTimeline = () => {
-                let item, curX, distanceToStart, distanceToLoop, i;
-                tl.clear();
-                for (i = 0; i < length; i++) {
-                  item = items[i];
-                  curX = xPercents[i] / 100 * widths[i];
-                  distanceToStart = item.offsetLeft + curX - startX + spaceBefore[0];
-                  distanceToLoop = distanceToStart + widths[i] * gsap.getProperty(item, "scaleX");
-                  tl.to(item, { xPercent: snap((curX - distanceToLoop) / widths[i] * 100), duration: distanceToLoop / pixelsPerSecond }, 0)
-                    .fromTo(item, { xPercent: snap((curX - distanceToLoop + totalWidth) / widths[i] * 100) }, { xPercent: xPercents[i], duration: (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond, immediateRender: false }, distanceToLoop / pixelsPerSecond)
-                    .add("label" + i, distanceToStart / pixelsPerSecond);
-                  times[i] = distanceToStart / pixelsPerSecond;
-                }
-              },
-              refresh = () => { populateWidths(); populateTimeline(); },
-              timeWrap;
-            gsap.set(items, { x: 0 });
-            populateWidths();
-            populateTimeline();
-            timeWrap = gsap.utils.wrap(0, tl.duration());
-            window.addEventListener("resize", () => { let p = tl.progress(); refresh(); tl.progress(p); });
+              });
 
-            if (config.draggable && typeof Draggable === "function") {
-              let proxy = document.createElement("div");
-              let ratio, startProgress, draggable, wasPlaying;
-              const align = () => tl.progress(timeWrap(startProgress + (draggable.startX - draggable.x) * ratio));
-              draggable = Draggable.create(proxy, {
-                trigger: container,
-                type: "x",
-                onPressInit() {
-                  gsap.killTweensOf(tl);
-                  wasPlaying = !tl.paused();
-                  tl.pause();
-                  startProgress = tl.progress();
-                  refresh();
-                  ratio = 1 / totalWidth;
-                  gsap.set(proxy, { x: startProgress / -ratio });
-                },
-                onDrag: align,
-                onThrowUpdate: align,
-                inertia: true,
-                onRelease() { },
-                onThrowComplete: () => { wasPlaying && tl.play(); }
-              })[0];
-              tl.draggable = draggable;
+              // subtle parallax via quickTo, driven by mousemove
+              const qx = gsap.quickTo(field, "x", { duration: .9, ease: "power3" });
+              const qy = gsap.quickTo(field, "y", { duration: .9, ease: "power3" });
+              window.addEventListener("pointermove", e => {
+                const relX = (e.clientX / window.innerWidth - .5) * 24;
+                const relY = (e.clientY / window.innerHeight - .5) * 24;
+                qx(relX);
+                qy(relY);
+              });
+            }
+          }
+
+          /* ============================================================
+             CUSTOM CURSOR (mouse follower + distortion on hover)
+             ============================================================ */
+          function initCursor() {
+            if (window.matchMedia("(hover:none), (pointer:coarse)").matches) return;
+            const dot = document.querySelector(".cursor-dot");
+            const ring = document.querySelector(".cursor-ring");
+            const dotX = gsap.quickTo(dot, "x", { duration: .12, ease: "power3" });
+            const dotY = gsap.quickTo(dot, "y", { duration: .12, ease: "power3" });
+            const ringX = gsap.quickTo(ring, "x", { duration: .4, ease: "power3" });
+            const ringY = gsap.quickTo(ring, "y", { duration: .4, ease: "power3" });
+
+            window.addEventListener("mousemove", e => {
+              dotX(e.clientX); dotY(e.clientY);
+              ringX(e.clientX); ringY(e.clientY);
+            });
+
+            const hoverTargets = "a, button, .tilt-card, .testi-card, [data-nav]";
+            document.addEventListener("mouseover", e => {
+              if (e.target.closest(hoverTargets)) ring.classList.add("is-hover");
+            });
+            document.addEventListener("mouseout", e => {
+              if (e.target.closest(hoverTargets)) ring.classList.remove("is-hover");
+            });
+          }
+
+          /* ============================================================
+             NAVBAR — blur, hide on scroll down / reveal on scroll up,
+             active link indicator with Flip-style smooth movement
+             ============================================================ */
+          function initNavbar() {
+            const navbar = document.getElementById("navbar");
+            let lastY = window.scrollY;
+
+            ScrollTrigger.create({
+              start: "top top",
+              end: 99999,
+              onUpdate: self => {
+                const y = self.scroll();
+                navbar.classList.toggle("nav-scrolled", y > 40);
+                if (y > lastY && y > 140) {
+                  navbar.classList.add("nav-hidden");
+                } else {
+                  navbar.classList.remove("nav-hidden");
+                }
+                lastY = y;
+              }
+            });
+
+            // mobile toggle
+            const toggle = document.getElementById("navToggle");
+            const links = document.getElementById("navLinks");
+            toggle.addEventListener("click", () => {
+              const open = links.style.display === "flex";
+              links.style.display = open ? "" : "flex";
+              links.style.cssText += open ? "" : "position:fixed;top:84px;left:50%;transform:translateX(-50%);flex-direction:column;background:rgba(7,18,29,.95);padding:18px;border-radius:18px;border:1px solid var(--border);width:80vw;";
+              toggle.setAttribute("aria-expanded", String(!open));
+            });
+
+            // active section highlight via ScrollTrigger + smooth indicator
+            const navItems = gsap.utils.toArray("[data-nav]");
+            const sections = navItems.map(a => document.querySelector(a.getAttribute("href")));
+
+            sections.forEach((sec, i) => {
+              if (!sec) return;
+              ScrollTrigger.create({
+                trigger: sec,
+                start: "top center",
+                end: "bottom center",
+                onEnter: () => setActive(i),
+                onEnterBack: () => setActive(i)
+              });
+            });
+
+            function setActive(i) {
+              navItems.forEach(a => a.classList.remove("active"));
+              if (navItems[i]) navItems[i].classList.add("active");
+            }
+          }
+
+          /* ============================================================
+             MAGNETIC BUTTONS
+             ============================================================ */
+          function initMagnetic() {
+            if (prefersReduced) return;
+            gsap.utils.toArray(".magnetic").forEach(btn => {
+              const qx = gsap.quickTo(btn, "x", { duration: .35, ease: "power3" });
+              const qy = gsap.quickTo(btn, "y", { duration: .35, ease: "power3" });
+              btn.addEventListener("mousemove", e => {
+                const b = btn.getBoundingClientRect();
+                const relX = e.clientX - b.left - b.width / 2;
+                const relY = e.clientY - b.top - b.height / 2;
+                qx(relX * .35);
+                qy(relY * .35);
+              });
+              btn.addEventListener("mouseleave", () => { qx(0); qy(0); });
+            });
+          }
+
+          /* ============================================================
+             RIPPLE EFFECT ON BUTTON CLICK
+             ============================================================ */
+          function initRipple() {
+            document.querySelectorAll(".btn").forEach(btn => {
+              btn.addEventListener("click", e => {
+                const span = btn.querySelector(".ripple") || document.createElement("span");
+                if (!btn.querySelector(".ripple")) {
+                  span.className = "ripple";
+                  btn.appendChild(span);
+                }
+                const rect = btn.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height) * 2;
+                gsap.set(span, {
+                  width: size, height: size,
+                  left: e.clientX - rect.left, top: e.clientY - rect.top,
+                  xPercent: -50, yPercent: -50, scale: 0, opacity: .6
+                });
+                gsap.to(span, { scale: 1, opacity: 0, duration: .7, ease: "power2.out" });
+              });
+            });
+          }
+
+          /* ============================================================
+             HERO — SplitText word animation + scroll-driven choreography
+             ============================================================ */
+          function initHero() {
+            const heading = document.getElementById("heroHeading");
+
+            let split;
+            try {
+              split = SplitText.create(".hero-heading .word", { type: "chars", charsClass: "char" });
+            } catch (e) {
+              split = null;
             }
 
-            timeline = tl;
-          });
-          return timeline;
-        }
-      }
-      /* ============================================================
-      CTA BANNER — particle canvas + moving lines
-      ============================================================ */
-      function initCtaParticles() {
-        const canvas = document.getElementById("ctaParticles");
-        if (!canvas) return;
-        const ctx2d = canvas.getContext("2d");
-        let w, h, dpr;
-        const dots = Array.from({ length: 28 }, () => ({
-          x: Math.random(), y: Math.random(),
-          vx: (Math.random() - .5) * .0006,
-          vy: (Math.random() - .5) * .0006
-        }));
-        function resize() {
-          dpr = Math.min(window.devicePixelRatio || 1, 2);
-          const rect = canvas.parentElement.getBoundingClientRect();
-          w = canvas.width = rect.width * dpr;
-          h = canvas.height = rect.height * dpr;
-          canvas.style.width = rect.width + "px";
-          canvas.style.height = rect.height + "px";
-        }
-        resize();
-        window.addEventListener("resize", resize);
+            const introTl = gsap.timeline({ delay: .3 });
 
-        ScrollTrigger.create({
-          trigger: canvas,
-          start: "top bottom",
-          end: "bottom top",
-          onToggle: self => {
-            if (self.isActive && !prefersReduced) gsap.ticker.add(render);
-            else gsap.ticker.remove(render);
+            if (split) {
+              gsap.set(split.chars, { display: "inline-block" });
+              introTl.from(split.chars, {
+                yPercent: 130,
+                rotateX: -90,
+                opacity: 0,
+                filter: "blur(10px)",
+                transformOrigin: "50% 100% -20",
+                stagger: { each: .018, from: "random" },
+                duration: 1,
+                ease: "power4.out"
+              });
+            } else {
+              introTl.from(".hero-heading .word", { yPercent: 100, opacity: 0, stagger: .08, duration: .9, ease: "power4.out" });
+            }
+
+            introTl
+              .to(".hero-heading .word.grad", {
+                filter: "drop-shadow(0 0 30px rgba(0,230,168,.55))",
+                duration: .6
+              }, "-=.3")
+              .from(".hero-eyebrow", { opacity: 0, y: -14, duration: .6, ease: "power3.out" }, "-=1.1")
+              .from(".hero-sub", { opacity: 0, y: 20, duration: .8, ease: "power3.out" }, "-=.7")
+              .from(".hero-ctas .btn", { opacity: 0, y: 24, stagger: .1, duration: .7, ease: "power3.out" }, "-=.6")
+              .from(".service-card", {
+                opacity: 0, y: 50, rotateX: -10, stagger: .1, duration: .9, ease: "power3.out"
+              }, "-=.5")
+              .from(".hero-scroll-cue", { opacity: 0, duration: .6 }, "-=.4");
+
+            // mouse parallax on hero blobs + heading
+            if (!prefersReduced) {
+              const qHeadX = gsap.quickTo(heading, "x", { duration: .9, ease: "power3" });
+              const qHeadY = gsap.quickTo(heading, "y", { duration: .9, ease: "power3" });
+              const blobTargets = gsap.utils.toArray("[data-blob]");
+              const blobSetters = blobTargets.map((b, i) =>
+              ({
+                x: gsap.quickTo(b, "x", { duration: 1.4, ease: "power3" }),
+                y: gsap.quickTo(b, "y", { duration: 1.4, ease: "power3" }),
+                depth: (i + 1) * 14
+              })
+              );
+
+              document.querySelector(".hero").addEventListener("mousemove", e => {
+                const relX = (e.clientX / innerWidth - .5);
+                const relY = (e.clientY / innerHeight - .5);
+                qHeadX(relX * 16);
+                qHeadY(relY * 10);
+                blobSetters.forEach(s => { s.x(relX * s.depth); s.y(relY * s.depth); });
+              });
+            }
+
+            // scroll-driven hero exit choreography
+            gsap.timeline({
+              scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1
+              }
+            })
+              .to(".hero-heading", { scale: .82, opacity: .15, ease: "none" }, 0)
+              .to(".hero-bg-shapes", { rotate: 12, scale: 1.15, ease: "none" }, 0)
+              .to(".service-cards", { y: -40, rotateX: 6, ease: "none" }, 0)
+              .to(".particles-field", { y: -120, ease: "none" }, 0)
+              .to(".hero-eyebrow, .hero-sub, .hero-scroll-cue", { opacity: 0, ease: "none" }, 0);
           }
-        });
 
-        function render() {
-          ctx2d.clearRect(0, 0, w, h);
-          dots.forEach(d => {
-            d.x += d.vx; d.y += d.vy;
-            if (d.x < 0 || d.x > 1) d.vx *= -1;
-            if (d.y < 0 || d.y > 1) d.vy *= -1;
-            ctx2d.beginPath();
-            ctx2d.fillStyle = "rgba(0,230,168,.5)";
-            ctx2d.arc(d.x * w, d.y * h, 2 * dpr, 0, Math.PI * 2);
-            ctx2d.fill();
+          /* ============================================================
+             3D TILT CARDS (service / workshop / industry)
+             ============================================================ */
+          function initTiltCards() {
+            if (window.matchMedia("(hover:none), (pointer:coarse)").matches || prefersReduced) return;
+            gsap.utils.toArray(".tilt-card").forEach(card => {
+              // Set initial values to prevent reset warnings
+              gsap.set(card, { rotateX: 0, rotateY: 0, scale: 1, force3D: true });
+
+              const qRX = gsap.quickTo(card, "rotateX", { duration: .5, ease: "power3" });
+              const qRY = gsap.quickTo(card, "rotateY", { duration: .5, ease: "power3" });
+              const qS = gsap.quickTo(card, "scale", { duration: .4, ease: "power3" });
+
+              const onMove = (e) => {
+                const b = card.getBoundingClientRect();
+                const px = (e.clientX - b.left) / b.width - .5;
+                const py = (e.clientY - b.top) / b.height - .5;
+                qRX(py * -10);
+                qRY(px * 12);
+                qS(1.02);
+              };
+
+              const onLeave = () => {
+                qRX(0); qRY(0); qS(1);
+              };
+
+              card.addEventListener("mousemove", onMove);
+              card.addEventListener("mouseleave", onLeave);
+
+              // Store for cleanup
+              card._tiltListeners = { onMove, onLeave };
+            });
+          }
+          /* ============================================================
+             STATS — animated counters w/ pulse glow
+             ============================================================ */
+          function initCounters() {
+            gsap.utils.toArray(".stat-number").forEach(el => {
+              const target = parseFloat(el.dataset.count);
+              const divide = parseFloat(el.dataset.divide) || 1;
+              const suffix = el.dataset.suffix || "";
+              const obj = { val: 0 };
+
+              ScrollTrigger.create({
+                trigger: el,
+                start: "top 85%",
+                once: true,
+                onEnter: () => {
+                  gsap.to(obj, {
+                    val: target,
+                    duration: 2.1,
+                    ease: "power2.out",
+                    onUpdate: () => {
+                      const display = divide > 1 ? (obj.val / divide).toFixed(0) : Math.round(obj.val);
+                      el.textContent = display + suffix;
+                    },
+                    onComplete: () => {
+                      gsap.fromTo(el, { filter: "drop-shadow(0 0 0px rgba(0,230,168,0))" },
+                        { filter: "drop-shadow(0 0 14px rgba(0,230,168,.6))", duration: .5, yoyo: true, repeat: 1 });
+                    }
+                  });
+                }
+              });
+            });
+
+            // hover expand
+            gsap.utils.toArray(".stat-card").forEach(card => {
+              card.addEventListener("mouseenter", () => gsap.to(card, { duration: .4, ease: "power3.out", scale: 1.03 }));
+              card.addEventListener("mouseleave", () => gsap.to(card, { duration: .4, ease: "power3.out", scale: 1 }));
+            });
+          }
+
+          /* ============================================================
+             GENERIC SCROLL REVEALS (.reveal-up) + section titles
+             ============================================================ */
+          function initReveals() {
+            gsap.utils.toArray(".reveal-up").forEach(el => {
+              gsap.from(el, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: { trigger: el, start: "top 88%" }
+              });
+            });
+
+            // staggered card reveals within grids
+            [".stats-grid .stat-card", ".process-grid .process-step", ".workshop-grid .workshop-card", ".industries-grid .industry-card", ".benefits-list .benefit-item"].forEach(sel => {
+              const items = gsap.utils.toArray(sel);
+              if (!items.length) return;
+              gsap.from(items, {
+                opacity: 0,
+                y: 60,
+                scale: .96,
+                duration: .9,
+                ease: "power3.out",
+                stagger: .12,
+                scrollTrigger: { trigger: items[0].closest("section"), start: "top 75%" }
+              });
+            });
+
+            // SplitText reveal for section titles
+            document.querySelectorAll(".section-title").forEach(title => {
+              let s;
+              try { s = SplitText.create(title, { type: "lines", linesClass: "split-line" }); }
+              catch (e) { return; }
+              gsap.from(s.lines, {
+                yPercent: 110,
+                opacity: 0,
+                duration: .9,
+                ease: "power4.out",
+                stagger: .08,
+                scrollTrigger: { trigger: title, start: "top 88%" }
+              });
+            });
+          }
+
+          /* ============================================================
+             ABOUT — image mask reveal + parallax
+             ============================================================ */
+          function initAboutReveal() {
+            const media = document.querySelector(".about-media");
+            if (!media) return;
+            const img = media.querySelector("img");
+            const panel = media.querySelector(".reveal-panel");
+
+            gsap.timeline({
+              scrollTrigger: { trigger: media, start: "top 80%" }
+            })
+              .to(panel, { scaleY: 0, duration: 1.1, ease: "power4.inOut" }, 0)
+              .from(img, { scale: 1.4, duration: 1.4, ease: "power3.out" }, 0)
+              .from(".about-floating-card", { opacity: 0, y: 24, duration: .7, ease: "power3.out" }, "-=.5");
+
+            if (!prefersReduced) {
+              gsap.to(img, {
+                yPercent: -8,
+                ease: "none",
+                scrollTrigger: { trigger: media, start: "top bottom", end: "bottom top", scrub: true }
+              });
+            }
+          }
+
+          /* ============================================================
+             TESTIMONIALS — infinite draggable horizontal loop
+             ============================================================ */
+          function initTestimonials() {
+            const track = document.getElementById("testiTrack");
+            const wrap = document.getElementById("testiTrackWrap");
+            if (!track) return;
+
+            const cards = gsap.utils.toArray(".testi-card", track);
+            const loop = horizontalLoop(cards, {
+              paused: false,
+              draggable: true,
+              speed: .6,
+              repeat: -1
+            });
+
+            if (loop && loop.draggable) {
+              wrap.addEventListener("mouseenter", () => loop.pause());
+              wrap.addEventListener("mouseleave", () => !loop.draggable.isDragging && loop.play());
+            }
+
+            // Lightweight horizontalLoop helper (GSAP official recipe)
+            function horizontalLoop(items, config) {
+              let timeline;
+              items = gsap.utils.toArray(items);
+              config = config || {};
+              gsap.context(() => {
+                let onChange = config.onChange,
+                  lastIndex = 0,
+                  tl = gsap.timeline({
+                    repeat: config.repeat,
+                    onUpdate: onChange && function () {
+                      let i = tl.closestIndex();
+                      if (lastIndex !== i) { lastIndex = i; onChange(items[i], i); }
+                    },
+                    paused: config.paused,
+                    defaults: { ease: "none" },
+                    onReverseComplete: () => tl.totalTime(tl.rawTime() + tl.duration() * 100)
+                  }),
+                  length = items.length,
+                  startX = items[0].offsetLeft,
+                  times = [], widths = [], spaceBefore = [], xPercents = [],
+                  curIndex = 0, indexIsDirty = false,
+                  pixelsPerSecond = (config.speed || 1) * 100,
+                  snap = config.snap === false ? v => v : gsap.utils.snap(config.snap || 1),
+                  totalWidth,
+                  container = items[0].parentNode,
+                  getTotalWidth = () => items[length - 1].offsetLeft + xPercents[length - 1] / 100 * widths[length - 1] - startX + spaceBefore[0] + items[length - 1].offsetWidth * gsap.getProperty(items[length - 1], "scaleX") + (parseFloat(config.paddingRight) || 0),
+                  populateWidths = () => {
+                    let b1 = container.getBoundingClientRect(), b2;
+                    items.forEach((el, i) => {
+                      widths[i] = parseFloat(gsap.getProperty(el, "width", "px"));
+                      xPercents[i] = snap(parseFloat(gsap.getProperty(el, "x", "px")) / widths[i] * 100 + gsap.getProperty(el, "xPercent"));
+                      b2 = el.getBoundingClientRect();
+                      spaceBefore[i] = b2.left - (i ? b1.right : b1.left);
+                      b1 = b2;
+                    });
+                    gsap.set(items, { xPercent: i => xPercents[i] });
+                    totalWidth = getTotalWidth();
+                  },
+                  populateTimeline = () => {
+                    let item, curX, distanceToStart, distanceToLoop, i;
+                    tl.clear();
+                    for (i = 0; i < length; i++) {
+                      item = items[i];
+                      curX = xPercents[i] / 100 * widths[i];
+                      distanceToStart = item.offsetLeft + curX - startX + spaceBefore[0];
+                      distanceToLoop = distanceToStart + widths[i] * gsap.getProperty(item, "scaleX");
+                      tl.to(item, { xPercent: snap((curX - distanceToLoop) / widths[i] * 100), duration: distanceToLoop / pixelsPerSecond }, 0)
+                        .fromTo(item, { xPercent: snap((curX - distanceToLoop + totalWidth) / widths[i] * 100) }, { xPercent: xPercents[i], duration: (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond, immediateRender: false }, distanceToLoop / pixelsPerSecond)
+                        .add("label" + i, distanceToStart / pixelsPerSecond);
+                      times[i] = distanceToStart / pixelsPerSecond;
+                    }
+                  },
+                  refresh = () => { populateWidths(); populateTimeline(); },
+                  timeWrap;
+                gsap.set(items, { x: 0 });
+                populateWidths();
+                populateTimeline();
+                timeWrap = gsap.utils.wrap(0, tl.duration());
+                window.addEventListener("resize", () => { let p = tl.progress(); refresh(); tl.progress(p); });
+
+                if (config.draggable && typeof Draggable === "function") {
+                  let proxy = document.createElement("div");
+                  let ratio, startProgress, draggable, wasPlaying;
+                  const align = () => tl.progress(timeWrap(startProgress + (draggable.startX - draggable.x) * ratio));
+                  draggable = Draggable.create(proxy, {
+                    trigger: container,
+                    type: "x",
+                    onPressInit() {
+                      gsap.killTweensOf(tl);
+                      wasPlaying = !tl.paused();
+                      tl.pause();
+                      startProgress = tl.progress();
+                      refresh();
+                      ratio = 1 / totalWidth;
+                      gsap.set(proxy, { x: startProgress / -ratio });
+                    },
+                    onDrag: align,
+                    onThrowUpdate: align,
+                    inertia: true,
+                    onRelease() { },
+                    onThrowComplete: () => { wasPlaying && tl.play(); }
+                  })[0];
+                  tl.draggable = draggable;
+                }
+
+                timeline = tl;
+              });
+              return timeline;
+            }
+          }
+          /* ============================================================
+          CTA BANNER — particle canvas + moving lines
+          ============================================================ */
+          function initCtaParticles() {
+            const canvas = document.getElementById("ctaParticles");
+            if (!canvas) return;
+            const ctx2d = canvas.getContext("2d");
+            let w, h, dpr;
+            const dots = Array.from({ length: 28 }, () => ({
+              x: Math.random(), y: Math.random(),
+              vx: (Math.random() - .5) * .0006,
+              vy: (Math.random() - .5) * .0006
+            }));
+            function resize() {
+              dpr = Math.min(window.devicePixelRatio || 1, 2);
+              const rect = canvas.parentElement.getBoundingClientRect();
+              w = canvas.width = rect.width * dpr;
+              h = canvas.height = rect.height * dpr;
+              canvas.style.width = rect.width + "px";
+              canvas.style.height = rect.height + "px";
+            }
+            resize();
+            window.addEventListener("resize", resize);
+
+            ScrollTrigger.create({
+              trigger: canvas,
+              start: "top bottom",
+              end: "bottom top",
+              onToggle: self => {
+                if (self.isActive && !prefersReduced) gsap.ticker.add(render);
+                else gsap.ticker.remove(render);
+              }
+            });
+
+            function render() {
+              ctx2d.clearRect(0, 0, w, h);
+              dots.forEach(d => {
+                d.x += d.vx; d.y += d.vy;
+                if (d.x < 0 || d.x > 1) d.vx *= -1;
+                if (d.y < 0 || d.y > 1) d.vy *= -1;
+                ctx2d.beginPath();
+                ctx2d.fillStyle = "rgba(0,230,168,.5)";
+                ctx2d.arc(d.x * w, d.y * h, 2 * dpr, 0, Math.PI * 2);
+                ctx2d.fill();
+              });
+            }
+          }
+          /* ============================================================
+          FOOTER — gradient divider shimmer + link bounce
+          ============================================================ */
+          function initFooterHovers() {
+            gsap.utils.toArray(".footer-social a").forEach(a => {
+              a.addEventListener("mouseenter", () => gsap.to(a, { y: -6, duration: .35, ease: "back.out(3)" }));
+              a.addEventListener("mouseleave", () => gsap.to(a, { y: 0, duration: .35, ease: "power3.out" }));
+            });
+            gsap.from(".footer-divider", {
+              scaleX: 0,
+              transformOrigin: "left center",
+              duration: 1.2,
+              ease: "power3.out",
+              scrollTrigger: { trigger: "#footer", start: "top 85%" }
+            });
+          }
+          /* ============================================================
+          RESPONSIVE BEHAVIOR ADAPTATION via matchMedia
+          ============================================================ */
+          mm.add("(max-width: 820px)", () => {
+            gsap.set(".service-cards", { clearProps: "transform" });
+            return () => { };
+          });
+          /* ============================================================
+          Smooth in-page anchor scrolling (works with/without smoother)
+          ============================================================ */
+          document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener("click", e => {
+              const id = a.getAttribute("href");
+              const target = document.querySelector(id);
+              if (!target) return;
+              e.preventDefault();
+              if (smoother) {
+                smoother.scrollTo(target, true, "top 90px");
+              } else {
+                gsap.to(window, { duration: 1, scrollTo: { y: target, offsetY: 90 }, ease: "power3.inOut" });
+              }
+            });
+          });
+          // refresh ScrollTrigger after full load (fonts/images shift layout)
+          window.addEventListener("load", async () => {
+
+            // Wait until all fonts are ready
+            if (document.fonts) {
+              await document.fonts.ready;
+            }
+
+            // Wait one browser frame
+            requestAnimationFrame(() => {
+              ScrollTrigger.refresh(true);
+
+              requestAnimationFrame(() => {
+                ScrollTrigger.refresh(true);
+              });
+            });
+
+          });
+        });
+        // ============================================================
+        // CRITICAL: Wait for all resources (fonts, images) before starting animations
+        // ============================================================
+        function waitForPageReady() {
+          return new Promise((resolve) => {
+            if (document.readyState === "complete") {
+              resolve();
+            } else {
+              window.addEventListener("load", resolve, { once: true });
+            }
           });
         }
-      }
-      /* ============================================================
-      FOOTER — gradient divider shimmer + link bounce
-      ============================================================ */
-      function initFooterHovers() {
-        gsap.utils.toArray(".footer-social a").forEach(a => {
-          a.addEventListener("mouseenter", () => gsap.to(a, { y: -6, duration: .35, ease: "back.out(3)" }));
-          a.addEventListener("mouseleave", () => gsap.to(a, { y: 0, duration: .35, ease: "power3.out" }));
-        });
-        gsap.from(".footer-divider", {
-          scaleX: 0,
-          transformOrigin: "left center",
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: { trigger: "#footer", start: "top 85%" }
-        });
-      }
-      /* ============================================================
-      RESPONSIVE BEHAVIOR ADAPTATION via matchMedia
-      ============================================================ */
-      mm.add("(max-width: 820px)", () => {
-        gsap.set(".service-cards", { clearProps: "transform" });
-        return () => { };
-      });
-      /* ============================================================
-      Smooth in-page anchor scrolling (works with/without smoother)
-      ============================================================ */
-      document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener("click", e => {
-          const id = a.getAttribute("href");
-          const target = document.querySelector(id);
-          if (!target) return;
-          e.preventDefault();
-          if (smoother) {
-            smoother.scrollTo(target, true, "top 90px");
-          } else {
-            gsap.to(window, { duration: 1, scrollTo: { y: target, offsetY: 90 }, ease: "power3.inOut" });
-          }
-        });
-      });
-      // refresh ScrollTrigger after full load (fonts/images shift layout)
-      window.addEventListener("load", async () => {
 
-        // Wait until all fonts are ready
-        if (document.fonts) {
-          await document.fonts.ready;
+        // Also wait for fonts to be ready
+        async function ensureFontsLoaded() {
+          if (document.fonts && document.fonts.ready) {
+            await document.fonts.ready;
+          }
         }
 
-        // Wait one browser frame
-        requestAnimationFrame(() => {
-          ScrollTrigger.refresh(true);
+        // Wrap the entire initialization
+        async function initializeApp() {
+          // Wait for page load
+          await waitForPageReady();
 
-          requestAnimationFrame(() => {
+          // Wait for fonts
+          await ensureFontsLoaded();
+
+          // Give browser time to render
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+          // Now refresh ScrollTrigger to get correct measurements
+          if (typeof ScrollTrigger !== "undefined") {
             ScrollTrigger.refresh(true);
-          });
-        });
+          }
 
-      });
-    });
-    // ============================================================
-    // CRITICAL: Wait for all resources (fonts, images) before starting animations
-    // ============================================================
-    function waitForPageReady() {
-      return new Promise((resolve) => {
-        if (document.readyState === "complete") {
-          resolve();
-        } else {
-          window.addEventListener("load", resolve, { once: true });
+          // Trigger the load event again to ensure all animations initialize
+          window.dispatchEvent(new Event("load"));
         }
-      });
-    }
 
-    // Also wait for fonts to be ready
-    async function ensureFontsLoaded() {
-      if (document.fonts && document.fonts.ready) {
-        await document.fonts.ready;
-      }
-    }
-
-    // Wrap the entire initialization
-    async function initializeApp() {
-      // Wait for page load
-      await waitForPageReady();
-
-      // Wait for fonts
-      await ensureFontsLoaded();
-
-      // Give browser time to render
-      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-
-      // Now refresh ScrollTrigger to get correct measurements
-      if (typeof ScrollTrigger !== "undefined") {
-        ScrollTrigger.refresh(true);
-      }
-
-      // Trigger the load event again to ensure all animations initialize
-      window.dispatchEvent(new Event("load"));
-    }
-
-    // Start initialization
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initializeApp, { once: true });
-    } else {
-      initializeApp();
-    }
-  </script>
+        // Start initialization
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initializeApp, { once: true });
+        } else {
+          initializeApp();
+        }
+      </script>
+    </div>
+  </div>
 </body>
 
 </html>
