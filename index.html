@@ -2164,11 +2164,8 @@
     }
 
     @media (max-width: 820px) {
-      /* Existing code from line 1080 stays here... */
-
-      /* NEW: Mobile animation optimizations */
       .particle {
-        opacity: .3 !important;
+        opacity: .25 !important;
       }
 
       .service-card,
@@ -2178,7 +2175,9 @@
       .stat-card,
       .benefit-item,
       .industry-card {
-        transition: all .3s var(--ease-out);
+        transition: all .25s var(--ease-out);
+        /* Faster on mobile */
+        will-change: transform, opacity;
       }
 
       .hero-heading .word {
@@ -2186,18 +2185,33 @@
       }
 
       .blob {
-        opacity: .2 !important;
+        opacity: .15 !important;
         will-change: auto;
       }
 
       .btn-primary {
-        box-shadow: 0 4px 16px rgba(0, 230, 168, .2) !important;
+        box-shadow: 0 4px 12px rgba(0, 230, 168, .15) !important;
       }
 
       .stat-card:hover,
       .service-card:hover,
       .process-step:hover {
-        box-shadow: 0 8px 24px rgba(0, 230, 168, .1) !important;
+        box-shadow: 0 6px 16px rgba(0, 230, 168, .08) !important;
+      }
+
+      /* Smooth spring animations on tap */
+      .tilt-card {
+        will-change: transform;
+      }
+
+      /* Reduce animation complexity on mobile */
+      .hero-bg-shapes {
+        opacity: .6;
+      }
+
+      /* Smooth button press feedback */
+      .btn {
+        will-change: transform, scale;
       }
     }
 
@@ -3358,13 +3372,38 @@
             });
 
             // mobile toggle
+            // Enhanced mobile toggle with smooth animations
             const toggle = document.getElementById("navToggle");
             const links = document.getElementById("navLinks");
             toggle.addEventListener("click", () => {
-              const open = links.style.display === "flex";
-              links.style.display = open ? "" : "flex";
-              links.style.cssText += open ? "" : "position:fixed;top:84px;left:50%;transform:translateX(-50%);flex-direction:column;background:rgba(7,18,29,.95);padding:18px;border-radius:18px;border:1px solid var(--border);width:80vw;";
-              toggle.setAttribute("aria-expanded", String(!open));
+              const isOpen = links.classList.contains("open");
+
+              if (isOpen) {
+                // Close with animation
+                gsap.to(links, {
+                  opacity: 0,
+                  y: -20,
+                  duration: .3,
+                  ease: "power2.in",
+                  onComplete: () => {
+                    links.classList.remove("open");
+                    links.style.display = "";
+                  }
+                });
+              } else {
+                // Open with animation
+                links.style.display = "flex";
+                links.classList.add("open");
+                gsap.from(links, {
+                  opacity: 0,
+                  y: -20,
+                  duration: .3,
+                  ease: "power2.out"
+                });
+              }
+
+              toggle.classList.toggle("open");
+              toggle.setAttribute("aria-expanded", String(!isOpen));
             });
 
             // active section highlight via ScrollTrigger + smooth indicator
@@ -3394,9 +3433,11 @@
           function initMagnetic() {
             const isMobile = window.matchMedia("(hover:none), (pointer:coarse)").matches;
             if (prefersReduced) return;
+
             gsap.utils.toArray(".magnetic").forEach(btn => {
               const qx = gsap.quickTo(btn, "x", { duration: .35, ease: "power3" });
               const qy = gsap.quickTo(btn, "y", { duration: .35, ease: "power3" });
+
               btn.addEventListener("mousemove", e => {
                 const b = btn.getBoundingClientRect();
                 const relX = e.clientX - b.left - b.width / 2;
@@ -3404,7 +3445,26 @@
                 qx(relX * .35);
                 qy(relY * .35);
               });
+
               btn.addEventListener("mouseleave", () => { qx(0); qy(0); });
+
+              // Add mobile touch feedback
+              btn.addEventListener("touchstart", () => {
+                gsap.to(btn, {
+                  scale: 0.96,
+                  duration: .2,
+                  overwrite: "auto"
+                });
+              }, { passive: true });
+
+              btn.addEventListener("touchend", () => {
+                gsap.to(btn, {
+                  scale: 1,
+                  duration: .25,
+                  ease: "back.out(2)",
+                  overwrite: "auto"
+                });
+              }, { passive: true });
             });
           }
 
@@ -3445,21 +3505,20 @@
             }
 
             const introTl = gsap.timeline({ delay: .3 });
+            const isMobileDevice = window.matchMedia("(max-width: 768px)").matches;
 
             if (split) {
               gsap.set(split.chars, { display: "inline-block" });
               introTl.from(split.chars, {
-                yPercent: 130,
-                rotateX: -90,
+                yPercent: isMobileDevice ? 80 : 130,  // Reduced Y on mobile
+                rotateX: isMobileDevice ? -45 : -90,  // Reduced rotation on mobile
                 opacity: 0,
                 filter: "blur(10px)",
                 transformOrigin: "50% 100% -20",
-                stagger: { each: .018, from: "random" },
-                duration: 1,
+                stagger: { each: isMobileDevice ? .012 : .018, from: "random" },  // Faster stagger on mobile
+                duration: isMobileDevice ? .8 : 1,  // Faster on mobile
                 ease: "power4.out"
               });
-            } else {
-              introTl.from(".hero-heading .word", { yPercent: 100, opacity: 0, stagger: .08, duration: .9, ease: "power4.out" });
             }
 
             introTl
@@ -3475,40 +3534,43 @@
               }, "-=.5")
               .from(".hero-scroll-cue", { opacity: 0, duration: .6 }, "-=.4");
 
-            // mouse parallax on hero blobs + heading
-            // mouse/touch parallax on hero blobs + heading (all devices)
+            // Enhanced parallax with mobile-specific intensity reduction
             if (!prefersReduced) {
               const qHeadX = gsap.quickTo(heading, "x", { duration: .9, ease: "power3" });
               const qHeadY = gsap.quickTo(heading, "y", { duration: .9, ease: "power3" });
               const blobTargets = gsap.utils.toArray("[data-blob]");
+              const isMobileDevice = window.matchMedia("(max-width: 768px)").matches;
+
               const blobSetters = blobTargets.map((b, i) =>
               ({
                 x: gsap.quickTo(b, "x", { duration: 1.4, ease: "power3" }),
                 y: gsap.quickTo(b, "y", { duration: 1.4, ease: "power3" }),
-                depth: (i + 1) * 14
+                depth: (i + 1) * (isMobileDevice ? 8 : 14)  // Reduced blob parallax on mobile
               })
               );
 
               const handleMove = (e) => {
                 const relX = (e.clientX / innerWidth - .5);
                 const relY = (e.clientY / innerHeight - .5);
-                qHeadX(relX * 16);
-                qHeadY(relY * 10);
+
+                // Mobile uses reduced parallax intensity
+                const headMultiplier = isMobileDevice ? 8 : 16;
+                const yMultiplier = isMobileDevice ? 5 : 10;
+
+                qHeadX(relX * headMultiplier);
+                qHeadY(relY * yMultiplier);
                 blobSetters.forEach(s => { s.x(relX * s.depth); s.y(relY * s.depth); });
               };
 
               const hero = document.querySelector(".hero");
-
               hero.addEventListener("pointermove", handleMove, { passive: true });
 
               hero.addEventListener("touchmove", (e) => {
                 if (!e.touches.length) return;
-
                 handleMove({
                   clientX: e.touches[0].clientX,
                   clientY: e.touches[0].clientY
                 });
-
               }, { passive: true });
             }
             // scroll-driven hero exit choreography
@@ -3527,16 +3589,12 @@
               .to(".hero-eyebrow, .hero-sub, .hero-scroll-cue", { opacity: 0, ease: "none" }, 0);
           }
 
-          /* ============================================================
-             3D TILT CARDS (service / workshop / industry)
-             ============================================================ */
           function initTiltCards() {
             const isMobile = window.matchMedia("(hover:none), (pointer:coarse)").matches;
             if (prefersReduced) return;
             gsap.utils.toArray(".tilt-card").forEach(card => {
               gsap.set(card, { rotateX: 0, rotateY: 0, scale: 1, force3D: true });
 
-              // 3D tilt works on ALL devices (mobile + desktop)
               const qRX = gsap.quickTo(card, "rotateX", { duration: .5, ease: "power3" });
               const qRY = gsap.quickTo(card, "rotateY", { duration: .5, ease: "power3" });
               const qS = gsap.quickTo(card, "scale", { duration: .4, ease: "power3" });
@@ -3556,36 +3614,36 @@
 
               card.addEventListener("mousemove", onMove);
               card.addEventListener("mouseleave", onLeave);
-              card._tiltListeners = { onMove, onLeave };
 
-              // Also respond to touch on mobile
+              // ENHANCED: More responsive touch animations for mobile
               card.addEventListener("touchstart", () => {
-
                 gsap.to(card, {
-                  scale: 1.04,
-                  duration: .3
+                  scale: 1.06,  // Increased from 1.04
+                  duration: .25,  // Faster response
+                  overwrite: "auto"
                 });
-
               }, { passive: true });
 
               card.addEventListener("touchmove", (e) => {
-
+                if (!e.touches.length) return;
                 const b = card.getBoundingClientRect();
-
                 const px = (e.touches[0].clientX - b.left) / b.width - .5;
                 const py = (e.touches[0].clientY - b.top) / b.height - .5;
 
-                qRX(py * -10);
-                qRY(px * 12);
-
+                // Reduced intensity on mobile (tilt up to 6 degrees instead of 10)
+                qRX(py * -6);
+                qRY(px * 8);
+                qS(1.06);
               }, { passive: true });
 
               card.addEventListener("touchend", () => {
-
                 qRX(0);
                 qRY(0);
                 qS(1);
-
+                gsap.to(card, {
+                  duration: .3,
+                  ease: "back.out(1.5)"
+                });
               }, { passive: true });
             });
           }
@@ -3642,18 +3700,26 @@
               });
             });
 
-            // staggered card reveals within grids
+            // Enhanced staggered card reveals with viewport-aware timing
             [".stats-grid .stat-card", ".process-grid .process-step", ".workshop-grid .workshop-card", ".industries-grid .industry-card", ".benefits-list .benefit-item"].forEach(sel => {
               const items = gsap.utils.toArray(sel);
               if (!items.length) return;
+
               const isMobile = window.matchMedia("(max-width: 768px)").matches;
+              const isTablet = window.matchMedia("(max-width: 1024px)").matches;
+
+              // Adaptive stagger timing
+              let staggerAmount = .12;  // Desktop default
+              if (isMobile) staggerAmount = .08;  // Mobile: faster stagger
+              else if (isTablet) staggerAmount = .1;  // Tablet: medium stagger
+
               gsap.from(items, {
                 opacity: 0,
-                y: 60,
-                scale: .96,
-                duration: .9,
+                y: isMobile ? 40 : 60,  // Reduced Y offset on mobile
+                scale: isMobile ? .98 : .96,  // Less dramatic scale on mobile
+                duration: isMobile ? .7 : .9,  // Faster reveal on mobile
                 ease: "power3.out",
-                stagger: isMobile ? .06 : .12,  // ✅ Dynamic based on device
+                stagger: staggerAmount,
                 scrollTrigger: { trigger: items[0].closest("section"), start: "top 75%" }
               });
             });
