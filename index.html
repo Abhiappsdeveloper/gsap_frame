@@ -3978,16 +3978,11 @@
               }
             });
           });
-          // refresh ScrollTrigger after full load (fonts/images shift layout)
-          // refresh ScrollTrigger after full load (fonts/images shift layout)
           window.addEventListener("load", async () => {
-
-            // Wait until all fonts are ready
             if (document.fonts) {
               await document.fonts.ready;
             }
 
-            // Wait one browser frame
             requestAnimationFrame(() => {
               ScrollTrigger.refresh(true);
 
@@ -4017,7 +4012,6 @@
                 }
               });
             });
-
           });
         });
 
