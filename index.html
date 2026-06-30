@@ -3988,32 +3988,13 @@
 
               requestAnimationFrame(() => {
                 ScrollTrigger.refresh(true);
-
-                // ADDED: Kill any pending animations from initializeApp
-                if (typeof ctx !== "undefined" && ctx) {
-                  ctx.revert();
-                  ctx = gsap.context(() => {
-                    // Re-run all initialization functions
-                    initAuroraCanvas();
-                    initParticles();
-                    initCursor();
-                    initNavbar();
-                    initMagnetic();
-                    initRipple();
-                    initHero();
-                    initTiltCards();
-                    initCounters();
-                    initReveals();
-                    initAboutReveal();
-                    initTestimonials();
-                    initCtaParticles();
-                    initFooterHovers();
-                  });
-                }
+                // Only refresh, don't revert or reinitialize
+                // Animations initialized on DOMContentLoaded remain active
               });
             });
           });
         });
+
 
         // Initialization flag to prevent duplicate runs
         let isInitialized = false;
