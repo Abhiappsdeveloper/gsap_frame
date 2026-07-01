@@ -1913,13 +1913,13 @@
    ============================================================ */
     #bounceCanvas {
       position: fixed;
-      bottom: 0;
-      right: 0;
-      width: 300px;
-      height: 300px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       z-index: 5;
-      opacity: 0.85;
+      opacity: 1;
       filter: drop-shadow(0 0 30px rgba(0, 230, 168, 0.4));
     }
 
@@ -3107,7 +3107,7 @@
         </div>
         <!-- 3D Bounce Ball Animation -->
         <canvas id="bounceCanvas" aria-hidden="true"
-          style="position: fixed; bottom: 0; right: 0; z-index: 5; pointer-events: none;"></canvas>
+          style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none;"></canvas>
       </section>
 
       <!-- ============================================================
@@ -3322,9 +3322,9 @@
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/InertiaPlugin.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
       <script>
-      /* ============================================================
-3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
-============================================================ */
+        /* ============================================================
+  3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
+  ============================================================ */
         function initBounceBall() {
           const canvas = document.getElementById("bounceCanvas");
           if (!canvas || typeof THREE === "undefined") return;
@@ -3333,17 +3333,13 @@
           if (prefersReduced) return;
 
           const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
+          const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
           const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 
           function resizeCanvas() {
-            const isMobile = window.matchMedia("(max-width: 768px)").matches;
-            const size = isMobile ? 200 : 300;
-            canvas.width = size;
-            canvas.height = size;
-            camera.aspect = size / size;
+            camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
-            renderer.setSize(size, size);
+            renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
           }
 
@@ -3364,33 +3360,79 @@
           ctx.fillRect(0, 0, 256, 256);
 
           const texture = new THREE.CanvasTexture(canvas2d);
-          const sphereGeometry = new THREE.SphereGeometry(0.8, 64, 64);
-          const sphereMaterial = new THREE.MeshStandardMaterial({
-            map: texture,
-            metalness: 0.7,
-            roughness: 0.2,
-            emissive: 0x00e6a8,
-            emissiveIntensity: 0.5,
-            wireframe: false
-          });
+          // Create Graduation Cap (Mortarboard)
+          const capGroup = new THREE.Group();
 
-          const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+          // Cap base (cube/square board)
+          const capBoardGeometry = new THREE.BoxGeometry(0.6, 0.1, 0.6);
+          const capMaterial = new THREE.MeshStandardMaterial({
+            color: 0x1a1a1a,
+            metalness: 0.3,
+            roughness: 0.6,
+            emissive: 0x00e6a8,
+            emissiveIntensity: 0.2
+          });
+          const capBoard = new THREE.Mesh(capBoardGeometry, capMaterial);
+          capBoard.position.y = 0.15;
+          capGroup.add(capBoard);
+
+          // Cap top (cube slightly tilted)
+          const capTopGeometry = new THREE.BoxGeometry(0.55, 0.08, 0.55);
+          const capTopMaterial = new THREE.MeshStandardMaterial({
+            color: 0x000000,
+            metalness: 0.4,
+            roughness: 0.5,
+            emissive: 0x00e6a8,
+            emissiveIntensity: 0.25
+          });
+          const capTop = new THREE.Mesh(capTopGeometry, capTopMaterial);
+          capTop.position.y = 0.22;
+          capTop.rotation.z = 0.1;
+          capGroup.add(capTop);
+
+          // Cap cylinder (mortarboard pole)
+          const capPoleGeometry = new THREE.CylinderGeometry(0.05, 0.05, 0.3, 32);
+          const capPoleMaterial = new THREE.MeshStandardMaterial({
+            color: 0x2a2a2a,
+            metalness: 0.5,
+            roughness: 0.4,
+            emissive: 0x00e6a8,
+            emissiveIntensity: 0.15
+          });
+          const capPole = new THREE.Mesh(capPoleGeometry, capPoleMaterial);
+          capPole.position.y = -0.05;
+          capGroup.add(capPole);
+
+          // Tassel (hanging chain)
+          const tasselGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.4, 16);
+          const tasselMaterial = new THREE.MeshStandardMaterial({
+            color: 0x00e6a8,
+            metalness: 0.6,
+            roughness: 0.3,
+            emissive: 0x00e6a8,
+            emissiveIntensity: 0.4
+          });
+          const tassel = new THREE.Mesh(tasselGeometry, tasselMaterial);
+          tassel.position.set(0.15, -0.1, 0);
+          capGroup.add(tassel);
+
+          const sphere = capGroup; // Use capGroup as the main object
           scene.add(sphere);
 
-          // Add glow effect
-          const glowGeometry = new THREE.SphereGeometry(0.85, 32, 32);
+          // Glow effect around cap
+          const glowGeometry = new THREE.BoxGeometry(0.8, 0.5, 0.8);
           const glowMaterial = new THREE.MeshStandardMaterial({
             color: 0x00e6a8,
             emissive: 0x00e6a8,
-            emissiveIntensity: 0.3,
-            metalness: 0.3,
+            emissiveIntensity: 0.2,
+            metalness: 0.2,
             roughness: 0.8,
             wireframe: false,
             transparent: true,
-            opacity: 0.2
+            opacity: 0.15
           });
           const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
-          glowMesh.scale.set(1.3, 1.3, 1.3);
+          glowMesh.scale.set(1.2, 1.2, 1.2);
           scene.add(glowMesh);
 
           // Lighting setup
@@ -3404,22 +3446,25 @@
 
           const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
           scene.add(ambientLight);
-
-          // Ball physics
           const ballData = {
             x: 0,
-            y: 0,
-            vx: (Math.random() - 0.5) * 0.04,
-            vy: (Math.random() - 0.5) * 0.04,
-            radius: 0.8,
-            friction: 0.98,
-            bounce: 0.7,
-            gravity: 0.001
+            y: 0.8,
+            z: 0,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.3,
+            vz: (Math.random() - 0.5) * 0.1,
+            radius: 0.4,
+            friction: 0.95,
+            bounce: 0.6,
+            gravity: 0.008
           };
 
+          const viewportHeight = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z;
+          const viewportWidth = viewportHeight * camera.aspect;
+
           const boundaries = {
-            width: 2.5,
-            height: 2.5
+            width: viewportWidth,
+            height: viewportHeight
           };
 
           function updatePhysics() {
@@ -3429,12 +3474,14 @@
             // Update position
             ballData.x += ballData.vx;
             ballData.y += ballData.vy;
+            ballData.z += ballData.vz;
 
             // Apply friction
             ballData.vx *= ballData.friction;
             ballData.vy *= ballData.friction;
+            ballData.vz *= ballData.friction;
 
-            // Boundary collision
+            // Boundary collision - Left/Right
             if (ballData.x + ballData.radius > boundaries.width / 2) {
               ballData.x = boundaries.width / 2 - ballData.radius;
               ballData.vx *= -ballData.bounce;
@@ -3443,6 +3490,8 @@
               ballData.x = -boundaries.width / 2 + ballData.radius;
               ballData.vx *= -ballData.bounce;
             }
+
+            // Boundary collision - Top/Bottom
             if (ballData.y + ballData.radius > boundaries.height / 2) {
               ballData.y = boundaries.height / 2 - ballData.radius;
               ballData.vy *= -ballData.bounce;
@@ -3452,28 +3501,39 @@
               ballData.vy *= -ballData.bounce;
             }
 
-            sphere.position.x = ballData.x;
-            sphere.position.y = ballData.y;
+            // Boundary collision - Front/Back (Z-axis)
+            if (ballData.z > 1) {
+              ballData.z = 1;
+              ballData.vz *= -ballData.bounce;
+            }
+            if (ballData.z < -1) {
+              ballData.z = -1;
+              ballData.vz *= -ballData.bounce;
+            }
+
+            sphere.position.set(ballData.x, ballData.y, ballData.z);
             glowMesh.position.copy(sphere.position);
           }
 
-          let rotX = 0, rotY = 0;
+          let rotX = 0, rotY = 0, rotZ = 0;
 
           function animate() {
             requestAnimationFrame(animate);
 
             updatePhysics();
 
-            // Rotation based on velocity
-            rotX += ballData.vy * 0.5;
-            rotY += ballData.vx * 0.5;
+            // Rotation based on velocity (slowed down)
+            rotX += ballData.vy * 0.2;
+            rotY += ballData.vx * 0.2;
+            rotZ += (ballData.vx + ballData.vy) * 0.1;
 
             sphere.rotation.x = rotX;
             sphere.rotation.y = rotY;
+            sphere.rotation.z = rotZ;
             glowMesh.rotation.copy(sphere.rotation);
 
             // Pulsing glow effect
-            glowMaterial.emissiveIntensity = 0.3 + Math.sin(Date.now() * 0.003) * 0.15;
+            glowMaterial.emissiveIntensity = 0.2 + Math.sin(Date.now() * 0.002) * 0.1;
 
             renderer.render(scene, camera);
           }
