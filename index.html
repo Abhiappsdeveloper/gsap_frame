@@ -2575,102 +2575,6 @@
         </div>
       </section>
 
-      <script>
-        function initProcess3DTetrahedrons() {
-          const container = document.getElementById("process-3d-tetrahedrons");
-          if (!container || typeof THREE === "undefined") return;
-
-          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          if (prefersReduced) return;
-
-          const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(
-            75,
-            container.clientWidth / container.clientHeight,
-            0.1,
-            1000
-          );
-          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-          renderer.setSize(container.clientWidth, container.clientHeight);
-          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-          container.appendChild(renderer.domElement);
-          scene.background = null;
-          renderer.setClearColor(0x000000, 0);
-          camera.position.z = 5;
-
-          // Create 4 tetrahedrons (one for each step)
-          const tetrahedrons = [];
-          const positions = [
-            { x: -4, y: 0, color: 0x00e6a8 },
-            { x: -1.3, y: 0, color: 0x16c8ff },
-            { x: 1.3, y: 0, color: 0x4d7cff },
-            { x: 4, y: 0, color: 0x00e6a8 }
-          ];
-
-          positions.forEach((pos, idx) => {
-            const geo = new THREE.TetrahedronGeometry(0.4, 0);
-            const mat = new THREE.MeshStandardMaterial({
-              color: pos.color,
-              metalness: 0.6,
-              roughness: 0.3,
-              emissive: pos.color,
-              emissiveIntensity: 0.3,
-              wireframe: false
-            });
-            const mesh = new THREE.Mesh(geo, mat);
-            mesh.position.x = pos.x;
-            mesh.position.y = pos.y;
-            mesh.userData = { baseY: pos.y, index: idx };
-            scene.add(mesh);
-            tetrahedrons.push(mesh);
-          });
-
-          // Lighting
-          scene.add(new THREE.PointLight(0x00e6a8, 1.5, 100));
-          scene.add(new THREE.PointLight(0x4d7cff, 1, 100));
-          scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-
-          // Scroll-driven wave animation
-          gsap.to(tetrahedrons, {
-            y: (i) => 1.2 * Math.sin((i * Math.PI) / tetrahedrons.length),
-            scrollTrigger: {
-              trigger: ".process-section",
-              start: "top center",
-              end: "bottom center",
-              scrub: 1.5,
-              markers: false
-            },
-            duration: 0,
-            ease: "none"
-          });
-
-          // Continuous rotation
-          tetrahedrons.forEach((tet, idx) => {
-            gsap.to(tet.rotation, {
-              x: Math.PI * 2,
-              y: Math.PI * 2,
-              z: Math.PI,
-              duration: 6 + idx * 0.5,
-              repeat: -1,
-              ease: "none"
-            });
-          });
-
-          function animate() {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-          }
-          animate();
-
-          window.addEventListener("resize", () => {
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-          });
-        }
-      </script>
-
       <!-- ============================================================
      BENEFITS SECTION
      ============================================================ -->
@@ -2751,9 +2655,8 @@
           </div>
         </div>
 
-        <div id="benefits-3d-cube-container" style="position: absolute; right: -8%; top: 50%; transform: translateY(-50%); 
-  width: 300px; height: 300px; opacity: 0;" aria-hidden="true"></div>
-
+        <div id="benefits-3d-cube-container" style="position: absolute; right: 4%; top: 45%; transform: translateY(-50%); 
+  width: 320px; height: 320px; opacity: 0;" aria-hidden="true"></div>
         <script>
           // Add this function call
           initBenefits3DCube();
@@ -3031,110 +2934,10 @@
           </div>
         </div>
         <!-- INSERT BEFORE: </section> (closing tag of .industries-section section-pad) -->
-
-        <div id="industries-3d-sphere-container" style="position: absolute; left: -10%; top: 40%; transform: translateY(-50%); 
-  width: 280px; height: 280px; opacity: 0;" aria-hidden="true"></div>
+        <div id="industries-3d-sphere-container" style="position: absolute; left: 2%; top: 38%; transform: translateY(-50%); 
+  width: 340px; height: 340px; opacity: 0;" aria-hidden="true"></div>
       </section>
 
-      <script>
-        function initIndustries3DSphere() {
-          const container = document.getElementById("industries-3d-sphere-container");
-          if (!container || typeof THREE === "undefined") return;
-
-          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          if (prefersReduced) return;
-
-          const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-          camera.position.z = 2.8;
-          renderer.setSize(280, 280);
-          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-          container.appendChild(renderer.domElement);
-          scene.background = null;
-          renderer.setClearColor(0x000000, 0);
-
-          // Create icosphere (more interesting than basic sphere)
-          const geometry = new THREE.IcosahedronGeometry(1, 4);
-          const material = new THREE.MeshStandardMaterial({
-            color: 0x16c8ff,
-            metalness: 0.7,
-            roughness: 0.2,
-            wireframe: false,
-            emissive: 0x16c8ff,
-            emissiveIntensity: 0.2
-          });
-
-          const sphere = new THREE.Mesh(geometry, material);
-          scene.add(sphere);
-
-          // Add rotating inner wireframe sphere
-          const wireGeometry = new THREE.IcosahedronGeometry(0.7, 3);
-          const wireMaterial = new THREE.MeshStandardMaterial({
-            color: 0x00e6a8,
-            wireframe: true,
-            emissive: 0x00e6a8,
-            emissiveIntensity: 0.5,
-            transparent: true,
-            opacity: 0.4
-          });
-          const wireframe = new THREE.Mesh(wireGeometry, wireMaterial);
-          scene.add(wireframe);
-
-          // Lighting
-          const light1 = new THREE.PointLight(0x16c8ff, 2, 100);
-          light1.position.set(4, 4, 4);
-          scene.add(light1);
-
-          const light2 = new THREE.PointLight(0x00e6a8, 1.5, 100);
-          light2.position.set(-4, -4, 4);
-          scene.add(light2);
-
-          scene.add(new THREE.AmbientLight(0xffffff, 0.35));
-
-          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.5 });
-
-          // Continuous rotation + scroll-driven tilt
-          gsap.to(sphere.rotation, {
-            x: Math.PI * 4,
-            y: Math.PI * 3,
-            duration: 15,
-            repeat: -1,
-            ease: "none"
-          });
-
-          gsap.to(wireframe.rotation, {
-            z: Math.PI * 6,
-            duration: 12,
-            repeat: -1,
-            ease: "none"
-          });
-
-          // Scroll influence
-          gsap.to(sphere.rotation, {
-            z: Math.PI * 2,
-            scrollTrigger: {
-              trigger: ".industries-section",
-              start: "top center",
-              end: "bottom center",
-              scrub: 2,
-              markers: false
-            },
-            ease: "none"
-          });
-
-          function animate() {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-          }
-          animate();
-
-          window.addEventListener("resize", () => {
-            renderer.setSize(280, 280);
-          });
-        }
-      </script>
       <!-- ============================================================
      WORKSHOP
      ============================================================ -->
@@ -3224,108 +3027,9 @@
         </div>
         <!-- INSERT AFTER the 4 workshop-card divs -->
 
-        <div id="workshop-3d-prisms" style="position: absolute; bottom: -15%; right: -8%; 
-  width: 350px; height: 350px; opacity: 0;" aria-hidden="true"></div>
+        <div id="workshop-3d-prisms" style="position: absolute; bottom: 8%; right: 3%; 
+  width: 400px; height: 400px; opacity: 0;" aria-hidden="true"></div>
       </section>
-
-      <script>
-        function initWorkshop3DPrisms() {
-          const container = document.getElementById("workshop-3d-prisms");
-          if (!container || typeof THREE === "undefined") return;
-
-          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          if (prefersReduced) return;
-
-          const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-          camera.position.z = 3.5;
-          renderer.setSize(350, 350);
-          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-          container.appendChild(renderer.domElement);
-          scene.background = null;
-          renderer.setClearColor(0x000000, 0);
-
-          // Create 3D prism (hexagonal cylinder)
-          const geometry = new THREE.CylinderGeometry(1, 1, 1.5, 6, 2);
-          const material = new THREE.MeshStandardMaterial({
-            color: 0x4d7cff,
-            metalness: 0.7,
-            roughness: 0.25,
-            emissive: 0x4d7cff,
-            emissiveIntensity: 0.4,
-            wireframe: false
-          });
-
-          const prism = new THREE.Mesh(geometry, material);
-          scene.add(prism);
-
-          // Add rotating rings around the prism
-          const ringGeometry = new THREE.TorusGeometry(1.4, 0.08, 16, 32);
-          const ringMaterial = new THREE.MeshStandardMaterial({
-            color: 0x00e6a8,
-            emissive: 0x00e6a8,
-            emissiveIntensity: 0.6,
-            metalness: 0.8,
-            roughness: 0.15
-          });
-
-          const ring1 = new THREE.Mesh(ringGeometry, ringMaterial);
-          ring1.rotation.x = Math.PI / 6;
-          scene.add(ring1);
-
-          const ring2 = new THREE.Mesh(ringGeometry, ringMaterial.clone());
-          ring2.rotation.x = -Math.PI / 6;
-          scene.add(ring2);
-
-          // Lighting
-          scene.add(new THREE.PointLight(0x4d7cff, 1.8, 100));
-          scene.add(new THREE.PointLight(0x00e6a8, 1.2, 100));
-          scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-
-          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.6 });
-
-          // Scroll-driven primary rotation
-          gsap.to(prism.rotation, {
-            y: Math.PI * 2.5,
-            x: Math.PI * 0.8,
-            scrollTrigger: {
-              trigger: ".workshop-section",
-              start: "top center",
-              end: "bottom center",
-              scrub: 1.8,
-              markers: false
-            },
-            ease: "none"
-          });
-
-          // Continuous ring rotation (opposite direction)
-          gsap.to(ring1.rotation, {
-            z: Math.PI * 4,
-            duration: 8,
-            repeat: -1,
-            ease: "none"
-          });
-
-          gsap.to(ring2.rotation, {
-            z: -Math.PI * 4,
-            duration: 10,
-            repeat: -1,
-            ease: "none"
-          });
-
-          function animate() {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-          }
-          animate();
-
-          window.addEventListener("resize", () => {
-            renderer.setSize(350, 350);
-          });
-        }
-      </script>
 
       <!-- ============================================================
      TESTIMONIALS
@@ -5191,11 +4895,10 @@
             const geometry = new THREE.IcosahedronGeometry(1, 4);
             const material = new THREE.MeshStandardMaterial({
               color: 0x16c8ff,
-              metalness: 0.7,
-              roughness: 0.2,
-              wireframe: false,
+              metalness: 0.85,       // 0.7 → 0.85 (more shiny)
+              roughness: 0.12,       // 0.2 → 0.12 (smoother surface)
               emissive: 0x16c8ff,
-              emissiveIntensity: 0.2
+              emissiveIntensity: 0.4 // 0.2 → 0.4 (stronger glow)
             });
 
             const sphere = new THREE.Mesh(geometry, material);
