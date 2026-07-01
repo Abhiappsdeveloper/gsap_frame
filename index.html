@@ -3044,10 +3044,12 @@
       <section
         style="position: relative; padding: 80px 0; overflow: hidden; background: linear-gradient(135deg, rgba(0,230,168,.05), rgba(22,200,255,.02));">
         <div class="container" style="position: relative; z-index: 2;">
+          <!-- LEFT PYRAMID -->
           <div id="pyramid-container-3d"
             style="position: absolute; left: -15%; top: 50%; transform: translateY(-50%); width: 400px; height: 400px; opacity: 0;"
             aria-hidden="true"></div>
 
+          <!-- CENTER TEXT -->
           <div style="position: relative; z-index: 3; text-align: center; max-width: 600px; margin: 0 auto;">
             <span class="section-eyebrow" style="display: inline-block; margin-bottom: 16px;">Journey to Success</span>
             <h2 class="section-title" style="margin-bottom: 24px;">Your Career <span
@@ -3056,6 +3058,11 @@
               discovery to career triumph, Ukonnect guides every step of your professional journey with data-driven
               precision and human care.</p>
           </div>
+
+          <!-- RIGHT PYRAMID (MIRRORED) -->
+          <div id="pyramid-container-3d-right"
+            style="position: absolute; right: -15%; top: 50%; transform: translateY(-50%); width: 400px; height: 400px; opacity: 0;"
+            aria-hidden="true"></div>
         </div>
       </section>
 
@@ -3283,7 +3290,140 @@
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/InertiaPlugin.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      <script>
+        // ============================================================
+        // 3D MORPHING PYRAMID ANIMATION (Right side - mirrored)
+        // ============================================================
+        function init3DPyramidRight() {
+          const container = document.getElementById("pyramid-container-3d-right");
+          if (!container) return;
 
+          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (prefersReduced) return;
+
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+          camera.position.z = 3;
+          renderer.setSize(400, 400);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+          container.appendChild(renderer.domElement);
+
+          // Create pyramid (mirrored via scale)
+          const pyramidGeometry = new THREE.TetrahedronGeometry(1.2, 0);
+          const pyramidMaterial = new THREE.MeshStandardMaterial({
+            color: 0x16c8ff,
+            metalness: 0.6,
+            roughness: 0.3,
+            emissive: 0x16c8ff,
+            emissiveIntensity: 0.4,
+            wireframe: false
+          });
+          const pyramid = new THREE.Mesh(pyramidGeometry, pyramidMaterial);
+          pyramid.scale.x = -1; // Mirror the pyramid horizontally
+          scene.add(pyramid);
+
+          // Particle emitters at pyramid vertices
+          const particles = [];
+          const particleGeometry = new THREE.SphereGeometry(0.04, 4, 4);
+          const particleMaterial = new THREE.MeshStandardMaterial({
+            color: 0x16c8ff,
+            metalness: 0.9,
+            roughness: 0.1,
+            emissive: 0x16c8ff,
+            emissiveIntensity: 0.9
+          });
+
+          for (let i = 0; i < 20; i++) {
+            const particle = new THREE.Mesh(particleGeometry, particleMaterial.clone());
+            particle.position.copy(pyramid.position);
+            particle.velocity = new THREE.Vector3(
+              (Math.random() - 0.5) * 0.05,
+              (Math.random() - 0.5) * 0.05,
+              (Math.random() - 0.5) * 0.05
+            );
+            particle.life = 1;
+            particles.push(particle);
+            scene.add(particle);
+          }
+
+          // Lighting (adjusted for right side)
+          const light1 = new THREE.PointLight(0x16c8ff, 1.5, 100);
+          light1.position.set(-5, 5, 5); // Mirrored X position
+          scene.add(light1);
+
+          const light2 = new THREE.PointLight(0x00e6a8, 1, 100);
+          light2.position.set(5, -5, 5); // Mirrored X position
+          scene.add(light2);
+
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+          scene.add(ambientLight);
+
+          let isVisible = false;
+          let time = 0;
+
+          // Fade in
+          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.7 });
+
+          const observer = new IntersectionObserver((entries) => {
+            isVisible = entries[0].isIntersecting;
+          });
+          observer.observe(container);
+
+          function animate() {
+            requestAnimationFrame(animate);
+
+            if (isVisible) {
+              time += 0.01;
+
+              // Morph between pyramid and sphere (opposite rotation for mirrored effect)
+              const morphInfluence = 0.5 + Math.sin(time * 0.5) * 0.5;
+              pyramid.scale.x = -1 * (1 + Math.sin(time * 0.3) * 0.2);
+              pyramid.scale.y = 1 + Math.cos(time * 0.4) * 0.2;
+              pyramid.scale.z = 1 + Math.sin(time * 0.35) * 0.2;
+
+              // Opposite rotation direction for visual distinction
+              pyramid.rotation.x -= 0.003;
+              pyramid.rotation.y -= 0.005;
+              pyramid.rotation.z -= 0.002;
+
+              // Update particles
+              particles.forEach((p, i) => {
+                p.position.add(p.velocity);
+                p.life -= 0.02;
+                p.material.opacity = p.life;
+
+                if (p.life <= 0) {
+                  p.position.copy(pyramid.position);
+                  p.life = 1;
+                  p.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.05,
+                    (Math.random() - 0.5) * 0.05,
+                    (Math.random() - 0.5) * 0.05
+                  );
+                }
+
+                p.scale.set(p.life, p.life, p.life);
+              });
+            }
+
+            renderer.render(scene, camera);
+          }
+          animate();
+
+          window.addEventListener("resize", () => {
+            renderer.setSize(400, 400);
+          });
+        }
+
+        window.addEventListener("load", () => {
+          setTimeout(() => {
+            init3DPyramid();
+            init3DPyramidRight(); // Initialize right pyramid
+          }, 700);
+        });
+      </script>
       <script>
         /* ============================================================
            UKONNECT STAFFING USA — SCRIPT.JS
