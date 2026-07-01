@@ -2568,10 +2568,6 @@
                 and employer.</p>
             </div>
             <!-- INSERT AFTER the 4 process-step divs, still inside .process-grid -->
-
-            <div id="process-3d-tetrahedrons" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-  width: 100%; height: 100%; pointer-events: none;" aria-hidden="true"></div>
-          </div>
         </div>
       </section>
 
@@ -4629,103 +4625,6 @@
             return () => { };
 
           });
-          /* ============================================================
-                    3D ANIMATIONS
-                    ============================================================ */
-
-          function initProcess3DTetrahedrons() {
-            const container = document.getElementById("process-3d-tetrahedrons");
-            if (!container || typeof THREE === "undefined") return;
-
-            const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            if (prefersReduced) return;
-
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(
-              75,
-              container.clientWidth / container.clientHeight,
-              0.1,
-              1000
-            );
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-            container.appendChild(renderer.domElement);
-            scene.background = null;
-            renderer.setClearColor(0x000000, 0);
-            camera.position.z = 5;
-
-            // Create 4 tetrahedrons (one for each step)
-            const tetrahedrons = [];
-            const positions = [
-              { x: -4, y: 0, color: 0x00e6a8 },
-              { x: -1.3, y: 0, color: 0x16c8ff },
-              { x: 1.3, y: 0, color: 0x4d7cff },
-              { x: 4, y: 0, color: 0x00e6a8 }
-            ];
-
-            positions.forEach((pos, idx) => {
-              const geo = new THREE.TetrahedronGeometry(0.4, 0);
-              const mat = new THREE.MeshStandardMaterial({
-                color: pos.color,
-                metalness: 0.6,
-                roughness: 0.3,
-                emissive: pos.color,
-                emissiveIntensity: 0.3,
-                wireframe: false
-              });
-              const mesh = new THREE.Mesh(geo, mat);
-              mesh.position.x = pos.x;
-              mesh.position.y = pos.y;
-              mesh.userData = { baseY: pos.y, index: idx };
-              scene.add(mesh);
-              tetrahedrons.push(mesh);
-            });
-
-            // Lighting
-            scene.add(new THREE.PointLight(0x00e6a8, 1.5, 100));
-            scene.add(new THREE.PointLight(0x4d7cff, 1, 100));
-            scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-
-            // Scroll-driven wave animation
-            gsap.to(tetrahedrons, {
-              y: (i) => 1.2 * Math.sin((i * Math.PI) / tetrahedrons.length),
-              scrollTrigger: {
-                trigger: ".process-section",
-                start: "top center",
-                end: "bottom center",
-                scrub: 1.5,
-                markers: false
-              },
-              duration: 0,
-              ease: "none"
-            });
-
-            // Continuous rotation
-            tetrahedrons.forEach((tet, idx) => {
-              gsap.to(tet.rotation, {
-                x: Math.PI * 2,
-                y: Math.PI * 2,
-                z: Math.PI,
-                duration: 6 + idx * 0.5,
-                repeat: -1,
-                ease: "none"
-              });
-            });
-
-            function animate() {
-              requestAnimationFrame(animate);
-              renderer.render(scene, camera);
-            }
-            animate();
-
-            window.addEventListener("resize", () => {
-              renderer.setSize(container.clientWidth, container.clientHeight);
-              camera.aspect = container.clientWidth / container.clientHeight;
-              camera.updateProjectionMatrix();
-            });
-          }
 
           function initBenefits3DCube() {
             const container = document.getElementById("benefits-3d-cube-container");
