@@ -1909,6 +1909,37 @@
     }
 
     /* ============================================================
+   3D BOUNCE BALL ANIMATION
+   ============================================================ */
+    #bounceCanvas {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 300px;
+      height: 300px;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0.85;
+      filter: drop-shadow(0 0 30px rgba(0, 230, 168, 0.4));
+    }
+
+    @media (max-width: 768px) {
+      #bounceCanvas {
+        width: 200px;
+        height: 200px;
+        opacity: 0.7;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #bounceCanvas {
+        width: 150px;
+        height: 150px;
+        opacity: 0.6;
+      }
+    }
+
+    /* ============================================================
    FOOTER
    ============================================================ */
     footer {
@@ -3074,6 +3105,9 @@
             <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span></a>
           </div>
         </div>
+        <!-- 3D Bounce Ball Animation -->
+        <canvas id="bounceCanvas" aria-hidden="true"
+          style="position: fixed; bottom: 0; right: 0; z-index: 5; pointer-events: none;"></canvas>
       </section>
 
       <!-- ============================================================
@@ -3287,6 +3321,182 @@
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/InertiaPlugin.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      <script>/* ============================================================
+3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
+============================================================ */
+        function initBounceBall() {
+          const canvas = document.getElementById("bounceCanvas");
+          if (!canvas || typeof THREE === "undefined") return;
+
+          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (prefersReduced) return;
+
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
+          const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+
+          function resizeCanvas() {
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            const size = isMobile ? 200 : 300;
+            canvas.width = size;
+            canvas.height = size;
+            camera.aspect = size / size;
+            camera.updateProjectionMatrix();
+            renderer.setSize(size, size);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+          }
+
+          resizeCanvas();
+          window.addEventListener("resize", resizeCanvas);
+          camera.position.z = 2.5;
+
+          // Create gradient texture for sphere
+          const canvas2d = document.createElement("canvas");
+          canvas2d.width = 256;
+          canvas2d.height = 256;
+          const ctx = canvas2d.getContext("2d");
+          const gradient = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+          gradient.addColorStop(0, "rgba(0, 230, 168, 1)");
+          gradient.addColorStop(0.5, "rgba(22, 200, 255, 0.8)");
+          gradient.addColorStop(1, "rgba(77, 124, 255, 0.6)");
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, 256, 256);
+
+          const texture = new THREE.CanvasTexture(canvas2d);
+          const sphereGeometry = new THREE.SphereGeometry(0.8, 64, 64);
+          const sphereMaterial = new THREE.MeshStandardMaterial({
+            map: texture,
+            metalness: 0.7,
+            roughness: 0.2,
+            emissive: 0x00e6a8,
+            emissiveIntensity: 0.5,
+            wireframe: false
+          });
+
+          const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+          scene.add(sphere);
+
+          // Add glow effect
+          const glowGeometry = new THREE.SphereGeometry(0.85, 32, 32);
+          const glowMaterial = new THREE.MeshStandardMaterial({
+            color: 0x00e6a8,
+            emissive: 0x00e6a8,
+            emissiveIntensity: 0.3,
+            metalness: 0.3,
+            roughness: 0.8,
+            wireframe: false,
+            transparent: true,
+            opacity: 0.2
+          });
+          const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+          glowMesh.scale.set(1.3, 1.3, 1.3);
+          scene.add(glowMesh);
+
+          // Lighting setup
+          const light1 = new THREE.PointLight(0x00e6a8, 1.5, 100);
+          light1.position.set(2, 2, 3);
+          scene.add(light1);
+
+          const light2 = new THREE.PointLight(0x16c8ff, 1, 100);
+          light2.position.set(-2, -2, 2);
+          scene.add(light2);
+
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+          scene.add(ambientLight);
+
+          // Ball physics
+          const ballData = {
+            x: 0,
+            y: 0,
+            vx: (Math.random() - 0.5) * 0.04,
+            vy: (Math.random() - 0.5) * 0.04,
+            radius: 0.8,
+            friction: 0.98,
+            bounce: 0.7,
+            gravity: 0.001
+          };
+
+          const boundaries = {
+            width: 2.5,
+            height: 2.5
+          };
+
+          function updatePhysics() {
+            // Apply gravity
+            ballData.vy -= ballData.gravity;
+
+            // Update position
+            ballData.x += ballData.vx;
+            ballData.y += ballData.vy;
+
+            // Apply friction
+            ballData.vx *= ballData.friction;
+            ballData.vy *= ballData.friction;
+
+            // Boundary collision
+            if (ballData.x + ballData.radius > boundaries.width / 2) {
+              ballData.x = boundaries.width / 2 - ballData.radius;
+              ballData.vx *= -ballData.bounce;
+            }
+            if (ballData.x - ballData.radius < -boundaries.width / 2) {
+              ballData.x = -boundaries.width / 2 + ballData.radius;
+              ballData.vx *= -ballData.bounce;
+            }
+            if (ballData.y + ballData.radius > boundaries.height / 2) {
+              ballData.y = boundaries.height / 2 - ballData.radius;
+              ballData.vy *= -ballData.bounce;
+            }
+            if (ballData.y - ballData.radius < -boundaries.height / 2) {
+              ballData.y = -boundaries.height / 2 + ballData.radius;
+              ballData.vy *= -ballData.bounce;
+            }
+
+            sphere.position.x = ballData.x;
+            sphere.position.y = ballData.y;
+            glowMesh.position.copy(sphere.position);
+          }
+
+          let rotX = 0, rotY = 0;
+
+          function animate() {
+            requestAnimationFrame(animate);
+
+            updatePhysics();
+
+            // Rotation based on velocity
+            rotX += ballData.vy * 0.5;
+            rotY += ballData.vx * 0.5;
+
+            sphere.rotation.x = rotX;
+            sphere.rotation.y = rotY;
+            glowMesh.rotation.copy(sphere.rotation);
+
+            // Pulsing glow effect
+            glowMaterial.emissiveIntensity = 0.3 + Math.sin(Date.now() * 0.003) * 0.15;
+
+            renderer.render(scene, camera);
+          }
+
+          animate();
+
+          // Disable canvas if user scrolls past CTA section
+          const ctaSection = document.querySelector(".cta-section");
+          if (ctaSection) {
+            ScrollTrigger.create({
+              trigger: ctaSection,
+              start: "top bottom",
+              end: "bottom top",
+              onToggle: self => {
+                canvas.style.display = self.isActive ? "block" : "none";
+              }
+            });
+          }
+        }
+
+        // Initialize when page loads
+        window.addEventListener("load", () => {
+          setTimeout(initBounceBall, 800);
+        });</script>
       <script>
         // ============================================================
         // 3D MORPHING PYRAMID ANIMATION (Right side - mirrored)
