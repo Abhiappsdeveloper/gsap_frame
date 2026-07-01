@@ -4149,7 +4149,19 @@
             const media = document.querySelector(".about-media");
             if (!media) return;
             const img = media.querySelector("img");
+
+            gsap.set(img, {
+              opacity: 1,
+              visibility: "visible",
+              clearProps: "opacity,visibility"
+            });
+
             const panel = media.querySelector(".reveal-panel");
+
+            gsap.set(panel, {
+              scaleY: 1,
+              transformOrigin: "bottom center"
+            });
             const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
             gsap.timeline({
