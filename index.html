@@ -1908,9 +1908,6 @@
       letter-spacing: .02em;
     }
 
-    /* ============================================================
-   3D BOUNCE BALL ANIMATION
-   ============================================================ */
     #bounceCanvas {
       position: fixed;
       top: 0;
@@ -1920,7 +1917,11 @@
       pointer-events: none;
       z-index: 5;
       opacity: 1;
-      filter: drop-shadow(0 0 30px rgba(0, 230, 168, 0.4));
+      /* UK Premium glow: Layered blue + turquoise */
+      filter: drop-shadow(0 0 25px rgba(10, 46, 87, 0.5)) drop-shadow(0 0 45px rgba(30, 144, 255, 0.3)) drop-shadow(0 0 70px rgba(64, 224, 208, 0.15));
+
+      /* Optional: Add slight blur for softer premium feel */
+      backdrop-filter: blur(0.5px);
     }
 
     @media (max-width: 768px) {
@@ -3488,59 +3489,58 @@
           texture.magFilter = THREE.LinearFilter;
           texture.minFilter = THREE.LinearMipmapLinearFilter;
 
-          // ✅ ENHANCED: TorusKnot geometry with premium materials
-          const sphereGeometry = new THREE.TorusKnotGeometry(0.4, 0.15, 128, 32); // Increased segments for smoothness
+          const sphereGeometry = new THREE.IcosahedronGeometry(0.7, 5);
 
+          // ✅ UK Corporate Material: Deep Blue + Royal Accents
           const sphereMaterial = new THREE.MeshPhysicalMaterial({
             map: texture,
-            color: 0x00e6a8,
-            metalness: 0.92,
-            roughness: 0.08,
-            clearcoat: 0.95,
-            clearcoatRoughness: 0.15,
-            emissive: 0x00e6a8,
-            emissiveIntensity: 0.6,
-            emissiveMap: texture,
-            iridescence: 0.8,
-            iridescenceIOR: 1.5,
-            sheen: 0.5,
-            sheenColor: new THREE.Color(0x16c8ff),
-            sheenRoughness: 0.3,
-            reflectivity: 0.95,
-            transmission: 0.1,
-            thickness: 0.5,
-            ior: 1.5,
-            dispersion: 0.2
+            color: 0x0A2E57,              // Deep royal blue
+            metalness: 0.85,               // High reflectivity
+            roughness: 0.1,                // Mirror-like surface
+            clearcoat: 0.99,               // Glass-like clarity
+            clearcoatRoughness: 0.05,      // Crystal finish
+            emissive: 0x1E90FF,            // Dodger blue glow
+            emissiveIntensity: 0.45,       // Subtle professional glow
+            iridescence: 0.5,              // Reduce for corporate feel
+            iridescenceIOR: 1.4,
+            sheen: 0.2,                    // Minimal sheen
+            sheenColor: new THREE.Color(0x40E0D0),  // Turquoise accent
+            sheenRoughness: 0.15,
+            reflectivity: 0.92,
+            transmission: 0.08,
+            thickness: 0.4,
+            ior: 1.45,
+            dispersion: 0.08               // Reduced chromatic aberration
           });
 
           const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
           scene.add(sphere);
 
-          // ✅ ENHANCED: Sophisticated multi-light setup for premium look
-          // Key light (primary green accent)
-          const keyLight = new THREE.PointLight(0x00e6a8, 3.5, 150);
-          keyLight.position.set(5, 5, 6);
-          keyLight.castShadow = true;
+          // ✅ UK PREMIUM LIGHTING: Corporate + Modern Trust
+
+          // Key Light: Deep Royal Blue (UK corporate standard)
+          const keyLight = new THREE.PointLight(0x0A2E57, 2.8, 160);
+          keyLight.position.set(6, 5, 7);
+          keyLight.intensity = 2.5;
           scene.add(keyLight);
 
-          // Rim light (cyan accent - creates separation)
-          const rimLight = new THREE.PointLight(0x16c8ff, 2.8, 140);
-          rimLight.position.set(-6, 3, -5);
-          rimLight.castShadow = true;
+          // Rim Light: Silver-Blue (professional separation)
+          const rimLight = new THREE.PointLight(0x40E0D0, 2.2, 150);
+          rimLight.position.set(-7, 4, -6);
           scene.add(rimLight);
 
-          // Fill light (blue for depth and color variety)
-          const fillLight = new THREE.PointLight(0x4d7cff, 2.2, 120);
-          fillLight.position.set(2, -4, 3);
+          // Fill Light: Pearl White (trustworthy, clean)
+          const fillLight = new THREE.PointLight(0xE8E8E8, 1.6, 140);
+          fillLight.position.set(3, -3, 4);
           scene.add(fillLight);
 
-          // Subtle back light (deep purple for dimensionality)
-          const backLight = new THREE.PointLight(0x8b5cf6, 1.8, 100);
-          backLight.position.set(-3, -3, -4);
-          scene.add(backLight);
+          // Accent Light: Gold (luxury, premium feel)
+          const accentLight = new THREE.PointLight(0xFFD700, 1.4, 120);
+          accentLight.position.set(-4, 2, -3);
+          scene.add(accentLight);
 
-          // Ambient light (stronger for overall illumination)
-          const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+          // Ambient Light: Slightly warm white (professional environment)
+          const ambientLight = new THREE.AmbientLight(0xF5F5F5, 0.65);
           scene.add(ambientLight);
 
           // ✅ ENHANCED: Add environment map for realistic reflections
@@ -3609,28 +3609,44 @@
             sphere.position.y = ballData.y;
             sphere.position.z = ballData.z;
 
-            // ✅ ENHANCED: Complex rotation with smoother interpolation
-            rotX += 0.008;
-            rotY += 0.012;
-            rotZ += 0.005;
+            // ✅ DELIBERATE, ELEGANT ROTATION (UK Corporate Professional)
+            // Slower speeds = more premium, controlled, trustworthy
 
-            sphere.rotation.x = rotX;
-            sphere.rotation.y = rotY;
-            sphere.rotation.z = rotZ;
+            // X-axis: Gentle tilt (not aggressive)
+            rotX += 0.0025;              // CHANGED: 0.008 → 0.0025 (slower, more controlled)
 
-            // ✅ ENHANCED: Sophisticated pulsing with multiple sine waves
-            const pulse = 1 + Math.sin(time * ballData.pulseSpeed) * ballData.pulseAmount * 0.8;
-            const secondaryPulse = Math.sin(time * 0.015) * 0.08;
-            sphere.scale.set(pulse + secondaryPulse, pulse + secondaryPulse, pulse + secondaryPulse);
+            // Y-axis: Main rotation (business-like, steady)
+            rotY += 0.005;               // CHANGED: 0.012 → 0.005 (professional pace)
 
-            // ✅ ENHANCED: Multi-layer glow effect with variation
-            const glowIntensity = 0.7 + Math.sin(time * 0.025) * 0.25 + Math.cos(time * 0.035) * 0.15;
-            sphereMaterial.emissiveIntensity = glowIntensity;
+            // Z-axis: Minimal twist (emphasizes stability)
+            rotZ += 0.001;               // CHANGED: 0.005 → 0.001 (very subtle)
 
-            // ✅ ENHANCED: Subtle color shifting for premium feel
-            const colorShift = Math.sin(time * 0.02) * 0.15;
-            sphereMaterial.color.setHSL(0.35 + colorShift * 0.05, 1, 0.5 + colorShift * 0.1);
+            sphere.rotation.set(rotX, rotY, rotZ);
 
+            // ✅ SOPHISTICATED PULSING (Breathing effect = trust + life)
+            const pulse = 1 + Math.sin(time * 0.01) * 0.035;    // CHANGED: 0.02 → 0.01 (slower breath)
+            const secondaryPulse = Math.sin(time * 0.008) * 0.015;  // CHANGED: 0.015 → 0.008 (reduced)
+            const scale = pulse + secondaryPulse;
+            sphere.scale.set(scale, scale, scale);
+
+            // ✅ SUBTLE ORBIT (Professional floating effect)
+            ballData.orbitSpeedX = 0.001;   // CHANGED: 0.003 → 0.001 (gentle)
+            ballData.orbitSpeedY = 0.0015;  // CHANGED: 0.004 → 0.0015 (refined)
+            ballData.orbitSpeedZ = 0.0008;  // CHANGED: 0.002 → 0.0008 (minimal)
+
+            // ✅ PROFESSIONAL BREATHING GLOW (Subtle, trustworthy)
+            const glowIntensity = 0.35 + Math.sin(time * 0.012) * 0.12 + Math.cos(time * 0.018) * 0.08;
+            sphereMaterial.emissiveIntensity = Math.max(0.25, glowIntensity);  // Ensure minimum glow
+
+            // ✅ UK COLOR PALETTE CYCLING (Royal Blue ↔ Turquoise)
+            const colorShift = Math.sin(time * 0.006) * 0.08;  // CHANGED: 0.02 → 0.006 (much slower)
+
+            // Cycle between deep blue (0.65 hue) and turquoise (0.5 hue)
+            sphereMaterial.color.setHSL(
+              0.58 + colorShift * 0.02,      // Hue: deep blue to cyan
+              0.9,                            // High saturation (corporate)
+              0.35 + colorShift * 0.04        // Lightness: darker, more premium
+            );
             renderer.render(scene, camera);
           }
 
