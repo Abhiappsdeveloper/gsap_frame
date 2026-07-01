@@ -4167,6 +4167,12 @@
             /* ====== Footer link hover micro-interaction ====== */
             initFooterHovers();
 
+            /* ====== 3D Animations ====== */
+            initProcess3DTetrahedrons();
+            initBenefits3DCube();
+            initIndustries3DSphere();
+            initWorkshop3DPrisms();
+
           });
 
           /* ============================================================
@@ -4945,6 +4951,34 @@
             return () => { };
 
           });
+          /* ============================================================
+                    3D ANIMATIONS
+                    ============================================================ */
+
+          function initProcess3DTetrahedrons() {
+            const container = document.getElementById("process-3d-tetrahedrons");
+            if (!container || typeof THREE === "undefined") return;
+            // [PASTE ENTIRE FUNCTION BODY FROM SCATTERED SCRIPT]
+          }
+
+          function initBenefits3DCube() {
+            const container = document.getElementById("benefits-3d-cube-container");
+            if (!container || typeof THREE === "undefined") return;
+            // [PASTE ENTIRE FUNCTION BODY FROM SCATTERED SCRIPT]
+          }
+
+          function initIndustries3DSphere() {
+            const container = document.getElementById("industries-3d-sphere-container");
+            if (!container || typeof THREE === "undefined") return;
+            // [PASTE ENTIRE FUNCTION BODY FROM SCATTERED SCRIPT]
+          }
+
+          function initWorkshop3DPrisms() {
+            const container = document.getElementById("workshop-3d-prisms");
+            if (!container || typeof THREE === "undefined") return;
+            // [PASTE ENTIRE FUNCTION BODY FROM SCATTERED SCRIPT]
+          }
+
           /* ============================================================
           Smooth in-page anchor scrolling (works with/without smoother)
           ============================================================ */
