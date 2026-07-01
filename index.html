@@ -131,6 +131,35 @@
         transition-duration: .001ms !important;
         scroll-behavior: auto !important;
       }
+
+      /* Add these specific overrides */
+      .hero-eyebrow {
+        animation: none !important;
+      }
+
+      @keyframes eyebrowPulse {
+
+        0%,
+        100% {
+          box-shadow: 0 0 20px rgba(0, 230, 168, 0.15);
+        }
+      }
+
+      .hero-bg-shapes {
+        animation: none !important;
+      }
+
+      .particles-field::before {
+        animation: none !important;
+      }
+
+      .hero-scroll-cue {
+        animation: none !important;
+      }
+
+      .service-card .glow {
+        animation: none !important;
+      }
     }
 
     /* Background layers */
@@ -364,8 +393,38 @@
     .btn-primary {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: #06140f;
-      box-shadow: 0 8px 28px rgba(0, 230, 168, .35);
+      box-shadow:
+        0 8px 28px rgba(0, 230, 168, .35),
+        0 0 20px rgba(0, 230, 168, .25),
+        inset 0 1px 0 rgba(255, 255, 255, .3);
       position: relative;
+      overflow: hidden;
+      border-radius: 999px;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(255, 255, 255, .1), transparent);
+      opacity: 0;
+      animation: buttonSheen 3s infinite;
+    }
+
+    @keyframes buttonSheen {
+      0% {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(100%);
+      }
     }
 
     .btn-primary::before {
@@ -381,12 +440,16 @@
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(0, 230, 168, .5);
+      transform: translateY(-4px);
+      box-shadow:
+        0 16px 48px rgba(0, 230, 168, .6),
+        0 0 32px rgba(0, 230, 168, .35),
+        inset 0 1px 0 rgba(255, 255, 255, .4);
+      letter-spacing: 0.02em;
     }
 
     .btn-primary:hover::before {
-      opacity: 1;
+      opacity: 0.8;
     }
 
     .btn-ghost {
@@ -483,6 +546,21 @@
       pointer-events: none;
       will-change: transform;
       filter: blur(2px);
+      animation: backgroundBrethe 8s ease-in-out infinite;
+    }
+
+    @keyframes backgroundBrethe {
+
+      0%,
+      100% {
+        filter: blur(2px) brightness(1);
+        opacity: 0.9;
+      }
+
+      50% {
+        filter: blur(1.5px) brightness(1.1);
+        opacity: 1;
+      }
     }
 
     .blob {
@@ -491,6 +569,60 @@
       filter: blur(80px);
       opacity: .4;
       will-change: transform;
+    }
+
+    .blob-a {
+      animation: blobGlowA 6s ease-in-out infinite;
+    }
+
+    .blob-b {
+      animation: blobGlowB 7s ease-in-out infinite;
+    }
+
+    .blob-c {
+      animation: blobGlowC 8s ease-in-out infinite;
+    }
+
+    @keyframes blobGlowA {
+
+      0%,
+      100% {
+        filter: blur(80px) brightness(1);
+        opacity: 0.4;
+      }
+
+      50% {
+        filter: blur(100px) brightness(1.3);
+        opacity: 0.6;
+      }
+    }
+
+    @keyframes blobGlowB {
+
+      0%,
+      100% {
+        filter: blur(80px) brightness(1);
+        opacity: 0.4;
+      }
+
+      50% {
+        filter: blur(100px) brightness(1.2);
+        opacity: 0.55;
+      }
+    }
+
+    @keyframes blobGlowC {
+
+      0%,
+      100% {
+        filter: blur(80px) brightness(1);
+        opacity: 0.4;
+      }
+
+      50% {
+        filter: blur(100px) brightness(1.25);
+        opacity: 0.58;
+      }
     }
 
     .blob-a {
@@ -522,6 +654,29 @@
       inset: 0;
       z-index: 1;
       pointer-events: none;
+    }
+
+    .particles-field::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0, 230, 168, 0.08) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(22, 200, 255, 0.06) 0%, transparent 25%);
+      animation: networkPulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes networkPulse {
+
+      0%,
+      100% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
     }
 
     .particle {
@@ -570,6 +725,30 @@
       animation: premiumPulse 2s infinite;
     }
 
+    .hero-eyebrow {
+      /* existing code stays */
+      box-shadow:
+        0 0 20px rgba(0, 230, 168, 0.15),
+        inset 0 0 16px rgba(0, 230, 168, 0.08);
+      animation: eyebrowPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes eyebrowPulse {
+
+      0%,
+      100% {
+        box-shadow:
+          0 0 20px rgba(0, 230, 168, 0.15),
+          inset 0 0 16px rgba(0, 230, 168, 0.08);
+      }
+
+      50% {
+        box-shadow:
+          0 0 32px rgba(0, 230, 168, 0.25),
+          inset 0 0 24px rgba(0, 230, 168, 0.12);
+      }
+    }
+
     @keyframes premiumPulse {
       0% {
         box-shadow: 0 0 0 0 rgba(0, 230, 168, .7);
@@ -606,6 +785,7 @@
       white-space: nowrap;
       filter: none !important;
       backdrop-filter: none !important;
+      transform: translate3d(0, 0, 0);
     }
 
     .hero-heading .word.grad {
@@ -642,6 +822,28 @@
       line-height: 1.8;
     }
 
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 42px;
+      animation: ctasReveal 0.8s ease-out 1.2s both;
+    }
+
+    @keyframes ctasReveal {
+      from {
+        opacity: 0;
+        y: 24px;
+        filter: blur(8px);
+      }
+
+      to {
+        opacity: 1;
+        y: 0;
+        filter: blur(0);
+      }
+    }
+
     @media (max-width: 768px) {
       .hero-ctas {
         flex-direction: column;
@@ -670,18 +872,20 @@
       font-size: .72rem;
       letter-spacing: .15em;
       text-transform: uppercase;
-      animation: float 3s ease-in-out infinite;
+      animation: floatEnhanced 3s ease-in-out infinite;
     }
 
-    @keyframes float {
+    @keyframes floatEnhanced {
 
       0%,
       100% {
         transform: translateX(-50%) translateY(0);
+        opacity: 0.8;
       }
 
       50% {
-        transform: translateX(-50%) translateY(8px);
+        transform: translateX(-50%) translateY(12px);
+        opacity: 1;
       }
     }
 
@@ -700,17 +904,28 @@
       top: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(var(--text), transparent);
-      animation: scrollDown 2s ease-in-out infinite;
+      background: linear-gradient(var(--primary), var(--primary), transparent);
+      box-shadow: 0 0 8px var(--primary);
+      animation: scrollDownEnhanced 2s ease-in-out infinite;
     }
 
-    @keyframes scrollDown {
+    @keyframes scrollDownEnhanced {
       0% {
         top: -100%;
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
       }
 
       100% {
         top: 100%;
+        opacity: 0;
       }
     }
 
@@ -738,6 +953,7 @@
       transform-style: preserve-3d;
       will-change: transform;
       transition: all .4s var(--ease-out);
+      transform: translate3d(0, 0, 0);
     }
 
     .service-card::before {
@@ -767,11 +983,36 @@
       pointer-events: none;
     }
 
+    .service-card::backdrop {
+      -webkit-backdrop-filter: blur(20px) saturate(120%);
+      backdrop-filter: blur(20px) saturate(120%);
+    }
+
     .service-card:hover {
-      background: rgba(11, 27, 41, .8);
+      background: rgba(11, 27, 41, .9);
       border-color: var(--primary);
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 48px rgba(0, 230, 168, .15);
+      transform: translateY(-12px) scale(1.05);
+      box-shadow:
+        0 16px 64px rgba(0, 230, 168, .25),
+        0 0 40px rgba(0, 230, 168, .15),
+        inset 0 1px 0 rgba(255, 255, 255, .15);
+      backdrop-filter: blur(24px) saturate(140%);
+    }
+
+    .service-card:hover .glow {
+      animation: cardGlowPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes cardGlowPulse {
+
+      0%,
+      100% {
+        opacity: 0.8;
+      }
+
+      50% {
+        opacity: 1.2;
+      }
     }
 
     .service-card:hover::before {
@@ -796,9 +1037,25 @@
     }
 
     .service-card:hover .icon {
-      transform: scale(1.15) rotate(8deg);
-      background: linear-gradient(135deg, rgba(0, 230, 168, .35), rgba(22, 200, 255, .25));
+      transform: scale(1.25) rotate(12deg) perspective(600px) rotateY(15deg);
+      background: linear-gradient(135deg, rgba(0, 230, 168, .45), rgba(22, 200, 255, .35));
       border-color: var(--primary);
+      box-shadow: 0 8px 24px rgba(0, 230, 168, .3);
+      animation: iconPulse 0.6s ease-out;
+    }
+
+    @keyframes iconPulse {
+      0% {
+        transform: scale(1.25) rotate(12deg) perspective(600px) rotateY(15deg);
+      }
+
+      50% {
+        transform: scale(1.35) rotate(12deg) perspective(600px) rotateY(20deg);
+      }
+
+      100% {
+        transform: scale(1.25) rotate(12deg) perspective(600px) rotateY(15deg);
+      }
     }
 
     .service-card h3 {
@@ -3903,9 +4160,15 @@
               const qy = gsap.quickTo(field, "y", { duration: .9, ease: "power3" });
               const moveHandler = (e) => {
                 const isMobileDevice = window.matchMedia("(max-width: 768px)").matches;
-                const multiplier = isMobileDevice ? 18 : 24;      // CHANGED: 12 → 18 (more dramatic mobile effect)
+                const multiplier = isMobileDevice ? 22 : 28;  // CHANGED: 18→22, 24→28
                 const relX = (e.clientX / window.innerWidth - .5) * multiplier;
                 const relY = (e.clientY / window.innerHeight - .5) * multiplier;
+
+                // Add depth distortion
+                gsap.to(field, {
+                  filter: `brightness(${1 + Math.abs(relX + relY) * 0.02})`,
+                  duration: 0.4
+                });
                 qx(relX);
                 qy(relY);
               };
@@ -4062,12 +4325,19 @@
 
               btn.addEventListener("touchstart", () => {
                 gsap.to(btn, {
-                  scale: 0.90,              // CHANGED: 0.94 → 0.90 (more visible press)
-                  y: 4,                     // CHANGED: 2 → 4 (deeper feedback)
-                  boxShadow: "0 2px 8px rgba(0,230,168,.1)",  // Added: shadow feedback
-                  duration: .12,            // CHANGED: .15 → .12 (snappier)
+                  scale: 0.88,
+                  y: 6,
+                  boxShadow: "0 4px 16px rgba(0,230,168,.2)",
+                  duration: .12,
                   overwrite: "auto"
                 });
+
+                // Add ripple on touch
+                const ripple = btn.querySelector(".ripple") || document.createElement("span");
+                if (!btn.querySelector(".ripple")) {
+                  ripple.className = "ripple";
+                  btn.appendChild(ripple);
+                }
               }, { passive: true });
 
               btn.addEventListener("touchend", () => {
@@ -4097,9 +4367,15 @@
                 gsap.set(span, {
                   width: size, height: size,
                   left: e.clientX - rect.left, top: e.clientY - rect.top,
-                  xPercent: -50, yPercent: -50, scale: 0, opacity: .6
+                  xPercent: -50, yPercent: -50, scale: 0, opacity: 0.8
                 });
-                gsap.to(span, { scale: 1, opacity: 0, duration: .7, ease: "power2.out" });
+                gsap.to(span, {
+                  scale: 1,
+                  opacity: 0,
+                  duration: 0.8,
+                  ease: "power2.out",
+                  boxShadow: `0 0 ${size * 0.3}px var(--primary)`
+                });
               });
             });
           }
@@ -4117,20 +4393,33 @@
               split = null;
             }
 
-            const introTl = gsap.timeline({ delay: .3 });
+            const introTl = gsap.timeline({ delay: .2 });
             const isMobileDevice = window.matchMedia("(max-width: 768px)").matches;
 
             if (split) {
               gsap.set(split.chars, { display: "inline-block" });
-              introTl.from(split.chars, {
-                yPercent: isMobileDevice ? 100 : 130,      // CHANGED: 120 → 100 (more compact on mobile)
-                rotateX: isMobileDevice ? -60 : -90,       // CHANGED: -75 → -60 (smoother rotation)
-                opacity: 0,
-                filter: "blur(0px)",
-                transformOrigin: "50% 100% -20",
-                stagger: { each: isMobileDevice ? .010 : .018, from: "random" },  // CHANGED: .008 → .010
-                duration: isMobileDevice ? .7 : 1,         // CHANGED: .65 → .7 (better pacing)
-                ease: "power4.out"
+              introTl
+                .to(".hero-bg-shapes", { opacity: 0.8, duration: 0.8, ease: "power2.out" }, 0)
+                .to(".particles-field", { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.2)
+                .from(split.chars, {
+                  yPercent: isMobileDevice ? 100 : 130,
+                  rotateX: isMobileDevice ? -60 : -90,
+                  opacity: 0,
+                  filter: "blur(0px)",
+                  transformOrigin: "50% 100% -20",
+                  stagger: { each: isMobileDevice ? .010 : .018, from: "random" },
+                  duration: isMobileDevice ? .7 : 1,
+                  ease: "power4.out"
+                }, 0.4);
+
+              gsap.to(split.chars, {
+                textShadow: (i) => {
+                  return `0 0 20px rgba(0, 230, 168, ${0.5 + Math.sin(i * 0.3) * 0.3})`;
+                },
+                stagger: 0.05,
+                duration: 1.2,
+                delay: 0.8,
+                ease: "power2.inOut"
               });
             }
 
