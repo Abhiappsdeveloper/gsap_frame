@@ -3328,6 +3328,9 @@
         /* ============================================================
 3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
 ============================================================ */
+        /* ============================================================
+3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
+============================================================ */
         function initBounceBall() {
           const canvas = document.getElementById("bounceCanvas");
           if (!canvas || typeof THREE === "undefined") return;
@@ -3392,13 +3395,13 @@
             x: 0,
             y: 0.8,
             z: 0,
-            vx: (Math.random() - 0.5) * 2,
-            vy: (Math.random() - 0.5) * 2,
-            vz: (Math.random() - 0.5) * 0.5,
+            vx: (Math.random() - 0.5) * 0.8,        // CHANGED: 2 → 0.8 (reduced speed)
+            vy: (Math.random() - 0.5) * 0.8,        // CHANGED: 2 → 0.8 (reduced speed)
+            vz: (Math.random() - 0.5) * 0.2,        // CHANGED: 0.5 → 0.2 (reduced speed)
             radius: 0.4,
-            friction: 0.98,
-            bounce: 0.8,
-            gravity: 0.02
+            friction: 0.985,                         // CHANGED: 0.98 → 0.985 (less friction = gentler deceleration)
+            bounce: 0.65,                            // CHANGED: 0.8 → 0.65 (less bouncy, reduced stress)
+            gravity: 0.008                           // CHANGED: 0.02 → 0.008 (reduced gravity for gentle fall)
           };
 
           const viewportHeight = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z;
