@@ -4858,9 +4858,9 @@
             renderer.setClearColor(0x000000, 0);
 
             // Create icosphere (more interesting than basic sphere)
-            const geometry = new THREE.IcosahedronGeometry(1, 4);
+            const geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2);
             const material = new THREE.MeshStandardMaterial({
-              color: 0x16c8ff,
+              color: 0x00e6a8,
               metalness: 0.85,       // 0.7 → 0.85 (more shiny)
               roughness: 0.12,       // 0.2 → 0.12 (smoother surface)
               emissive: 0x16c8ff,
@@ -4870,15 +4870,14 @@
             const sphere = new THREE.Mesh(geometry, material);
             scene.add(sphere);
 
-            // Add rotating inner wireframe sphere
-            const wireGeometry = new THREE.IcosahedronGeometry(0.7, 3);
+            const wireGeometry = new THREE.OctahedronGeometry(0.6, 2);
             const wireMaterial = new THREE.MeshStandardMaterial({
-              color: 0x00e6a8,
+              color: 0x16c8ff,
               wireframe: true,
-              emissive: 0x00e6a8,
-              emissiveIntensity: 0.5,
+              emissive: 0x16c8ff,
+              emissiveIntensity: 0.6,
               transparent: true,
-              opacity: 0.4
+              opacity: 0.5
             });
             const wireframe = new THREE.Mesh(wireGeometry, wireMaterial);
             scene.add(wireframe);
@@ -4898,16 +4897,19 @@
 
             // Continuous rotation + scroll-driven tilt
             gsap.to(sphere.rotation, {
-              x: Math.PI * 4,
-              y: Math.PI * 3,
-              duration: 15,
+              x: Math.PI * 2,
+              y: Math.PI * 2.5,
+              z: Math.PI * 1.2,
+              duration: 12,
               repeat: -1,
               ease: "none"
             });
 
             gsap.to(wireframe.rotation, {
-              z: Math.PI * 6,
-              duration: 12,
+              x: Math.PI * 3,
+              y: Math.PI * 2,
+              z: Math.PI * 4,
+              duration: 14,
               repeat: -1,
               ease: "none"
             });
