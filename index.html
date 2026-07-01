@@ -3706,9 +3706,8 @@
               node.position.z = r * Math.sin(a) * Math.cos(tilt);
             });
 
-            // 6. Soft breathing scale (trust pulse — slow, organic)
-            const breathe = 1 + Math.sin(time * 0.012) * 0.025 + Math.cos(time * 0.009) * 0.012;
-            sphere.scale.set(breathe, breathe, breathe);
+            // 6. Fixed scale — no breathing, no movement distraction
+            sphere.scale.set(1, 1, 1);
 
             // 7. Steady core glow — no pulsing, professional constant presence
             coreMat.emissiveIntensity = 0.38;
