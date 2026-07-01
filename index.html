@@ -3429,7 +3429,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
       <script>
         /* ============================================================
-3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
+3D BOUNCE BALL ANIMATION — Enhanced Premium Realistic Look
 ============================================================ */
         function initBounceBall() {
           const canvas = document.getElementById("bounceCanvas");
@@ -3453,69 +3453,120 @@
           window.addEventListener("resize", resizeCanvas);
           camera.position.z = 5;
 
-          // ✅ ADD: Set scene background to transparent so it blends with page
+          // Set scene background to transparent
           scene.background = null;
-          renderer.setClearColor(0x000000, 0); // Transparent background
+          renderer.setClearColor(0x000000, 0);
 
-          // Create gradient texture for sphere
+          // ✅ ENHANCED: Premium gradient texture with subtle noise
           const canvas2d = document.createElement("canvas");
-          canvas2d.width = 256;
-          canvas2d.height = 256;
+          canvas2d.width = 512;
+          canvas2d.height = 512;
           const ctx = canvas2d.getContext("2d");
-          const gradient = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+
+          // Create multi-layer gradient for depth
+          const gradient = ctx.createRadialGradient(256, 256, 20, 256, 256, 256);
           gradient.addColorStop(0, "rgba(0, 230, 168, 1)");
-          gradient.addColorStop(0.5, "rgba(22, 200, 255, 0.8)");
-          gradient.addColorStop(1, "rgba(77, 124, 255, 0.6)");
+          gradient.addColorStop(0.35, "rgba(0, 200, 150, 0.95)");
+          gradient.addColorStop(0.6, "rgba(22, 200, 255, 0.85)");
+          gradient.addColorStop(0.85, "rgba(77, 124, 255, 0.7)");
+          gradient.addColorStop(1, "rgba(30, 60, 140, 0.5)");
           ctx.fillStyle = gradient;
-          ctx.fillRect(0, 0, 256, 256);
+          ctx.fillRect(0, 0, 512, 512);
+
+          // Add subtle noise for realism
+          const imageData = ctx.getImageData(0, 0, 512, 512);
+          const data = imageData.data;
+          for (let i = 0; i < data.length; i += 4) {
+            const noise = (Math.random() - 0.5) * 8;
+            data[i] += noise;
+            data[i + 1] += noise * 0.5;
+            data[i + 2] += noise * 0.3;
+          }
+          ctx.putImageData(imageData, 0, 0);
 
           const texture = new THREE.CanvasTexture(canvas2d);
-          const sphereGeometry = new THREE.TorusKnotGeometry(0.4, 0.15, 100, 8);
+          texture.magFilter = THREE.LinearFilter;
+          texture.minFilter = THREE.LinearMipmapLinearFilter;
+
+          // ✅ ENHANCED: TorusKnot geometry with premium materials
+          const sphereGeometry = new THREE.TorusKnotGeometry(0.4, 0.15, 128, 32); // Increased segments for smoothness
+
           const sphereMaterial = new THREE.MeshPhysicalMaterial({
+            map: texture,
             color: 0x00e6a8,
-            metalness: 0.9,
-            roughness: 0.1,
-            clearcoat: 0.8,
-            clearcoatRoughness: 0.2,
+            metalness: 0.92,
+            roughness: 0.08,
+            clearcoat: 0.95,
+            clearcoatRoughness: 0.15,
             emissive: 0x00e6a8,
-            emissiveIntensity: 0.8,
-            iridescence: 0.5,
-            iridescenceIOR: 1.3,
-            sheen: 0.3,
-            sheenColor: 0x16c8ff,
-            sheenRoughness: 0.5
+            emissiveIntensity: 0.6,
+            emissiveMap: texture,
+            iridescence: 0.8,
+            iridescenceIOR: 1.5,
+            sheen: 0.5,
+            sheenColor: new THREE.Color(0x16c8ff),
+            sheenRoughness: 0.3,
+            reflectivity: 0.95,
+            transmission: 0.1,
+            thickness: 0.5,
+            ior: 1.5,
+            dispersion: 0.2
           });
+
           const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
           scene.add(sphere);
 
-          // Lighting setup
-          const light1 = new THREE.PointLight(0x00e6a8, 1.5, 100);
-          light1.position.set(2, 2, 3);
-          scene.add(light1);
+          // ✅ ENHANCED: Sophisticated multi-light setup for premium look
+          // Key light (primary green accent)
+          const keyLight = new THREE.PointLight(0x00e6a8, 3.5, 150);
+          keyLight.position.set(5, 5, 6);
+          keyLight.castShadow = true;
+          scene.add(keyLight);
 
-          const light2 = new THREE.PointLight(0x16c8ff, 1, 100);
-          light2.position.set(-2, -2, 2);
-          scene.add(light2);
+          // Rim light (cyan accent - creates separation)
+          const rimLight = new THREE.PointLight(0x16c8ff, 2.8, 140);
+          rimLight.position.set(-6, 3, -5);
+          rimLight.castShadow = true;
+          scene.add(rimLight);
 
-          const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+          // Fill light (blue for depth and color variety)
+          const fillLight = new THREE.PointLight(0x4d7cff, 2.2, 120);
+          fillLight.position.set(2, -4, 3);
+          scene.add(fillLight);
+
+          // Subtle back light (deep purple for dimensionality)
+          const backLight = new THREE.PointLight(0x8b5cf6, 1.8, 100);
+          backLight.position.set(-3, -3, -4);
+          scene.add(backLight);
+
+          // Ambient light (stronger for overall illumination)
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
           scene.add(ambientLight);
 
+          // ✅ ENHANCED: Add environment map for realistic reflections
+          const cubeTextureLoader = new THREE.CubeTextureLoader();
+          try {
+            // Using a simple procedural environment as fallback
+            const envGeometry = new THREE.SphereGeometry(1000, 32, 32);
+            const envMaterial = new THREE.MeshBasicMaterial({
+              color: 0x0a1420,
+              side: THREE.BackSide
+            });
+            const envMesh = new THREE.Mesh(envGeometry, envMaterial);
+            scene.add(envMesh);
+          } catch (e) {
+            // Fallback: just use ambient light
+          }
+
           const ballData = {
-            x: 0,
-            y: 0,
-            z: 0,
-            // Orbital parameters instead of velocity
+            x: 0, y: 0, z: 0,
             orbitRadius: 1.2,
             orbitSpeedX: 0.003,
             orbitSpeedY: 0.004,
             orbitSpeedZ: 0.002,
-            angle: 0,
-            angleY: 0,
-            angleZ: 0,
-            // Pulse parameters
+            angle: 0, angleY: 0, angleZ: 0,
             pulseAmount: 0.15,
             pulseSpeed: 0.02,
-            // Keep for backward compatibility but not used
             radius: 0.4,
             friction: 0.995,
             bounce: 0,
@@ -3531,12 +3582,10 @@
           };
 
           function updatePhysics() {
-            // Orbital motion instead of bouncing
             ballData.angle += ballData.orbitSpeedX;
             ballData.angleY += ballData.orbitSpeedY;
             ballData.angleZ += ballData.orbitSpeedZ;
 
-            // Calculate position based on orbits
             const x = Math.cos(ballData.angle) * ballData.orbitRadius * Math.cos(ballData.angleY);
             const y = Math.sin(ballData.angleY) * ballData.orbitRadius * 0.6;
             const z = Math.sin(ballData.angle) * ballData.orbitRadius * Math.sin(ballData.angleY);
@@ -3544,8 +3593,6 @@
             ballData.x = x;
             ballData.y = y;
             ballData.z = z;
-
-            // No collision detection needed for orbital motion
           }
 
           let rotX = 0, rotY = 0, rotZ = 0;
@@ -3558,12 +3605,11 @@
 
             time += 0.01;
 
-            // Update position based on orbital motion
             sphere.position.x = ballData.x;
             sphere.position.y = ballData.y;
             sphere.position.z = ballData.z;
 
-            // Complex rotation: self-spin + orbit-based rotation
+            // ✅ ENHANCED: Complex rotation with smoother interpolation
             rotX += 0.008;
             rotY += 0.012;
             rotZ += 0.005;
@@ -3572,13 +3618,18 @@
             sphere.rotation.y = rotY;
             sphere.rotation.z = rotZ;
 
-            // Pulsing scale animation (breathing effect)
-            const pulse = 1 + Math.sin(time * ballData.pulseSpeed) * ballData.pulseAmount;
-            sphere.scale.set(pulse, pulse, pulse);
+            // ✅ ENHANCED: Sophisticated pulsing with multiple sine waves
+            const pulse = 1 + Math.sin(time * ballData.pulseSpeed) * ballData.pulseAmount * 0.8;
+            const secondaryPulse = Math.sin(time * 0.015) * 0.08;
+            sphere.scale.set(pulse + secondaryPulse, pulse + secondaryPulse, pulse + secondaryPulse);
 
-            // Glow effect - vary emissive intensity
-            const glowIntensity = 0.6 + Math.sin(time * 0.03) * 0.2;
+            // ✅ ENHANCED: Multi-layer glow effect with variation
+            const glowIntensity = 0.7 + Math.sin(time * 0.025) * 0.25 + Math.cos(time * 0.035) * 0.15;
             sphereMaterial.emissiveIntensity = glowIntensity;
+
+            // ✅ ENHANCED: Subtle color shifting for premium feel
+            const colorShift = Math.sin(time * 0.02) * 0.15;
+            sphereMaterial.color.setHSL(0.35 + colorShift * 0.05, 1, 0.5 + colorShift * 0.1);
 
             renderer.render(scene, camera);
           }
@@ -3604,6 +3655,7 @@
           setTimeout(initBounceBall, 800);
         });
       </script>
+
       <script>
         // ============================================================
         // 3D MORPHING PYRAMID ANIMATION (Right side - mirrored)
