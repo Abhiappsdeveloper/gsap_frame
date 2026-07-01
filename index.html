@@ -3825,154 +3825,243 @@
           function initHero() {
             const heading = document.getElementById("heroHeading");
 
-            let split;
+            let split = null;
+
             try {
-              split = SplitText.create(".hero-heading .word", { type: "chars", charsClass: "char" });
+              // Split ONLY the normal words.
+              split = SplitText.create(
+                ".hero-heading .word:not(.grad)",
+                {
+                  type: "chars",
+                  charsClass: "char"
+                }
+              );
             } catch (e) {
               split = null;
             }
 
-            const introTl = gsap.timeline({ delay: .3 });
-            const isMobileDevice = window.matchMedia("(max-width: 768px)").matches;
+            const introTl = gsap.timeline({ delay: 0.3 });
+
+            const isMobileDevice =
+              window.matchMedia("(max-width:768px)").matches;
 
             if (split) {
-              gsap.set(split.chars, { display: "inline-block" });
+
+              gsap.set(split.chars, {
+                display: "inline-block"
+              });
+
               introTl.from(split.chars, {
-                yPercent: isMobileDevice ? 100 : 130,      // CHANGED: 120 → 100 (more compact on mobile)
-                rotateX: isMobileDevice ? -60 : -90,       // CHANGED: -75 → -60 (smoother rotation)
+                yPercent: isMobileDevice ? 100 : 130,
+                rotateX: isMobileDevice ? -60 : -90,
                 opacity: 0,
                 filter: "blur(0px)",
                 transformOrigin: "50% 100% -20",
-                stagger: { each: isMobileDevice ? .010 : .018, from: "random" },  // CHANGED: .008 → .010
-                duration: isMobileDevice ? .7 : 1,         // CHANGED: .65 → .7 (better pacing)
+                stagger: {
+                  each: 0.018,
+                  from: "random"
+                },
+                duration: 1,
                 ease: "power4.out"
               });
             }
 
+            // Keep gradient words permanently visible
+            gsap.set(".hero-heading .word.grad", {
+              opacity: 1,
+              visibility: "visible",
+              display: "inline-block",
+              clearProps: "all"
+            });
+
             introTl
-              .to(".hero-heading .word.grad", {
-                filter: "none",
-                duration: .6
-              }, "-=.3")
-              .from(".hero-eyebrow", { opacity: 0, y: -14, duration: .6, ease: "power3.out" }, "-=1.1")
-              .from(".hero-sub", { opacity: 0, y: 20, duration: .8, ease: "power3.out" }, "-=.7")
-              .from(".hero-ctas .btn", { opacity: 0, y: 24, stagger: .1, duration: .7, ease: "power3.out" }, "-=.6")
-              .from(".service-card", {
-                opacity: 0, y: 50, rotateX: -10, stagger: .1, duration: .9, ease: "power3.out"
+              .from(".hero-heading .word.grad", {
+                opacity: 0,
+                y: 20,
+                duration: 0.6,
+                ease: "power3.out"
               }, "-=.5")
-              .from(".hero-scroll-cue", { opacity: 0, duration: .6 }, "-=.4");
 
-            // Enhanced parallax with mobile-specific intensity reduction
+              .from(".hero-eyebrow", {
+                opacity: 0,
+                y: -14,
+                duration: 0.6,
+                ease: "power3.out"
+              }, "-=1.1")
+
+              .from(".hero-sub", {
+                opacity: 0,
+                y: 20,
+                duration: 0.8,
+                ease: "power3.out"
+              }, "-=.7")
+
+              .from(".hero-ctas .btn", {
+                opacity: 0,
+                y: 24,
+                stagger: 0.1,
+                duration: 0.7,
+                ease: "power3.out"
+              }, "-=.6")
+
+              .from(".service-card", {
+                opacity: 0,
+                y: 50,
+                rotateX: -10,
+                stagger: 0.1,
+                duration: 0.9,
+                ease: "power3.out"
+              }, "-=.5")
+
+              .from(".hero-scroll-cue", {
+                opacity: 0,
+                duration: 0.6
+              }, "-=.4");
+
+            // -------------------------
+            // PARALLAX
+            // -------------------------
+
             if (!prefersReduced) {
-              const qHeadX = gsap.quickTo(heading, "x", { duration: .9, ease: "power3" });
-              const qHeadY = gsap.quickTo(heading, "y", { duration: .9, ease: "power3" });
-              const blobTargets = gsap.utils.toArray("[data-blob]");
-              const isMobileDevice = window.matchMedia("(max-width: 768px)").matches;
 
-              const blobSetters = blobTargets.map((b, i) =>
-              ({
-                x: gsap.quickTo(b, "x", { duration: 1.4, ease: "power3" }),
-                y: gsap.quickTo(b, "y", { duration: 1.4, ease: "power3" }),
-                depth: (i + 1) * (isMobileDevice ? 12 : 14)  // CHANGED: 8 → 12 (increased mobile intensity)
-              })
-              );
+              const qHeadX = gsap.quickTo(heading, "x", {
+                duration: 0.9,
+                ease: "power3"
+              });
+
+              const qHeadY = gsap.quickTo(heading, "y", {
+                duration: 0.9,
+                ease: "power3"
+              });
+
+              const blobTargets =
+                gsap.utils.toArray("[data-blob]");
+
+              const blobSetters = blobTargets.map((b, i) => ({
+                x: gsap.quickTo(b, "x", {
+                  duration: 1.4,
+                  ease: "power3"
+                }),
+                y: gsap.quickTo(b, "y", {
+                  duration: 1.4,
+                  ease: "power3"
+                }),
+                depth: (i + 1) * (isMobileDevice ? 12 : 14)
+              }));
 
               const handleMove = (e) => {
-                const relX = (e.clientX / innerWidth - .5);
-                const relY = (e.clientY / innerHeight - .5);
 
-                // Mobile uses reduced parallax intensity
-                const headMultiplier = isMobileDevice ? 8 : 16;
-                const yMultiplier = isMobileDevice ? 5 : 10;
+                const relX =
+                  e.clientX / innerWidth - 0.5;
+
+                const relY =
+                  e.clientY / innerHeight - 0.5;
+
+                const headMultiplier =
+                  isMobileDevice ? 8 : 16;
+
+                const yMultiplier =
+                  isMobileDevice ? 5 : 10;
 
                 qHeadX(relX * headMultiplier);
                 qHeadY(relY * yMultiplier);
-                blobSetters.forEach(s => { s.x(relX * s.depth); s.y(relY * s.depth); });
+
+                blobSetters.forEach(s => {
+                  s.x(relX * s.depth);
+                  s.y(relY * s.depth);
+                });
               };
 
-              const hero = document.querySelector(".hero");
-              hero.addEventListener("pointermove", handleMove, { passive: true });
+              const hero =
+                document.querySelector(".hero");
 
-              hero.addEventListener("touchmove", (e) => {
-                if (!e.touches.length) return;
-                handleMove({
-                  clientX: e.touches[0].clientX,
-                  clientY: e.touches[0].clientY
-                });
-              }, { passive: true });
+              hero.addEventListener(
+                "pointermove",
+                handleMove,
+                { passive: true }
+              );
+
+              hero.addEventListener(
+                "touchmove",
+                e => {
+
+                  if (!e.touches.length) return;
+
+                  handleMove({
+                    clientX: e.touches[0].clientX,
+                    clientY: e.touches[0].clientY
+                  });
+
+                },
+                { passive: true }
+              );
             }
-            // scroll-driven hero exit choreography
+
+            // -------------------------
+            // HERO EXIT
+            // -------------------------
+
             gsap.timeline({
+
               scrollTrigger: {
+
                 trigger: ".hero",
+
                 start: "top top",
+
                 end: "bottom top",
+
                 scrub: 1
+
               }
+
             })
-              .to(".hero-heading", { scale: .82, opacity: .15, ease: "none" }, 0)
-              .to(".hero-bg-shapes", { rotate: 12, scale: 1.15, ease: "none" }, 0)
-              .to(".service-cards", { y: -40, rotateX: 6, ease: "none" }, 0)
-              .to(".particles-field", { y: -120, ease: "none" }, 0)
-              .to(".hero-eyebrow, .hero-sub, .hero-scroll-cue", { opacity: 0, ease: "none" }, 0);
-          }
 
-          function initTiltCards() {
-            const isMobile = window.matchMedia("(hover:none), (pointer:coarse)").matches;
-            if (prefersReduced) return;
-            gsap.utils.toArray(".tilt-card").forEach(card => {
-              gsap.set(card, { rotateX: 0, rotateY: 0, scale: 1, force3D: true });
+              .to(".hero-heading", {
 
-              const qRX = gsap.quickTo(card, "rotateX", { duration: .5, ease: "power3" });
-              const qRY = gsap.quickTo(card, "rotateY", { duration: .5, ease: "power3" });
-              const qS = gsap.quickTo(card, "scale", { duration: .4, ease: "power3" });
+                scale: .82,
 
-              const onMove = (e) => {
-                const b = card.getBoundingClientRect();
-                const px = (e.clientX - b.left) / b.width - .5;
-                const py = (e.clientY - b.top) / b.height - .5;
-                qRX(py * -10);
-                qRY(px * 12);
-                qS(1.02);
-              };
+                opacity: .15,
 
-              const onLeave = () => {
-                qRX(0); qRY(0); qS(1);
-              };
+                ease: "none"
 
-              card.addEventListener("mousemove", onMove);
-              card.addEventListener("mouseleave", onLeave);
+              }, 0)
 
-              card.addEventListener("touchstart", () => {
-                gsap.to(card, {
-                  scale: 1.10,              // CHANGED: 1.08 → 1.10 (more visible on mobile)
-                  rotateX: -8,              // CHANGED: -5 → -8 (increased rotation)
-                  rotateY: 8,               // CHANGED: 5 → 8 (increased rotation)
-                  duration: .18,            // CHANGED: .2 → .18 (snappier)
-                  overwrite: "auto"
-                });
-              }, { passive: true });
+              .to(".hero-bg-shapes", {
 
-              card.addEventListener("touchmove", (e) => {
-                if (!e.touches.length) return;
-                const b = card.getBoundingClientRect();
-                const px = (e.touches[0].clientX - b.left) / b.width - .5;
-                const py = (e.touches[0].clientY - b.top) / b.height - .5;
-                qRX(py * -12);            // CHANGED: -10 → -12 (stronger rotation)
-                qRY(px * 14);             // CHANGED: 12 → 14 (stronger rotation)
-                qS(1.10);                 // Match touchstart scale
-              }, { passive: true });
+                rotate: 12,
 
-              card.addEventListener("touchend", () => {
-                qRX(0);
-                qRY(0);
-                qS(1);
-                gsap.to(card, {
-                  duration: .3,
-                  ease: "back.out(1.5)"
-                });
-              }, { passive: true });
-            });
+                scale: 1.15,
+
+                ease: "none"
+
+              }, 0)
+
+              .to(".service-cards", {
+
+                y: -40,
+
+                rotateX: 6,
+
+                ease: "none"
+
+              }, 0)
+
+              .to(".particles-field", {
+
+                y: -120,
+
+                ease: "none"
+
+              }, 0)
+
+              .to(".hero-eyebrow,.hero-sub,.hero-scroll-cue", {
+
+                opacity: 0,
+
+                ease: "none"
+
+              }, 0);
           }
           /* ============================================================
              STATS — animated counters w/ pulse glow
