@@ -2669,7 +2669,6 @@
         // Add this function call
         initBenefits3DCube();
 
-        // Then add this function definition BEFORE the closing });
         function initBenefits3DCube() {
           const container = document.getElementById("benefits-3d-cube-container");
           if (!container || typeof THREE === "undefined") return;
@@ -2688,67 +2687,20 @@
           scene.background = null;
           renderer.setClearColor(0x000000, 0);
 
-          // Create cube geometry
-          const geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2);
+          // ✅ CREATE SHIELD/TRUST SYMBOL (instead of cube)
+          const geometry = new THREE.ConeGeometry(1.2, 1.8, 6);
 
-          // Create canvas texture for each face
-          const createFaceTexture = (icon, color) => {
-            const canvas = document.createElement("canvas");
-            canvas.width = 256;
-            canvas.height = 256;
-            const ctx = canvas.getContext("2d");
+          const shieldMaterial = new THREE.MeshStandardMaterial({
+            color: 0x00e6a8,
+            metalness: 0.8,
+            roughness: 0.2,
+            emissive: 0x00e6a8,
+            emissiveIntensity: 0.5,
+            wireframe: false
+          });
 
-            // Background gradient
-            const grad = ctx.createRadialGradient(128, 128, 0, 128, 128, 180);
-            grad.addColorStop(0, color + "40");
-            grad.addColorStop(1, color + "10");
-            ctx.fillStyle = grad;
-            ctx.fillRect(0, 0, 256, 256);
-
-            // Border
-            ctx.strokeStyle = color + "80";
-            ctx.lineWidth = 3;
-            ctx.strokeRect(10, 10, 236, 236);
-
-            // Center text/icon placeholder
-            ctx.fillStyle = color + "cc";
-            ctx.font = "bold 48px Arial";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(icon, 128, 128);
-
-            return new THREE.CanvasTexture(canvas);
-          };
-
-          const materials = [
-            new THREE.MeshStandardMaterial({
-              map: createFaceTexture("⚡", "#00E6A8"),
-              metalness: 0.6, roughness: 0.3, emissive: 0x00e6a8, emissiveIntensity: 0.3
-            }),
-            new THREE.MeshStandardMaterial({
-              map: createFaceTexture("✓", "#16C8FF"),
-              metalness: 0.6, roughness: 0.3, emissive: 0x16c8ff, emissiveIntensity: 0.3
-            }),
-            new THREE.MeshStandardMaterial({
-              map: createFaceTexture("🎯", "#4D7CFF"),
-              metalness: 0.6, roughness: 0.3, emissive: 0x4d7cff, emissiveIntensity: 0.3
-            }),
-            new THREE.MeshStandardMaterial({
-              map: createFaceTexture("💼", "#00E6A8"),
-              metalness: 0.6, roughness: 0.3, emissive: 0x00e6a8, emissiveIntensity: 0.3
-            }),
-            new THREE.MeshStandardMaterial({
-              map: createFaceTexture("📊", "#16C8FF"),
-              metalness: 0.6, roughness: 0.3, emissive: 0x16c8ff, emissiveIntensity: 0.3
-            }),
-            new THREE.MeshStandardMaterial({
-              map: createFaceTexture("🔐", "#4D7CFF"),
-              metalness: 0.6, roughness: 0.3, emissive: 0x4d7cff, emissiveIntensity: 0.3
-            })
-          ];
-
-          const cube = new THREE.Mesh(geometry, materials);
-          scene.add(cube);
+          const trustSymbol = new THREE.Mesh(geometry, shieldMaterial);
+          scene.add(trustSymbol);
 
           // Lighting
           const light1 = new THREE.PointLight(0x00e6a8, 1.5, 100);
@@ -2765,7 +2717,7 @@
           gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.5 });
 
           // Scroll-driven rotation
-          gsap.to(cube.rotation, {
+          gsap.to(trustSymbol.rotation, {
             x: Math.PI * 2,
             y: Math.PI * 2.5,
             z: Math.PI,
@@ -2900,11 +2852,22 @@
      ============================================================ -->
       <section class="industries-section section-pad" id="industries" aria-label="Industries served">
         <div class="container">
-          <div class="section-head reveal-up">
-            <span class="section-eyebrow">Our Industries</span>
-            <h2 class="section-title">Empowering USA Industry with <span class="accent-text">Trusted Talent
-                Solutions</span>
-            </h2>
+          <!-- ✅ MODIFIED: Sphere inside section-head, right side blank area -->
+          <div class="section-head reveal-up"
+            style="position: relative; display: flex; align-items: center; justify-content: space-between; gap: 40px;">
+
+            <!-- ✅ 3D SPHERE (Right side, in blank space) -->
+            <div id="industries-3d-sphere-container"
+              style="position: relative; width: 320px; height: 320px; opacity: 0; flex-shrink: 0;" aria-hidden="true">
+            </div>
+
+            <!-- Text content wrapped in flex container -->
+            <div style="flex: 1;">
+              <span class="section-eyebrow">Our Industries</span>
+              <h2 class="section-title">Empowering USA Industry with <span class="accent-text">Trusted Talent
+                  Solutions</span>
+              </h2>
+            </div>
           </div>
 
           <div class="industries-grid">
@@ -2940,9 +2903,6 @@
             </div>
           </div>
         </div>
-        <!-- INSERT BEFORE: </section> (closing tag of .industries-section section-pad) -->
-        <div id="industries-3d-sphere-container" style="position: absolute; left: 2%; top: 38%; transform: translateY(-50%); 
-  width: 340px; height: 340px; opacity: 0;" aria-hidden="true"></div>
       </section>
 
       <!-- ============================================================
@@ -2950,12 +2910,24 @@
      ============================================================ -->
       <section class="workshop-section section-pad" id="workshop" aria-label="Online workshop">
         <div class="container">
-          <div class="section-head reveal-up">
-            <span class="section-eyebrow">Our Online Workshop</span>
-            <h2 class="section-title">Ukonnect <span class="accent-text">Training Programs</span></h2>
-            <p class="workshop-desc">Boost your career with our industry-focused online training courses, crafted to
-              match
-              employer expectations and USA job market demands — taught by practitioners, built for hiring outcomes.</p>
+          <!-- ✅ MODIFIED: Prism inside section-head, right side blank area -->
+          <div class="section-head reveal-up"
+            style="position: relative; display: flex; align-items: center; justify-content: space-between; gap: 40px;">
+
+            <!-- ✅ 3D PRISM (Right side, in blank space) -->
+            <div id="workshop-3d-prisms"
+              style="position: relative; width: 350px; height: 350px; opacity: 0; flex-shrink: 0;" aria-hidden="true">
+            </div>
+
+            <!-- Text content wrapped in flex container -->
+            <div style="flex: 1;">
+              <span class="section-eyebrow">Our Online Workshop</span>
+              <h2 class="section-title">Ukonnect <span class="accent-text">Training Programs</span></h2>
+              <p class="workshop-desc">Boost your career with our industry-focused online training courses, crafted to
+                match
+                employer expectations and USA job market demands — taught by practitioners, built for hiring outcomes.
+              </p>
+            </div>
           </div>
 
           <div class="workshop-grid">
@@ -3032,12 +3004,7 @@
             </div>
           </div>
         </div>
-        <!-- INSERT AFTER the 4 workshop-card divs -->
-
-        <div id="workshop-3d-prisms" style="position: absolute; bottom: 8%; right: 3%; 
-  width: 400px; height: 400px; opacity: 0;" aria-hidden="true"></div>
       </section>
-
       <!-- ============================================================
      TESTIMONIALS
      ============================================================ -->
