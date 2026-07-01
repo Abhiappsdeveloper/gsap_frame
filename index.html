@@ -3448,25 +3448,25 @@
 
           resizeCanvas();
           window.addEventListener("resize", resizeCanvas);
-          camera.position.z = 5;
+          camera.position.z = 4;  // ✅ CHANGED: 5 → 4 (brings orb closer for larger view)
 
           // Set scene background to transparent
           scene.background = null;
           renderer.setClearColor(0x000000, 0);
 
-          // ✅ ENHANCED: Premium gradient texture with subtle noise
+          // ✅ ENHANCED: Premium gradient texture with professional corporate colors
           const canvas2d = document.createElement("canvas");
           canvas2d.width = 512;
           canvas2d.height = 512;
           const ctx = canvas2d.getContext("2d");
 
-          // Create multi-layer gradient for depth
+          // Create multi-layer gradient with professional staffing colors (emerald, sapphire, silver)
           const gradient = ctx.createRadialGradient(256, 256, 20, 256, 256, 256);
-          gradient.addColorStop(0, "rgba(0, 230, 168, 1)");
-          gradient.addColorStop(0.35, "rgba(0, 200, 150, 0.95)");
-          gradient.addColorStop(0.6, "rgba(22, 200, 255, 0.85)");
-          gradient.addColorStop(0.85, "rgba(77, 124, 255, 0.7)");
-          gradient.addColorStop(1, "rgba(30, 60, 140, 0.5)");
+          gradient.addColorStop(0, "rgba(0, 230, 168, 1)");           // Bright emerald core
+          gradient.addColorStop(0.3, "rgba(30, 144, 180, 0.95)");     // ✅ CHANGED: Professional sapphire
+          gradient.addColorStop(0.6, "rgba(70, 130, 180, 0.85)");     // ✅ CHANGED: Steel blue
+          gradient.addColorStop(0.85, "rgba(65, 105, 155, 0.7)");     // ✅ CHANGED: Deep slate
+          gradient.addColorStop(1, "rgba(45, 65, 100, 0.5)");         // ✅ CHANGED: Corporate navy
           ctx.fillStyle = gradient;
           ctx.fillRect(0, 0, 512, 512);
 
@@ -3474,10 +3474,10 @@
           const imageData = ctx.getImageData(0, 0, 512, 512);
           const data = imageData.data;
           for (let i = 0; i < data.length; i += 4) {
-            const noise = (Math.random() - 0.5) * 8;
+            const noise = (Math.random() - 0.5) * 6;  // ✅ CHANGED: 8 → 6 (subtler noise for professional look)
             data[i] += noise;
-            data[i + 1] += noise * 0.5;
-            data[i + 2] += noise * 0.3;
+            data[i + 1] += noise * 0.6;
+            data[i + 2] += noise * 0.4;
           }
           ctx.putImageData(imageData, 0, 0);
 
@@ -3485,82 +3485,89 @@
           texture.magFilter = THREE.LinearFilter;
           texture.minFilter = THREE.LinearMipmapLinearFilter;
 
-          // ── PREMIUM UK TALENT CONNECTION ORB ──────────────────────────────
-          // Core: smooth icosphere (crystal premium look)
-          const coreGeo = new THREE.IcosahedronGeometry(0.55, 6);
+          // ── PREMIUM TALENT CONNECTION ORB (ENLARGED) ──────────────────────────────
+          // Core: smooth icosphere with larger scale
+          const coreGeo = new THREE.IcosahedronGeometry(0.75, 6);  // ✅ CHANGED: 0.55 → 0.75 (30% larger)
           const coreMat = new THREE.MeshPhysicalMaterial({
-            color: 0x0A2E57,
-            metalness: 0.9,
-            roughness: 0.05,
+            color: 0x0D3B66,  // ✅ CHANGED: 0x0A2E57 → 0x0D3B66 (deeper corporate blue)
+            metalness: 0.92,
+            roughness: 0.04,
             clearcoat: 1.0,
-            clearcoatRoughness: 0.04,
-            emissive: 0x1255A0,
+            clearcoatRoughness: 0.03,
+            emissive: 0x1E8FA0,  // ✅ CHANGED: 0x1255A0 → 0x1E8FA0 (teal for trust)
             emissiveIntensity: 0,
-            iridescence: 0.6,
-            iridescenceIOR: 1.5,
-            transmission: 0.15,
-            thickness: 0.6,
-            ior: 1.6,
-            reflectivity: 0.95,
-            sheen: 0.3,
-            sheenColor: new THREE.Color(0x40E0D0),
-            sheenRoughness: 0.1
+            iridescence: 0.5,  // ✅ CHANGED: 0.6 → 0.5 (less flashy, more professional)
+            iridescenceIOR: 1.4,  // ✅ CHANGED: 1.5 → 1.4 (subtle iridescence)
+            transmission: 0.1,  // ✅ CHANGED: 0.15 → 0.1 (less transparent)
+            thickness: 0.8,  // ✅ CHANGED: 0.6 → 0.8 (thicker shell)
+            ior: 1.5,  // ✅ CHANGED: 1.6 → 1.5
+            reflectivity: 0.93,
+            sheen: 0.2,  // ✅ CHANGED: 0.3 → 0.2 (subtle sheen)
+            sheenColor: new THREE.Color(0x4A9B8E),  // ✅ CHANGED: 0x40E0D0 → 0x4A9B8E (corporate teal)
+            sheenRoughness: 0.12  // ✅ CHANGED: 0.1 → 0.12
           });
           const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-          coreMat.color.set(0x0A2E57);
+          coreMat.color.set(0x0D3B66);
 
-          // Outer wireframe shell
-          const shellGeo = new THREE.IcosahedronGeometry(0.72, 2);
+          // Outer wireframe shell (enlarged)
+          const shellGeo = new THREE.IcosahedronGeometry(0.98, 2);  // ✅ CHANGED: 0.72 → 0.98 (scaled up)
           const shellMat = new THREE.MeshStandardMaterial({
             color: 0x00E6A8,
             wireframe: true,
             emissiveIntensity: 0,
             transparent: true,
-            opacity: 0.35
+            opacity: 0.25  // ✅ CHANGED: 0.35 → 0.25 (more subtle wireframe)
           });
           const shellMesh = new THREE.Mesh(shellGeo, shellMat);
 
-          // Orbital ring 1
-          const ring1Geo = new THREE.TorusGeometry(0.95, 0.025, 16, 90);
+          // Orbital ring 1 (enlarged)
+          const ring1Geo = new THREE.TorusGeometry(1.35, 0.04, 16, 90);  // ✅ CHANGED: 0.95, 0.025 → 1.35, 0.04 (larger, thicker)
           const ring1Mat = new THREE.MeshStandardMaterial({
-            color: 0x40E0D0,
-            metalness: 0.9,
-            roughness: 0.1,
+            color: 0x1E8FA0,  // ✅ CHANGED: 0x40E0D0 → 0x1E8FA0 (professional teal)
+            metalness: 0.92,
+            roughness: 0.08,
             transparent: true,
-            opacity: 0.85
+            opacity: 0.9  // ✅ CHANGED: 0.85 → 0.9 (more visible)
           });
           const ring1Mesh = new THREE.Mesh(ring1Geo, ring1Mat);
           ring1Mesh.rotation.x = Math.PI / 2;
 
-          // Orbital ring 2
-          const ring2Geo = new THREE.TorusGeometry(0.95, 0.02, 16, 90);
+          // Orbital ring 2 (enlarged)
+          const ring2Geo = new THREE.TorusGeometry(1.35, 0.028, 16, 90);  // ✅ CHANGED: 0.95, 0.02 → 1.35, 0.028 (scaled)
           const ring2Mat = new THREE.MeshStandardMaterial({
-            color: 0xFFD700,
-            metalness: 0.85,
-            roughness: 0.1,
+            color: 0xC9AE5D,  // ✅ CHANGED: 0xFFD700 → 0xC9AE5D (muted gold for professionalism)
+            metalness: 0.88,
+            roughness: 0.12,
             transparent: true,
-            opacity: 0.65
+            opacity: 0.7  // ✅ CHANGED: 0.65 → 0.7
           });
           const ring2Mesh = new THREE.Mesh(ring2Geo, ring2Mat);
           ring2Mesh.rotation.x = Math.PI / 3.5;
           ring2Mesh.rotation.z = Math.PI / 4;
 
-          // Floating talent nodes (6 orbiting dots = people connections)
+          // Floating talent nodes (6 orbiting dots = people connections, enlarged)
           const nodeMeshes = [];
-          const nodeGeo = new THREE.SphereGeometry(0.055, 12, 12);
-          const nodeColors = [0x00E6A8, 0x40E0D0, 0xFFD700, 0x1E90FF, 0x00E6A8, 0x40E0D0];
+          const nodeGeo = new THREE.SphereGeometry(0.08, 12, 12);  // ✅ CHANGED: 0.055 → 0.08 (45% larger)
+          const nodeColors = [
+            0x00E6A8,    // Emerald
+            0x1E8FA0,    // ✅ CHANGED: 0x40E0D0 → 0x1E8FA0 (professional teal)
+            0xC9AE5D,    // ✅ CHANGED: 0xFFD700 → 0xC9AE5D (muted gold)
+            0x4A7BA7,    // ✅ CHANGED: 0x1E90FF → 0x4A7BA7 (professional slate blue)
+            0x00E6A8,    // Emerald
+            0x1E8FA0     // ✅ CHANGED: Professional teal
+          ];
 
           for (let i = 0; i < 6; i++) {
             const nodeMat = new THREE.MeshStandardMaterial({
               color: nodeColors[i],
-              metalness: 0.85,
-              roughness: 0.15,
+              metalness: 0.87,  // ✅ CHANGED: 0.85 → 0.87
+              roughness: 0.13,  // ✅ CHANGED: 0.15 → 0.13
               emissive: nodeColors[i],
-              emissiveIntensity: 0.15  // ✅ FIXED: Constant subtle glow, no blinking
+              emissiveIntensity: 0.15
             });
             const nodeMesh = new THREE.Mesh(nodeGeo, nodeMat);
             nodeMesh.userData.orbitAngle = (i / 6) * Math.PI * 2;
-            nodeMesh.userData.orbitRadius = 0.95;
+            nodeMesh.userData.orbitRadius = 1.35;  // ✅ CHANGED: 0.95 → 1.35 (match enlarged ring)
             nodeMesh.userData.orbitTilt = (i % 2 === 0) ? 0 : Math.PI / 3.5;
             nodeMeshes.push(nodeMesh);
           }
@@ -3576,34 +3583,34 @@
 
           const sphere = ukOrb;
 
-          // Professional lighting setup
-          const keyLight = new THREE.PointLight(0x1255A0, 3.0, 180);
-          keyLight.position.set(6, 5, 7);
+          // Professional corporate lighting setup
+          const keyLight = new THREE.PointLight(0x1E8FA0, 3.2, 200);  // ✅ CHANGED: 0x1255A0, 3.0, 180 → 0x1E8FA0, 3.2, 200 (professional teal key)
+          keyLight.position.set(7, 6, 8);  // ✅ CHANGED: 6, 5, 7 → 7, 6, 8
           scene.add(keyLight);
 
-          const rimLight = new THREE.PointLight(0x40E0D0, 2.5, 160);
-          rimLight.position.set(-7, 4, -6);
+          const rimLight = new THREE.PointLight(0x00E6A8, 2.8, 180);  // ✅ CHANGED: 0x40E0D0, 2.5, 160 → 0x00E6A8, 2.8, 180
+          rimLight.position.set(-8, 5, -7);  // ✅ CHANGED: -7, 4, -6 → -8, 5, -7
           scene.add(rimLight);
 
-          const fillLight = new THREE.PointLight(0xF0F0F0, 1.8, 140);
-          fillLight.position.set(3, -3, 4);
+          const fillLight = new THREE.PointLight(0xE8E8E8, 2.0, 160);  // ✅ CHANGED: 0xF0F0F0, 1.8, 140 → 0xE8E8E8, 2.0, 160 (warmer white)
+          fillLight.position.set(4, -4, 5);  // ✅ CHANGED: 3, -3, 4 → 4, -4, 5
           scene.add(fillLight);
 
-          const accentLight = new THREE.PointLight(0xFFD700, 1.6, 130);
-          accentLight.position.set(-4, 2, -3);
+          const accentLight = new THREE.PointLight(0xC9AE5D, 1.8, 150);  // ✅ CHANGED: 0xFFD700, 1.6, 130 → 0xC9AE5D, 1.8, 150 (muted gold)
+          accentLight.position.set(-5, 3, -4);  // ✅ CHANGED: -4, 2, -3 → -5, 3, -4
           scene.add(accentLight);
 
-          const upLight = new THREE.PointLight(0x00E6A8, 1.2, 100);
-          upLight.position.set(0, -4, 2);
+          const upLight = new THREE.PointLight(0x1E8FA0, 1.4, 120);  // ✅ CHANGED: 0x00E6A8, 1.2, 100 → 0x1E8FA0, 1.4, 120
+          upLight.position.set(0, -5, 2);  // ✅ CHANGED: 0, -4, 2 → 0, -5, 2
           scene.add(upLight);
 
-          const ambientLight = new THREE.AmbientLight(0xF5F5F5, 0.6);
+          const ambientLight = new THREE.AmbientLight(0xF5F5F5, 0.65);  // ✅ CHANGED: 0.6 → 0.65 (slightly brighter)
           scene.add(ambientLight);
 
-          // Add environment
+          // Add environment (corporate background)
           const envGeometry = new THREE.SphereGeometry(1000, 32, 32);
           const envMaterial = new THREE.MeshBasicMaterial({
-            color: 0x0a1420,
+            color: 0x0a1420,  // Deep navy corporate background
             side: THREE.BackSide
           });
           const envMesh = new THREE.Mesh(envGeometry, envMaterial);
