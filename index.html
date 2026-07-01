@@ -843,6 +843,10 @@
       height: 100%;
       pointer-events: none;
       z-index: 4;
+      opacity: 1;
+      /* ✅ ADD: Ensure canvas is fully visible */
+      display: block;
+      /* ✅ ADD: Ensure canvas is rendered */
     }
 
     @media (max-width: 768px) {
@@ -3337,7 +3341,6 @@
           if (hiringTimeline) {
             observer.observe(hiringTimeline);
           }
-
           function animate() {
             requestAnimationFrame(animate);
 
@@ -3363,7 +3366,7 @@
               glowMaterial.emissiveIntensity = 0.4 + Math.sin(time * Math.PI * 3) * 0.2;
             }
 
-            renderer.render(scene, camera);
+            renderer.render(scene, camera);  // ← THIS LINE ALREADY EXISTS - KEEP IT
           }
 
           animate();
@@ -3548,7 +3551,11 @@
 
           resizeCanvas();
           window.addEventListener("resize", resizeCanvas);
-          camera.position.z = 2.5;
+          camera.position.z = 5;
+
+          // ✅ ADD: Set scene background to transparent so it blends with page
+          scene.background = null;
+          renderer.setClearColor(0x000000, 0); // Transparent background
 
           // Create gradient texture for sphere
           const canvas2d = document.createElement("canvas");
