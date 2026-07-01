@@ -601,9 +601,11 @@
 
     .hero-heading .word {
       display: inline-block;
-      will-change: transform, filter, opacity;
+      will-change: transform, opacity;
       backface-visibility: hidden;
       white-space: nowrap;
+      filter: none !important;
+      backdrop-filter: none !important;
     }
 
     .hero-heading .word.grad {
@@ -619,11 +621,7 @@
       color: #ffffff;
       /* Fallback if background-clip isn't supported */
 
-      text-shadow:
-        0 0 10px rgba(255, 255, 255, .35),
-        0 0 25px rgba(0, 230, 168, .45),
-        0 0 40px rgba(22, 200, 255, .25);
-
+      text-shadow: none;
       filter: none;
     }
 
@@ -3844,7 +3842,7 @@
                 yPercent: isMobileDevice ? 100 : 130,      // CHANGED: 120 → 100 (more compact on mobile)
                 rotateX: isMobileDevice ? -60 : -90,       // CHANGED: -75 → -60 (smoother rotation)
                 opacity: 0,
-                filter: "blur(10px)",
+                filter: "blur(0px)",
                 transformOrigin: "50% 100% -20",
                 stagger: { each: isMobileDevice ? .010 : .018, from: "random" },  // CHANGED: .008 → .010
                 duration: isMobileDevice ? .7 : 1,         // CHANGED: .65 → .7 (better pacing)
@@ -3854,7 +3852,7 @@
 
             introTl
               .to(".hero-heading .word.grad", {
-                filter: "drop-shadow(0 0 30px rgba(0,230,168,.55))",
+                filter: "none",
                 duration: .6
               }, "-=.3")
               .from(".hero-eyebrow", { opacity: 0, y: -14, duration: .6, ease: "power3.out" }, "-=1.1")
