@@ -3484,6 +3484,7 @@
           const texture = new THREE.CanvasTexture(canvas2d);
           texture.magFilter = THREE.LinearFilter;
           texture.minFilter = THREE.LinearMipmapLinearFilter;
+
           // ── PREMIUM UK TALENT CONNECTION ORB ──────────────────────────────
           // Core: smooth icosphere (crystal premium look)
           const coreGeo = new THREE.IcosahedronGeometry(0.55, 6);
@@ -3494,7 +3495,7 @@
             clearcoat: 1.0,
             clearcoatRoughness: 0.04,
             emissive: 0x1255A0,
-            emissiveIntensity: 0,  // ✅ FIXED
+            emissiveIntensity: 0,
             iridescence: 0.6,
             iridescenceIOR: 1.5,
             transmission: 0.15,
@@ -3506,20 +3507,20 @@
             sheenRoughness: 0.1
           });
           const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-          coreMat.color.set(0x0A2E57); // Lock: deep royal blue, no shifting
+          coreMat.color.set(0x0A2E57);
 
-          // Outer wireframe shell — represents global talent network
+          // Outer wireframe shell
           const shellGeo = new THREE.IcosahedronGeometry(0.72, 2);
           const shellMat = new THREE.MeshStandardMaterial({
             color: 0x00E6A8,
             wireframe: true,
-            emissiveIntensity: 0,  // ✅ FIXED
+            emissiveIntensity: 0,
             transparent: true,
             opacity: 0.35
           });
           const shellMesh = new THREE.Mesh(shellGeo, shellMat);
 
-          // Orbital ring 1 — horizontal equator (employer ring)
+          // Orbital ring 1
           const ring1Geo = new THREE.TorusGeometry(0.95, 0.025, 16, 90);
           const ring1Mat = new THREE.MeshStandardMaterial({
             color: 0x40E0D0,
@@ -3527,12 +3528,11 @@
             roughness: 0.1,
             transparent: true,
             opacity: 0.85
-            // Remove emissive lines entirely
           });
           const ring1Mesh = new THREE.Mesh(ring1Geo, ring1Mat);
           ring1Mesh.rotation.x = Math.PI / 2;
 
-          // Orbital ring 2 — tilted (candidate ring)
+          // Orbital ring 2
           const ring2Geo = new THREE.TorusGeometry(0.95, 0.02, 16, 90);
           const ring2Mat = new THREE.MeshStandardMaterial({
             color: 0xFFD700,
@@ -3549,13 +3549,14 @@
           const nodeMeshes = [];
           const nodeGeo = new THREE.SphereGeometry(0.055, 12, 12);
           const nodeColors = [0x00E6A8, 0x40E0D0, 0xFFD700, 0x1E90FF, 0x00E6A8, 0x40E0D0];
+
           for (let i = 0; i < 6; i++) {
             const nodeMat = new THREE.MeshStandardMaterial({
               color: nodeColors[i],
+              metalness: 0.85,
+              roughness: 0.15,
               emissive: nodeColors[i],
-              emissiveIntensity: 0.3,   // CHANGED: 1.0 → 0.3 (subtle, not glowing orbs)
-              metalness: 0.85,           // CHANGED: 0.8 → 0.85 (more metallic, less glowing)
-              roughness: 0.15            // CHANGED: 0.1 → 0.15 (slightly less mirror-like)
+              emissiveIntensity: 0.15  // ✅ FIXED: Constant subtle glow, no blinking
             });
             const nodeMesh = new THREE.Mesh(nodeGeo, nodeMat);
             nodeMesh.userData.orbitAngle = (i / 6) * Math.PI * 2;
@@ -3573,53 +3574,40 @@
           nodeMeshes.forEach(n => ukOrb.add(n));
           scene.add(ukOrb);
 
-          const sphere = ukOrb; // ← ADD THIS LINE
+          const sphere = ukOrb;
 
-          // Key: Royal blue wash from upper-right
-
-          // Key: Royal blue wash from upper-right
+          // Professional lighting setup
           const keyLight = new THREE.PointLight(0x1255A0, 3.0, 180);
           keyLight.position.set(6, 5, 7);
           scene.add(keyLight);
 
-          // Rim: Turquoise separation from left (talent side)
           const rimLight = new THREE.PointLight(0x40E0D0, 2.5, 160);
           rimLight.position.set(-7, 4, -6);
           scene.add(rimLight);
 
-          // Fill: Pearl white (clean, corporate)
           const fillLight = new THREE.PointLight(0xF0F0F0, 1.8, 140);
           fillLight.position.set(3, -3, 4);
           scene.add(fillLight);
 
-          // Accent: Gold (executive premium)
           const accentLight = new THREE.PointLight(0xFFD700, 1.6, 130);
           accentLight.position.set(-4, 2, -3);
           scene.add(accentLight);
 
-          // Uplight: Emerald beneath (trust & growth)
           const upLight = new THREE.PointLight(0x00E6A8, 1.2, 100);
           upLight.position.set(0, -4, 2);
           scene.add(upLight);
 
-          // Ambient
           const ambientLight = new THREE.AmbientLight(0xF5F5F5, 0.6);
           scene.add(ambientLight);
 
-          // ✅ ENHANCED: Add environment map for realistic reflections
-          const cubeTextureLoader = new THREE.CubeTextureLoader();
-          try {
-            // Using a simple procedural environment as fallback
-            const envGeometry = new THREE.SphereGeometry(1000, 32, 32);
-            const envMaterial = new THREE.MeshBasicMaterial({
-              color: 0x0a1420,
-              side: THREE.BackSide
-            });
-            const envMesh = new THREE.Mesh(envGeometry, envMaterial);
-            scene.add(envMesh);
-          } catch (e) {
-            // Fallback: just use ambient light
-          }
+          // Add environment
+          const envGeometry = new THREE.SphereGeometry(1000, 32, 32);
+          const envMaterial = new THREE.MeshBasicMaterial({
+            color: 0x0a1420,
+            side: THREE.BackSide
+          });
+          const envMesh = new THREE.Mesh(envGeometry, envMaterial);
+          scene.add(envMesh);
 
           const ballData = {
             x: 0, y: 0, z: 0,
@@ -3638,11 +3626,6 @@
 
           const viewportHeight = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z;
           const viewportWidth = viewportHeight * camera.aspect;
-
-          const boundaries = {
-            width: viewportWidth,
-            height: viewportHeight
-          };
 
           function updatePhysics() {
             ballData.angle += ballData.orbitSpeedX;
@@ -3683,21 +3666,6 @@
 
             ring1Mesh.rotation.z += 0.006;
             ring2Mesh.rotation.z -= 0.004;
-
-            // In initBounceBall, replace the nodeMeshes creation section with:
-
-            nodeMeshes.forEach((node, i) => {
-              const nodeMat = new THREE.MeshStandardMaterial({
-                color: nodeColors[i],
-                metalness: 0.85,
-                roughness: 0.15
-              });
-              const nodeMesh = new THREE.Mesh(nodeGeo, nodeMat);
-              nodeMesh.userData.orbitAngle = (i / 6) * Math.PI * 2;
-              nodeMesh.userData.orbitRadius = 0.95;
-              nodeMesh.userData.orbitTilt = (i % 2 === 0) ? 0 : Math.PI / 3.5;
-              nodeMeshes.push(nodeMesh);
-            });
 
             sphere.scale.set(1, 1, 1);
 
