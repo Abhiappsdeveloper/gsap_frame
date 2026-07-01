@@ -3515,21 +3515,19 @@
             glowMesh.position.copy(sphere.position);
           }
 
-          let rotX = 0, rotY = 0, rotZ = 0;
+          let rotX = 0, rotY = 0;
 
           function animate() {
             requestAnimationFrame(animate);
 
             updatePhysics();
 
-            // Rotation based on velocity (slowed down)
-            rotX += ballData.vy * 0.2;
-            rotY += ballData.vx * 0.2;
-            rotZ += (ballData.vx + ballData.vy) * 0.1;
+            // Rotation based on velocity
+            rotX += ballData.vy * 0.5;
+            rotY += ballData.vx * 0.5;
 
             sphere.rotation.x = rotX;
             sphere.rotation.y = rotY;
-            sphere.rotation.z = rotZ;
             glowMesh.rotation.copy(sphere.rotation);
 
             // Pulsing glow effect
