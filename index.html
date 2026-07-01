@@ -2633,6 +2633,11 @@
             </div>
 
             <div class="benefits-visual reveal-up">
+              <!-- ✅ 3D CUBE CONTAINER MOVED HERE (BEFORE content) -->
+              <div id="benefits-3d-cube-container"
+                style="position: relative; width: 280px; height: 280px; margin: 0 auto 32px; opacity: 0;"
+                aria-hidden="true"></div>
+
               <div class="benefits-visual-content">
                 <h3>Trusted by 5,000+</h3>
                 <p>Companies across America rely on Ukonnect for their most critical hiring needs. Join the network of
@@ -2655,135 +2660,136 @@
           </div>
         </div>
 
-        <div id="benefits-3d-cube-container" style="position: absolute; right: 4%; top: 45%; transform: translateY(-50%); 
-  width: 320px; height: 320px; opacity: 0;" aria-hidden="true"></div>
-        <script>
-          // Add this function call
-          initBenefits3DCube();
-
-          // Then add this function definition BEFORE the closing });
-          function initBenefits3DCube() {
-            const container = document.getElementById("benefits-3d-cube-container");
-            if (!container || typeof THREE === "undefined") return;
-
-            const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            if (prefersReduced) return;
-
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-            camera.position.z = 2.5;
-            renderer.setSize(300, 300);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-            container.appendChild(renderer.domElement);
-            scene.background = null;
-            renderer.setClearColor(0x000000, 0);
-
-            // Create cube geometry
-            const geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2);
-
-            // Create canvas texture for each face
-            const createFaceTexture = (icon, color) => {
-              const canvas = document.createElement("canvas");
-              canvas.width = 256;
-              canvas.height = 256;
-              const ctx = canvas.getContext("2d");
-
-              // Background gradient
-              const grad = ctx.createRadialGradient(128, 128, 0, 128, 128, 180);
-              grad.addColorStop(0, color + "40");
-              grad.addColorStop(1, color + "10");
-              ctx.fillStyle = grad;
-              ctx.fillRect(0, 0, 256, 256);
-
-              // Border
-              ctx.strokeStyle = color + "80";
-              ctx.lineWidth = 3;
-              ctx.strokeRect(10, 10, 236, 236);
-
-              // Center text/icon placeholder
-              ctx.fillStyle = color + "cc";
-              ctx.font = "bold 48px Arial";
-              ctx.textAlign = "center";
-              ctx.textBaseline = "middle";
-              ctx.fillText(icon, 128, 128);
-
-              return new THREE.CanvasTexture(canvas);
-            };
-
-            const materials = [
-              new THREE.MeshStandardMaterial({
-                map: createFaceTexture("⚡", "#00E6A8"),
-                metalness: 0.6, roughness: 0.3, emissive: 0x00e6a8, emissiveIntensity: 0.3
-              }),
-              new THREE.MeshStandardMaterial({
-                map: createFaceTexture("✓", "#16C8FF"),
-                metalness: 0.6, roughness: 0.3, emissive: 0x16c8ff, emissiveIntensity: 0.3
-              }),
-              new THREE.MeshStandardMaterial({
-                map: createFaceTexture("🎯", "#4D7CFF"),
-                metalness: 0.6, roughness: 0.3, emissive: 0x4d7cff, emissiveIntensity: 0.3
-              }),
-              new THREE.MeshStandardMaterial({
-                map: createFaceTexture("💼", "#00E6A8"),
-                metalness: 0.6, roughness: 0.3, emissive: 0x00e6a8, emissiveIntensity: 0.3
-              }),
-              new THREE.MeshStandardMaterial({
-                map: createFaceTexture("📊", "#16C8FF"),
-                metalness: 0.6, roughness: 0.3, emissive: 0x16c8ff, emissiveIntensity: 0.3
-              }),
-              new THREE.MeshStandardMaterial({
-                map: createFaceTexture("🔐", "#4D7CFF"),
-                metalness: 0.6, roughness: 0.3, emissive: 0x4d7cff, emissiveIntensity: 0.3
-              })
-            ];
-
-            const cube = new THREE.Mesh(geometry, materials);
-            scene.add(cube);
-
-            // Lighting
-            const light1 = new THREE.PointLight(0x00e6a8, 1.5, 100);
-            light1.position.set(3, 3, 3);
-            scene.add(light1);
-
-            const light2 = new THREE.PointLight(0x4d7cff, 1, 100);
-            light2.position.set(-3, -3, 3);
-            scene.add(light2);
-
-            scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-
-            // Fade in
-            gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.5 });
-
-            // Scroll-driven rotation
-            gsap.to(cube.rotation, {
-              x: Math.PI * 2,
-              y: Math.PI * 2.5,
-              z: Math.PI,
-              scrollTrigger: {
-                trigger: ".benefits-section",
-                start: "top center",
-                end: "bottom center",
-                scrub: 1.5,
-                markers: false
-              },
-              ease: "none"
-            });
-
-            function animate() {
-              requestAnimationFrame(animate);
-              renderer.render(scene, camera);
-            }
-            animate();
-
-            window.addEventListener("resize", () => {
-              renderer.setSize(300, 300);
-            });
-          }
-        </script>
+        <!-- ✅ OLD CONTAINER REMOVED (was here) -->
 
       </section>
+
+      <script>
+        // Add this function call
+        initBenefits3DCube();
+
+        // Then add this function definition BEFORE the closing });
+        function initBenefits3DCube() {
+          const container = document.getElementById("benefits-3d-cube-container");
+          if (!container || typeof THREE === "undefined") return;
+
+          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (prefersReduced) return;
+
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+          camera.position.z = 2.5;
+          renderer.setSize(300, 300);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+          container.appendChild(renderer.domElement);
+          scene.background = null;
+          renderer.setClearColor(0x000000, 0);
+
+          // Create cube geometry
+          const geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2);
+
+          // Create canvas texture for each face
+          const createFaceTexture = (icon, color) => {
+            const canvas = document.createElement("canvas");
+            canvas.width = 256;
+            canvas.height = 256;
+            const ctx = canvas.getContext("2d");
+
+            // Background gradient
+            const grad = ctx.createRadialGradient(128, 128, 0, 128, 128, 180);
+            grad.addColorStop(0, color + "40");
+            grad.addColorStop(1, color + "10");
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 256, 256);
+
+            // Border
+            ctx.strokeStyle = color + "80";
+            ctx.lineWidth = 3;
+            ctx.strokeRect(10, 10, 236, 236);
+
+            // Center text/icon placeholder
+            ctx.fillStyle = color + "cc";
+            ctx.font = "bold 48px Arial";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(icon, 128, 128);
+
+            return new THREE.CanvasTexture(canvas);
+          };
+
+          const materials = [
+            new THREE.MeshStandardMaterial({
+              map: createFaceTexture("⚡", "#00E6A8"),
+              metalness: 0.6, roughness: 0.3, emissive: 0x00e6a8, emissiveIntensity: 0.3
+            }),
+            new THREE.MeshStandardMaterial({
+              map: createFaceTexture("✓", "#16C8FF"),
+              metalness: 0.6, roughness: 0.3, emissive: 0x16c8ff, emissiveIntensity: 0.3
+            }),
+            new THREE.MeshStandardMaterial({
+              map: createFaceTexture("🎯", "#4D7CFF"),
+              metalness: 0.6, roughness: 0.3, emissive: 0x4d7cff, emissiveIntensity: 0.3
+            }),
+            new THREE.MeshStandardMaterial({
+              map: createFaceTexture("💼", "#00E6A8"),
+              metalness: 0.6, roughness: 0.3, emissive: 0x00e6a8, emissiveIntensity: 0.3
+            }),
+            new THREE.MeshStandardMaterial({
+              map: createFaceTexture("📊", "#16C8FF"),
+              metalness: 0.6, roughness: 0.3, emissive: 0x16c8ff, emissiveIntensity: 0.3
+            }),
+            new THREE.MeshStandardMaterial({
+              map: createFaceTexture("🔐", "#4D7CFF"),
+              metalness: 0.6, roughness: 0.3, emissive: 0x4d7cff, emissiveIntensity: 0.3
+            })
+          ];
+
+          const cube = new THREE.Mesh(geometry, materials);
+          scene.add(cube);
+
+          // Lighting
+          const light1 = new THREE.PointLight(0x00e6a8, 1.5, 100);
+          light1.position.set(3, 3, 3);
+          scene.add(light1);
+
+          const light2 = new THREE.PointLight(0x4d7cff, 1, 100);
+          light2.position.set(-3, -3, 3);
+          scene.add(light2);
+
+          scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+          // Fade in
+          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.5 });
+
+          // Scroll-driven rotation
+          gsap.to(cube.rotation, {
+            x: Math.PI * 2,
+            y: Math.PI * 2.5,
+            z: Math.PI,
+            scrollTrigger: {
+              trigger: ".benefits-section",
+              start: "top center",
+              end: "bottom center",
+              scrub: 1.5,
+              markers: false
+            },
+            ease: "none"
+          });
+
+          function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+          }
+          animate();
+
+          window.addEventListener("resize", () => {
+            renderer.setSize(300, 300);
+          });
+        }
+      </script>
+
       <!-- ============================================================
      HIRING TIMELINE
      ============================================================ -->
