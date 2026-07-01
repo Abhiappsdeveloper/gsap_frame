@@ -3494,7 +3494,7 @@
             clearcoat: 1.0,
             clearcoatRoughness: 0.04,
             emissive: 0x1255A0,
-            emissiveIntensity: 0.38,
+            emissiveIntensity: 0,  // ✅ FIXED
             iridescence: 0.6,
             iridescenceIOR: 1.5,
             transmission: 0.15,
@@ -3513,8 +3513,7 @@
           const shellMat = new THREE.MeshStandardMaterial({
             color: 0x00E6A8,
             wireframe: true,
-            emissive: 0x00E6A8,
-            emissiveIntensity: 0.55,
+            emissiveIntensity: 0,  // ✅ FIXED
             transparent: true,
             opacity: 0.35
           });
@@ -3528,6 +3527,7 @@
             roughness: 0.1,
             transparent: true,
             opacity: 0.85
+            // Remove emissive lines entirely
           });
           const ring1Mesh = new THREE.Mesh(ring1Geo, ring1Mat);
           ring1Mesh.rotation.x = Math.PI / 2;
