@@ -3524,8 +3524,6 @@
           const ring1Geo = new THREE.TorusGeometry(0.95, 0.025, 16, 90);
           const ring1Mat = new THREE.MeshStandardMaterial({
             color: 0x40E0D0,
-            emissive: 0x40E0D0,
-            emissiveIntensity: 0.8,
             metalness: 0.9,
             roughness: 0.1,
             transparent: true,
@@ -3538,8 +3536,6 @@
           const ring2Geo = new THREE.TorusGeometry(0.95, 0.02, 16, 90);
           const ring2Mat = new THREE.MeshStandardMaterial({
             color: 0xFFD700,
-            emissive: 0xFFD700,
-            emissiveIntensity: 0.6,
             metalness: 0.85,
             roughness: 0.1,
             transparent: true,
@@ -3688,14 +3684,19 @@
             ring1Mesh.rotation.z += 0.006;
             ring2Mesh.rotation.z -= 0.004;
 
+            // In initBounceBall, replace the nodeMeshes creation section with:
+
             nodeMeshes.forEach((node, i) => {
-              node.userData.orbitAngle += 0.008 + i * 0.001;
-              const a = node.userData.orbitAngle;
-              const r = node.userData.orbitRadius;
-              const tilt = node.userData.orbitTilt;
-              node.position.x = r * Math.cos(a);
-              node.position.y = r * Math.sin(a) * Math.sin(tilt);
-              node.position.z = r * Math.sin(a) * Math.cos(tilt);
+              const nodeMat = new THREE.MeshStandardMaterial({
+                color: nodeColors[i],
+                metalness: 0.85,
+                roughness: 0.15
+              });
+              const nodeMesh = new THREE.Mesh(nodeGeo, nodeMat);
+              nodeMesh.userData.orbitAngle = (i / 6) * Math.PI * 2;
+              nodeMesh.userData.orbitRadius = 0.95;
+              nodeMesh.userData.orbitTilt = (i % 2 === 0) ? 0 : Math.PI / 3.5;
+              nodeMeshes.push(nodeMesh);
             });
 
             sphere.scale.set(1, 1, 1);
