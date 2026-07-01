@@ -3325,6 +3325,9 @@
         /* ============================================================
   3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
   ============================================================ */
+        /* ============================================================
+3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
+============================================================ */
         function initBounceBall() {
           const canvas = document.getElementById("bounceCanvas");
           if (!canvas || typeof THREE === "undefined") return;
@@ -3360,80 +3363,18 @@
           ctx.fillRect(0, 0, 256, 256);
 
           const texture = new THREE.CanvasTexture(canvas2d);
-          // Create Graduation Cap (Mortarboard)
-          const capGroup = new THREE.Group();
-
-          // Cap base (cube/square board)
-          const capBoardGeometry = new THREE.BoxGeometry(0.6, 0.1, 0.6);
-          const capMaterial = new THREE.MeshStandardMaterial({
-            color: 0x1a1a1a,
-            metalness: 0.3,
-            roughness: 0.6,
+          const sphereGeometry = new THREE.SphereGeometry(0.4, 64, 64);
+          const sphereMaterial = new THREE.MeshStandardMaterial({
+            map: texture,
+            metalness: 0.7,
+            roughness: 0.2,
             emissive: 0x00e6a8,
-            emissiveIntensity: 0.2
+            emissiveIntensity: 0.5,
+            wireframe: false
           });
-          const capBoard = new THREE.Mesh(capBoardGeometry, capMaterial);
-          capBoard.position.y = 0.15;
-          capGroup.add(capBoard);
 
-          // Cap top (cube slightly tilted)
-          const capTopGeometry = new THREE.BoxGeometry(0.55, 0.08, 0.55);
-          const capTopMaterial = new THREE.MeshStandardMaterial({
-            color: 0x000000,
-            metalness: 0.4,
-            roughness: 0.5,
-            emissive: 0x00e6a8,
-            emissiveIntensity: 0.25
-          });
-          const capTop = new THREE.Mesh(capTopGeometry, capTopMaterial);
-          capTop.position.y = 0.22;
-          capTop.rotation.z = 0.1;
-          capGroup.add(capTop);
-
-          // Cap cylinder (mortarboard pole)
-          const capPoleGeometry = new THREE.CylinderGeometry(0.05, 0.05, 0.3, 32);
-          const capPoleMaterial = new THREE.MeshStandardMaterial({
-            color: 0x2a2a2a,
-            metalness: 0.5,
-            roughness: 0.4,
-            emissive: 0x00e6a8,
-            emissiveIntensity: 0.15
-          });
-          const capPole = new THREE.Mesh(capPoleGeometry, capPoleMaterial);
-          capPole.position.y = -0.05;
-          capGroup.add(capPole);
-
-          // Tassel (hanging chain)
-          const tasselGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.4, 16);
-          const tasselMaterial = new THREE.MeshStandardMaterial({
-            color: 0x00e6a8,
-            metalness: 0.6,
-            roughness: 0.3,
-            emissive: 0x00e6a8,
-            emissiveIntensity: 0.4
-          });
-          const tassel = new THREE.Mesh(tasselGeometry, tasselMaterial);
-          tassel.position.set(0.15, -0.1, 0);
-          capGroup.add(tassel);
-
-          const sphere = capGroup; // Use capGroup as the main object
+          const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
           scene.add(sphere);
-
-          // Glow effect around cap
-          const glowGeometry = new THREE.BoxGeometry(0.8, 0.5, 0.8);
-          const glowMaterial = new THREE.MeshStandardMaterial({
-            color: 0x00e6a8,
-            emissive: 0x00e6a8,
-            emissiveIntensity: 0.2,
-            metalness: 0.2,
-            roughness: 0.8,
-            wireframe: false,
-            transparent: true,
-            opacity: 0.15
-          });
-          const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
-          glowMesh.scale.set(1.2, 1.2, 1.2);
-          scene.add(glowMesh);
 
           // Lighting setup
           const light1 = new THREE.PointLight(0x00e6a8, 1.5, 100);
@@ -3446,17 +3387,18 @@
 
           const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
           scene.add(ambientLight);
+
           const ballData = {
             x: 0,
             y: 0.8,
             z: 0,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.3,
-            vz: (Math.random() - 0.5) * 0.1,
+            vx: (Math.random() - 0.5) * 2,
+            vy: (Math.random() - 0.5) * 2,
+            vz: (Math.random() - 0.5) * 0.5,
             radius: 0.4,
-            friction: 0.95,
-            bounce: 0.6,
-            gravity: 0.008
+            friction: 0.98,
+            bounce: 0.8,
+            gravity: 0.02
           };
 
           const viewportHeight = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z;
@@ -3512,7 +3454,6 @@
             }
 
             sphere.position.set(ballData.x, ballData.y, ballData.z);
-            glowMesh.position.copy(sphere.position);
           }
 
           let rotX = 0, rotY = 0;
@@ -3528,10 +3469,6 @@
 
             sphere.rotation.x = rotX;
             sphere.rotation.y = rotY;
-            glowMesh.rotation.copy(sphere.rotation);
-
-            // Pulsing glow effect
-            glowMaterial.emissiveIntensity = 0.2 + Math.sin(Date.now() * 0.002) * 0.1;
 
             renderer.render(scene, camera);
           }
@@ -3555,7 +3492,8 @@
         // Initialize when page loads
         window.addEventListener("load", () => {
           setTimeout(initBounceBall, 800);
-        });</script>
+        });
+      </script>
       <script>
         // ============================================================
         // 3D MORPHING PYRAMID ANIMATION (Right side - mirrored)
