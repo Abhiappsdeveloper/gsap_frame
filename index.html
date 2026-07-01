@@ -1917,9 +1917,7 @@
       pointer-events: none;
       z-index: 5;
       opacity: 1;
-      filter: drop-shadow(0 0 20px rgba(10, 46, 87, 0.55)) drop-shadow(0 0 40px rgba(18, 85, 160, 0.35)) drop-shadow(0 0 65px rgba(64, 224, 208, 0.18)) drop-shadow(0 0 90px rgba(255, 215, 0, 0.08));
-      /* Optional: Add slight blur for softer premium feel */
-      backdrop-filter: blur(0.5px);
+      /* No filter — removed entirely to eliminate blink amplification */
     }
 
     @media (max-width: 768px) {
@@ -3496,7 +3494,7 @@
             clearcoat: 1.0,
             clearcoatRoughness: 0.04,
             emissive: 0x1255A0,
-            emissiveIntensity: 0.5,
+            emissiveIntensity: 0.38,
             iridescence: 0.6,
             iridescenceIOR: 1.5,
             transmission: 0.15,
@@ -3673,31 +3671,25 @@
             updatePhysics();
 
             time += 0.01;
-            // ── PREMIUM UK ORB ANIMATION ─────────────────────────────────────
 
-            // 1. Cinematic floating position (replaces ballData orbit entirely)
             const floatX = Math.sin(time * 0.28) * 0.22;
             const floatY = Math.sin(time * 0.18) * 0.14 + Math.cos(time * 0.11) * 0.08;
             const floatZ = Math.cos(time * 0.22) * 0.10;
             sphere.position.set(floatX, floatY, floatZ);
 
-            // 2. Slow, deliberate group tilt (cinematic Y-axis leadership rotation)
-            rotX += 0.0008;     // very slow upward nod
-            rotY += 0.0032;     // steady presidential spin
-            rotZ += 0.0004;     // almost imperceptible roll
+            rotX += 0.0008;
+            rotY += 0.0032;
+            rotZ += 0.0004;
             sphere.rotation.set(rotX, rotY, rotZ);
 
-            // 3. Inner shell counter-rotates (organic life feeling)
             shellMesh.rotation.x -= 0.0018;
             shellMesh.rotation.y += 0.0022;
 
-            // 4. Orbital rings spin independently on their own axes
-            ring1Mesh.rotation.z += 0.006;   // employer ring — steady
-            ring2Mesh.rotation.z -= 0.004;   // candidate ring — slightly slower
+            ring1Mesh.rotation.z += 0.006;
+            ring2Mesh.rotation.z -= 0.004;
 
-            // 5. Talent nodes orbit the core in 3D space
             nodeMeshes.forEach((node, i) => {
-              node.userData.orbitAngle += 0.008 + i * 0.001;   // each node slightly different speed
+              node.userData.orbitAngle += 0.008 + i * 0.001;
               const a = node.userData.orbitAngle;
               const r = node.userData.orbitRadius;
               const tilt = node.userData.orbitTilt;
@@ -3706,14 +3698,10 @@
               node.position.z = r * Math.sin(a) * Math.cos(tilt);
             });
 
-            // 6. Fixed scale — no breathing, no movement distraction
             sphere.scale.set(1, 1, 1);
 
-            // 7. Steady core glow — no pulsing, professional constant presence
-            coreMat.emissiveIntensity = 0.38;
             renderer.render(scene, camera);
           }
-
           animate();
 
           // Disable canvas if user scrolls past CTA section
