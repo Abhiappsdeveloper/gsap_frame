@@ -3323,12 +3323,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
       <script>
         /* ============================================================
-  3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
-  ============================================================ */
-        /* ============================================================
-3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
-============================================================ */
-        /* ============================================================
 3D BOUNCE BALL ANIMATION — Integrated with Ukonnect Theme
 ============================================================ */
         function initBounceBall() {
@@ -3395,13 +3389,13 @@
             x: 0,
             y: 0.8,
             z: 0,
-            vx: (Math.random() - 0.5) * 0.8,        // CHANGED: 2 → 0.8 (reduced speed)
-            vy: (Math.random() - 0.5) * 0.8,        // CHANGED: 2 → 0.8 (reduced speed)
-            vz: (Math.random() - 0.5) * 0.2,        // CHANGED: 0.5 → 0.2 (reduced speed)
+            vx: (Math.random() - 0.5) * 0.25,       // CHANGED: 0.8 → 0.25 (87.5% speed reduction)
+            vy: (Math.random() - 0.5) * 0.25,       // CHANGED: 0.8 → 0.25 (87.5% speed reduction)
+            vz: (Math.random() - 0.5) * 0.08,       // CHANGED: 0.2 → 0.08 (60% speed reduction)
             radius: 0.4,
-            friction: 0.985,                         // CHANGED: 0.98 → 0.985 (less friction = gentler deceleration)
-            bounce: 0.65,                            // CHANGED: 0.8 → 0.65 (less bouncy, reduced stress)
-            gravity: 0.008                           // CHANGED: 0.02 → 0.008 (reduced gravity for gentle fall)
+            friction: 0.992,                         // CHANGED: 0.985 → 0.992 (much less friction, very smooth)
+            bounce: 0.35,                            // CHANGED: 0.65 → 0.35 (very gentle bounces, 65% energy loss)
+            gravity: 0.002                           // CHANGED: 0.008 → 0.002 (90% gentler gravity)
           };
 
           const viewportHeight = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z;
