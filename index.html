@@ -113,7 +113,7 @@
       padding: 0;
     }
 
-    img { 
+    img {
       max-width: 100%;
       display: block;
     }
@@ -2172,9 +2172,9 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 5;
+      z-index: 1;
+      /* ← CHANGED FROM 5 TO 1 */
       opacity: 1;
-      /* No filter — removed entirely to eliminate blink amplification */
     }
 
     @media (max-width: 768px) {
@@ -3709,7 +3709,31 @@
 
           // Set scene background to transparent
           scene.background = null;
-          renderer.setClearColor(0x000000, 0);
+          renderer.setClearColor(0x000000, 0);  // Keep as is
+
+          // Add opacity reduction to canvas
+          canvas.style.opacity = "0.4";  // Adjust 0.4 to 0.3-0.6 for subtlety
+
+          // Add vignette fade to background ball
+          const vignetteCanvas = document.createElement("canvas");
+          vignetteCanvas.width = window.innerWidth;
+          vignetteCanvas.height = window.innerHeight;
+          const vigCtx = vignetteCanvas.getContext("2d");
+          const vigGrad = vigCtx.createRadialGradient(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            100,
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            Math.max(window.innerWidth, window.innerHeight)
+          );
+          vigGrad.addColorStop(0, "rgba(0, 0, 0, 0)");
+          vigGrad.addColorStop(1, "rgba(0, 0, 0, 0.6)");
+          vigCtx.fillStyle = vigGrad;
+          vigCtx.fillRect(0, 0, vignetteCanvas.width, vignetteCanvas.height);
+
+          // Apply vignette as overlay (optional - uncomment if needed)
+          // canvas.style.background = `url(${vignetteCanvas.toDataURL()})`;
 
           // ✅ ENHANCED: Premium gradient texture with professional corporate colors
           const canvas2d = document.createElement("canvas");
