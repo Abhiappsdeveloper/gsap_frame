@@ -3657,137 +3657,207 @@
       </script>
 
       <script>
-        // ============================================================
-        // 3D MORPHING PYRAMID ANIMATION (Right side - mirrored)
-        // ============================================================
-        function init3DPyramidRight() {
-          const container = document.getElementById("pyramid-container-3d-right");
-          if (!container) return;
+        /* ============================================================
+        3D BOUNCE BALL ANIMATION — Enhanced Premium Realistic Look (FIXED)
+        ============================================================ */
+        function initBounceBall() {
+          const canvas = document.getElementById("bounceCanvas");
+          if (!canvas || typeof THREE === "undefined") return;
 
           const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
           if (prefersReduced) return;
 
           const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+          const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+          const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 
-          camera.position.z = 3;
-          renderer.setSize(400, 400);
-          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-          container.appendChild(renderer.domElement);
-
-          // Create pyramid (mirrored via scale)
-          const pyramidGeometry = new THREE.TetrahedronGeometry(1.2, 0);
-          const pyramidMaterial = new THREE.MeshStandardMaterial({
-            color: 0x16c8ff,
-            metalness: 0.6,
-            roughness: 0.3,
-            emissive: 0x16c8ff,
-            emissiveIntensity: 0.4,
-            wireframe: false
-          });
-          const pyramid = new THREE.Mesh(pyramidGeometry, pyramidMaterial);
-          pyramid.scale.x = -1; // Mirror the pyramid horizontally
-          scene.add(pyramid);
-
-          // Particle emitters at pyramid vertices
-          const particles = [];
-          const particleGeometry = new THREE.SphereGeometry(0.04, 4, 4);
-          const particleMaterial = new THREE.MeshStandardMaterial({
-            color: 0x16c8ff,
-            metalness: 0.9,
-            roughness: 0.1,
-            emissive: 0x16c8ff,
-            emissiveIntensity: 0.9
-          });
-
-          for (let i = 0; i < 20; i++) {
-            const particle = new THREE.Mesh(particleGeometry, particleMaterial.clone());
-            particle.position.copy(pyramid.position);
-            particle.velocity = new THREE.Vector3(
-              (Math.random() - 0.5) * 0.05,
-              (Math.random() - 0.5) * 0.05,
-              (Math.random() - 0.5) * 0.05
-            );
-            particle.life = 1;
-            particles.push(particle);
-            scene.add(particle);
+          // Debounce resize
+          let resizeTimeout;
+          function resizeCanvas() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
           }
 
-          // Lighting (adjusted for right side)
-          const light1 = new THREE.PointLight(0x16c8ff, 1.5, 100);
-          light1.position.set(-5, 5, 5); // Mirrored X position
-          scene.add(light1);
+          resizeCanvas();
+          window.addEventListener("resize", () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(resizeCanvas, 200);
+          });
 
-          const light2 = new THREE.PointLight(0x00e6a8, 1, 100);
-          light2.position.set(5, -5, 5); // Mirrored X position
-          scene.add(light2);
+          camera.position.z = 5;
+          scene.background = null;
+          renderer.setClearColor(0x000000, 0);
 
-          const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+          // ✅ ENHANCED: Premium gradient texture with subtle noise
+          const canvas2d = document.createElement("canvas");
+          canvas2d.width = 512;
+          canvas2d.height = 512;
+          const ctx = canvas2d.getContext("2d");
+
+          // Create multi-layer gradient for depth
+          const gradient = ctx.createRadialGradient(256, 256, 20, 256, 256, 256);
+          gradient.addColorStop(0, "rgba(0, 230, 168, 1)");
+          gradient.addColorStop(0.35, "rgba(0, 200, 150, 0.95)");
+          gradient.addColorStop(0.6, "rgba(22, 200, 255, 0.85)");
+          gradient.addColorStop(0.85, "rgba(77, 124, 255, 0.7)");
+          gradient.addColorStop(1, "rgba(30, 60, 140, 0.5)");
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, 512, 512);
+
+          // Add subtle noise for realism
+          const imageData = ctx.getImageData(0, 0, 512, 512);
+          const data = imageData.data;
+          for (let i = 0; i < data.length; i += 4) {
+            const noise = (Math.random() - 0.5) * 8;
+            data[i] += noise;
+            data[i + 1] += noise * 0.5;
+            data[i + 2] += noise * 0.3;
+          }
+          ctx.putImageData(imageData, 0, 0);
+
+          const texture = new THREE.CanvasTexture(canvas2d);
+          texture.magFilter = THREE.LinearFilter;
+          texture.minFilter = THREE.LinearMipmapLinearFilter;
+
+          // ✅ ENHANCED: TorusKnot geometry with premium materials
+          const sphereGeometry = new THREE.TorusKnotGeometry(0.4, 0.15, 128, 32);
+
+          const sphereMaterial = new THREE.MeshPhysicalMaterial({
+            map: texture,
+            color: 0x00e6a8,
+            metalness: 0.92,
+            roughness: 0.08,
+            clearcoat: 0.95,
+            clearcoatRoughness: 0.15,
+            emissive: 0x00e6a8,
+            emissiveIntensity: 0.6,
+            emissiveMap: texture,
+            iridescence: 0.8,
+            iridescenceIOR: 1.5,
+            sheen: 0.5,
+            sheenColor: new THREE.Color(0x16c8ff),
+            sheenRoughness: 0.3,
+            reflectivity: 0.95,
+            transmission: 0.1,
+            thickness: 0.5,
+            ior: 1.5,
+            dispersion: 0.2
+          });
+
+          const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+          scene.add(sphere);
+
+          // ✅ ENHANCED: Sophisticated multi-light setup
+          const keyLight = new THREE.PointLight(0x00e6a8, 3.5, 150);
+          keyLight.position.set(5, 5, 6);
+          scene.add(keyLight);
+
+          const rimLight = new THREE.PointLight(0x16c8ff, 2.8, 140);
+          rimLight.position.set(-6, 3, -5);
+          scene.add(rimLight);
+
+          const fillLight = new THREE.PointLight(0x4d7cff, 2.2, 120);
+          fillLight.position.set(2, -4, 3);
+          scene.add(fillLight);
+
+          const backLight = new THREE.PointLight(0x8b5cf6, 1.8, 100);
+          backLight.position.set(-3, -3, -4);
+          scene.add(backLight);
+
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
           scene.add(ambientLight);
 
-          let isVisible = false;
-          let time = 0;
-
-          // Fade in
-          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.7 });
-
-          const observer = new IntersectionObserver((entries) => {
-            isVisible = entries[0].isIntersecting;
+          // ✅ Optional: Add environment backdrop
+          const envGeometry = new THREE.SphereGeometry(1000, 32, 32);
+          const envMaterial = new THREE.MeshBasicMaterial({
+            color: 0x0a1420,
+            side: THREE.BackSide
           });
-          observer.observe(container);
+          const envMesh = new THREE.Mesh(envGeometry, envMaterial);
+          scene.add(envMesh);
+
+          const ballData = {
+            x: 0, y: 0, z: 0,
+            orbitRadius: 1.2,
+            orbitSpeedX: 0.003,
+            orbitSpeedY: 0.004,
+            orbitSpeedZ: 0.002,
+            angle: 0, angleY: 0, angleZ: 0,
+            pulseAmount: 0.15,
+            pulseSpeed: 0.02
+          };
+
+          function updatePhysics() {
+            ballData.angle += ballData.orbitSpeedX;
+            ballData.angleY += ballData.orbitSpeedY;
+            ballData.angleZ += ballData.orbitSpeedZ;
+
+            const x = Math.cos(ballData.angle) * ballData.orbitRadius * Math.cos(ballData.angleY);
+            const y = Math.sin(ballData.angleY) * ballData.orbitRadius * 0.6;
+            const z = Math.sin(ballData.angle) * ballData.orbitRadius * Math.sin(ballData.angleY);
+
+            ballData.x = x;
+            ballData.y = y;
+            ballData.z = z;
+          }
+
+          let rotX = 0, rotY = 0, rotZ = 0;
+          let time = 0;
 
           function animate() {
             requestAnimationFrame(animate);
 
-            if (isVisible) {
-              time += 0.01;
+            updatePhysics();
+            time += 0.01;
 
-              // Morph between pyramid and sphere (opposite rotation for mirrored effect)
-              const morphInfluence = 0.5 + Math.sin(time * 0.5) * 0.5;
-              pyramid.scale.x = -1 * (1 + Math.sin(time * 0.3) * 0.2);
-              pyramid.scale.y = 1 + Math.cos(time * 0.4) * 0.2;
-              pyramid.scale.z = 1 + Math.sin(time * 0.35) * 0.2;
+            sphere.position.set(ballData.x, ballData.y, ballData.z);
 
-              // Opposite rotation direction for visual distinction
-              pyramid.rotation.x -= 0.003;
-              pyramid.rotation.y -= 0.005;
-              pyramid.rotation.z -= 0.002;
+            rotX += 0.008;
+            rotY += 0.012;
+            rotZ += 0.005;
 
-              // Update particles
-              particles.forEach((p, i) => {
-                p.position.add(p.velocity);
-                p.life -= 0.02;
-                p.material.opacity = p.life;
+            sphere.rotation.set(rotX, rotY, rotZ);
 
-                if (p.life <= 0) {
-                  p.position.copy(pyramid.position);
-                  p.life = 1;
-                  p.velocity = new THREE.Vector3(
-                    (Math.random() - 0.5) * 0.05,
-                    (Math.random() - 0.5) * 0.05,
-                    (Math.random() - 0.5) * 0.05
-                  );
-                }
+            // ✅ ENHANCED: Sophisticated pulsing with multiple sine waves
+            const pulse = 1 + Math.sin(time * ballData.pulseSpeed) * ballData.pulseAmount * 0.8;
+            const secondaryPulse = Math.sin(time * 0.015) * 0.08;
+            const scale = pulse + secondaryPulse;
+            sphere.scale.set(scale, scale, scale);
 
-                p.scale.set(p.life, p.life, p.life);
-              });
+            // ✅ ENHANCED: Multi-layer glow effect with variation
+            const glowIntensity = 0.7 + Math.sin(time * 0.025) * 0.25 + Math.cos(time * 0.035) * 0.15;
+            sphereMaterial.emissiveIntensity = glowIntensity;
+
+            // ✅ ENHANCED: Subtle color shifting for premium feel (with safety check)
+            if (sphereMaterial.color && typeof sphereMaterial.color.setHSL === 'function') {
+              const colorShift = Math.sin(time * 0.02) * 0.15;
+              sphereMaterial.color.setHSL(0.35 + colorShift * 0.05, 1, 0.5 + colorShift * 0.1);
             }
 
             renderer.render(scene, camera);
           }
+
           animate();
 
-          window.addEventListener("resize", () => {
-            renderer.setSize(400, 400);
-          });
+          // Disable canvas if user scrolls past CTA section
+          const ctaSection = document.querySelector(".cta-section");
+          if (ctaSection && typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.create({
+              trigger: ctaSection,
+              start: "top bottom",
+              end: "bottom top",
+              onToggle: self => {
+                canvas.style.display = self.isActive ? "block" : "none";
+              }
+            });
+          }
         }
 
+        // Initialize when page loads
         window.addEventListener("load", () => {
-          setTimeout(() => {
-            init3DPyramid();
-            init3DPyramidRight(); // Initialize right pyramid
-          }, 700);
+          setTimeout(initBounceBall, 800);
         });
       </script>
       <script>
