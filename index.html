@@ -2632,11 +2632,14 @@
               </div>
             </div>
 
-            <div class="benefits-visual reveal-up">
-              <!-- ✅ 3D CUBE CONTAINER MOVED HERE (BEFORE content) -->
+            <!-- ✅ MODIFIED: Added flexbox styling for vertical centering -->
+            <div class="benefits-visual reveal-up"
+              style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px;">
+
+              <!-- ✅ 3D CUBE AT TOP, CENTERED -->
               <div id="benefits-3d-cube-container"
-                style="position: relative; width: 280px; height: 280px; margin: 0 auto 32px; opacity: 0;"
-                aria-hidden="true"></div>
+                style="position: relative; width: 280px; height: 280px; opacity: 0; flex-shrink: 0;" aria-hidden="true">
+              </div>
 
               <div class="benefits-visual-content">
                 <h3>Trusted by 5,000+</h3>
@@ -2659,8 +2662,6 @@
             </div>
           </div>
         </div>
-
-        <!-- ✅ OLD CONTAINER REMOVED (was here) -->
 
       </section>
 
