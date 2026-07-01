@@ -3508,6 +3508,7 @@
             sheenRoughness: 0.1
           });
           const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+          coreMat.color.set(0x0A2E57); // Lock: deep royal blue, no shifting
 
           // Outer wireframe shell — represents global talent network
           const shellGeo = new THREE.IcosahedronGeometry(0.72, 2);
@@ -3558,9 +3559,9 @@
             const nodeMat = new THREE.MeshStandardMaterial({
               color: nodeColors[i],
               emissive: nodeColors[i],
-              emissiveIntensity: 1.0,
-              metalness: 0.8,
-              roughness: 0.1
+              emissiveIntensity: 0.3,   // CHANGED: 1.0 → 0.3 (subtle, not glowing orbs)
+              metalness: 0.85,           // CHANGED: 0.8 → 0.85 (more metallic, less glowing)
+              roughness: 0.15            // CHANGED: 0.1 → 0.15 (slightly less mirror-like)
             });
             const nodeMesh = new THREE.Mesh(nodeGeo, nodeMat);
             nodeMesh.userData.orbitAngle = (i / 6) * Math.PI * 2;
@@ -3709,27 +3710,8 @@
             const breathe = 1 + Math.sin(time * 0.012) * 0.025 + Math.cos(time * 0.009) * 0.012;
             sphere.scale.set(breathe, breathe, breathe);
 
-            // 7. Core emissive breathing (subtle glow cycle — royal blue to turquoise)
-            const glow = 0.38 + Math.sin(time * 0.014) * 0.14 + Math.cos(time * 0.019) * 0.07;
-            coreMat.emissiveIntensity = Math.max(0.28, glow);
-
-            // 8. Color micro-shift: deep blue ↔ midnight teal (corporate UK palette)
-            const hShift = Math.sin(time * 0.007) * 0.04;
-            coreMat.color.setHSL(0.60 + hShift, 0.88, 0.32 + hShift * 0.5);
-
-            // 9. Gold node pulse — subtle executive beacon
-            const nodePulse = 0.7 + Math.sin(time * 0.022) * 0.3;
-            nodeMeshes.forEach((node, i) => {
-              node.material.emissiveIntensity = nodePulse * (0.8 + Math.sin(time * 0.03 + i) * 0.2);
-            });
-
-            // 10. CTA section proximity detection — enhance glow when visible
-            const ctaVisible = canvas.style.display !== "none";
-            if (ctaVisible) {
-              keyLight.intensity = 2.8 + Math.sin(time * 0.016) * 0.4;
-              rimLight.intensity = 2.2 + Math.sin(time * 0.02) * 0.3;
-              accentLight.intensity = 1.5 + Math.sin(time * 0.018) * 0.3;
-            }
+            // 7. Steady core glow — no pulsing, professional constant presence
+            coreMat.emissiveIntensity = 0.38;
             renderer.render(scene, camera);
           }
 
