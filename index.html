@@ -3470,16 +3470,21 @@
           ctx.fillRect(0, 0, 256, 256);
 
           const texture = new THREE.CanvasTexture(canvas2d);
-          const sphereGeometry = new THREE.SphereGeometry(0.4, 64, 64);
-          const sphereMaterial = new THREE.MeshStandardMaterial({
-            map: texture,
-            metalness: 0.7,
-            roughness: 0.2,
+          const sphereGeometry = new THREE.TorusKnotGeometry(0.4, 0.15, 100, 8);
+          const sphereMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0x00e6a8,
+            metalness: 0.9,
+            roughness: 0.1,
+            clearcoat: 0.8,
+            clearcoatRoughness: 0.2,
             emissive: 0x00e6a8,
-            emissiveIntensity: 0.5,
-            wireframe: false
+            emissiveIntensity: 0.8,
+            iridescence: 0.5,
+            iridescenceIOR: 1.3,
+            sheen: 0.3,
+            sheenColor: 0x16c8ff,
+            sheenRoughness: 0.5
           });
-
           const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
           scene.add(sphere);
 
@@ -3497,15 +3502,24 @@
 
           const ballData = {
             x: 0,
-            y: 0.8,
+            y: 0,
             z: 0,
-            vx: (Math.random() - 0.5) * 0.25,       // CHANGED: 0.8 → 0.25 (87.5% speed reduction)
-            vy: (Math.random() - 0.5) * 0.25,       // CHANGED: 0.8 → 0.25 (87.5% speed reduction)
-            vz: (Math.random() - 0.5) * 0.08,       // CHANGED: 0.2 → 0.08 (60% speed reduction)
+            // Orbital parameters instead of velocity
+            orbitRadius: 1.2,
+            orbitSpeedX: 0.003,
+            orbitSpeedY: 0.004,
+            orbitSpeedZ: 0.002,
+            angle: 0,
+            angleY: 0,
+            angleZ: 0,
+            // Pulse parameters
+            pulseAmount: 0.15,
+            pulseSpeed: 0.02,
+            // Keep for backward compatibility but not used
             radius: 0.4,
-            friction: 0.992,                         // CHANGED: 0.985 → 0.992 (much less friction, very smooth)
-            bounce: 0.35,                            // CHANGED: 0.65 → 0.35 (very gentle bounces, 65% energy loss)
-            gravity: 0.002                           // CHANGED: 0.008 → 0.002 (90% gentler gravity)
+            friction: 0.995,
+            bounce: 0,
+            gravity: 0
           };
 
           const viewportHeight = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z;
@@ -3517,75 +3531,54 @@
           };
 
           function updatePhysics() {
-            // Apply gravity
-            ballData.vy -= ballData.gravity;
+            // Orbital motion instead of bouncing
+            ballData.angle += ballData.orbitSpeedX;
+            ballData.angleY += ballData.orbitSpeedY;
+            ballData.angleZ += ballData.orbitSpeedZ;
 
-            // Update position
-            ballData.x += ballData.vx;
-            ballData.y += ballData.vy;
-            ballData.z += ballData.vz;
+            // Calculate position based on orbits
+            const x = Math.cos(ballData.angle) * ballData.orbitRadius * Math.cos(ballData.angleY);
+            const y = Math.sin(ballData.angleY) * ballData.orbitRadius * 0.6;
+            const z = Math.sin(ballData.angle) * ballData.orbitRadius * Math.sin(ballData.angleY);
 
-            // Apply friction
-            ballData.vx *= ballData.friction;
-            ballData.vy *= ballData.friction;
-            ballData.vz *= ballData.friction;
+            ballData.x = x;
+            ballData.y = y;
+            ballData.z = z;
 
-            // Boundary collision - Left/Right
-            if (ballData.x + ballData.radius > boundaries.width / 2) {
-              ballData.x = boundaries.width / 2 - ballData.radius;
-              ballData.vx *= -ballData.bounce;
-            }
-            if (ballData.x - ballData.radius < -boundaries.width / 2) {
-              ballData.x = -boundaries.width / 2 + ballData.radius;
-              ballData.vx *= -ballData.bounce;
-            }
-
-            // Boundary collision - Top
-            if (ballData.y + ballData.radius > boundaries.height / 2) {
-              ballData.y = boundaries.height / 2 - ballData.radius;
-              ballData.vy *= -ballData.bounce;
-            }
-
-            // Bottom boundary (allow the ball to settle at the bottom)
-            const bottomLimit = -boundaries.height / 2 + ballData.radius;
-
-            if (ballData.y <= bottomLimit) {
-              ballData.y = bottomLimit;
-
-              // Very small bounce so it naturally settles
-              if (Math.abs(ballData.vy) > 0.015) {
-                ballData.vy *= -0.2;
-              } else {
-                ballData.vy = 0;
-              }
-            }
-
-            // Boundary collision - Front/Back (Z-axis)
-            if (ballData.z > 1) {
-              ballData.z = 1;
-              ballData.vz *= -ballData.bounce;
-            }
-            if (ballData.z < -1) {
-              ballData.z = -1;
-              ballData.vz *= -ballData.bounce;
-            }
-
-            sphere.position.set(ballData.x, ballData.y, ballData.z);
+            // No collision detection needed for orbital motion
           }
 
-          let rotX = 0, rotY = 0;
+          let rotX = 0, rotY = 0, rotZ = 0;
+          let time = 0;
 
           function animate() {
             requestAnimationFrame(animate);
 
             updatePhysics();
 
-            // Rotation based on velocity
-            rotX += ballData.vy * 0.5;
-            rotY += ballData.vx * 0.5;
+            time += 0.01;
+
+            // Update position based on orbital motion
+            sphere.position.x = ballData.x;
+            sphere.position.y = ballData.y;
+            sphere.position.z = ballData.z;
+
+            // Complex rotation: self-spin + orbit-based rotation
+            rotX += 0.008;
+            rotY += 0.012;
+            rotZ += 0.005;
 
             sphere.rotation.x = rotX;
             sphere.rotation.y = rotY;
+            sphere.rotation.z = rotZ;
+
+            // Pulsing scale animation (breathing effect)
+            const pulse = 1 + Math.sin(time * ballData.pulseSpeed) * ballData.pulseAmount;
+            sphere.scale.set(pulse, pulse, pulse);
+
+            // Glow effect - vary emissive intensity
+            const glowIntensity = 0.6 + Math.sin(time * 0.03) * 0.2;
+            sphereMaterial.emissiveIntensity = glowIntensity;
 
             renderer.render(scene, camera);
           }
@@ -4799,14 +4792,24 @@
             const cube = new THREE.Mesh(geometry, materials);
             scene.add(cube);
 
-            // Lighting
-            const light1 = new THREE.PointLight(0x00e6a8, 1.5, 100);
-            light1.position.set(3, 3, 3);
+            // Main key light (green)
+            const light1 = new THREE.PointLight(0x00e6a8, 2.5, 150);
+            light1.position.set(3, 3, 4);
             scene.add(light1);
 
-            const light2 = new THREE.PointLight(0x4d7cff, 1, 100);
-            light2.position.set(-3, -3, 3);
+            // Secondary rim light (cyan)
+            const light2 = new THREE.PointLight(0x16c8ff, 1.8, 120);
+            light2.position.set(-3, 2, -3);
             scene.add(light2);
+
+            // Fill light (subtle purple for depth)
+            const light3 = new THREE.PointLight(0x8b5cf6, 1.2, 100);
+            light3.position.set(1, -2, 2);
+            scene.add(light3);
+
+            // Ambient light (stronger)
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
 
             scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 
