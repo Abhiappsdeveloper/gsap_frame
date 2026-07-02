@@ -34,6 +34,13 @@
       --primary: #00E6A8;
       --secondary: #16C8FF;
       --accent: #4D7CFF;
+      --gold: #FFB347;
+      --success: #00FF88;
+      --alert: #FF6B6B;
+      --deep-space: #030810;
+      --talent: #00E6A8;
+      --company: #16C8FF;
+      --ai-core: #A78BFA;
       --bg: #07121D;
       --bg-elevated: #0B1B29;
       --card: rgba(255, 255, 255, .06);
@@ -763,15 +770,13 @@
 
       0%,
       100% {
-        box-shadow:
-          0 0 20px rgba(0, 230, 168, 0.15),
-          inset 0 0 16px rgba(0, 230, 168, 0.08);
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(0, 230, 168, 0.15), inset 0 0 16px rgba(0, 230, 168, 0.08);
       }
 
       50% {
-        box-shadow:
-          0 0 32px rgba(0, 230, 168, 0.25),
-          inset 0 0 24px rgba(0, 230, 168, 0.12);
+        transform: scale(1.04);
+        box-shadow: 0 0 40px rgba(0, 230, 168, 0.35), inset 0 0 24px rgba(0, 230, 168, 0.12);
       }
     }
 
@@ -786,6 +791,33 @@
 
       100% {
         box-shadow: 0 0 0 0 rgba(0, 230, 168, 0);
+      }
+    }
+
+    .hero-eyebrow {
+      position: relative;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 230, 168, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      animation: eyebrowSonar 3s ease-out infinite;
+    }
+
+    @keyframes eyebrowSonar {
+      0% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: scale(2);
+        opacity: 0;
       }
     }
 
@@ -828,6 +860,18 @@
       text-shadow: none !important;
       filter: none !important;
       opacity: 1 !important;
+    }
+
+    @supports (background-clip: text) {
+
+      .hero-heading .line:nth-child(3) .word.grad,
+      .hero-heading .line:nth-child(4) .word.grad {
+        background: linear-gradient(135deg, #00E6A8 0%, #16C8FF 40%, #A78BFA 100%) !important;
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        color: transparent !important;
+        -webkit-text-fill-color: transparent !important;
+      }
     }
 
     @supports not (-webkit-background-clip: text) {
@@ -1059,6 +1103,7 @@
       align-items: center;
       justify-content: center;
       border: 1px solid var(--border-strong);
+      box-shadow: 0 0 0 0 rgba(0, 230, 168, 0);
       transition: all .35s var(--ease-out);
     }
 
@@ -1066,7 +1111,7 @@
       transform: scale(1.25) rotate(12deg) perspective(600px) rotateY(15deg);
       background: linear-gradient(135deg, rgba(0, 230, 168, .45), rgba(22, 200, 255, .35));
       border-color: var(--primary);
-      box-shadow: 0 8px 24px rgba(0, 230, 168, .3);
+      box-shadow: 0 0 0 8px rgba(0, 230, 168, 0.1), 0 0 24px rgba(0, 230, 168, 0.3), inset 0 0 12px rgba(0, 230, 168, 0.1);
       animation: iconPulse 0.6s ease-out;
     }
 
@@ -1113,6 +1158,11 @@
 
     .service-card:hover .glow {
       opacity: 1;
+    }
+
+    .service-card:nth-child(3) .icon {
+      background: linear-gradient(135deg, rgba(255, 179, 71, .3), rgba(255, 179, 71, .15));
+      color: var(--gold);
     }
 
     /* ============================================================
@@ -1267,8 +1317,8 @@
     .stat-number {
       font-family: var(--font-numbers);
       font-weight: 800;
-      font-size: clamp(2.4rem, 4vw, 3.6rem);
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, #ffffff 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -1476,6 +1526,20 @@
       transition: all .35s var(--ease-out);
     }
 
+    .benefit-item.is-drawn .check-icon {
+      animation: drawCheck 0.5s ease-out forwards;
+    }
+
+    @keyframes drawCheck {
+      from {
+        clip-path: inset(0 100% 0 0);
+      }
+
+      to {
+        clip-path: inset(0 0% 0 0);
+      }
+    }
+
     .benefit-item:hover .check-icon {
       transform: translateY(-50%) scale(1.15) rotate(15deg);
       box-shadow: 0 8px 24px rgba(0, 230, 168, .35);
@@ -1574,7 +1638,8 @@
       top: 0;
       bottom: 0;
       width: 2px;
-      background: linear-gradient(180deg, var(--primary), var(--secondary), transparent);
+      --line-progress: 0%;
+      background: linear-gradient(180deg, var(--primary) var(--line-progress), rgba(0, 230, 168, 0.1) var(--line-progress));
       transform: translateX(-50%);
       z-index: 0;
     }
@@ -1890,6 +1955,46 @@
       opacity: 1;
     }
 
+    .industry-card:nth-child(1)::after,
+    .industry-card:nth-child(2)::after,
+    .industry-card:nth-child(3)::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      border-radius: 24px;
+    }
+
+    .industry-card:nth-child(1)::after {
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><g fill='none' stroke='%2300E6A8' stroke-width='1'><path d='M0 20h40M20 0v40'/><circle cx='20' cy='20' r='3'/></g></svg>");
+      background-size: 40px 40px;
+    }
+
+    .industry-card:nth-child(1):hover::after {
+      opacity: 0.06;
+    }
+
+    .industry-card:nth-child(2)::after {
+      background: repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(0, 230, 168, 0.04) 18px, rgba(0, 230, 168, 0.04) 20px);
+    }
+
+    .industry-card:nth-child(2):hover::after {
+      opacity: 1;
+    }
+
+    .industry-card:nth-child(3)::after {
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='40'><path d='M0 20 Q15 0 30 20 T60 20 T90 20 T120 20' fill='none' stroke='%2300E6A8' stroke-width='1.5'/></svg>");
+      background-size: 120px 40px;
+      background-repeat: repeat-x;
+      background-position: center;
+    }
+
+    .industry-card:nth-child(3):hover::after {
+      opacity: 1;
+    }
+
     /* ============================================================
    ABOUT SECTION — IMAGE REVEAL
    ============================================================ */
@@ -2150,11 +2255,59 @@
       text-align: center;
       border: 1px solid var(--border-strong);
       background:
-        radial-gradient(60% 100% at 20% 0%, rgba(0, 230, 168, .3), transparent 60%),
-        radial-gradient(60% 100% at 80% 100%, rgba(22, 200, 255, .25), transparent 60%),
+        radial-gradient(calc(40% + var(--cta-pulse-a, 20%)) 100% at 20% 0%, rgba(0, 230, 168, .35), transparent 60%),
+        radial-gradient(calc(40% + var(--cta-pulse-b, 0%)) 100% at 80% 100%, rgba(22, 200, 255, .3), transparent 60%),
         var(--bg-elevated);
+      animation: ctaHeartbeat 4s ease-in-out infinite;
       backdrop-filter: blur(20px);
       transition: all .4s var(--ease-out);
+    }
+
+    @property --cta-pulse-a {
+      syntax: '<percentage>';
+      inherits: false;
+      initial-value: 20%;
+    }
+
+    @property --cta-pulse-b {
+      syntax: '<percentage>';
+      inherits: false;
+      initial-value: 0%;
+    }
+
+    @keyframes ctaHeartbeat {
+
+      0%,
+      100% {
+        --cta-pulse-a: 20%;
+        --cta-pulse-b: 0%;
+      }
+
+      50% {
+        --cta-pulse-a: 0%;
+        --cta-pulse-b: 20%;
+      }
+    }
+
+    .btn-primary .radar-ping {
+      position: absolute;
+      inset: -4px;
+      border-radius: 999px;
+      border: 2px solid rgba(0, 230, 168, 0.6);
+      pointer-events: none;
+      animation: radarPing 3s ease-out infinite;
+    }
+
+    @keyframes radarPing {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(2.2);
+        opacity: 0;
+      }
     }
 
     .cta-banner:hover {
@@ -2766,7 +2919,9 @@
           transparent 0%,
           rgba(0, 230, 168, .04) 40%,
           rgba(0, 230, 168, .09) 100%);
-      border-top: 1px solid rgba(0, 230, 168, .15);
+      border-top: 1px solid rgba(0, 230, 168, .25);
+      box-shadow: 0 -20px 60px rgba(0, 230, 168, .05);
+      backdrop-filter: blur(2px);
     }
 
     /* ---- Building wrappers ---- */
@@ -2899,6 +3054,20 @@
 
       100% {
         filter: brightness(2.2);
+      }
+    }
+
+    .cb-building-b.is-energized .cb-win-row {
+      animation: windowFlickerGreen .4s ease forwards;
+    }
+
+    @keyframes windowFlickerGreen {
+      0% {
+        filter: brightness(1);
+      }
+
+      100% {
+        filter: brightness(2.2) drop-shadow(0 0 6px var(--success));
       }
     }
 
@@ -3102,7 +3271,8 @@
             sourcing, seamless compliance, and people-first hiring at every stage.</p>
 
           <div class="hero-ctas">
-            <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span></a>
+            <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span><span
+                class="radar-ping" aria-hidden="true"></span></a>
             <a href="#services" class="btn btn-ghost magnetic">Explore Services</a>
           </div>
 
@@ -4335,12 +4505,13 @@
 
             /* ====== Stats counters ====== */
             initCounters();
-
             /* ====== Section reveal-on-scroll (generic) ====== */
             initReveals();
+            initProcessConnectors();
 
             /* ====== About image reveal + parallax ====== */
             initAboutReveal();
+            initTimelineEKG();
 
             /* ====== Testimonials draggable loop ====== */
             initTestimonials();
@@ -4361,6 +4532,48 @@
             initWorkshop3DPrisms();
 
           });
+
+          function initTimelineEKG() {
+            if (prefersReduced) return;
+            const line = document.querySelector(".timeline-line");
+            if (!line) return;
+            gsap.to(line, {
+              "--line-progress": "100%", ease: "none",
+              scrollTrigger: { trigger: ".hiring-timeline", start: "top center", end: "bottom center", scrub: 1 }
+            });
+          }
+
+          function initProcessConnectors() {
+            if (prefersReduced) return;
+            const steps = gsap.utils.toArray(".process-step");
+            const grid = document.querySelector(".process-grid");
+            if (steps.length < 2 || !grid) return;
+            gsap.set(grid, { position: "relative" });
+            const gridBox = grid.getBoundingClientRect();
+            for (let i = 1; i < steps.length; i++) {
+              const pBox = steps[i - 1].getBoundingClientRect();
+              const cBox = steps[i].getBoundingClientRect();
+              const x1 = pBox.right - gridBox.left, y1 = pBox.top + pBox.height / 2 - gridBox.top;
+              const x2 = cBox.left - gridBox.left, y2 = cBox.top + cBox.height / 2 - gridBox.top;
+              const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+              svg.setAttribute("width", gridBox.width);
+              svg.setAttribute("height", gridBox.height);
+              Object.assign(svg.style, { position: "absolute", top: "0", left: "0", pointerEvents: "none", zIndex: "0", overflow: "visible" });
+              const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+              const len = Math.hypot(x2 - x1, y2 - y1);
+              line.setAttribute("x1", x1); line.setAttribute("y1", y1);
+              line.setAttribute("x2", x2); line.setAttribute("y2", y2);
+              line.setAttribute("stroke", "url(#lineGrad)");
+              line.setAttribute("stroke-width", "2");
+              line.setAttribute("stroke-dasharray", len);
+              line.setAttribute("stroke-dashoffset", len);
+              svg.appendChild(line); grid.appendChild(svg);
+              gsap.to(line, {
+                strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut",
+                scrollTrigger: { trigger: steps[i], start: "top 75%" }
+              });
+            }
+          }
 
           /* ============================================================
              AURORA / GRADIENT MESH BACKGROUND (Canvas, GPU-light)
@@ -4418,7 +4631,14 @@
               trigger: document.body,
               start: "top top",
               end: "bottom bottom",
-              onUpdate: () => { } // canvas reads live state each tick already
+              onUpdate: () => {
+                const display = divide > 1 ? (obj.val / divide).toFixed(0) : Math.round(obj.val);
+                el.textContent = display + suffix;
+                gsap.to(el.closest(".stat-card"), {
+                  scale: 1.015, duration: 0.06, yoyo: true, repeat: 1,
+                  ease: "power2.out", overwrite: "auto"
+                });
+              },
             });
           }
 
@@ -4703,23 +4923,23 @@
                 .to(".hero-bg-shapes", { opacity: 0.8, duration: 0.8, ease: "power2.out" }, 0)
                 .to(".particles-field", { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.2)
                 .from(split.chars, {
-                  yPercent: isMobileDevice ? 100 : 130,
-                  rotateX: isMobileDevice ? -60 : -90,
                   opacity: 0,
-                  filter: "blur(0px)",
-                  transformOrigin: "50% 100% -20",
+                  filter: "blur(8px) brightness(3)",
+                  scale: 1.4,
+                  color: "#00E6A8",
+                  transformOrigin: "50% 50%",
                   stagger: { each: isMobileDevice ? .010 : .018, from: "random" },
                   duration: isMobileDevice ? .7 : 1,
                   ease: "power4.out"
                 }, 0.4);
 
               gsap.to(split.chars, {
-                textShadow: (i) => {
-                  return `0 0 20px rgba(0, 230, 168, ${0.5 + Math.sin(i * 0.3) * 0.3})`;
-                },
-                stagger: 0.05,
-                duration: 1.2,
-                delay: 0.8,
+                textShadow: "0 0 24px rgba(0, 230, 168, 0.9)",
+                duration: 0.3,
+                yoyo: true,
+                repeat: 1,
+                stagger: { each: 0.04, from: "start" },
+                delay: 0.9,
                 ease: "power2.inOut"
               });
             }
@@ -4732,9 +4952,10 @@
               .from(".hero-eyebrow", { opacity: 0, y: -14, duration: .6, ease: "power3.out" }, "-=1.1")
               .from(".hero-sub", { opacity: 0, y: 20, duration: .8, ease: "power3.out" }, "-=.7")
               .from(".hero-ctas .btn", { opacity: 0, y: 24, stagger: .1, duration: .7, ease: "power3.out" }, "-=.6")
-              .from(".service-card", {
-                opacity: 0, y: 50, rotateX: -10, stagger: .1, duration: .9, ease: "power3.out"
-              }, "-=.5")
+              .from(".service-card:nth-child(1)", { opacity: 0, x: -200, y: -100, duration: 1.1, ease: "back.out(1.4)" }, "-=.5")
+              .from(".service-card:nth-child(2)", { opacity: 0, x: 200, y: -100, duration: 1.1, ease: "back.out(1.4)" }, "<")
+              .from(".service-card:nth-child(3)", { opacity: 0, x: -200, y: 100, duration: 1.1, ease: "back.out(1.4)" }, "<")
+              .from(".service-card:nth-child(4)", { opacity: 0, x: 200, y: 100, duration: 1.1, ease: "back.out(1.4)" }, "<")
               .from(".hero-scroll-cue", { opacity: 0, duration: .6 }, "-=.4");
 
             // Enhanced parallax with mobile-specific intensity reduction
@@ -4893,19 +5114,9 @@
                 start: "top 85%",
                 once: true,
                 onEnter: () => {
-                  gsap.to(obj, {
-                    val: target,
-                    duration: 2.1,
-                    ease: "power2.out",
-                    onUpdate: () => {
-                      const display = divide > 1 ? (obj.val / divide).toFixed(0) : Math.round(obj.val);
-                      el.textContent = display + suffix;
-                    },
-                    onComplete: () => {
-                      gsap.fromTo(el, { filter: "drop-shadow(0 0 0px rgba(0,230,168,0))" },
-                        { filter: "drop-shadow(0 0 14px rgba(0,230,168,.6))", duration: .5, yoyo: true, repeat: 1 });
-                    }
-                  });
+                  gsap.fromTo(el.closest(".stat-card").querySelector(".stat-glow"),
+                    { opacity: 0, scale: 0 },
+                    { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" });
                 }
               });
             });
@@ -4928,6 +5139,13 @@
                 duration: 1,
                 ease: "power3.out",
                 scrollTrigger: { trigger: el, start: "top 88%" }
+              });
+            });
+
+            gsap.utils.toArray(".benefit-item").forEach(item => {
+              ScrollTrigger.create({
+                trigger: item, start: "top 85%", once: true,
+                onEnter: () => item.classList.add("is-drawn")
               });
             });
 
@@ -5005,6 +5223,19 @@
               wrap.addEventListener("mouseenter", () => loop.pause());
               wrap.addEventListener("mouseleave", () => !loop.draggable.isDragging && loop.play());
             }
+
+            ScrollTrigger.create({
+              trigger: ".testimonials-section", start: "top 80%", once: true,
+              onEnter: () => {
+                gsap.from(".testi-card .stars svg", {
+                  scale: 0, opacity: 0, rotation: -180,
+                  stagger: { each: 0.08, from: "start" }, duration: 0.4, ease: "back.out(2)"
+                });
+                gsap.from(".testi-card .quote-mark", {
+                  scale: 0, opacity: 0, rotation: -45, stagger: 0.15, duration: 0.6, ease: "back.out(1.8)"
+                });
+              }
+            });
 
             // Lightweight horizontalLoop helper (GSAP official recipe)
             function horizontalLoop(items, config) {
@@ -5196,6 +5427,22 @@
               return c;
             });
 
+            function triggerMidpointBurst() {
+              const burstColors = ["#A78BFA", "#FFB347"];
+              for (let i = 0; i < 8; i++) {
+                const angle = (i / 8) * Math.PI * 2;
+                const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                c.setAttribute("cx", "700"); c.setAttribute("cy", "58"); c.setAttribute("r", "5");
+                c.setAttribute("fill", burstColors[i % 2]);
+                trail.appendChild(c);
+                gsap.to(c, {
+                  attr: { cx: 700 + Math.cos(angle) * 120, cy: 58 + Math.sin(angle) * 120 },
+                  opacity: 0, duration: 0.6, ease: "power2.out",
+                  onComplete: () => c.remove()
+                });
+              }
+            }
+
             // Master scroll-driven timeline
             const tl = gsap.timeline({
               scrollTrigger: {
@@ -5223,11 +5470,13 @@
             }, 0.12);
 
             // Phase 25%: energy line draws + head travels
-            tl.to([svgPath, svgGlow], {
-              strokeDashoffset: 0,
-              duration: 0.35,
-              ease: "none"
-            }, 0.25);
+            // Phase 1: left building to center
+            tl.to([svgPath, svgGlow], { strokeDashoffset: 700, duration: 0.12, ease: "none" }, 0.25);
+            // Phase 2: AI matching pause + midpoint burst
+            tl.to({}, { duration: 0.05 }, 0.37);
+            tl.call(() => triggerMidpointBurst(), [], 0.37);
+            // Phase 3: center to right building (double speed)
+            tl.to([svgPath, svgGlow], { strokeDashoffset: 0, duration: 0.10, ease: "none" }, 0.42);
 
             // Animate head along path
             tl.to({ t: 0 }, {
@@ -5807,7 +6056,8 @@
             vx: (Math.random() - 0.5) * 0.00018,
             vy: -(Math.random() * 0.0003 + 0.0001),
             alpha: Math.random() * 0.5 + 0.1,
-            hue: Math.random() > 0.5 ? "0,230,168" : "22,200,255"
+            hue: Math.random() > 0.5 ? "0,230,168" : "22,200,255",
+            pulse: Math.random() * Math.PI * 2
           }));
 
           function resize() {
@@ -5831,10 +6081,18 @@
               p.x += p.vx; p.y += p.vy;
               if (p.y < -0.02) p.y = 1.02;
               if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+              p.pulse += 0.02;
+              const pulseAlpha = p.alpha * (0.5 + 0.5 * Math.sin(p.pulse));
+              const cx = p.x * w, cy = p.y * h, rr = p.r * dpr;
               ctx.beginPath();
-              ctx.arc(p.x * w, p.y * h, p.r * dpr, 0, Math.PI * 2);
-              ctx.fillStyle = `rgba(${p.hue},${p.alpha})`;
+              ctx.arc(cx, cy, rr, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(${p.hue},${pulseAlpha})`;
               ctx.fill();
+              ctx.beginPath();
+              ctx.arc(cx, cy, rr * 2, 0, Math.PI * 2);
+              ctx.strokeStyle = `rgba(${p.hue},${pulseAlpha * 0.4})`;
+              ctx.lineWidth = dpr;
+              ctx.stroke();
             });
           }
           render();
