@@ -2298,6 +2298,10 @@
       animation: radarPing 3s ease-out infinite;
     }
 
+    .btn-primary:has(.radar-ping) {
+      overflow: visible;
+    }
+
     @keyframes radarPing {
       0% {
         transform: scale(1);
@@ -2764,7 +2768,7 @@
           rgba(0, 230, 168, .07) 0%,
           rgba(22, 200, 255, .04) 40%,
           transparent 70%),
-        var(--bg);
+        var(--deep-space);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -3662,9 +3666,6 @@
       </section>
 
       <script>
-        // Add this function call
-        initBenefits3DCube();
-
         function initBenefits3DCube() {
           const container = document.getElementById("benefits-3d-cube-container");
           if (!container || typeof THREE === "undefined") return;
@@ -4212,7 +4213,8 @@
           <div class="cta-banner reveal-up">
             <canvas class="cta-particles" id="ctaParticles" aria-hidden="true"></canvas>
             <h2>Partner with Ukonnect Staffing for People-First Hiring Solutions</h2>
-            <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span></a>
+            <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span><span
+                class="radar-ping" aria-hidden="true"></span></a>
           </div>
         </div>
       </section>
@@ -4549,6 +4551,7 @@
             const grid = document.querySelector(".process-grid");
             if (steps.length < 2 || !grid) return;
             gsap.set(grid, { position: "relative" });
+            ScrollTrigger.addEventListener("refreshInit", () => grid.querySelectorAll("svg").forEach(s => s.remove()));
             const gridBox = grid.getBoundingClientRect();
             for (let i = 1; i < steps.length; i++) {
               const pBox = steps[i - 1].getBoundingClientRect();
@@ -4631,14 +4634,7 @@
               trigger: document.body,
               start: "top top",
               end: "bottom bottom",
-              onUpdate: () => {
-                const display = divide > 1 ? (obj.val / divide).toFixed(0) : Math.round(obj.val);
-                el.textContent = display + suffix;
-                gsap.to(el.closest(".stat-card"), {
-                  scale: 1.015, duration: 0.06, yoyo: true, repeat: 1,
-                  ease: "power2.out", overwrite: "auto"
-                });
-              },
+              onUpdate: () => { } // canvas reads live state each tick already
             });
           }
 
@@ -5108,7 +5104,6 @@
               const divide = parseFloat(el.dataset.divide) || 1;
               const suffix = el.dataset.suffix || "";
               const obj = { val: 0 };
-
               ScrollTrigger.create({
                 trigger: el,
                 start: "top 85%",
@@ -5117,6 +5112,23 @@
                   gsap.fromTo(el.closest(".stat-card").querySelector(".stat-glow"),
                     { opacity: 0, scale: 0 },
                     { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" });
+                  gsap.to(obj, {
+                    val: target,
+                    duration: 2.1,
+                    ease: "power2.out",
+                    onUpdate: () => {
+                      const display = divide > 1 ? (obj.val / divide).toFixed(0) : Math.round(obj.val);
+                      el.textContent = display + suffix;
+                      gsap.to(el.closest(".stat-card"), {
+                        scale: 1.015, duration: 0.06, yoyo: true, repeat: 1,
+                        ease: "power2.out", overwrite: "auto"
+                      });
+                    },
+                    onComplete: () => {
+                      gsap.fromTo(el, { filter: "drop-shadow(0 0 0px rgba(0,230,168,0))" },
+                        { filter: "drop-shadow(0 0 14px rgba(0,230,168,.6))", duration: .5, yoyo: true, repeat: 1 });
+                    }
+                  });
                 }
               });
             });
