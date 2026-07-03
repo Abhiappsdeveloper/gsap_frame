@@ -3102,20 +3102,20 @@
     /* Background buildings (far left and right - depth layer) */
     .cb-building-bg {
       position: absolute;
-      bottom: 18%;
+      bottom: 12%;
       display: flex;
       gap: 20px;
       align-items: flex-end;
-      opacity: 0.4;
+      opacity: 0.3;
       z-index: 1;
     }
 
     .cb-building-bg-left {
-      left: -10%;
+      left: -5%;
     }
 
     .cb-building-bg-right {
-      right: -10%;
+      right: -5%;
     }
 
     .cb-bg-building {
@@ -3148,17 +3148,17 @@
     /* Street/Road */
     .cb-street {
       position: absolute;
-      bottom: 18%;
-      left: 30%;
-      right: 30%;
-      height: 60px;
-      background: linear-gradient(90deg,
-        rgba(100, 110, 130, 0.15) 0%,
-        rgba(120, 130, 150, 0.2) 50%,
-        rgba(100, 110, 130, 0.15) 100%);
-      border-top: 2px solid rgba(200, 200, 220, 0.15);
-      border-bottom: 2px solid rgba(200, 200, 220, 0.15);
-      z-index: 3;
+      bottom: 13%;
+      left: 20%;
+      right: 20%;
+      height: 50px;
+      background: linear-gradient(180deg,
+        rgba(80, 90, 110, 0.3) 0%,
+        rgba(100, 110, 130, 0.35) 50%,
+        rgba(80, 90, 110, 0.3) 100%);
+      border-top: 2px solid rgba(200, 200, 220, 0.2);
+      border-bottom: 2px solid rgba(200, 200, 220, 0.2);
+      z-index: 5;
     }
 
     .cb-street::before {
@@ -3179,18 +3179,18 @@
     /* Trees */
     .cb-trees {
       position: absolute;
-      bottom: 18%;
+      bottom: 13%;
       display: flex;
-      gap: 60px;
-      z-index: 2;
+      gap: 80px;
+      z-index: 3;
     }
 
     .cb-trees-left {
-      left: 5%;
+      left: 2%;
     }
 
     .cb-trees-right {
-      right: 5%;
+      right: 2%;
     }
 
     .cb-tree {
@@ -3229,50 +3229,50 @@
     /* Street lights */
     .cb-street-light {
       position: relative;
-      width: 6px;
-      height: 40px;
+      width: 5px;
+      height: 35px;
     }
 
     .cb-street-light::before {
       content: '';
       position: absolute;
       bottom: 0;
-      width: 6px;
-      height: 30px;
-      background: linear-gradient(90deg, #3a3a3a 0%, #5a5a5a 50%, #3a3a3a 100%);
+      width: 5px;
+      height: 28px;
+      background: linear-gradient(90deg, #2a2a2a 0%, #4a4a4a 50%, #2a2a2a 100%);
       border-radius: 1px;
     }
 
     .cb-street-light::after {
       content: '';
       position: absolute;
-      bottom: 30px;
-      left: -8px;
-      width: 22px;
-      height: 12px;
-      background: rgba(255, 200, 100, 0.3);
+      bottom: 28px;
+      left: -7px;
+      width: 19px;
+      height: 10px;
+      background: rgba(255, 200, 100, 0.4);
       border-radius: 2px;
-      box-shadow: 0 0 6px rgba(255, 200, 100, 0.4);
+      box-shadow: 0 0 6px rgba(255, 200, 100, 0.5);
     }
 
     /* Benches */
     .cb-bench {
       position: relative;
-      width: 30px;
-      height: 15px;
+      width: 28px;
+      height: 12px;
       background: linear-gradient(90deg, #663300 0%, #994400 50%, #663300 100%);
       border-radius: 2px;
-      opacity: 0.5;
+      opacity: 0.6;
     }
 
     /* Trash bins */
     .cb-trash {
       position: relative;
-      width: 15px;
-      height: 20px;
+      width: 14px;
+      height: 18px;
       background: linear-gradient(90deg, #222 0%, #444 50%, #222 100%);
       border-radius: 1px;
-      opacity: 0.4;
+      opacity: 0.5;
     }
 
     .cb-trash::before {
@@ -3289,14 +3289,15 @@
     /* Vehicles */
     .cb-vehicle {
       position: absolute;
-      bottom: 20%;
-      height: 20px;
-      opacity: 0.4;
+      bottom: 14.5%;
+      height: 18px;
+      opacity: 0.5;
       animation: vehicleFloat 3s ease-in-out infinite;
+      z-index: 6;
     }
 
     .cb-car-1 {
-      left: 35%;
+      left: 25%;
       width: 50px;
       background: linear-gradient(90deg, #c41e3a 0%, #e63946 50%, #c41e3a 100%);
       border-radius: 3px;
@@ -3304,7 +3305,7 @@
     }
 
     .cb-car-2 {
-      left: 50%;
+      left: 45%;
       width: 50px;
       background: linear-gradient(90deg, #1a73e8 0%, #4285f4 50%, #1a73e8 100%);
       border-radius: 3px;
@@ -3312,7 +3313,7 @@
     }
 
     .cb-bus-1 {
-      left: 60%;
+      left: 65%;
       width: 70px;
       background: linear-gradient(90deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
       border-radius: 3px;
@@ -3333,32 +3334,33 @@
     /* Pedestrians */
     .cb-person {
       position: absolute;
-      bottom: 19%;
-      width: 8px;
-      height: 16px;
+      bottom: 13.5%;
+      width: 7px;
+      height: 14px;
       background: linear-gradient(180deg, #8B4513 0%, #666 50%, #333 100%);
       border-radius: 2px;
-      opacity: 0.3;
+      opacity: 0.4;
       animation: personWalk 4s ease-in-out infinite;
+      z-index: 7;
     }
 
     .cb-person-1 {
-      left: 32%;
+      left: 28%;
       animation-delay: 0s;
     }
 
     .cb-person-2 {
-      left: 45%;
+      left: 42%;
       animation-delay: 1s;
     }
 
     .cb-person-3 {
-      left: 58%;
+      left: 55%;
       animation-delay: 0.5s;
     }
 
     .cb-person-4 {
-      left: 68%;
+      left: 70%;
       animation-delay: 1.5s;
     }
 
@@ -3376,82 +3378,84 @@
     /* Traffic lights */
     .cb-traffic-light {
       position: absolute;
-      bottom: 20%;
-      right: 25%;
-      width: 12px;
-      height: 30px;
-      background: #222;
+      bottom: 14%;
+      right: 22%;
+      width: 11px;
+      height: 28px;
+      background: #1a1a1a;
       border-radius: 2px;
       box-shadow:
-        inset 0 0 3px rgba(0, 0, 0, 0.8),
-        0 0 4px rgba(255, 0, 0, 0.3);
+        inset 0 0 3px rgba(0, 0, 0, 0.9),
+        0 0 4px rgba(255, 0, 0, 0.4);
+      z-index: 8;
     }
 
     .cb-traffic-light::before {
       content: '';
       position: absolute;
-      top: 3px;
+      top: 2px;
       left: 50%;
       transform: translateX(-50%);
-      width: 8px;
-      height: 8px;
-      background: rgba(255, 0, 0, 0.5);
+      width: 7px;
+      height: 7px;
+      background: rgba(255, 0, 0, 0.6);
       border-radius: 50%;
-      box-shadow: 0 0 4px rgba(255, 0, 0, 0.6);
+      box-shadow: 0 0 4px rgba(255, 0, 0, 0.7);
     }
 
     .cb-traffic-light::after {
       content: '';
       position: absolute;
-      top: 12px;
+      top: 11px;
       left: 50%;
       transform: translateX(-50%);
-      width: 8px;
-      height: 8px;
-      background: rgba(255, 200, 0, 0.3);
+      width: 7px;
+      height: 7px;
+      background: rgba(255, 200, 0, 0.4);
       border-radius: 50%;
     }
 
     /* Traffic sign */
     .cb-traffic-sign {
       position: absolute;
-      bottom: 23%;
-      left: 28%;
-      width: 20px;
-      height: 24px;
+      bottom: 15.5%;
+      left: 26%;
+      width: 18px;
+      height: 22px;
       background: linear-gradient(90deg, #c41e3a 0%, #e63946 100%);
       border-radius: 2px;
-      opacity: 0.5;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      opacity: 0.6;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+      z-index: 8;
     }
 
     .cb-traffic-sign::before {
       content: '';
       position: absolute;
-      bottom: -8px;
+      bottom: -7px;
       left: 50%;
       transform: translateX(-50%);
-      width: 3px;
-      height: 8px;
-      background: #444;
+      width: 2px;
+      height: 7px;
+      background: #333;
     }
 
     /* Street elements container */
     .cb-street-elements {
       position: absolute;
-      bottom: 18%;
+      bottom: 12%;
       display: flex;
-      gap: 40px;
+      gap: 35px;
       align-items: flex-end;
-      z-index: 2;
+      z-index: 4;
     }
 
     .cb-street-left {
-      left: 15%;
+      left: 8%;
     }
 
     .cb-street-right {
-      right: 15%;
+      right: 8%;
     }
 
     /* Vehicles container */
