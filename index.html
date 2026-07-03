@@ -4244,17 +4244,16 @@
         <div class="particles-field" id="particlesField" aria-hidden="true"></div>
 
         <div class="hero-inner" id="heroInner">
-          <span class="hero-eyebrow"><span class="pulse"></span> USA Staffing &amp; Workforce Solutions</span>
+          <span class="hero-eyebrow"><span class="pulse"></span> Enterprise IT Talent Acquisition Platform</span>
 
           <h1 class="hero-heading" id="heroHeading">
-            <span class="line"><span class="word">PEOPLE.</span></span>
-            <span class="line"><span class="word">POSITIONS.</span></span>
-            <span class="line"><span class="word grad">PERFECTLY</span></span>
-            <span class="line"><span class="word grad">UKONNECTED</span></span>
+            <span class="line"><span class="word">ELITE</span></span>
+            <span class="line"><span class="word">DEVELOPERS.</span></span>
+            <span class="line"><span class="word grad">STRATEGIC</span></span>
+            <span class="line"><span class="word grad">SOLUTIONS</span></span>
           </h1>
 
-          <p class="hero-sub">We connect exceptional talent with America's most ambitious companies — through smart
-            sourcing, seamless compliance, and people-first hiring at every stage.</p>
+          <p class="hero-sub">Advanced IT staffing and talent acquisition for enterprise technology needs. Connect with world-class software engineers, cloud architects, DevOps specialists, and cybersecurity professionals.</p>
 
           <div class="hero-ctas">
             <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span><span
@@ -4270,8 +4269,8 @@
                   <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01" />
                 </svg>
               </div>
-              <h3>Outsourcing Solutions</h3>
-              <p>End-to-end workforce outsourcing tailored to scale with your business.</p>
+              <h3>Full-Stack Development</h3>
+              <p>Expert developers across Java, Python, Node.js, React, and cloud-native technologies for enterprise applications.</p>
             </div>
             <div class="service-card tilt-card">
               <div class="glow"></div>
@@ -4280,8 +4279,8 @@
                   <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
                 </svg>
               </div>
-              <h3>Payroll &amp; Compliance</h3>
-              <p>Accurate, on-time payroll backed by full regulatory compliance.</p>
+              <h3>Cloud &amp; Infrastructure</h3>
+              <p>AWS, Azure, GCP specialists. DevOps engineers, SREs, and infrastructure architects for scalable systems.</p>
             </div>
             <div class="service-card tilt-card">
               <div class="glow"></div>
@@ -4290,8 +4289,8 @@
                   <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-5 0-8 2.5-8 5v2h16v-2c0-2.5-3-5-8-5z" />
                 </svg>
               </div>
-              <h3>Executive Search</h3>
-              <p>Precision-led search for leadership and hard-to-fill senior roles.</p>
+              <h3>Cybersecurity &amp; Data</h3>
+              <p>Security architects, penetration testers, data engineers, and ML specialists for enterprise security and analytics.</p>
             </div>
             <div class="service-card tilt-card">
               <div class="glow"></div>
@@ -4300,8 +4299,8 @@
                   <path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
                 </svg>
               </div>
-              <h3>Contract Staffing</h3>
-              <p>Flexible, vetted contract talent ready to deploy on demand.</p>
+              <h3>Technical Leadership</h3>
+              <p>CTOs, VPs of Engineering, Tech Leads, and Architects for organizational technology strategy and innovation.</p>
             </div>
           </div>
         </div>
@@ -6047,28 +6046,34 @@
               }
             });
 
-            // Phase 1 (0–30%): eyebrow + sub fade
+            // Phase 1 (0–25%): eyebrow + sub fade with scale (no blur)
             cinematicExit
-              .to(".hero-eyebrow", { opacity: 0, y: -20, ease: "none" }, 0)
-              .to(".hero-sub", { opacity: 0, y: -16, ease: "none" }, 0)
+              .to(".hero-eyebrow", { opacity: 0, scale: 0.8, ease: "none" }, 0)
+              .to(".hero-sub", { opacity: 0, scale: 0.85, ease: "none" }, 0)
               .to(".hero-scroll-cue", { opacity: 0, ease: "none" }, 0);
 
-            // Keep all hero heading words ALWAYS VISIBLE with elegant glow animation
-            heroWords.forEach((word) => {
-              gsap.to(word, {
-                textShadow: "0 0 20px rgba(0, 230, 168, 0.6), 0 0 40px rgba(22, 200, 255, 0.3)",
-                duration: 1.2,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-              });
+            // Phase 2 (10–70%): Words shrink & rotate with symmetric 3D effect (NO BLUR)
+            heroWords.forEach((word, i) => {
+              const start = 0.05 + i * 0.08;
+              cinematicExit.fromTo(word,
+                { scale: 1, rotateX: 0, rotateY: 0, rotateZ: 0, opacity: 1, transformOrigin: "50% 50%" },
+                {
+                  scale: 0.3,
+                  rotateX: -45,
+                  rotateY: () => (Math.random() - 0.5) * 30,
+                  rotateZ: () => (Math.random() - 0.5) * 15,
+                  opacity: 1,
+                  ease: "none"
+                },
+                start
+              );
             });
 
-            // Phase 3 (55–80%): service cards & shapes exit
+            // Phase 3 (50–80%): service cards collapse, shapes fade (symmetric)
             cinematicExit
-              .to(".service-cards", { y: -60, opacity: 0, rotateX: 8, ease: "none" }, 0.45)
+              .to(".service-cards", { scale: 0.7, opacity: 0, ease: "none" }, 0.45)
               .to(".hero-bg-shapes", { scale: 1.25, opacity: 0, ease: "none" }, 0.5)
-              .to(".particles-field", { y: -140, opacity: 0, ease: "none" }, 0.5);
+              .to(".particles-field", { scale: 0.5, opacity: 0, ease: "none" }, 0.5);
           }
 
           function initTiltCards() {
