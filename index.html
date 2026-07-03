@@ -2747,78 +2747,69 @@
 
     .gate-structure {
       position: relative;
-      width: 500px;
-      height: 500px;
+      width: 300px;
+      height: 320px;
       display: flex;
       align-items: flex-end;
       justify-content: center;
     }
 
-    /* Gate posts (pillars) */
-    .gate-post {
+    /* Gate frame (left and right sides) */
+    .gate-frame {
       position: absolute;
       bottom: 0;
-      width: 75px;
-      height: 500px;
-      background: linear-gradient(90deg, #d4af37 0%, #ffed4e 50%, #d4af37 100%);
-      border: 4px solid #ffd700;
-      box-shadow:
-        0 0 40px rgba(255, 215, 0, 0.6),
-        inset 0 0 20px rgba(255, 255, 255, 0.3);
+      width: 15px;
+      height: 320px;
+      background: linear-gradient(90deg, #16c8ff 0%, #00e6a8 50%, #16c8ff 100%);
+      border: 2px solid #00e6a8;
+      box-shadow: 0 0 20px rgba(22, 200, 255, 0.5);
+      z-index: 5;
     }
 
-    .gate-post-left {
-      left: 50px;
+    .gate-frame-left {
+      left: 0;
     }
 
-    .gate-post-right {
-      right: 50px;
+    .gate-frame-right {
+      right: 0;
     }
 
-    /* Gate arch connecting the posts */
-    .gate-arch {
+    /* Gate doors (opens outward) */
+    .gate-door {
       position: absolute;
-      bottom: 500px;
-      left: 50px;
-      right: 50px;
-      height: 120px;
-      background: linear-gradient(180deg, #ffed4e 0%, #ffd700 50%, #d4af37 100%);
-      border-radius: 50% 50% 0 0;
-      border: 4px solid #ffd700;
-      border-bottom: none;
-      box-shadow:
-        0 0 30px rgba(255, 215, 0, 0.6),
-        inset 0 0 15px rgba(255, 255, 255, 0.4);
+      bottom: 0;
+      width: 150px;
+      height: 320px;
+      background: linear-gradient(90deg, #1a4d7a 0%, #2d7da8 50%, #1a4d7a 100%);
+      border: 2px solid #16c8ff;
+      box-shadow: inset 0 0 20px rgba(22, 200, 255, 0.2), 0 0 20px rgba(22, 200, 255, 0.3);
+      z-index: 4;
+      transform-origin: bottom;
+      opacity: 1;
     }
 
-    /* Gate sign text */
-    .gate-sign {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 5.5rem;
-      font-weight: 900;
-      color: #c00000;
-      text-shadow:
-        0 0 20px rgba(192, 0, 0, 1),
-        0 0 40px rgba(192, 0, 0, 0.8),
-        0 4px 8px rgba(0, 0, 0, 0.6);
-      letter-spacing: 2px;
-      font-family: 'Arial Black', sans-serif;
-      z-index: 10;
+    .gate-door-left {
+      left: 0;
+      border-right: none;
+      transform-origin: bottom left;
+    }
+
+    .gate-door-right {
+      right: 0;
+      border-left: none;
+      transform-origin: bottom right;
     }
 
     /* Gate glow effect */
     .gate-glow {
       position: absolute;
-      bottom: -50px;
+      bottom: -30px;
       left: 50%;
       transform: translateX(-50%);
-      width: 600px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(255, 215, 0, 0.5), transparent 70%);
-      filter: blur(40px);
+      width: 400px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(22, 200, 255, 0.4), transparent 70%);
+      filter: blur(30px);
       border-radius: 50%;
       opacity: 0;
     }
@@ -3715,36 +3706,23 @@
       }
 
       .gate-structure {
-        width: 350px;
-        height: 350px;
+        width: 240px;
+        height: 280px;
       }
 
-      .gate-post {
-        width: 50px;
-        height: 350px;
+      .gate-frame {
+        width: 12px;
+        height: 280px;
       }
 
-      .gate-post-left {
-        left: 35px;
+      .gate-door {
+        width: 120px;
+        height: 280px;
       }
 
-      .gate-post-right {
-        right: 35px;
-      }
-
-      .gate-arch {
-        bottom: 350px;
-        left: 35px;
-        right: 35px;
-        height: 100px;
-        border: 3px solid #ffd700;
-        box-shadow:
-          0 0 25px rgba(255, 215, 0, 0.5),
-          inset 0 0 12px rgba(255, 255, 255, 0.3);
-      }
-
-      .gate-sign {
-        font-size: 3.5rem;
+      .gate-glow {
+        width: 300px;
+        height: 250px;
       }
 
       .gate-glow {
@@ -3830,39 +3808,26 @@
         height: 220px;
       }
 
-      .gate-post {
-        width: 30px;
+      .gate-structure {
+        width: 180px;
         height: 220px;
       }
 
-      .gate-post-left {
-        left: 20px;
+      .gate-frame {
+        width: 10px;
+        height: 220px;
       }
 
-      .gate-post-right {
-        right: 20px;
-      }
-
-      .gate-arch {
-        bottom: 220px;
-        left: 20px;
-        right: 20px;
-        height: 60px;
-        border: 2px solid #ffd700;
-        box-shadow:
-          0 0 20px rgba(255, 215, 0, 0.4),
-          inset 0 0 10px rgba(255, 255, 255, 0.2);
-      }
-
-      .gate-sign {
-        font-size: 2.2rem;
+      .gate-door {
+        width: 90px;
+        height: 220px;
       }
 
       .gate-glow {
-        width: 250px;
-        height: 200px;
-        bottom: -30px;
-        filter: blur(25px);
+        width: 220px;
+        height: 180px;
+        bottom: -20px;
+        filter: blur(20px);
       }
     }
 
@@ -4378,13 +4343,18 @@
           <div class="cb-gate-car cb-gate-car-left" id="cbGateCarLeft"></div>
           <div class="cb-gate-car cb-gate-car-right" id="cbGateCarRight"></div>
 
-          <!-- Large MNCs Gate on the right side -->
+          <!-- Small Gate with Opening Door -->
           <div class="cb-mnc-gate" id="cbMNCGate">
             <div class="gate-structure">
-              <div class="gate-post gate-post-left"></div>
-              <div class="gate-post gate-post-right"></div>
-              <div class="gate-arch"></div>
-              <div class="gate-sign"></div>
+              <!-- Left door frame -->
+              <div class="gate-frame gate-frame-left"></div>
+              <!-- Right door frame -->
+              <div class="gate-frame gate-frame-right"></div>
+              <!-- Left door (opens outward) -->
+              <div class="gate-door gate-door-left" id="gateDoorLeft"></div>
+              <!-- Right door (opens outward) -->
+              <div class="gate-door gate-door-right" id="gateDoorRight"></div>
+              <!-- Gate glow -->
               <div class="gate-glow"></div>
             </div>
           </div>
@@ -6730,12 +6700,27 @@
               ease: "power2.out"
             }, 0.28);
 
-            // MNC Gate fades in slightly after buildings disappear
+            // Gate appears
             tl.to("#cbMNCGate", {
               opacity: 1,
               duration: 0.4,
               ease: "power2.out"
             }, 0.65);
+
+            // Gate doors open outward
+            tl.to("#gateDoorLeft", {
+              rotateZ: -90,
+              duration: 0.6,
+              ease: "power2.inOut",
+              transformOrigin: "bottom left"
+            }, 0.75);
+
+            tl.to("#gateDoorRight", {
+              rotateZ: 90,
+              duration: 0.6,
+              ease: "power2.inOut",
+              transformOrigin: "bottom right"
+            }, 0.75);
 
             // Red lines move upward and fade out (connecting from buildings to middle)
             tl.to(".cb-connection-line", {
