@@ -3786,6 +3786,58 @@
       .cb-building-center {
         opacity: 0.2;
       }
+
+      /* Gate responsive for tablet */
+      .cb-mnc-gate {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 10%;
+      }
+
+      .gate-structure {
+        width: 350px;
+        height: 500px;
+      }
+
+      .gate-post {
+        width: 50px;
+        height: 500px;
+      }
+
+      .gate-post-left {
+        left: 35px;
+      }
+
+      .gate-post-right {
+        right: 35px;
+      }
+
+      .gate-arch {
+        bottom: 500px;
+        left: 35px;
+        right: 35px;
+        height: 120px;
+        border: 3px solid #ffd700;
+        box-shadow:
+          0 0 25px rgba(255, 215, 0, 0.5),
+          inset 0 0 12px rgba(255, 255, 255, 0.3);
+      }
+
+      .gate-sign {
+        font-size: 3.5rem;
+      }
+
+      .gate-glow {
+        width: 400px;
+        height: 350px;
+        bottom: -30px;
+        filter: blur(30px);
+      }
+
+      .cb-connection-line {
+        top: 35%;
+        height: 80px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -3850,25 +3902,47 @@
       .cb-mnc-gate {
         left: 50%;
         transform: translateX(-50%);
+        bottom: 8%;
       }
 
       .gate-structure {
-        width: 350px;
-        height: 500px;
+        width: 220px;
+        height: 320px;
       }
 
       .gate-post {
-        width: 50px;
-        height: 500px;
+        width: 30px;
+        height: 320px;
+      }
+
+      .gate-post-left {
+        left: 20px;
+      }
+
+      .gate-post-right {
+        right: 20px;
+      }
+
+      .gate-arch {
+        bottom: 320px;
+        left: 20px;
+        right: 20px;
+        height: 80px;
+        border: 2px solid #ffd700;
+        box-shadow:
+          0 0 20px rgba(255, 215, 0, 0.4),
+          inset 0 0 10px rgba(255, 255, 255, 0.2);
       }
 
       .gate-sign {
-        font-size: 3.5rem;
+        font-size: 2.2rem;
       }
 
       .gate-glow {
-        width: 400px;
-        height: 350px;
+        width: 250px;
+        height: 200px;
+        bottom: -30px;
+        filter: blur(25px);
       }
     }
 
