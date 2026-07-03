@@ -3877,6 +3877,341 @@
     }
 
     /* DELETE: Remove any duplicate @media (max-width:480px) block below */
+    /* ============================================================
+   INDUSTRIAL WORKING ZONE
+   ============================================================ */
+    .industrial-zone {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(180deg,
+        #4a5568 0%,
+        #2d3748 50%,
+        #1a202c 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ind-sky {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(100, 120, 140, 0.4) 0%,
+        rgba(60, 80, 100, 0.3) 50%,
+        transparent 100%);
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .ind-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    /* Factories and warehouses */
+    .ind-building {
+      position: absolute;
+      bottom: 15%;
+      opacity: 0;
+      z-index: 2;
+    }
+
+    .ind-factory-1 {
+      left: 5%;
+      width: 120px;
+      height: 280px;
+      background: linear-gradient(90deg, #3d4452 0%, #4a5568 50%, #3d4452 100%);
+      border: 2px solid #2d3748;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .ind-factory-2 {
+      left: 20%;
+      width: 140px;
+      height: 320px;
+      background: linear-gradient(90deg, #454d61 0%, #525a73 50%, #454d61 100%);
+      border: 2px solid #2d3748;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .ind-factory-3 {
+      right: 25%;
+      width: 130px;
+      height: 300px;
+      background: linear-gradient(90deg, #3d4452 0%, #4a5568 50%, #3d4452 100%);
+      border: 2px solid #2d3748;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .ind-warehouse-1 {
+      right: 8%;
+      width: 150px;
+      height: 250px;
+      background: linear-gradient(90deg, #5a6378 0%, #6b7488 50%, #5a6378 100%);
+      border: 2px solid #2d3748;
+    }
+
+    .ind-warehouse-2 {
+      right: 60%;
+      width: 140px;
+      height: 270px;
+      background: linear-gradient(90deg, #4a5568 0%, #5a6378 50%, #4a5568 100%);
+      border: 2px solid #2d3748;
+    }
+
+    /* Chimneys */
+    .ind-chimney {
+      position: absolute;
+      bottom: 295px;
+      width: 20px;
+      height: 200px;
+      background: linear-gradient(90deg, #2d3748 0%, #3d4452 50%, #2d3748 100%);
+      border: 1px solid #1a202c;
+      opacity: 0;
+      z-index: 3;
+    }
+
+    .ind-chimney-1 {
+      left: 12%;
+    }
+
+    .ind-chimney-2 {
+      left: 32%;
+    }
+
+    .ind-chimney-3 {
+      right: 32%;
+    }
+
+    .chimney-smoke {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 15px;
+      height: 80px;
+      background: radial-gradient(circle at center,
+        rgba(150, 150, 150, 0.6) 0%,
+        rgba(100, 100, 100, 0.3) 50%,
+        transparent 100%);
+      border-radius: 50%;
+      filter: blur(4px);
+      animation: smokeRise 3s ease-in infinite;
+    }
+
+    .chimney-smoke.smoke-2 {
+      animation-delay: 1s;
+      opacity: 0.6;
+    }
+
+    @keyframes smokeRise {
+      0% {
+        top: -30px;
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      80% {
+        opacity: 0.3;
+      }
+      100% {
+        top: -120px;
+        opacity: 0;
+      }
+    }
+
+    /* Industrial equipment */
+    .ind-equipment {
+      position: absolute;
+      bottom: 15%;
+      opacity: 0;
+      z-index: 2;
+    }
+
+    .ind-crane-1 {
+      left: 45%;
+      width: 30px;
+      height: 250px;
+      background: linear-gradient(90deg, #2d3748 0%, #3d4452 100%);
+      border: 1px solid #1a202c;
+    }
+
+    .ind-crane-1::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -40px;
+      width: 100px;
+      height: 15px;
+      background: #2d3748;
+      border: 1px solid #1a202c;
+      animation: craneSwing 4s ease-in-out infinite;
+      transform-origin: right center;
+    }
+
+    .ind-crane-2 {
+      right: 20%;
+      width: 28px;
+      height: 220px;
+      background: linear-gradient(90deg, #3d4452 0%, #4a5568 100%);
+      border: 1px solid #1a202c;
+    }
+
+    .ind-container-stack {
+      left: 65%;
+      width: 90px;
+      height: 180px;
+      background: linear-gradient(90deg,
+        #c41e3a 0%,
+        #e63946 50%,
+        #c41e3a 100%);
+      border: 2px solid #8b0000;
+      box-shadow: 0 0 10px rgba(196, 30, 58, 0.4);
+      opacity: 0;
+      z-index: 2;
+    }
+
+    @keyframes craneSwing {
+      0%, 100% {
+        transform: rotateZ(0deg);
+      }
+      50% {
+        transform: rotateZ(25deg);
+      }
+    }
+
+    /* Ground/Road */
+    .ind-ground {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(180deg,
+        rgba(60, 70, 80, 0.5) 0%,
+        rgba(40, 50, 60, 0.7) 100%);
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      z-index: 1;
+      opacity: 0;
+    }
+
+    /* Workers */
+    .ind-workers {
+      position: absolute;
+      bottom: 120px;
+      width: 100%;
+      height: 100px;
+      opacity: 0;
+      z-index: 4;
+    }
+
+    .ind-worker {
+      position: absolute;
+      width: 8px;
+      height: 16px;
+      background: linear-gradient(180deg, #8B4513 0%, #666 100%);
+      border-radius: 2px;
+      bottom: 0;
+      animation: workerWalk 4s ease-in-out infinite;
+    }
+
+    .worker-1 {
+      left: 15%;
+      animation-delay: 0s;
+    }
+
+    .worker-2 {
+      left: 25%;
+      animation-delay: 0.5s;
+    }
+
+    .worker-3 {
+      left: 35%;
+      animation-delay: 1s;
+    }
+
+    .worker-4 {
+      left: 45%;
+      animation-delay: 0.3s;
+    }
+
+    .worker-5 {
+      right: 40%;
+      animation-delay: 0.8s;
+    }
+
+    .worker-6 {
+      right: 30%;
+      animation-delay: 0.2s;
+    }
+
+    .worker-7 {
+      right: 20%;
+      animation-delay: 0.6s;
+    }
+
+    .worker-8 {
+      right: 10%;
+      animation-delay: 1s;
+    }
+
+    @keyframes workerWalk {
+      0%, 100% {
+        transform: translateX(0) scaleX(1);
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(20px) scaleX(1.1);
+        opacity: 0.8;
+      }
+    }
+
+    /* Industrial vehicles */
+    .ind-vehicles {
+      position: absolute;
+      bottom: 120px;
+      width: 100%;
+      opacity: 0;
+      z-index: 3;
+    }
+
+    .ind-vehicle {
+      position: absolute;
+      height: 20px;
+      bottom: 0;
+      animation: vehicleMove 6s ease-in-out infinite;
+    }
+
+    .ind-forklift {
+      left: 50%;
+      width: 45px;
+      background: linear-gradient(90deg, #FFD700 0%, #FFA500 100%);
+      border-radius: 2px;
+    }
+
+    .ind-truck {
+      right: 50%;
+      width: 70px;
+      background: linear-gradient(90deg, #1a73e8 0%, #4285f4 100%);
+      border-radius: 2px;
+      animation-delay: 2s;
+    }
+
+    @keyframes vehicleMove {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(100px);
+      }
+    }
+
   </style>
 </head>
 
@@ -4232,7 +4567,67 @@
 
       </section>
 
+      <!-- ============================================================
+     INDUSTRIAL WORKING ZONE
+     ============================================================ -->
+      <section class="industrial-zone" id="industrialZone" aria-hidden="true">
 
+        <!-- Industrial sky -->
+        <div class="ind-sky"></div>
+
+        <!-- Stage container for all industrial elements -->
+        <div class="ind-stage" id="indStage">
+
+          <!-- Factories & Warehouses -->
+          <div class="ind-building ind-factory-1"></div>
+          <div class="ind-building ind-factory-2"></div>
+          <div class="ind-building ind-factory-3"></div>
+          <div class="ind-building ind-warehouse-1"></div>
+          <div class="ind-building ind-warehouse-2"></div>
+
+          <!-- Chimneys with smoke -->
+          <div class="ind-chimney ind-chimney-1">
+            <div class="chimney-smoke smoke-1"></div>
+            <div class="chimney-smoke smoke-2"></div>
+          </div>
+          <div class="ind-chimney ind-chimney-2">
+            <div class="chimney-smoke smoke-1"></div>
+            <div class="chimney-smoke smoke-2"></div>
+          </div>
+          <div class="ind-chimney ind-chimney-3">
+            <div class="chimney-smoke smoke-1"></div>
+            <div class="chimney-smoke smoke-2"></div>
+          </div>
+
+          <!-- Industrial equipment -->
+          <div class="ind-equipment ind-crane-1"></div>
+          <div class="ind-equipment ind-crane-2"></div>
+          <div class="ind-equipment ind-container-stack"></div>
+
+          <!-- Ground/Road -->
+          <div class="ind-ground"></div>
+
+          <!-- Working people -->
+          <div class="ind-workers">
+            <div class="ind-worker worker-1"></div>
+            <div class="ind-worker worker-2"></div>
+            <div class="ind-worker worker-3"></div>
+            <div class="ind-worker worker-4"></div>
+            <div class="ind-worker worker-5"></div>
+            <div class="ind-worker worker-6"></div>
+            <div class="ind-worker worker-7"></div>
+            <div class="ind-worker worker-8"></div>
+          </div>
+
+          <!-- Vehicles -->
+          <div class="ind-vehicles">
+            <div class="ind-vehicle ind-forklift"></div>
+            <div class="ind-vehicle ind-truck"></div>
+          </div>
+
+        </div><!-- /ind-stage -->
+
+      </section>
 
       <!-- ============================================================
      SERVICES SECTION
@@ -5227,6 +5622,9 @@
 
             /* ====== Cinematic Building Scene ====== */
             initCinematicBuildings();
+
+            /* ====== Industrial Working Zone ====== */
+            initIndustrialZone();
 
             /* ====== Footer link hover micro-interaction ====== */
             initFooterHovers();
@@ -6339,24 +6737,31 @@
             }, 0.35);
 
             // ============================================================
-            // ANIMATED CARS FROM BUILDINGS TOWARD GATE
+            // ANIMATED CARS FROM BUILDINGS - MEET IN MIDDLE
             // ============================================================
 
-            // Left car appears and moves from left building toward gate (extended movement)
+            // Left car appears and moves toward center to meet right car
             tl.to("#cbGateCarLeft", {
               opacity: 1,
-              x: 350,
+              x: 250,
               duration: 0.85,
               ease: "power1.inOut"
             }, 0.25);
 
-            // Right car appears and moves from right building toward gate (extended movement)
+            // Right car appears and moves toward center to meet left car
             tl.to("#cbGateCarRight", {
               opacity: 1,
-              x: -350,
+              x: -250,
               duration: 0.85,
               ease: "power1.inOut"
             }, 0.25);
+
+            // Both cars fade out together after meeting
+            tl.to(["#cbGateCarLeft", "#cbGateCarRight"], {
+              opacity: 0,
+              duration: 0.3,
+              ease: "power2.in"
+            }, 1.05);
 
             // MNC Gate glow activates prominently (dramatic finale)
             tl.to(".gate-glow", {
@@ -6385,6 +6790,90 @@
                 delay: i * 1.2
               });
             });
+          }
+
+          /* ============================================================
+          INDUSTRIAL WORKING ZONE
+          ============================================================ */
+          function initIndustrialZone() {
+            if (prefersReduced) return;
+
+            const section = document.getElementById("industrialZone");
+            if (!section) return;
+
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: section,
+                start: "top top",
+                end: "+=300%",
+                scrub: 1.6,
+                pin: true,
+                anticipatePin: 1
+              }
+            });
+
+            // Fade in industrial sky
+            tl.to(".ind-sky", {
+              opacity: 0.6,
+              duration: 0.3,
+              ease: "power2.out"
+            }, 0.05);
+
+            // Fade in ground
+            tl.to(".ind-ground", {
+              opacity: 1,
+              duration: 0.25,
+              ease: "power2.out"
+            }, 0.08);
+
+            // Factories and warehouses appear
+            tl.to([".ind-factory-1", ".ind-factory-2", ".ind-factory-3", ".ind-warehouse-1", ".ind-warehouse-2"], {
+              opacity: 0.8,
+              duration: 0.35,
+              ease: "power2.out"
+            }, 0.10);
+
+            // Chimneys appear with smoke
+            tl.to([".ind-chimney-1", ".ind-chimney-2", ".ind-chimney-3"], {
+              opacity: 1,
+              duration: 0.3,
+              ease: "power2.out"
+            }, 0.15);
+
+            // Cranes appear
+            tl.to([".ind-crane-1", ".ind-crane-2"], {
+              opacity: 1,
+              duration: 0.3,
+              ease: "power2.out"
+            }, 0.18);
+
+            // Container stack appears
+            tl.to(".ind-container-stack", {
+              opacity: 1,
+              duration: 0.25,
+              ease: "power2.out"
+            }, 0.20);
+
+            // Workers appear and start moving
+            tl.to(".ind-workers", {
+              opacity: 1,
+              duration: 0.25,
+              ease: "power2.out"
+            }, 0.22);
+
+            // Vehicles appear and start moving
+            tl.to(".ind-vehicles", {
+              opacity: 1,
+              duration: 0.25,
+              ease: "power2.out"
+            }, 0.25);
+
+            // Activity builds up
+            tl.to([".ind-factory-1", ".ind-factory-2", ".ind-factory-3"], {
+              boxShadow: "0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(100, 120, 140, 0.2)",
+              duration: 0.4,
+              ease: "power2.out"
+            }, 0.30);
           }
 
           /* ============================================================
