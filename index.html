@@ -959,45 +959,6 @@
       }
     }
 
-    .scroll-line {
-      width: 2px;
-      height: 48px;
-      background: linear-gradient(var(--primary), transparent);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .scroll-line::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(var(--primary), var(--primary), transparent);
-      box-shadow: 0 0 8px var(--primary);
-      animation: scrollDownEnhanced 2s ease-in-out infinite;
-    }
-
-    @keyframes scrollDownEnhanced {
-      0% {
-        top: -100%;
-        opacity: 0;
-      }
-
-      10% {
-        opacity: 1;
-      }
-
-      90% {
-        opacity: 1;
-      }
-
-      100% {
-        top: 100%;
-        opacity: 0;
-      }
-    }
 
     /* Service cards in hero */
     .service-cards {
@@ -1236,16 +1197,6 @@
       padding: 120px 0;
     }
 
-    .stats-bg-line {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 50%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(0, 230, 168, .25), transparent);
-      transform: translateY(-50%);
-      z-index: 0;
-    }
 
     .stats-grid {
       position: relative;
@@ -1365,17 +1316,6 @@
       position: relative;
     }
 
-    .process-grid::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(0, 230, 168, .3), transparent);
-      transform: translateY(-50%);
-      z-index: 0;
-    }
 
     .process-step {
       position: relative;
@@ -1632,17 +1572,6 @@
       margin: 0 auto;
     }
 
-    .timeline-line {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      --line-progress: 0%;
-      background: linear-gradient(180deg, var(--primary) var(--line-progress), rgba(0, 230, 168, 0.1) var(--line-progress));
-      transform: translateX(-50%);
-      z-index: 0;
-    }
 
     .timeline-events {
       display: flex;
@@ -2558,10 +2487,6 @@
         grid-template-columns: 1fr;
       }
 
-      .timeline-line {
-        display: none;
-      }
-
       .timeline-event:nth-child(even) .event-content {
         margin-left: 0;
       }
@@ -3151,17 +3076,6 @@
       opacity: 1;
     }
 
-    /* ---- Energy SVG ---- */
-    .cb-energy-svg {
-      position: absolute;
-      bottom: calc(18% + 6%);
-      left: 0;
-      width: 100%;
-      height: 120px;
-      z-index: 3;
-      pointer-events: none;
-      overflow: visible;
-    }
 
     /* ---- Exit fog ---- */
     .cb-exit-fog {
@@ -3183,11 +3097,6 @@
       .cb-building-b {
         width: clamp(110px, 34vw, 200px);
         height: clamp(220px, 40vh, 380px);
-      }
-
-      .cb-energy-svg {
-        height: 80px;
-        bottom: calc(18% + 4%);
       }
     }
 
@@ -3326,7 +3235,6 @@
 
         <div class="hero-scroll-cue" aria-hidden="true">
           <span>SCROLL</span>
-          <div class="scroll-line"></div>
         </div>
       </section>
 
@@ -3383,40 +3291,6 @@
             </div>
           </div>
 
-          <!-- Energy line SVG -->
-          <svg class="cb-energy-svg" id="cbEnergySvg" viewBox="0 0 1400 120" preserveAspectRatio="none"
-            aria-hidden="true">
-            <defs>
-              <filter id="energyBlur">
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-              <radialGradient id="particleGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#00E6A8" stop-opacity="1" />
-                <stop offset="100%" stop-color="#16C8FF" stop-opacity="0" />
-              </radialGradient>
-              <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#00E6A8" />
-                <stop offset="50%" stop-color="#16C8FF" />
-                <stop offset="100%" stop-color="#4D7CFF" />
-              </linearGradient>
-            </defs>
-            <!-- Core energy spline -->
-            <path id="energyPath" d="M 60,60 C 200,40 400,80 700,58 C 950,36 1150,70 1340,60" fill="none"
-              stroke="url(#lineGrad)" stroke-width="3" filter="url(#energyBlur)" stroke-dasharray="1400"
-              stroke-dashoffset="1400" />
-            <!-- Glow layer -->
-            <path id="energyGlow" d="M 60,60 C 200,40 400,80 700,58 C 950,36 1150,70 1340,60" fill="none"
-              stroke="#00E6A8" stroke-width="10" opacity="0.25" filter="url(#energyBlur)" stroke-dasharray="1400"
-              stroke-dashoffset="1400" />
-            <!-- Moving energy head -->
-            <circle id="energyHead" r="10" fill="url(#particleGrad)" opacity="0" />
-            <!-- Particle trail group -->
-            <g id="energyTrail"></g>
-          </svg>
 
           <!-- Building B — enters from right -->
           <div class="cb-building-wrap cb-right" id="cbBuildingB">
@@ -3465,7 +3339,6 @@
               talent
               acquisition so you can focus on growth.</p>
           </div>
-          <div class="stats-bg-line" aria-hidden="true"></div>
           <div class="stats-grid">
             <div class="stat-card reveal-up">
               <div class="stat-glow"></div>
@@ -3679,8 +3552,6 @@
           </div>
 
           <div class="timeline-container">
-            <div class="timeline-line" aria-hidden="true"></div>
-
             <div class="timeline-events">
               <div class="timeline-event reveal-up">
                 <div class="event-marker"></div>
@@ -4437,11 +4308,9 @@
             initCounters();
             /* ====== Section reveal-on-scroll (generic) ====== */
             initReveals();
-            initProcessConnectors();
 
             /* ====== About image reveal + parallax ====== */
             initAboutReveal();
-            initTimelineEKG();
 
             /* ====== Testimonials draggable loop ====== */
             initTestimonials();
@@ -4463,78 +4332,6 @@
 
           });
 
-          function initTimelineEKG() {
-            if (prefersReduced) return;
-            const line = document.querySelector(".timeline-line");
-            if (!line) return;
-            gsap.to(line, {
-              "--line-progress": "100%", ease: "none",
-              scrollTrigger: { trigger: ".hiring-timeline", start: "top center", end: "bottom center", scrub: 1 }
-            });
-          }
-
-          function initProcessConnectors() {
-            if (prefersReduced) return;
-            const steps = gsap.utils.toArray(".process-step");
-            const grid = document.querySelector(".process-grid");
-            if (steps.length < 2 || !grid) return;
-            gsap.set(grid, { position: "relative" });
-            ScrollTrigger.addEventListener("refreshInit", () => {
-              grid.querySelectorAll("svg").forEach(s => {
-                gsap.killTweensOf(s);  // Kill any active animations on this SVG before removing
-                s.remove();
-              });
-            });
-            grid.querySelectorAll("svg").forEach(s => s.remove());
-            const gridBox = grid.getBoundingClientRect();
-            for (let i = 1; i < steps.length; i++) {
-              const pBox = steps[i - 1].getBoundingClientRect();
-              const cBox = steps[i].getBoundingClientRect();
-              const x1 = pBox.right - gridBox.left, y1 = pBox.top + pBox.height / 2 - gridBox.top;
-              const x2 = cBox.left - gridBox.left, y2 = cBox.top + cBox.height / 2 - gridBox.top;
-              const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-              svg.setAttribute("width", gridBox.width);
-              svg.setAttribute("viewBox", `0 0 ${gridBox.width} ${gridBox.height}`);
-              svg.setAttribute("height", gridBox.height);
-              Object.assign(svg.style, {  });
-
-              // ADD THESE LINES - Create defs and gradient for this SVG
-              const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-              const gradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
-              gradient.setAttribute("id", "lineGrad");
-              gradient.setAttribute("x1", "0%");
-              gradient.setAttribute("x2", "100%");
-              const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-              stop1.setAttribute("offset", "0%");
-              stop1.setAttribute("stop-color", "#00E6A8");
-              const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-              stop2.setAttribute("offset", "50%");
-              stop2.setAttribute("stop-color", "#16C8FF");
-              const stop3 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-              stop3.setAttribute("offset", "100%");
-              stop3.setAttribute("stop-color", "#4D7CFF");
-              gradient.appendChild(stop1);
-              gradient.appendChild(stop2);
-              gradient.appendChild(stop3);
-              defs.appendChild(gradient);
-              svg.appendChild(defs);
-
-              const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-
-              const len = Math.hypot(x2 - x1, y2 - y1);
-              line.setAttribute("x1", x1); line.setAttribute("y1", y1);
-              line.setAttribute("x2", x2); line.setAttribute("y2", y2);
-              line.setAttribute("stroke", "url(#lineGrad)");
-              line.setAttribute("stroke-width", "2");
-              line.setAttribute("stroke-dasharray", len);
-              line.setAttribute("stroke-dashoffset", len);
-              svg.appendChild(line); grid.appendChild(svg);
-              gsap.to(line, {
-                strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut",
-                scrollTrigger: { trigger: steps[i], start: "top 75%" }
-              });
-            }
-          }
 
           /* ============================================================
              AURORA / GRADIENT MESH BACKGROUND (Canvas, GPU-light)
@@ -5373,46 +5170,13 @@
             const stage = document.getElementById("cbStage");
             const exitFog = document.getElementById("cbExitFog");
 
-            const svgPath = document.getElementById("energyPath");
-            const svgGlow = document.getElementById("energyGlow");
-            const energyHead = document.getElementById("energyHead");
-            const trail = document.getElementById("energyTrail");
-
             if (!section || !buildingA || typeof MotionPathPlugin === "undefined") return;
-
-            const pathLen = svgPath.getTotalLength ? svgPath.getTotalLength() : 1400;
 
             // Seed windows with varied opacity for realism
             section.querySelectorAll(".cb-win-row").forEach((row, i) => {
               row.style.opacity = (0.4 + Math.random() * 0.5).toFixed(2);
             });
 
-            // Spawn SVG particle trail dots
-            const TRAIL_COUNT = 14;
-            const trailDots = Array.from({ length: TRAIL_COUNT }, (_, i) => {
-              const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-              c.setAttribute("r", String(4 - i * 0.22));
-              c.setAttribute("fill", i % 2 === 0 ? "#00E6A8" : "#16C8FF");
-              c.setAttribute("opacity", String(0.7 - i * 0.045));
-              trail.appendChild(c);
-              return c;
-            });
-
-            function triggerMidpointBurst() {
-              const burstColors = ["#A78BFA", "#FFB347"];
-              for (let i = 0; i < 8; i++) {
-                const angle = (i / 8) * Math.PI * 2;
-                const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                c.setAttribute("cx", "700"); c.setAttribute("cy", "58"); c.setAttribute("r", "5");
-                c.setAttribute("fill", burstColors[i % 2]);
-                trail.appendChild(c);
-                gsap.to(c, {
-                  attr: { cx: 700 + Math.cos(angle) * 120, cy: 58 + Math.sin(angle) * 120 },
-                  opacity: 0, duration: 0.6, ease: "power2.out",
-                  onComplete: () => c.remove()
-                });
-              }
-            }
 
             // Master scroll-driven timeline
             const tl = gsap.timeline({
@@ -5440,33 +5204,6 @@
               ease: "power3.out"
             }, 0.12);
 
-            // Phase 25%: energy line draws + head travels
-            // Phase 1: left building to center
-            tl.to([svgPath, svgGlow], { strokeDashoffset: 700, duration: 0.12, ease: "none" }, 0.25);
-            // Phase 2: AI matching pause + midpoint burst
-            tl.to({}, { duration: 0.05 }, 0.37);
-            tl.call(() => triggerMidpointBurst(), [], 0.37);
-            // Phase 3: center to right building (double speed)
-            tl.to([svgPath, svgGlow], { strokeDashoffset: 0, duration: 0.10, ease: "none" }, 0.42);
-
-            // Animate head along path
-            tl.to({ t: 0 }, {
-              t: 1,
-              duration: 0.35,
-              ease: "none",
-              onUpdate: function () {
-                const t = this.targets()[0].t;
-                if (!svgPath.getPointAtLength) return;
-                const pt = svgPath.getPointAtLength(t * pathLen);
-                gsap.set(energyHead, { attr: { cx: pt.x, cy: pt.y }, opacity: 1 });
-                trailDots.forEach((dot, i) => {
-                  const offset = Math.max(0, t * pathLen - (i + 1) * 22);
-                  const tp = svgPath.getPointAtLength(offset);
-                  gsap.set(dot, { attr: { cx: tp.x, cy: tp.y } });
-                });
-              }
-            }, 0.25);
-
             // Phase 55%: Building A energizes (windows light up)
             tl.call(() => {
               buildingA.querySelector(".cb-building").classList.add("is-energized");
@@ -5476,9 +5213,6 @@
             tl.call(() => {
               buildingB.querySelector(".cb-building").classList.add("is-energized");
             }, [], 0.59);
-
-            // Head fades after reaching B
-            tl.to(energyHead, { opacity: 0, duration: 0.04, ease: "none" }, 0.60);
 
             // Phase 65–75%: camera zoom — both buildings scale up slightly, stage scales
             tl.to(stage, {
@@ -5501,9 +5235,6 @@
               start: "top top",
               onLeaveBack: () => {
                 section.querySelectorAll(".cb-building").forEach(b => b.classList.remove("is-energized"));
-                gsap.set([svgPath, svgGlow], { strokeDashoffset: pathLen });
-                gsap.set(energyHead, { opacity: 0 });
-                trailDots.forEach(dot => gsap.set(dot, { attr: { cx: -999, cy: -999 } }));
               }
             });
 
