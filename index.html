@@ -4162,6 +4162,14 @@
           <div class="cb-ground"></div>
 
           <!-- BACKGROUND CITY ELEMENTS -->
+          <!-- Far background buildings (far left - extends off-screen left) -->
+          <div class="cb-building-bg cb-building-bg-far-left" style="position: absolute; left: -1600px; bottom: 12%; gap: 30px; display: flex;">
+            <div class="cb-bg-building" style="width: 60px; height: 200px; background: linear-gradient(90deg, #0a1a2e, #16213e); opacity: 0.3; border: 1px solid #16c8ff;"></div>
+            <div class="cb-bg-building" style="width: 80px; height: 240px; background: linear-gradient(90deg, #0a1a2e, #16213e); opacity: 0.3; border: 1px solid #16c8ff;"></div>
+            <div class="cb-bg-building" style="width: 70px; height: 210px; background: linear-gradient(90deg, #0a1a2e, #16213e); opacity: 0.3; border: 1px solid #16c8ff;"></div>
+            <div class="cb-bg-building" style="width: 75px; height: 220px; background: linear-gradient(90deg, #0a1a2e, #16213e); opacity: 0.3; border: 1px solid #16c8ff;"></div>
+          </div>
+
           <!-- Far background buildings (left side) -->
           <div class="cb-building-bg cb-building-bg-left">
             <div class="cb-bg-building cb-bg-building-1"></div>
@@ -4174,6 +4182,21 @@
             <div class="cb-bg-building cb-bg-building-3"></div>
             <div class="cb-bg-building cb-bg-building-4"></div>
             <div class="cb-bg-building cb-bg-building-6"></div>
+          </div>
+
+          <!-- Far background buildings (far right - extends off-screen right) -->
+          <div class="cb-building-bg cb-building-bg-far-right" style="position: absolute; right: -1600px; bottom: 12%; gap: 30px; display: flex;">
+            <div class="cb-bg-building" style="width: 70px; height: 210px; background: linear-gradient(90deg, #0a1a2e, #16213e); opacity: 0.3; border: 1px solid #16c8ff;"></div>
+            <div class="cb-bg-building" style="width: 85px; height: 250px; background: linear-gradient(90deg, #0a1a2e, #16213e); opacity: 0.3; border: 1px solid #16c8ff;"></div>
+            <div class="cb-bg-building" style="width: 65px; height: 190px; background: linear-gradient(90deg, #0a1a2e, #16213e); opacity: 0.3; border: 1px solid #16c8ff;"></div>
+            <div class="cb-bg-building" style="width: 80px; height: 230px; background: linear-gradient(90deg, #0a1a2e, #16213e); opacity: 0.3; border: 1px solid #16c8ff;"></div>
+          </div>
+
+          <!-- Extended mid-ground buildings (far left) -->
+          <div class="cb-building-mg" style="position: absolute; left: -1200px; bottom: 13%; gap: 20px; display: flex; opacity: 0.55;">
+            <div class="cb-mg-building" style="width: 80px; height: 240px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.7;"></div>
+            <div class="cb-mg-building" style="width: 90px; height: 280px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.7;"></div>
+            <div class="cb-mg-building" style="width: 75px; height: 220px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.7;"></div>
           </div>
 
           <!-- Mid-ground buildings (closer, more prominent) -->
@@ -4189,6 +4212,13 @@
             <div class="cb-mg-building cb-mg-building-6"></div>
           </div>
 
+          <!-- Extended mid-ground buildings (far right) -->
+          <div class="cb-building-mg" style="position: absolute; right: -1200px; bottom: 13%; gap: 20px; display: flex; opacity: 0.55;">
+            <div class="cb-mg-building" style="width: 85px; height: 260px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.7;"></div>
+            <div class="cb-mg-building" style="width: 80px; height: 240px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.7;"></div>
+            <div class="cb-mg-building" style="width: 95px; height: 290px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.7;"></div>
+          </div>
+
           <!-- Side buildings (edge of scene, visible between main buildings) -->
           <div class="cb-building-side cb-building-side-left">
             <div class="cb-side-building cb-side-building-1"></div>
@@ -4198,6 +4228,18 @@
           <div class="cb-building-side cb-building-side-right">
             <div class="cb-side-building cb-side-building-3"></div>
             <div class="cb-side-building cb-side-building-4"></div>
+          </div>
+
+          <!-- Extended side buildings (far left) -->
+          <div class="cb-building-side" style="position: absolute; left: -800px; bottom: 13%; gap: 15px; display: flex; opacity: 0.6;">
+            <div class="cb-side-building" style="width: 60px; height: 200px; background: linear-gradient(90deg, #2d5a8c, #4d7cff); border: 1px solid #4d7cff; opacity: 0.8;"></div>
+            <div class="cb-side-building" style="width: 70px; height: 240px; background: linear-gradient(90deg, #2d5a8c, #4d7cff); border: 1px solid #4d7cff; opacity: 0.8;"></div>
+          </div>
+
+          <!-- Extended side buildings (far right) -->
+          <div class="cb-building-side" style="position: absolute; right: -800px; bottom: 13%; gap: 15px; display: flex; opacity: 0.6;">
+            <div class="cb-side-building" style="width: 70px; height: 240px; background: linear-gradient(90deg, #2d5a8c, #4d7cff); border: 1px solid #4d7cff; opacity: 0.8;"></div>
+            <div class="cb-side-building" style="width: 65px; height: 220px; background: linear-gradient(90deg, #2d5a8c, #4d7cff); border: 1px solid #4d7cff; opacity: 0.8;"></div>
           </div>
 
           <!-- Center background buildings (downtown skyline) -->
