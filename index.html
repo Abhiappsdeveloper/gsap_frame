@@ -3415,6 +3415,27 @@
       z-index: 5;
     }
 
+    /* Street segments for continuous road during pan */
+    .cb-street-segment-1 {
+      left: 0%;
+      right: auto;
+      width: 100vw;
+    }
+
+    .cb-street-segment-2 {
+      left: 100vw;
+      right: auto;
+      width: 100vw;
+      opacity: 0;
+    }
+
+    .cb-street-segment-3 {
+      left: 200vw;
+      right: auto;
+      width: 100vw;
+      opacity: 0;
+    }
+
     .cb-street::before {
       content: '';
       position: absolute;
@@ -4185,8 +4206,10 @@
             <div class="cb-center-building cb-center-building-3"></div>
           </div>
 
-          <!-- Street/Road -->
-          <div class="cb-street"></div>
+          <!-- Street/Road - Multiple segments for continuous view -->
+          <div class="cb-street cb-street-segment-1"></div>
+          <div class="cb-street cb-street-segment-2"></div>
+          <div class="cb-street cb-street-segment-3"></div>
 
           <!-- Trees (left side) -->
           <div class="cb-trees cb-trees-left">
@@ -6371,6 +6394,19 @@
             // ============================================================
             // RED CONNECTION LINE & MNC GATE ANIMATION
             // ============================================================
+
+            // Additional road segments fade in as city pans
+            tl.to(".cb-street-segment-2", {
+              opacity: 1,
+              duration: 0.25,
+              ease: "power2.out"
+            }, 0.35);
+
+            tl.to(".cb-street-segment-3", {
+              opacity: 1,
+              duration: 0.25,
+              ease: "power2.out"
+            }, 0.55);
 
             // Red connection line fades in (before buildings fade out)
             tl.to(".cb-connection-line", {
