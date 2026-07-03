@@ -46,7 +46,8 @@
       --card: rgba(255, 255, 255, .06);
       --card-strong: rgba(255, 255, 255, .09);
       --text: #ffffff;
-      --muted: rgba(255, 255, 255, .7);
+      --muted: rgba(255, 255, 255, .75);
+      --muted-enhanced: rgba(255, 255, 255, .85);
       --border: rgba(255, 255, 255, .08);
       --border-strong: rgba(255, 255, 255, .15);
 
@@ -500,6 +501,22 @@
       color: var(--primary);
     }
 
+    .btn-secondary {
+      border: 1.5px solid var(--secondary);
+      color: var(--secondary);
+      background: rgba(22, 200, 255, .06);
+      backdrop-filter: blur(10px);
+      transition: all .35s var(--ease-out);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--secondary);
+      background: rgba(22, 200, 255, .12);
+      box-shadow: 0 8px 24px rgba(22, 200, 255, .25);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
     .btn .ripple {
       position: absolute;
       border-radius: 50%;
@@ -739,7 +756,6 @@
       border-radius: 999px;
       border: 1px solid var(--border-strong);
       background: rgba(0, 230, 168, .06);
-      backdrop-filter: blur(10px);
       font-size: .78rem;
       color: var(--primary);
       margin-bottom: 28px;
@@ -887,7 +903,7 @@
     .hero-sub {
       max-width: 620px;
       margin: 32px auto 0;
-      color: var(--muted);
+      color: var(--muted-enhanced);
       font-size: clamp(1rem, 1.5vw, 1.15rem);
       line-height: 1.8;
     }
@@ -904,13 +920,11 @@
       from {
         opacity: 0;
         y: 24px;
-        filter: blur(8px);
       }
 
       to {
         opacity: 1;
         y: 0;
-        filter: blur(0);
       }
     }
 
@@ -1099,7 +1113,7 @@
 
     .service-card p {
       font-size: .83rem;
-      color: var(--muted);
+      color: var(--muted-enhanced);
       line-height: 1.6;
     }
 
@@ -1183,7 +1197,7 @@
 
     .section-sub {
       margin-top: 20px;
-      color: var(--muted);
+      color: var(--muted-enhanced);
       font-size: 1rem;
       max-width: 600px;
       line-height: 1.8;
@@ -1279,7 +1293,7 @@
 
     .stat-label {
       margin-top: 12px;
-      color: var(--muted);
+      color: var(--muted-enhanced);
       font-size: .9rem;
       font-weight: 500;
     }
@@ -1391,7 +1405,7 @@
 
     .step-desc {
       font-size: .9rem;
-      color: var(--muted);
+      color: var(--muted-enhanced);
       line-height: 1.7;
     }
 
@@ -1495,7 +1509,7 @@
 
     .benefit-item p {
       font-size: .92rem;
-      color: var(--muted);
+      color: var(--muted-enhanced);
       line-height: 1.7;
       position: relative;
       z-index: 2;
@@ -1645,7 +1659,7 @@
 
     .event-content p {
       font-size: .95rem;
-      color: var(--muted);
+      color: var(--muted-enhanced);
       line-height: 1.7;
     }
 
@@ -1742,7 +1756,7 @@
 
     .workshop-card p {
       font-size: .85rem;
-      color: var(--muted);
+      color: var(--muted-enhanced);
       margin-bottom: 20px;
       line-height: 1.6;
     }
@@ -1860,7 +1874,7 @@
 
     .industry-card p {
       font-size: .92rem;
-      color: var(--muted);
+      color: var(--muted-enhanced);
       line-height: 1.7;
       position: relative;
       z-index: 2;
@@ -2036,7 +2050,7 @@
     }
 
     .about-copy p {
-      color: var(--muted);
+      color: var(--muted-enhanced);
       margin-bottom: 18px;
       font-size: 1rem;
       line-height: 1.8;
@@ -2130,7 +2144,7 @@
     }
 
     .testi-card p.quote-text {
-      color: var(--muted);
+      color: var(--muted-enhanced);
       font-size: .98rem;
       line-height: 1.8;
       margin-bottom: 28px;
@@ -2166,7 +2180,7 @@
 
     .testi-person span {
       font-size: .78rem;
-      color: var(--muted);
+      color: var(--muted-enhanced);
     }
 
     /* ============================================================
@@ -2188,7 +2202,7 @@
         radial-gradient(calc(40% + var(--cta-pulse-b, 0%)) 100% at 80% 100%, rgba(22, 200, 255, .3), transparent 60%),
         var(--bg-elevated);
       animation: ctaHeartbeat 4s ease-in-out infinite;
-      backdrop-filter: blur(0px);
+      backdrop-filter: blur(20px);
       transition: all .4s var(--ease-out);
     }
 
@@ -2454,6 +2468,19 @@
       border-radius: 4px;
     }
 
+    button:focus-visible,
+    a:focus-visible {
+      outline-width: 2px;
+      outline-offset: 3px;
+      box-shadow: 0 0 0 4px rgba(0, 230, 168, 0.15);
+    }
+
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
     /* ============================================================
    RESPONSIVE DESIGN
    ============================================================ */
@@ -2678,6 +2705,42 @@
       .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      /* Reduce animation intensity on small screens */
+      .hero-eyebrow {
+        animation: none !important;
+        box-shadow: 0 0 16px rgba(0, 230, 168, 0.15) !important;
+      }
+
+      .section-title .accent-text {
+        animation: none !important;
+        filter: brightness(1) !important;
+      }
+
+      .hero-heading .word.grad {
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+      }
+
+      .service-card,
+      .stat-card,
+      .process-step,
+      .benefit-item,
+      .workshop-card,
+      .industry-card {
+        transition: all .15s var(--ease-out) !important;
+      }
+
+      .btn-primary {
+        box-shadow: 0 4px 12px rgba(0, 230, 168, .15) !important;
+      }
+
+      .btn-primary::after {
+        animation: none !important;
       }
     }
 
@@ -4244,16 +4307,17 @@
         <div class="particles-field" id="particlesField" aria-hidden="true"></div>
 
         <div class="hero-inner" id="heroInner">
-          <span class="hero-eyebrow"><span class="pulse"></span> Enterprise IT Talent Acquisition Platform</span>
+          <span class="hero-eyebrow"><span class="pulse"></span> USA Staffing &amp; Workforce Solutions</span>
 
           <h1 class="hero-heading" id="heroHeading">
-            <span class="line"><span class="word">ELITE</span></span>
-            <span class="line"><span class="word">DEVELOPERS.</span></span>
-            <span class="line"><span class="word grad">STRATEGIC</span></span>
-            <span class="line"><span class="word grad">SOLUTIONS</span></span>
+            <span class="line"><span class="word">PEOPLE.</span></span>
+            <span class="line"><span class="word">POSITIONS.</span></span>
+            <span class="line"><span class="word grad">PERFECTLY</span></span>
+            <span class="line"><span class="word grad">UKONNECTED</span></span>
           </h1>
 
-          <p class="hero-sub">Advanced IT staffing and talent acquisition for enterprise technology needs. Connect with world-class software engineers, cloud architects, DevOps specialists, and cybersecurity professionals.</p>
+          <p class="hero-sub">We connect exceptional talent with America's most ambitious companies — through smart
+            sourcing, seamless compliance, and people-first hiring at every stage.</p>
 
           <div class="hero-ctas">
             <a href="#contact" class="btn btn-primary magnetic">Let's Ukonnect! <span class="ripple"></span><span
@@ -4269,8 +4333,8 @@
                   <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01" />
                 </svg>
               </div>
-              <h3>Full-Stack Development</h3>
-              <p>Expert developers across Java, Python, Node.js, React, and cloud-native technologies for enterprise applications.</p>
+              <h3>Outsourcing Solutions</h3>
+              <p>End-to-end workforce outsourcing tailored to scale with your business.</p>
             </div>
             <div class="service-card tilt-card">
               <div class="glow"></div>
@@ -4279,8 +4343,8 @@
                   <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
                 </svg>
               </div>
-              <h3>Cloud &amp; Infrastructure</h3>
-              <p>AWS, Azure, GCP specialists. DevOps engineers, SREs, and infrastructure architects for scalable systems.</p>
+              <h3>Payroll &amp; Compliance</h3>
+              <p>Accurate, on-time payroll backed by full regulatory compliance.</p>
             </div>
             <div class="service-card tilt-card">
               <div class="glow"></div>
@@ -4289,8 +4353,8 @@
                   <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-5 0-8 2.5-8 5v2h16v-2c0-2.5-3-5-8-5z" />
                 </svg>
               </div>
-              <h3>Cybersecurity &amp; Data</h3>
-              <p>Security architects, penetration testers, data engineers, and ML specialists for enterprise security and analytics.</p>
+              <h3>Executive Search</h3>
+              <p>Precision-led search for leadership and hard-to-fill senior roles.</p>
             </div>
             <div class="service-card tilt-card">
               <div class="glow"></div>
@@ -4299,8 +4363,8 @@
                   <path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
                 </svg>
               </div>
-              <h3>Technical Leadership</h3>
-              <p>CTOs, VPs of Engineering, Tech Leads, and Architects for organizational technology strategy and innovation.</p>
+              <h3>Contract Staffing</h3>
+              <p>Flexible, vetted contract talent ready to deploy on demand.</p>
             </div>
           </div>
         </div>
@@ -6046,34 +6110,34 @@
               }
             });
 
-            // Phase 1 (0–25%): eyebrow + sub fade with scale (no blur)
+            // Phase 1 (0–30%): eyebrow + sub fade
             cinematicExit
-              .to(".hero-eyebrow", { opacity: 0, scale: 0.8, ease: "none" }, 0)
-              .to(".hero-sub", { opacity: 0, scale: 0.85, ease: "none" }, 0)
+              .to(".hero-eyebrow", { opacity: 0, y: -20, ease: "none" }, 0)
+              .to(".hero-sub", { opacity: 0, y: -16, ease: "none" }, 0)
               .to(".hero-scroll-cue", { opacity: 0, ease: "none" }, 0);
 
-            // Phase 2 (10–70%): Words shrink & rotate with symmetric 3D effect (NO BLUR)
+            // Phase 2 (10–60%): each word rolls up, tilts, vanishes
             heroWords.forEach((word, i) => {
               const start = 0.05 + i * 0.08;
+              const end = start + 0.22;
               cinematicExit.fromTo(word,
-                { scale: 1, rotateX: 0, rotateY: 0, rotateZ: 0, opacity: 1, transformOrigin: "50% 50%" },
+                { y: 0, rotateX: 0, rotateZ: 0, opacity: 1, transformOrigin: "50% 100%" },
                 {
-                  scale: 0.3,
-                  rotateX: -45,
-                  rotateY: () => (Math.random() - 0.5) * 30,
-                  rotateZ: () => (Math.random() - 0.5) * 15,
-                  opacity: 1,
+                  y: "-140%",
+                  rotateX: -55,
+                  rotateZ: () => (Math.random() - 0.5) * 8,
+                  opacity: 0,
                   ease: "none"
                 },
                 start
               );
             });
 
-            // Phase 3 (50–80%): service cards collapse, shapes fade (symmetric)
+            // Phase 3 (55–80%): service cards & shapes exit
             cinematicExit
-              .to(".service-cards", { scale: 0.7, opacity: 0, ease: "none" }, 0.45)
+              .to(".service-cards", { y: -60, opacity: 0, rotateX: 8, ease: "none" }, 0.45)
               .to(".hero-bg-shapes", { scale: 1.25, opacity: 0, ease: "none" }, 0.5)
-              .to(".particles-field", { scale: 0.5, opacity: 0, ease: "none" }, 0.5);
+              .to(".particles-field", { y: -140, opacity: 0, ease: "none" }, 0.5);
           }
 
           function initTiltCards() {
