@@ -4132,19 +4132,21 @@
         <!-- SCENE WRAPPER (pinned during scroll) -->
         <div class="cb-stage" id="cbStage">
 
-          <!-- Red connection line through all buildings -->
-          <svg class="cb-connection-line" viewBox="0 0 1400 200" preserveAspectRatio="none" aria-hidden="true">
+          <!-- Red connection lines from both buildings going up to middle -->
+          <svg class="cb-connection-line" viewBox="0 0 1400 800" preserveAspectRatio="none" aria-hidden="true">
             <defs>
-              <linearGradient id="redLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="rgba(255, 0, 0, 0.3)" />
+              <linearGradient id="redLineGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="rgba(255, 0, 0, 0.8)" />
                 <stop offset="50%" stop-color="rgba(255, 50, 50, 0.8)" />
-                <stop offset="100%" stop-color="rgba(255, 100, 100, 0.3)" />
+                <stop offset="100%" stop-color="rgba(255, 100, 100, 0)" />
               </linearGradient>
             </defs>
-            <!-- Main connecting line -->
-            <line x1="0" y1="60" x2="1400" y2="60" stroke="url(#redLineGrad)" stroke-width="2" opacity="0.7" />
-            <!-- Glow effect -->
-            <line x1="0" y1="60" x2="1400" y2="60" stroke="#ff0000" stroke-width="6" opacity="0.15" filter="blur(2px)" />
+            <!-- Line from left building going up to middle -->
+            <line x1="350" y1="700" x2="350" y2="50" stroke="url(#redLineGrad)" stroke-width="3" opacity="0.8" />
+            <!-- Line from right building going up to middle -->
+            <line x1="1050" y1="700" x2="1050" y2="50" stroke="url(#redLineGrad)" stroke-width="3" opacity="0.8" />
+            <!-- Center meeting point glow -->
+            <circle cx="700" cy="50" r="8" fill="#ff0000" opacity="0.6" />
           </svg>
 
           <!-- Large MNCs Gate on the right side -->
@@ -6422,25 +6424,19 @@
             // RED CONNECTION LINE & MNC GATE ANIMATION
             // ============================================================
 
-            // Additional road segments fade in as city pans
-            tl.to(".cb-street-segment-2", {
-              opacity: 1,
-              duration: 0.25,
-              ease: "power2.out"
-            }, 0.35);
+            // Hide road segments - focus on vertical line animation
+            tl.to(".cb-street", {
+              opacity: 0,
+              duration: 0.3,
+              ease: "power2.in"
+            }, 0.30);
 
-            tl.to(".cb-street-segment-3", {
-              opacity: 1,
-              duration: 0.25,
-              ease: "power2.out"
-            }, 0.55);
-
-            // Red connection line fades in (before buildings fade out)
+            // Red connection line fades in from both buildings
             tl.to(".cb-connection-line", {
               opacity: 1,
-              duration: 0.3,
+              duration: 0.25,
               ease: "power2.out"
-            }, 0.40);
+            }, 0.28);
 
             // MNC Gate fades in WHEN ONLY ROAD IS VISIBLE (after buildings fade)
             tl.to("#cbMNCGate", {
@@ -6449,13 +6445,13 @@
               ease: "power2.out"
             }, 0.55);
 
-            // Entire city moves LEFT during scroll (red line appears to move RIGHT)
-            // Extended pan distance so city moves much more right
-            tl.to(stage, {
-              x: -2000,
-              duration: 0.75,
-              ease: "none"
-            }, 0.15);
+            // Red lines move upward and fade out (connecting from buildings to middle)
+            tl.to(".cb-connection-line", {
+              y: -400,
+              opacity: 0,
+              duration: 0.6,
+              ease: "power2.in"
+            }, 0.35);
 
             // MNC Gate glow activates prominently (dramatic finale)
             tl.to(".gate-glow", {
