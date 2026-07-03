@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ukonnect-site",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-Command", "cd '/c/Users/NS/Documents/ABHIJEET/git/gsap_frame'; python -m http.server 8080 --bind 127.0.0.1"],
+      "port": 8080
+    }
+  ]
+}
