@@ -2812,6 +2812,7 @@
     .cinematic-buildings {
       position: relative;
       width: 100%;
+      height: 100vh;
       overflow: hidden;
       background: var(--bg);
     }
@@ -2836,6 +2837,9 @@
       align-items: flex-end;
       justify-content: space-between;
       overflow: hidden;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
 
     .cb-ground {
@@ -2860,6 +2864,8 @@
       display: flex;
       align-items: flex-end;
       z-index: 2;
+      will-change: transform;
+      backface-visibility: hidden;
     }
 
     .cb-left {
@@ -2880,6 +2886,8 @@
       box-shadow:
         0 0 60px rgba(0, 230, 168, .12),
         inset 0 0 30px rgba(0, 230, 168, .04);
+      backface-visibility: hidden;
+      transform: translate3d(0, 0, 0);
     }
 
     .cb-building-a {
@@ -5170,7 +5178,7 @@
             const stage = document.getElementById("cbStage");
             const exitFog = document.getElementById("cbExitFog");
 
-            if (!section || !buildingA || typeof MotionPathPlugin === "undefined") return;
+            if (!section || !buildingA) return;
 
             // Seed windows with varied opacity for realism
             section.querySelectorAll(".cb-win-row").forEach((row, i) => {
