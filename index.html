@@ -3145,6 +3145,154 @@
       height: clamp(110px, 20vh, 260px);
     }
 
+    .cb-bg-building-5 {
+      width: clamp(35px, 7vw, 100px);
+      height: clamp(70px, 13vh, 180px);
+    }
+
+    .cb-bg-building-6 {
+      width: clamp(40px, 8vw, 110px);
+      height: clamp(80px, 15vh, 200px);
+    }
+
+    /* Mid-ground buildings (closer than background, more opacity) */
+    .cb-building-mg {
+      position: absolute;
+      bottom: 13%;
+      display: flex;
+      gap: 15px;
+      align-items: flex-end;
+      opacity: 0.55;
+      z-index: 2;
+    }
+
+    .cb-building-mg-left {
+      left: 0%;
+    }
+
+    .cb-building-mg-right {
+      right: 0%;
+    }
+
+    .cb-mg-building {
+      border-radius: 2px;
+      border: 1px solid rgba(22, 200, 255, 0.12);
+      background: linear-gradient(180deg, rgba(15, 35, 55, 0.7), rgba(10, 25, 40, 0.85));
+      box-shadow: inset 0 0 15px rgba(22, 200, 255, 0.04);
+    }
+
+    .cb-mg-building-1 {
+      width: clamp(50px, 10vw, 150px);
+      height: clamp(100px, 18vh, 280px);
+    }
+
+    .cb-mg-building-2 {
+      width: clamp(60px, 12vw, 170px);
+      height: clamp(120px, 22vh, 320px);
+    }
+
+    .cb-mg-building-3 {
+      width: clamp(45px, 9vw, 130px);
+      height: clamp(90px, 16vh, 240px);
+    }
+
+    .cb-mg-building-4 {
+      width: clamp(55px, 11vw, 160px);
+      height: clamp(110px, 20vh, 300px);
+    }
+
+    .cb-mg-building-5 {
+      width: clamp(50px, 10vw, 150px);
+      height: clamp(100px, 18vh, 280px);
+    }
+
+    .cb-mg-building-6 {
+      width: clamp(60px, 12vw, 170px);
+      height: clamp(120px, 22vh, 320px);
+    }
+
+    /* Side buildings (along edges for framing) */
+    .cb-building-side {
+      position: absolute;
+      bottom: 13%;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    .cb-building-side-left {
+      left: 0%;
+    }
+
+    .cb-building-side-right {
+      right: 0%;
+    }
+
+    .cb-side-building {
+      border-radius: 2px;
+      border: 1px solid rgba(77, 124, 255, 0.14);
+      background: linear-gradient(180deg, rgba(20, 40, 70, 0.75), rgba(12, 28, 48, 0.88));
+      box-shadow: inset 0 0 18px rgba(77, 124, 255, 0.05);
+    }
+
+    .cb-side-building-1 {
+      width: clamp(40px, 8vw, 120px);
+      height: clamp(80px, 14vh, 220px);
+    }
+
+    .cb-side-building-2 {
+      width: clamp(50px, 10vw, 140px);
+      height: clamp(100px, 18vh, 260px);
+    }
+
+    .cb-side-building-3 {
+      width: clamp(50px, 10vw, 140px);
+      height: clamp(100px, 18vh, 260px);
+    }
+
+    .cb-side-building-4 {
+      width: clamp(40px, 8vw, 120px);
+      height: clamp(80px, 14vh, 220px);
+    }
+
+    /* Center background buildings (skyline effect) */
+    .cb-building-center {
+      position: absolute;
+      bottom: 13%;
+      left: 30%;
+      right: 30%;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0.35;
+      z-index: 0;
+    }
+
+    .cb-center-building {
+      border-radius: 1px;
+      border: 1px solid rgba(0, 230, 168, 0.06);
+      background: linear-gradient(180deg, rgba(12, 32, 52, 0.6), rgba(8, 20, 35, 0.75));
+      box-shadow: inset 0 0 12px rgba(0, 230, 168, 0.02);
+    }
+
+    .cb-center-building-1 {
+      width: clamp(30px, 6vw, 90px);
+      height: clamp(60px, 11vh, 160px);
+    }
+
+    .cb-center-building-2 {
+      width: clamp(35px, 7vw, 105px);
+      height: clamp(70px, 13vh, 190px);
+    }
+
+    .cb-center-building-3 {
+      width: clamp(30px, 6vw, 90px);
+      height: clamp(60px, 11vh, 160px);
+    }
+
     /* Street/Road */
     .cb-street {
       position: absolute;
@@ -3519,6 +3667,19 @@
       .cb-street-light::after {
         width: 16px;
       }
+
+      /* Mid-ground and side buildings on tablet */
+      .cb-building-mg {
+        opacity: 0.35;
+      }
+
+      .cb-building-side {
+        opacity: 0.4;
+      }
+
+      .cb-building-center {
+        opacity: 0.2;
+      }
     }
 
     @media (max-width: 480px) {
@@ -3556,6 +3717,22 @@
 
       .cb-traffic-light {
         display: none;
+      }
+
+      /* Hide mid-ground and center buildings on very small mobile */
+      .cb-building-mg {
+        opacity: 0.15;
+        gap: 8px;
+      }
+
+      .cb-building-side {
+        opacity: 0.2;
+        gap: 5px;
+      }
+
+      .cb-building-center {
+        opacity: 0.1;
+        gap: 5px;
       }
     }
 
@@ -3727,16 +3904,49 @@
           <div class="cb-ground"></div>
 
           <!-- BACKGROUND CITY ELEMENTS -->
-          <!-- Background buildings (far left) -->
+          <!-- Far background buildings (left side) -->
           <div class="cb-building-bg cb-building-bg-left">
             <div class="cb-bg-building cb-bg-building-1"></div>
             <div class="cb-bg-building cb-bg-building-2"></div>
+            <div class="cb-bg-building cb-bg-building-5"></div>
           </div>
 
-          <!-- Background buildings (far right) -->
+          <!-- Far background buildings (right side) -->
           <div class="cb-building-bg cb-building-bg-right">
             <div class="cb-bg-building cb-bg-building-3"></div>
             <div class="cb-bg-building cb-bg-building-4"></div>
+            <div class="cb-bg-building cb-bg-building-6"></div>
+          </div>
+
+          <!-- Mid-ground buildings (closer, more prominent) -->
+          <div class="cb-building-mg cb-building-mg-left">
+            <div class="cb-mg-building cb-mg-building-1"></div>
+            <div class="cb-mg-building cb-mg-building-2"></div>
+            <div class="cb-mg-building cb-mg-building-3"></div>
+          </div>
+
+          <div class="cb-building-mg cb-building-mg-right">
+            <div class="cb-mg-building cb-mg-building-4"></div>
+            <div class="cb-mg-building cb-mg-building-5"></div>
+            <div class="cb-mg-building cb-mg-building-6"></div>
+          </div>
+
+          <!-- Side buildings (edge of scene, visible between main buildings) -->
+          <div class="cb-building-side cb-building-side-left">
+            <div class="cb-side-building cb-side-building-1"></div>
+            <div class="cb-side-building cb-side-building-2"></div>
+          </div>
+
+          <div class="cb-building-side cb-building-side-right">
+            <div class="cb-side-building cb-side-building-3"></div>
+            <div class="cb-side-building cb-side-building-4"></div>
+          </div>
+
+          <!-- Center background buildings (downtown skyline) -->
+          <div class="cb-building-center">
+            <div class="cb-center-building cb-center-building-1"></div>
+            <div class="cb-center-building cb-center-building-2"></div>
+            <div class="cb-center-building cb-center-building-3"></div>
           </div>
 
           <!-- Street/Road -->
@@ -5757,18 +5967,53 @@
             // CITY ELEMENTS ANIMATIONS
             // ============================================================
 
-            // Background buildings fade in and scale during main animation
+            // Far background buildings fade in and scale during main animation
             tl.to(".cb-building-bg-left", {
-              opacity: 0.4,
+              opacity: 0.3,
               x: 20,
               duration: 0.2,
               ease: "power2.out"
-            }, 0.05);
+            }, 0.03);
 
             tl.to(".cb-building-bg-right", {
-              opacity: 0.4,
+              opacity: 0.3,
               x: -20,
               duration: 0.2,
+              ease: "power2.out"
+            }, 0.03);
+
+            // Mid-ground buildings fade in (closer, more visible)
+            tl.to(".cb-building-mg-left", {
+              opacity: 0.55,
+              x: 15,
+              duration: 0.25,
+              ease: "power2.out"
+            }, 0.06);
+
+            tl.to(".cb-building-mg-right", {
+              opacity: 0.55,
+              x: -15,
+              duration: 0.25,
+              ease: "power2.out"
+            }, 0.06);
+
+            // Side buildings emerge (frame the main buildings)
+            tl.to(".cb-building-side-left", {
+              opacity: 0.6,
+              duration: 0.2,
+              ease: "power2.out"
+            }, 0.08);
+
+            tl.to(".cb-building-side-right", {
+              opacity: 0.6,
+              duration: 0.2,
+              ease: "power2.out"
+            }, 0.08);
+
+            // Center background buildings create downtown skyline
+            tl.to(".cb-building-center", {
+              opacity: 0.35,
+              duration: 0.25,
               ease: "power2.out"
             }, 0.05);
 
