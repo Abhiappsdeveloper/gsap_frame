@@ -6365,19 +6365,19 @@
             // RED CONNECTION LINE & MNC GATE ANIMATION
             // ============================================================
 
-            // Red connection line fades in
+            // Red connection line fades in (after traffic elements)
             tl.to(".cb-connection-line", {
               opacity: 1,
               duration: 0.3,
               ease: "power2.out"
-            }, 0.30);
+            }, 0.42);
 
-            // MNC Gate fades in on the right
+            // MNC Gate fades in AFTER buildings reach peak activity
             tl.to("#cbMNCGate", {
               opacity: 1,
-              duration: 0.25,
+              duration: 0.3,
               ease: "power2.out"
-            }, 0.40);
+            }, 0.62);
 
             // Entire city moves LEFT during scroll (red line appears to move RIGHT)
             // This is the main panoramic scroll effect
@@ -6387,12 +6387,12 @@
               ease: "none"
             }, 0.15);
 
-            // MNC Gate glow activates when line approaches (around 70% of timeline)
+            // MNC Gate glow activates when line approaches (after gate appears)
             tl.to(".gate-glow", {
               opacity: 1,
               duration: 0.3,
               ease: "power2.out"
-            }, 0.70);
+            }, 0.75);
 
             // Reverse-safe: remove energized class when scrolling back
             ScrollTrigger.create({
