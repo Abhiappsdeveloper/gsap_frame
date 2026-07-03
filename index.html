@@ -6049,26 +6049,19 @@
 
             // Phase 1 (0–30%): eyebrow + sub fade
             cinematicExit
-              .to(".hero-eyebrow", { opacity: 0, y: -20, filter: "blur(8px)", ease: "none" }, 0)
-              .to(".hero-sub", { opacity: 0, y: -16, filter: "blur(6px)", ease: "none" }, 0)
+              .to(".hero-eyebrow", { opacity: 0, y: -20, ease: "none" }, 0)
+              .to(".hero-sub", { opacity: 0, y: -16, ease: "none" }, 0)
               .to(".hero-scroll-cue", { opacity: 0, ease: "none" }, 0);
 
-            // Phase 2 (10–60%): each word rolls up, tilts, blurs, vanishes
-            heroWords.forEach((word, i) => {
-              const start = 0.05 + i * 0.08;
-              const end = start + 0.22;
-              cinematicExit.fromTo(word,
-                { y: 0, rotateX: 0, rotateZ: 0, opacity: 1, filter: "blur(0px)", transformOrigin: "50% 100%" },
-                {
-                  y: "-140%",
-                  rotateX: -55,
-                  rotateZ: () => (Math.random() - 0.5) * 8,
-                  opacity: 0,
-                  filter: "blur(14px)",
-                  ease: "none"
-                },
-                start
-              );
+            // Keep all hero heading words ALWAYS VISIBLE with continuous pulse animation
+            heroWords.forEach((word) => {
+              gsap.to(word, {
+                scale: 1.02,
+                duration: 0.8,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+              });
             });
 
             // Phase 3 (55–80%): service cards & shapes exit
