@@ -6354,45 +6354,52 @@
               duration: 0.1
             }, 0.59);
 
+            // Buildings fade out so only road is visible
+            tl.to([".cb-building-bg", ".cb-building-a", ".cb-building-b", ".cb-building-mg", ".cb-building-side", ".cb-building-center", ".cb-trees", ".cb-people", ".cb-vehicles", ".cb-traffic-elements"], {
+              opacity: 0,
+              duration: 0.25,
+              ease: "power2.in"
+            }, 0.50);
+
             // City dims as exit fog takes over
-            tl.to([".cb-building-bg", ".cb-street", ".cb-trees", ".cb-street-elements", ".cb-people", ".cb-vehicles", ".cb-traffic-elements"], {
+            tl.to([".cb-street", ".cb-street-elements"], {
               opacity: 0,
               duration: 0.2,
               ease: "power2.in"
-            }, 0.80);
+            }, 0.85);
 
             // ============================================================
             // RED CONNECTION LINE & MNC GATE ANIMATION
             // ============================================================
 
-            // Red connection line fades in (after traffic elements)
+            // Red connection line fades in (before buildings fade out)
             tl.to(".cb-connection-line", {
               opacity: 1,
               duration: 0.3,
               ease: "power2.out"
-            }, 0.42);
+            }, 0.40);
 
-            // MNC Gate fades in AFTER buildings reach peak activity
+            // MNC Gate fades in WHEN ONLY ROAD IS VISIBLE (after buildings fade)
             tl.to("#cbMNCGate", {
               opacity: 1,
-              duration: 0.3,
+              duration: 0.35,
               ease: "power2.out"
-            }, 0.62);
+            }, 0.55);
 
             // Entire city moves LEFT during scroll (red line appears to move RIGHT)
-            // This is the main panoramic scroll effect
+            // Extended pan distance so city moves much more right
             tl.to(stage, {
-              x: -1200,
-              duration: 0.65,
+              x: -2000,
+              duration: 0.75,
               ease: "none"
             }, 0.15);
 
-            // MNC Gate glow activates when line approaches (after gate appears)
+            // MNC Gate glow activates prominently (dramatic finale)
             tl.to(".gate-glow", {
               opacity: 1,
               duration: 0.3,
               ease: "power2.out"
-            }, 0.75);
+            }, 0.70);
 
             // Reverse-safe: remove energized class when scrolling back
             ScrollTrigger.create({
