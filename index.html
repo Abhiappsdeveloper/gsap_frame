@@ -3666,78 +3666,6 @@
       </section>
 
       <script>
-        function initBenefits3DCube() {
-          const container = document.getElementById("benefits-3d-cube-container");
-          if (!container || typeof THREE === "undefined") return;
-
-          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          if (prefersReduced) return;
-
-          const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-          camera.position.z = 2.5;
-          renderer.setSize(300, 300);
-          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-          container.appendChild(renderer.domElement);
-          scene.background = null;
-          renderer.setClearColor(0x000000, 0);
-
-          // ✅ CREATE SHIELD/TRUST SYMBOL (instead of cube)
-          const geometry = new THREE.ConeGeometry(1.2, 1.8, 6);
-
-          const shieldMaterial = new THREE.MeshStandardMaterial({
-            color: 0x00e6a8,
-            metalness: 0.8,
-            roughness: 0.2,
-            emissive: 0x00e6a8,
-            emissiveIntensity: 0.5,
-            wireframe: false
-          });
-
-          const trustSymbol = new THREE.Mesh(geometry, shieldMaterial);
-          scene.add(trustSymbol);
-
-          // Lighting
-          const light1 = new THREE.PointLight(0x00e6a8, 1.5, 100);
-          light1.position.set(3, 3, 3);
-          scene.add(light1);
-
-          const light2 = new THREE.PointLight(0x4d7cff, 1, 100);
-          light2.position.set(-3, -3, 3);
-          scene.add(light2);
-
-          scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-
-          // Fade in
-          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.5 });
-
-          // Scroll-driven rotation
-          gsap.to(trustSymbol.rotation, {
-            x: Math.PI * 2,
-            y: Math.PI * 2.5,
-            z: Math.PI,
-            scrollTrigger: {
-              trigger: ".benefits-section",
-              start: "top center",
-              end: "bottom center",
-              scrub: 1.5,
-              markers: false
-            },
-            ease: "none"
-          });
-
-          function animate() {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-          }
-          animate();
-
-          window.addEventListener("resize", () => {
-            renderer.setSize(300, 300);
-          });
-        }
       </script>
 
       <!-- ============================================================
@@ -4551,7 +4479,13 @@
             const grid = document.querySelector(".process-grid");
             if (steps.length < 2 || !grid) return;
             gsap.set(grid, { position: "relative" });
-            ScrollTrigger.addEventListener("refreshInit", () => grid.querySelectorAll("svg").forEach(s => s.remove()));
+            ScrollTrigger.addEventListener("refreshInit", () => {
+              grid.querySelectorAll("svg").forEach(s => {
+                gsap.killTweensOf(s);  // Kill any active animations on this SVG before removing
+                s.remove();
+              });
+            });
+            grid.querySelectorAll("svg").forEach(s => s.remove());
             const gridBox = grid.getBoundingClientRect();
             for (let i = 1; i < steps.length; i++) {
               const pBox = steps[i - 1].getBoundingClientRect();
@@ -4560,9 +4494,33 @@
               const x2 = cBox.left - gridBox.left, y2 = cBox.top + cBox.height / 2 - gridBox.top;
               const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
               svg.setAttribute("width", gridBox.width);
+              svg.setAttribute("viewBox", `0 0 ${gridBox.width} ${gridBox.height}`);
               svg.setAttribute("height", gridBox.height);
-              Object.assign(svg.style, { position: "absolute", top: "0", left: "0", pointerEvents: "none", zIndex: "0", overflow: "visible" });
+              Object.assign(svg.style, {  });
+
+              // ADD THESE LINES - Create defs and gradient for this SVG
+              const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+              const gradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+              gradient.setAttribute("id", "lineGrad");
+              gradient.setAttribute("x1", "0%");
+              gradient.setAttribute("x2", "100%");
+              const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+              stop1.setAttribute("offset", "0%");
+              stop1.setAttribute("stop-color", "#00E6A8");
+              const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+              stop2.setAttribute("offset", "50%");
+              stop2.setAttribute("stop-color", "#16C8FF");
+              const stop3 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+              stop3.setAttribute("offset", "100%");
+              stop3.setAttribute("stop-color", "#4D7CFF");
+              gradient.appendChild(stop1);
+              gradient.appendChild(stop2);
+              gradient.appendChild(stop3);
+              defs.appendChild(gradient);
+              svg.appendChild(defs);
+
               const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+
               const len = Math.hypot(x2 - x1, y2 - y1);
               line.setAttribute("x1", x1); line.setAttribute("y1", y1);
               line.setAttribute("x2", x2); line.setAttribute("y2", y2);
@@ -4583,6 +4541,7 @@
              ============================================================ */
           function initAuroraCanvas() {
             const canvas = document.getElementById("aurora-canvas");
+            if (!canvas) return;
             const c = canvas.getContext("2d");
             let w, h, dpr;
             const blobs = [
