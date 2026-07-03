@@ -3447,6 +3447,27 @@
       z-index: 6;
     }
 
+    /* Gate approach cars - moving from buildings toward gate */
+    .cb-gate-car {
+      position: absolute;
+      bottom: 13%;
+      height: 20px;
+      width: 55px;
+      z-index: 5;
+      opacity: 0;
+      border-radius: 3px;
+    }
+
+    .cb-gate-car-left {
+      background: linear-gradient(90deg, #ff6b35 0%, #ff8c5a 50%, #ff6b35 100%);
+      left: 15%;
+    }
+
+    .cb-gate-car-right {
+      background: linear-gradient(90deg, #4ecdc4 0%, #6ee7de 50%, #4ecdc4 100%);
+      right: 15%;
+    }
+
     .cb-car-1 {
       left: 25%;
       width: 50px;
@@ -4008,6 +4029,10 @@
             <!-- Center meeting point glow -->
             <circle cx="700" cy="50" r="8" fill="#ff0000" opacity="0.6" />
           </svg>
+
+          <!-- Animated cars moving toward gate from both buildings -->
+          <div class="cb-gate-car cb-gate-car-left" id="cbGateCarLeft"></div>
+          <div class="cb-gate-car cb-gate-car-right" id="cbGateCarRight"></div>
 
           <!-- Large MNCs Gate on the right side -->
           <div class="cb-mnc-gate" id="cbMNCGate">
@@ -6312,6 +6337,26 @@
               duration: 0.6,
               ease: "power2.in"
             }, 0.35);
+
+            // ============================================================
+            // ANIMATED CARS FROM BUILDINGS TOWARD GATE
+            // ============================================================
+
+            // Left car appears and moves from left building toward gate
+            tl.to("#cbGateCarLeft", {
+              opacity: 1,
+              x: 200,
+              duration: 0.65,
+              ease: "power2.inOut"
+            }, 0.30);
+
+            // Right car appears and moves from right building toward gate
+            tl.to("#cbGateCarRight", {
+              opacity: 1,
+              x: -200,
+              duration: 0.65,
+              ease: "power2.inOut"
+            }, 0.30);
 
             // MNC Gate glow activates prominently (dramatic finale)
             tl.to(".gate-glow", {
