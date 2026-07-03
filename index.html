@@ -2859,11 +2859,12 @@
       opacity: 0;
     }
 
-    /* MNC Gate structure on the right side */
+    /* MNC Gate structure in center */
     .cb-mnc-gate {
       position: absolute;
-      bottom: 13%;
-      right: -15%;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 8;
       opacity: 0;
       will-change: transform;
@@ -2871,8 +2872,8 @@
 
     .gate-structure {
       position: relative;
-      width: 200px;
-      height: 300px;
+      width: 500px;
+      height: 700px;
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -2882,33 +2883,33 @@
     .gate-post {
       position: absolute;
       bottom: 0;
-      width: 30px;
-      height: 280px;
+      width: 75px;
+      height: 700px;
       background: linear-gradient(90deg, #d4af37 0%, #ffed4e 50%, #d4af37 100%);
-      border: 2px solid #ffd700;
+      border: 4px solid #ffd700;
       box-shadow:
-        0 0 20px rgba(255, 215, 0, 0.5),
-        inset 0 0 10px rgba(255, 255, 255, 0.3);
+        0 0 40px rgba(255, 215, 0, 0.6),
+        inset 0 0 20px rgba(255, 255, 255, 0.3);
     }
 
     .gate-post-left {
-      left: 20px;
+      left: 50px;
     }
 
     .gate-post-right {
-      right: 20px;
+      right: 50px;
     }
 
     /* Gate arch connecting the posts */
     .gate-arch {
       position: absolute;
-      bottom: 280px;
-      left: 20px;
-      right: 20px;
-      height: 60px;
+      bottom: 700px;
+      left: 50px;
+      right: 50px;
+      height: 150px;
       background: linear-gradient(180deg, #ffed4e 0%, #ffd700 50%, #d4af37 100%);
       border-radius: 50% 50% 0 0;
-      border: 2px solid #ffd700;
+      border: 4px solid #ffd700;
       border-bottom: none;
       box-shadow:
         0 0 30px rgba(255, 215, 0, 0.6),
@@ -2921,12 +2922,13 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 2rem;
+      font-size: 5.5rem;
       font-weight: 900;
       color: #c00000;
       text-shadow:
-        0 0 10px rgba(192, 0, 0, 0.8),
-        0 2px 4px rgba(0, 0, 0, 0.5);
+        0 0 20px rgba(192, 0, 0, 1),
+        0 0 40px rgba(192, 0, 0, 0.8),
+        0 4px 8px rgba(0, 0, 0, 0.6);
       letter-spacing: 2px;
       font-family: 'Arial Black', sans-serif;
       z-index: 10;
@@ -2935,13 +2937,13 @@
     /* Gate glow effect */
     .gate-glow {
       position: absolute;
-      bottom: 0;
+      bottom: -50px;
       left: 50%;
       transform: translateX(-50%);
-      width: 250px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(255, 215, 0, 0.4), transparent 70%);
-      filter: blur(20px);
+      width: 600px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.5), transparent 70%);
+      filter: blur(40px);
       border-radius: 50%;
       opacity: 0;
     }
@@ -3846,26 +3848,27 @@
       }
 
       .cb-mnc-gate {
-        right: -12%;
+        left: 50%;
+        transform: translateX(-50%);
       }
 
       .gate-structure {
-        width: 150px;
-        height: 240px;
+        width: 350px;
+        height: 500px;
       }
 
       .gate-post {
-        width: 24px;
-        height: 220px;
+        width: 50px;
+        height: 500px;
       }
 
       .gate-sign {
-        font-size: 1.4rem;
+        font-size: 3.5rem;
       }
 
       .gate-glow {
-        width: 200px;
-        height: 150px;
+        width: 400px;
+        height: 350px;
       }
     }
 
@@ -6305,7 +6308,7 @@
             // Entire city moves LEFT during scroll (red line appears to move RIGHT)
             // This is the main panoramic scroll effect
             tl.to(stage, {
-              x: -500,
+              x: -1200,
               duration: 0.65,
               ease: "none"
             }, 0.15);
