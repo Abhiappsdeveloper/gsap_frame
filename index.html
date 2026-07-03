@@ -6342,21 +6342,28 @@
             // ANIMATED CARS FROM BUILDINGS TOWARD GATE
             // ============================================================
 
-            // Left car appears and moves from left building toward gate
+            // Camera pan follows cars - stage moves to follow the journey
+            tl.to(stage, {
+              x: -600,
+              duration: 0.85,
+              ease: "power1.inOut"
+            }, 0.25);
+
+            // Left car appears and moves from left building toward gate (extended movement)
             tl.to("#cbGateCarLeft", {
               opacity: 1,
-              x: 200,
-              duration: 0.65,
-              ease: "power2.inOut"
-            }, 0.30);
+              x: 350,
+              duration: 0.85,
+              ease: "power1.inOut"
+            }, 0.25);
 
-            // Right car appears and moves from right building toward gate
+            // Right car appears and moves from right building toward gate (extended movement)
             tl.to("#cbGateCarRight", {
               opacity: 1,
-              x: -200,
-              duration: 0.65,
-              ease: "power2.inOut"
-            }, 0.30);
+              x: -350,
+              duration: 0.85,
+              ease: "power1.inOut"
+            }, 0.25);
 
             // MNC Gate glow activates prominently (dramatic finale)
             tl.to(".gate-glow", {
