@@ -1320,7 +1320,7 @@
    ============================================================ */
     .process-section {
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .process-grid {
@@ -5433,8 +5433,8 @@
         // ============================================================
         // 3D MORPHING PYRAMID ANIMATION (CTA Pre-section)
         // ============================================================
-        function init3DPyramid() {
-          const container = document.getElementById("pyramid-container-3d");
+        function createPyramid3D(containerId, primaryColor, secondaryColor) {
+          const container = document.getElementById(containerId);
           if (!container) return;
 
           const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -5452,10 +5452,10 @@
           // Create pyramid
           const pyramidGeometry = new THREE.TetrahedronGeometry(1.2, 0);
           const pyramidMaterial = new THREE.MeshStandardMaterial({
-            color: 0x4d7cff,
+            color: primaryColor,
             metalness: 0.6,
             roughness: 0.3,
-            emissive: 0x4d7cff,
+            emissive: primaryColor,
             emissiveIntensity: 0.4,
             wireframe: false
           });
@@ -5466,10 +5466,10 @@
           const particles = [];
           const particleGeometry = new THREE.SphereGeometry(0.04, 4, 4);
           const particleMaterial = new THREE.MeshStandardMaterial({
-            color: 0x00e6a8,
+            color: secondaryColor,
             metalness: 0.9,
             roughness: 0.1,
-            emissive: 0x00e6a8,
+            emissive: secondaryColor,
             emissiveIntensity: 0.9
           });
 
@@ -5487,11 +5487,11 @@
           }
 
           // Lighting
-          const light1 = new THREE.PointLight(0x4d7cff, 1.5, 100);
+          const light1 = new THREE.PointLight(primaryColor, 1.5, 100);
           light1.position.set(5, 5, 5);
           scene.add(light1);
 
-          const light2 = new THREE.PointLight(0x00e6a8, 1, 100);
+          const light2 = new THREE.PointLight(secondaryColor, 1, 100);
           light2.position.set(-5, -5, 5);
           scene.add(light2);
 
@@ -5554,6 +5554,13 @@
           window.addEventListener("resize", () => {
             renderer.setSize(400, 400);
           });
+        }
+
+        function init3DPyramid() {
+          // Left pyramid (blue/cyan theme)
+          createPyramid3D("pyramid-container-3d", 0x4d7cff, 0x00e6a8);
+          // Right pyramid (green/cyan theme)
+          createPyramid3D("pyramid-container-3d-right", 0x00e6a8, 0x16c8ff);
         }
 
         window.addEventListener("load", () => {
@@ -6020,17 +6027,7 @@
               gsap.set(split.chars, { display: "inline-block" });
               introTl
                 .to(".hero-bg-shapes", { opacity: 0.8, duration: 0.8, ease: "power2.out" }, 0)
-                .to(".particles-field", { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.2)
-                .from(split.chars, {
-                  opacity: 0,
-                  filter: "blur(8px) brightness(3)",
-                  scale: 1.4,
-                  color: "#00E6A8",
-                  transformOrigin: "50% 50%",
-                  stagger: { each: isMobileDevice ? .010 : .018, from: "random" },
-                  duration: isMobileDevice ? .7 : 1,
-                  ease: "power4.out"
-                }, 0.4);
+                .to(".particles-field", { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.2);
 
               gsap.to(split.chars, {
                 textShadow: "0 0 24px rgba(0, 230, 168, 0.9)",
@@ -6209,7 +6206,6 @@
               ScrollTrigger.create({
                 trigger: el,
                 start: "top 85%",
-                once: true,
                 onEnter: () => {
                   gsap.fromTo(el.closest(".stat-card").querySelector(".stat-glow"),
                     { opacity: 0, scale: 0 },
@@ -6258,7 +6254,7 @@
 
             gsap.utils.toArray(".benefit-item").forEach(item => {
               ScrollTrigger.create({
-                trigger: item, start: "top 85%", once: true,
+                trigger: item, start: "top 85%",
                 onEnter: () => item.classList.add("is-drawn")
               });
             });
@@ -6339,7 +6335,7 @@
             }
 
             ScrollTrigger.create({
-              trigger: ".testimonials-section", start: "top 80%", once: true,
+              trigger: ".testimonials-section", start: "top 80%",
               onEnter: () => {
                 gsap.from(".testi-card .stars svg", {
                   scale: 0, opacity: 0, rotation: -180,
