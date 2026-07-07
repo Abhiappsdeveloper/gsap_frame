@@ -5908,6 +5908,7 @@
             initBenefitsPinning();
             initBenefitsScrollAnim();
             initBenefitsCounters();
+            initBenefitsCinematicReveal();
             initTimelineEnhance();
 
             /* ====== 3D Animations ====== */
@@ -7587,6 +7588,92 @@
               pinSpacing: true,
               markers: false
             });
+          }
+
+          /* ============================================================
+             BENEFITS SECTION — CINEMATIC ADVANTAGE REVEAL (additive layer)
+             Layered on top of initBenefitsScrollAnim(): only animates
+             properties/elements that function doesn't already control,
+             so the two don't fight over the same opacity/transform values.
+             ============================================================ */
+          function initBenefitsCinematicReveal() {
+            const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const section = document.querySelector(".benefits-section");
+            const benefitsList = document.querySelector(".benefits-list");
+            const items = gsap.utils.toArray(".benefits-list .benefit-item");
+            if (!items.length || prefersReduced || !section || !benefitsList) return;
+
+            // Container-level cinematic entrance (list itself, not the
+            // individual items — those already have their own reveal).
+            gsap.from(benefitsList, {
+              opacity: 0,
+              y: 80,
+              filter: "blur(12px)",
+              duration: 0.8,
+              ease: "power3.out",
+              clearProps: "filter,opacity,transform",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 75%",
+                once: true
+              }
+            });
+
+            // Staggered "ignition" glow per item as it enters — uses a
+            // temporary box-shadow tween with clearProps so it never
+            // lingers to block the existing :hover box-shadow.
+            items.forEach((item, idx) => {
+              ScrollTrigger.create({
+                trigger: item,
+                start: "top 85%",
+                once: true,
+                onEnter: () => {
+                  gsap.delayedCall(idx * 0.12, () => {
+                    gsap.fromTo(item,
+                      { boxShadow: "0 0 0px rgba(0,230,168,0)" },
+                      {
+                        boxShadow: "0 0 24px rgba(0,230,168,.25)",
+                        duration: 0.6,
+                        ease: "power2.out",
+                        onComplete: () => {
+                          gsap.to(item, {
+                            boxShadow: "0 0 0px rgba(0,230,168,0)",
+                            duration: 0.8,
+                            delay: 0.4,
+                            clearProps: "boxShadow"
+                          });
+                        }
+                      }
+                    );
+                  });
+                }
+              });
+            });
+
+            // Light shimmer sweep across the list for dramatic flair.
+            const bgShimmer = document.createElement("div");
+            bgShimmer.setAttribute("aria-hidden", "true");
+            bgShimmer.style.cssText = [
+              "position: absolute",
+              "top: -50%",
+              "left: -50%",
+              "width: 200%",
+              "height: 200%",
+              "background: linear-gradient(135deg, transparent 0%, rgba(0,230,168,.08) 25%, rgba(22,200,255,.08) 50%, transparent 100%)",
+              "pointer-events: none",
+              "opacity: 0",
+              "z-index: 0"
+            ].join(";");
+            if (getComputedStyle(benefitsList).position === "static") {
+              benefitsList.style.position = "relative";
+            }
+            benefitsList.insertBefore(bgShimmer, benefitsList.firstChild);
+
+            gsap.timeline({
+              scrollTrigger: { trigger: section, start: "top 70%", once: true }
+            })
+              .to(bgShimmer, { opacity: 1, x: 400, duration: 1.2, ease: "power2.inOut" })
+              .to(bgShimmer, { opacity: 0, duration: 0.8 }, "+=0.2");
           }
 
           /* ============================================================
