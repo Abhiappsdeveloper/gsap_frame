@@ -1625,6 +1625,27 @@
       box-shadow: 0 0 32px rgba(0, 230, 168, .7);
     }
 
+    .timeline-line {
+      position: absolute;
+      left: 50%;
+      top: 9px;
+      bottom: 9px;
+      width: 2px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, var(--primary), var(--secondary));
+      transform-origin: top center;
+      scale: 1 0;
+      z-index: 0;
+      box-shadow: 0 0 12px rgba(0, 230, 168, .4);
+      pointer-events: none;
+    }
+
+    @media (max-width: 1080px) {
+      .timeline-line {
+        display: none;
+      }
+    }
+
     .event-content {
       width: 45%;
       padding: 32px 28px;
@@ -4249,6 +4270,77 @@
       }
     }
 
+    /* ---- Industrial zone mobile adjustments ---- */
+    @media (max-width: 768px) {
+      .ind-factory-1 {
+        left: 2%;
+        width: clamp(65px, 20vw, 110px);
+        height: clamp(160px, 30vh, 250px);
+      }
+
+      .ind-factory-2 {
+        left: 27%;
+        width: clamp(70px, 20vw, 115px);
+        height: clamp(180px, 32vh, 280px);
+      }
+
+      .ind-factory-3 {
+        right: 27%;
+        width: clamp(68px, 20vw, 112px);
+        height: clamp(170px, 30vh, 265px);
+      }
+
+      .ind-warehouse-1 {
+        right: 4%;
+        width: clamp(72px, 22vw, 120px);
+        height: clamp(150px, 26vh, 220px);
+      }
+
+      .ind-chimney {
+        width: 12px;
+      }
+
+      .ind-warehouse-2,
+      .ind-crane-1,
+      .ind-crane-2,
+      .ind-container-stack {
+        display: none;
+      }
+
+      .worker-5,
+      .worker-6,
+      .worker-7,
+      .worker-8 {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ind-factory-1 {
+        left: 1%;
+      }
+
+      .ind-factory-2 {
+        left: 25%;
+      }
+
+      .ind-factory-3 {
+        right: 25%;
+      }
+
+      .ind-warehouse-1 {
+        right: 1%;
+      }
+
+      .ind-chimney-2,
+      .ind-chimney-3,
+      .ind-truck,
+      .worker-3,
+      .worker-4 {
+        display: none;
+      }
+    }
+
     /* ============================================================
     NEW VECTR FLOW AESTHETIC — CARD STACKING & PINNING
     ============================================================ */
@@ -5014,6 +5106,7 @@
           </div>
 
           <div class="timeline-container">
+            <div class="timeline-line" aria-hidden="true"></div>
             <div class="timeline-events">
               <div class="timeline-event reveal-up">
                 <div class="event-marker"></div>
@@ -5814,6 +5907,8 @@
             initProcessStacking();
             initBenefitsPinning();
             initBenefitsScrollAnim();
+            initBenefitsCounters();
+            initTimelineEnhance();
 
             /* ====== 3D Animations ====== */
             initProcess3DTetrahedrons();
@@ -7489,8 +7584,112 @@
               pin: ".benefits-visual",
               start: "top 120px",
               end: "bottom 95%",
-              pinSpacing: false,
+              pinSpacing: true,
               markers: false
+            });
+          }
+
+          /* ============================================================
+             BENEFITS VISUAL — STAT COUNT-UP
+             ============================================================ */
+          function initBenefitsCounters() {
+            const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const trustedHeading = document.querySelector(".benefits-visual-content h3");
+            const countSpan = document.querySelector(".benefits-visual-content span");
+
+            if (trustedHeading) {
+              if (prefersReduced) {
+                trustedHeading.textContent = "Trusted by 5,000+";
+              } else {
+                const counter = { val: 0 };
+                ScrollTrigger.create({
+                  trigger: trustedHeading,
+                  start: "top 85%",
+                  once: true,
+                  onEnter: () => {
+                    gsap.to(counter, {
+                      val: 5000,
+                      duration: 1.6,
+                      ease: "power2.out",
+                      onUpdate: () => {
+                        trustedHeading.textContent = `Trusted by ${Math.floor(counter.val).toLocaleString()}+`;
+                      }
+                    });
+                  }
+                });
+              }
+            }
+
+            if (countSpan) {
+              if (prefersReduced) {
+                countSpan.textContent = "+4,997";
+              } else {
+                const counter = { val: 0 };
+                ScrollTrigger.create({
+                  trigger: countSpan,
+                  start: "top 85%",
+                  once: true,
+                  onEnter: () => {
+                    gsap.to(counter, {
+                      val: 4997,
+                      duration: 1.6,
+                      ease: "power2.out",
+                      onUpdate: () => {
+                        countSpan.textContent = `+${Math.floor(counter.val).toLocaleString()}`;
+                      }
+                    });
+                  }
+                });
+              }
+            }
+          }
+
+          /* ============================================================
+             HIRING TIMELINE — CONNECTING LINE + MARKER POP
+             ============================================================ */
+          function initTimelineEnhance() {
+            const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (prefersReduced) return;
+
+            const container = document.querySelector(".hiring-timeline .timeline-container");
+            const line = document.querySelector(".hiring-timeline .timeline-line");
+            if (!container) return;
+
+            if (line) {
+              gsap.to(line, {
+                scaleY: 1,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: container,
+                  start: "top 75%",
+                  end: "bottom 85%",
+                  scrub: 0.6
+                }
+              });
+            }
+
+            gsap.utils.toArray(".hiring-timeline .timeline-event").forEach(event => {
+              const marker = event.querySelector(".event-marker");
+              const label = event.querySelector(".event-label");
+              if (!marker) return;
+
+              gsap.from(marker, {
+                scale: 0,
+                duration: 0.5,
+                ease: "back.out(2.5)",
+                scrollTrigger: { trigger: event, start: "top 82%" }
+              });
+
+              if (label) {
+                gsap.from(label, {
+                  opacity: 0,
+                  y: -8,
+                  duration: 0.5,
+                  delay: 0.15,
+                  ease: "power2.out",
+                  scrollTrigger: { trigger: event, start: "top 82%" }
+                });
+              }
             });
           }
 
@@ -8138,6 +8337,94 @@
         window.addEventListener("beforeunload", () => {
 
         });
+      </script>
+
+      <!-- ============================================================
+           SUPPLEMENTAL GSAP ANIMATIONS
+           Additive only — fills gaps not covered by the animations above.
+           Does not modify any existing HTML, CSS, or JavaScript.
+           ============================================================ -->
+      <script>
+        (function () {
+          if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+          gsap.registerPlugin(ScrollTrigger);
+
+          var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+          /* ---- About section mini-stats: 98% / 72hr / 50 States count-up ---- */
+          function animateAboutStats() {
+            var statEls = document.querySelectorAll(".about-stats-mini > div");
+            if (!statEls.length || prefersReduced) return;
+
+            gsap.from(statEls, {
+              opacity: 0,
+              y: 30,
+              duration: 0.8,
+              ease: "power2.out",
+              stagger: 0.2,
+              clearProps: "opacity,transform",
+              scrollTrigger: {
+                trigger: ".about-stats-mini",
+                start: "top 85%",
+                once: true
+              }
+            });
+
+            statEls.forEach(function (el, i) {
+              var strongEl = el.querySelector("strong");
+              if (!strongEl) return;
+              var match = strongEl.textContent.trim().match(/^(\d+)(.*)$/);
+              if (!match) return;
+              var target = parseInt(match[1], 10);
+              var suffix = match[2] || "";
+              var counter = { val: 0 };
+
+              ScrollTrigger.create({
+                trigger: ".about-stats-mini",
+                start: "top 85%",
+                once: true,
+                onEnter: function () {
+                  gsap.to(counter, {
+                    val: target,
+                    duration: 2,
+                    ease: "power2.out",
+                    delay: i * 0.2,
+                    onUpdate: function () {
+                      strongEl.textContent = Math.round(counter.val) + suffix;
+                    }
+                  });
+                }
+              });
+            });
+          }
+
+          /* ---- Hiring journey timeline cards: alternating stagger ---- */
+          function animateTimelineCards() {
+            var cards = document.querySelectorAll(".hiring-timeline .event-content");
+            if (!cards.length || prefersReduced) return;
+
+            gsap.from(cards, {
+              x: function (index, target) {
+                var event = target.closest(".timeline-event");
+                var siblingIndex = Array.prototype.indexOf.call(event.parentElement.children, event);
+                return siblingIndex % 2 === 1 ? 60 : -60;
+              },
+              opacity: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              stagger: 0.2,
+              clearProps: "transform,opacity",
+              scrollTrigger: {
+                trigger: ".hiring-timeline .timeline-events",
+                start: "top 80%",
+                once: true
+              }
+            });
+          }
+
+          animateAboutStats();
+          animateTimelineCards();
+        })();
       </script>
 
 </body>
