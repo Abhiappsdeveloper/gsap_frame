@@ -231,24 +231,24 @@
     .cursor-ring {
       width: 38px;
       height: 38px;
-      border: 1.5px solid rgba(255, 255, 255, .3);
-      backdrop-filter: blur(8px);
-      transition: width .25s var(--ease-out), height .25s var(--ease-out), border-color .25s, background .25s;
+      --cursor-color: rgba(255, 255, 255, .3);
+      --blur-radius: 8px;
+      border: 1.5px solid var(--cursor-color);
+      backdrop-filter: blur(var(--blur-radius));
+      -webkit-backdrop-filter: blur(var(--blur-radius));
+      transition: border-color .25s, background .25s;
       background: transparent;
+      transform-origin: center center;
     }
 
     .cursor-ring.is-hover {
-      width: 72px;
-      height: 72px;
-      border-color: var(--primary);
+      --cursor-color: var(--primary);
       background: radial-gradient(circle, rgba(0, 230, 168, .08), transparent 70%);
       box-shadow: inset 0 0 20px rgba(0, 230, 168, .2), 0 0 24px rgba(0, 230, 168, .3);
     }
 
     .cursor-ring.is-drag {
-      width: 54px;
-      height: 54px;
-      border-color: var(--secondary);
+      --cursor-color: var(--secondary);
       background: radial-gradient(circle, rgba(22, 200, 255, .12), transparent 70%);
     }
 
@@ -4249,6 +4249,128 @@
       }
     }
 
+    /* ============================================================
+    NEW VECTR FLOW AESTHETIC — CARD STACKING & PINNING
+    ============================================================ */
+    @media (min-width: 992px) {
+      .process-section .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 80px;
+        min-height: 100vh;
+      }
+      .process-section .section-head {
+        flex: 1;
+        text-align: left;
+        margin-bottom: 0;
+        max-width: 480px;
+      }
+      .process-section .process-grid {
+        flex: 1.3;
+        height: 480px;
+        display: block;
+        position: relative;
+        max-width: 580px;
+      }
+      .process-section .process-step {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transform: scale(0.95) translateY(60px);
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        box-sizing: border-box;
+      }
+      .process-section .process-step.active {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        pointer-events: auto;
+      }
+      .benefits-grid {
+        align-items: start;
+      }
+      .benefits-visual {
+        position: sticky;
+        top: 140px;
+      }
+    }
+
+
+
+    /* Screenreader accessibility helper */
+    .sr-only {
+      position: absolute;
+      clip: rect(0 0 0 0);
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      padding: 0;
+      margin: -1px;
+      border: 0;
+    }
+
+    /* Cinematic Buildings Stage Overlay styling */
+    .cb-stage-overlay {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 100;
+      pointer-events: none;
+      width: 90%;
+      max-width: 620px;
+    }
+
+    .cb-stage-overlay-inner {
+      background: rgba(13, 13, 15, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 20px 32px;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+    }
+
+    .cb-stage-chapter {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
+    }
+
+    .cb-stage-text {
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    /* Hide city elements to keep scene clean and focus on the stage stages */
+    .cb-vehicles,
+    .cb-people,
+    .cb-connection-line,
+    .cb-street-elements,
+    .cb-car-1,
+    .cb-car-2,
+    .cb-bus-1,
+    .cb-person-1,
+    .cb-person-2,
+    .cb-person-3,
+    .cb-person-4,
+    .cb-traffic-light,
+    .cb-traffic-sign,
+    #cbGateCarLeft,
+    #cbGateCarRight {
+      display: none !important;
+    }
+
   </style>
 </head>
 
@@ -4263,9 +4385,7 @@
   <div class="cursor-ring" aria-hidden="true"></div>
   <div class="cursor-dot" aria-hidden="true"></div>
 
-  <div id="smooth-wrapper">
-    <div id="smooth-content">
-      <div class="cursor-dot" aria-hidden="true"></div>
+
 
       <!-- ============================================================
      NAVBAR
@@ -4676,7 +4796,7 @@
      ============================================================ -->
       <section class="stats-section section-pad" id="services" aria-label="Featured services">
         <div class="container">
-          <div class="section-head reveal-up">
+          <div class="section-head stats-head-custom">
             <span class="section-eyebrow">Our Core Services</span>
             <h2 class="section-title">Complete <span class="accent-text">Workforce Solutions</span></h2>
             <p class="section-sub">From sourcing and placement to compliance and training, we handle every aspect of
@@ -4684,7 +4804,7 @@
               acquisition so you can focus on growth.</p>
           </div>
           <div class="stats-grid">
-            <div class="stat-card reveal-up">
+            <div class="stat-card stat-card-custom">
               <div class="stat-glow"></div>
               <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="1.8">
@@ -4693,7 +4813,7 @@
               <div class="stat-number" data-count="9000" data-suffix="K" data-divide="1000">0</div>
               <div class="stat-label">Candidates Placed</div>
             </div>
-            <div class="stat-card reveal-up">
+            <div class="stat-card stat-card-custom">
               <div class="stat-glow"></div>
               <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="1.8">
@@ -4703,7 +4823,7 @@
               <div class="stat-number" data-count="5000" data-suffix="K" data-divide="1000">0</div>
               <div class="stat-label">Client Partnerships</div>
             </div>
-            <div class="stat-card reveal-up">
+            <div class="stat-card stat-card-custom">
               <div class="stat-glow"></div>
               <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="1.8">
@@ -4712,7 +4832,7 @@
               <div class="stat-number" data-count="6000" data-suffix="K" data-divide="1000">0</div>
               <div class="stat-label">Job Roles Filled</div>
             </div>
-            <div class="stat-card reveal-up">
+            <div class="stat-card stat-card-custom">
               <div class="stat-glow"></div>
               <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="1.8">
@@ -4790,6 +4910,7 @@
             </div>
             <!-- INSERT AFTER the 4 process-step divs, still inside .process-grid -->
           </div>
+        </div>
       </section>
 
       <!-- ============================================================
@@ -4804,7 +4925,7 @@
 
           <div class="benefits-grid">
             <div class="benefits-list">
-              <div class="benefit-item tilt-card reveal-up">
+              <div class="benefit-item tilt-card benefit-item-custom">
                 <div class="check-icon">✓</div>
                 <h3>Industry Expertise</h3>
                 <p>Deep knowledge of IT, Finance, Healthcare, and more. We understand your industry's unique challenges
@@ -4812,7 +4933,7 @@
                   talent needs.</p>
               </div>
 
-              <div class="benefit-item tilt-card reveal-up">
+              <div class="benefit-item tilt-card benefit-item-custom">
                 <div class="check-icon">✓</div>
                 <h3>Fast Turnaround</h3>
                 <p>Average 72-hour shortlist delivery. Our streamlined process gets qualified candidates to you in
@@ -4820,14 +4941,14 @@
                   time.</p>
               </div>
 
-              <div class="benefit-item tilt-card reveal-up">
+              <div class="benefit-item tilt-card benefit-item-custom">
                 <div class="check-icon">✓</div>
                 <h3>Compliance Assured</h3>
                 <p>Full regulatory compliance, background checks, and documentation handling — so you can hire with
                   confidence.</p>
               </div>
 
-              <div class="benefit-item tilt-card reveal-up">
+              <div class="benefit-item tilt-card benefit-item-custom">
                 <div class="check-icon">✓</div>
                 <h3>Long-term Retention</h3>
                 <p>98% client retention rate. We don't just fill positions; we create lasting matches that drive
@@ -4835,14 +4956,14 @@
                   growth.</p>
               </div>
 
-              <div class="benefit-item tilt-card reveal-up">
+              <div class="benefit-item tilt-card benefit-item-custom">
                 <div class="check-icon">✓</div>
                 <h3>Dedicated Account Manager</h3>
                 <p>Your own staffing partner who knows your business, culture, and goals — available whenever you need
                   support.</p>
               </div>
 
-              <div class="benefit-item tilt-card reveal-up">
+              <div class="benefit-item tilt-card benefit-item-custom">
                 <div class="check-icon">✓</div>
                 <h3>Transparent Pricing</h3>
                 <p>No hidden fees. Clear, competitive pricing models tailored to your budget and hiring volume.</p>
@@ -4881,9 +5002,6 @@
         </div>
 
       </section>
-
-      <script>
-      </script>
 
       <!-- ============================================================
      HIRING TIMELINE
@@ -4993,7 +5111,7 @@
       <section class="industries-section section-pad" id="industries" aria-label="Industries served">
         <div class="container">
           <!-- ✅ MODIFIED: Sphere inside section-head, right side blank area -->
-          <div class="section-head reveal-up"
+          <div class="section-head industries-head-custom"
             style="position: relative; display: flex; align-items: center; justify-content: space-between; gap: 40px;">
 
             <!-- ✅ 3D SPHERE (Right side, in blank space) -->
@@ -5004,14 +5122,13 @@
             <!-- Text content wrapped in flex container -->
             <div style="flex: 1;">
               <span class="section-eyebrow">Our Industries</span>
-              <h2 class="section-title">Empowering USA Industry with <span class="accent-text">Trusted Talent
-                  Solutions</span>
-              </h2>
+              <h2 class="section-title">Empowering USA Industry with <span class="accent-text">Trusted Talent Solutions</span></h2>
+              <p class="section-sub" style="margin-top: 16px; color: var(--muted); font-size: 1.1rem; max-width: 680px;">Connecting top-tier US enterprises with certified industry specialists. We bridge the critical talent gap across engineering, finance, healthcare, and advanced technologies with speed and precision.</p>
             </div>
           </div>
 
           <div class="industries-grid">
-            <div class="industry-card tilt-card reveal-up">
+            <div class="industry-card tilt-card industry-card-custom">
               <div class="ind-bg-light"></div>
               <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="1.8">
@@ -5020,7 +5137,7 @@
               <h3>IT &amp; Technology</h3>
               <p>From cloud engineers to AI specialists, we deliver technical talent that ships, scales, and stays.</p>
             </div>
-            <div class="industry-card tilt-card reveal-up">
+            <div class="industry-card tilt-card industry-card-custom">
               <div class="ind-bg-light"></div>
               <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="1.8">
@@ -5029,7 +5146,7 @@
               <h3>Finance &amp; Accounting</h3>
               <p>Compliance-savvy, detail-driven professionals for controllership, audit, and financial operations.</p>
             </div>
-            <div class="industry-card tilt-card reveal-up">
+            <div class="industry-card tilt-card industry-card-custom">
               <div class="ind-bg-light"></div>
               <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="1.8">
@@ -5372,17 +5489,17 @@
               <a href="#home" class="nav-logo"><span class="dot"></span><span>Ukonnect</span></a>
               <p>People-first staffing, outsourcing, and executive search built for the modern American workforce.</p>
               <div class="footer-social">
-                <a href="#" aria-label="LinkedIn" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
+                <a href="javascript:void(0)" aria-label="LinkedIn" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
                     fill="currentColor">
                     <path
                       d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.55c0-1.32-.02-3.02-1.84-3.02-1.85 0-2.13 1.44-2.13 2.93V21H9z" />
                   </svg></a>
-                <a href="#" aria-label="Twitter / X" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
+                <a href="javascript:void(0)" aria-label="Twitter / X" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
                     fill="currentColor">
                     <path
                       d="M22 5.92a8.4 8.4 0 01-2.36.65 4.1 4.1 0 001.8-2.27 8.2 8.2 0 01-2.6 1 4.1 4.1 0 00-7 3.74A11.65 11.65 0 013 4.9a4.1 4.1 0 001.27 5.47A4.1 4.1 0 012.4 9.7v.05a4.1 4.1 0 003.29 4.02 4.1 4.1 0 01-1.85.07 4.1 4.1 0 003.83 2.85A8.23 8.23 0 012 18.4a11.6 11.6 0 006.29 1.84c7.55 0 11.68-6.25 11.68-11.68 0-.18 0-.36-.01-.53A8.3 8.3 0 0022 5.92z" />
                   </svg></a>
-                <a href="#" aria-label="Instagram" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
+                <a href="javascript:void(0)" aria-label="Instagram" class="magnetic"><svg width="16" height="16" viewBox="0 0 24 24"
                     fill="currentColor">
                     <path
                       d="M12 2c2.7 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.5.5.86 1.05 1.15 1.76.25.64.42 1.37.47 2.43.05 1.06.06 1.41.06 4.13s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 01-1.15 1.76c-.5.5-1.05.86-1.76 1.15-.64.25-1.37.42-2.43.47-1.06.05-1.41.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 01-1.76-1.15 4.9 4.9 0 01-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.7 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43a4.9 4.9 0 011.15-1.76A4.9 4.9 0 015.45.54C6.09.29 6.82.12 7.88.07 8.94.02 9.3 0 12 0zm0 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zm0 10.16a4 4 0 110-8 4 4 0 010 8zm6.4-10.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
@@ -5424,7 +5541,7 @@
           <div class="footer-divider"></div>
           <div class="footer-bottom">
             <span>© <span id="year"></span> Ukonnect Staffing USA. All rights reserved.</span>
-            <span><a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a></span>
+            <span><a href="javascript:void(0)">Privacy Policy</a> · <a href="javascript:void(0)">Terms of Service</a></span>
           </div>
         </div>
       </footer>
@@ -5498,54 +5615,63 @@
           const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
           scene.add(ambientLight);
 
-          let isVisible = false;
           let time = 0;
+          const animKey = containerId + "AnimID";
+          window[animKey] = null;
 
           // Fade in
           gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.7 });
 
           const observer = new IntersectionObserver((entries) => {
-            isVisible = entries[0].isIntersecting;
-          });
+            const isVisible = entries[0].isIntersecting;
+            if (isVisible) {
+              if (!window[animKey]) {
+                window[animKey] = requestAnimationFrame(animate);
+              }
+            } else {
+              if (window[animKey]) {
+                cancelAnimationFrame(window[animKey]);
+                window[animKey] = null;
+              }
+            }
+          }, { threshold: 0.05 });
           observer.observe(container);
 
           function animate() {
-            requestAnimationFrame(animate);
+            window[animKey] = requestAnimationFrame(animate);
 
-            if (isVisible) {
-              time += 0.01;
+            time += 0.01;
 
-              // Morph between pyramid and sphere
-              const morphInfluence = 0.5 + Math.sin(time * 0.5) * 0.5;
-              pyramid.scale.set(
-                1 + Math.sin(time * 0.3) * 0.2,
-                1 + Math.cos(time * 0.4) * 0.2,
-                1 + Math.sin(time * 0.35) * 0.2
-              );
+            // Morph between pyramid and sphere
+            const morphInfluence = 0.5 + Math.sin(time * 0.5) * 0.5;
+            pyramid.scale.set(
+              1 + Math.sin(time * 0.3) * 0.2,
+              1 + Math.cos(time * 0.4) * 0.2,
+              1 + Math.sin(time * 0.35) * 0.2
+            );
 
-              pyramid.rotation.x += 0.003;
-              pyramid.rotation.y += 0.005;
-              pyramid.rotation.z += 0.002;
+            pyramid.rotation.x += 0.003;
+            pyramid.rotation.y += 0.005;
+            pyramid.rotation.z += 0.002;
 
-              // Update particles
-              particles.forEach((p, i) => {
-                p.position.add(p.velocity);
-                p.life -= 0.02;
-                p.material.opacity = p.life;
+            // Update particles
+            particles.forEach((p, i) => {
+              p.position.add(p.velocity);
+              p.life -= 0.02;
+              p.material.opacity = p.life;
 
-                if (p.life <= 0) {
-                  p.position.copy(pyramid.position);
-                  p.life = 1;
-                  p.velocity = new THREE.Vector3(
-                    (Math.random() - 0.5) * 0.05,
-                    (Math.random() - 0.5) * 0.05,
-                    (Math.random() - 0.5) * 0.05
-                  );
-                }
+              if (p.life <= 0) {
+                p.position.copy(pyramid.position);
+                p.life = 1;
+                p.velocity = new THREE.Vector3(
+                  (Math.random() - 0.5) * 0.05,
+                  (Math.random() - 0.5) * 0.05,
+                  (Math.random() - 0.5) * 0.05
+                );
+              }
 
-                p.scale.set(p.life, p.life, p.life);
-              });
-            }
+              p.scale.set(p.life, p.life, p.life);
+            });
 
             renderer.render(scene, camera);
           }
@@ -5573,12 +5699,10 @@
      ============================================================ -->
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MotionPathPlugin.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/InertiaPlugin.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
       <script>
@@ -5599,30 +5723,35 @@
             return;
           }
 
-          gsap.registerPlugin(ScrollTrigger, SplitText, Flip, MotionPathPlugin, Draggable);
-          const hasSmoother = typeof ScrollSmoother !== "undefined";
-          if (hasSmoother) gsap.registerPlugin(ScrollSmoother);
+          gsap.registerPlugin(ScrollTrigger, Flip, MotionPathPlugin, Draggable);
 
           const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
           /* ----------------------------------------------------------
-             ScrollSmoother (skipped entirely under reduced-motion)
+             Lenis Smooth Scrolling (skipped entirely under reduced-motion)
              ---------------------------------------------------------- */
-          let smoother = null;
-          if (hasSmoother && !prefersReduced) {
+          let lenis = null;
+          if (!prefersReduced && typeof Lenis !== "undefined") {
             try {
-              smoother = ScrollSmoother.create({
-                wrapper: "#smooth-wrapper",
-                content: "#smooth-content",
-                smooth: 1.1,
-                effects: true,
-                normalizeScroll: true,
-                smoothTouch: 0.1,
-                onUpdate: () => ScrollTrigger.update()
+              lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // ultra-fluid, high-inertia
+                smoothWheel: true,
+                smoothTouch: false
               });
+
+              // Integrate Lenis with GSAP ScrollTrigger
+              lenis.on('scroll', ScrollTrigger.update);
+
+              gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+              });
+
+              gsap.ticker.lagSmoothing(0);
+              window.lenis = lenis; // Expose globally for anchor scrolls
             } catch (e) {
-              console.warn("ScrollSmoother initialization failed:", e);
-              smoother = null;
+              console.warn("Lenis initialization failed:", e);
+              lenis = null;
             }
           }
 
@@ -5655,8 +5784,9 @@
             /* ====== Tilt cards (service / workshop / industry) ====== */
             initTiltCards();
 
-            /* ====== Stats counters ====== */
+            /* ====== Stats counters & GSAP animation ====== */
             initCounters();
+            initStatsGSAP();
             /* ====== Section reveal-on-scroll (generic) ====== */
             initReveals();
 
@@ -5671,17 +5801,25 @@
 
             /* ====== Cinematic Building Scene ====== */
             initCinematicBuildings();
+            initStageOverlay();
 
             /* ====== Industrial Working Zone ====== */
             initIndustrialZone();
+            initIndustrialStageOverlay();
 
             /* ====== Footer link hover micro-interaction ====== */
             initFooterHovers();
+
+            /* ====== Layout Pinning & Card Stacking ====== */
+            initProcessStacking();
+            initBenefitsPinning();
+            initBenefitsScrollAnim();
 
             /* ====== 3D Animations ====== */
             initProcess3DTetrahedrons();
             initBenefits3DCube();
             initIndustries3DSphere();
+            initIndustriesReveal();
             initWorkshop3DPrisms();
 
           });
@@ -5739,13 +5877,27 @@
               });
             }
 
-            gsap.ticker.add(draw);
-            ScrollTrigger.create({
-              trigger: document.body,
-              start: "top top",
-              end: "bottom bottom",
-              onUpdate: () => { } // canvas reads live state each tick already
-            });
+            window.auroraAnimID = null;
+
+            const observer = new IntersectionObserver((entries) => {
+              const isVisible = entries[0].isIntersecting;
+              if (isVisible) {
+                if (!window.auroraAnimID) {
+                  window.auroraAnimID = requestAnimationFrame(animate);
+                }
+              } else {
+                if (window.auroraAnimID) {
+                  cancelAnimationFrame(window.auroraAnimID);
+                  window.auroraAnimID = null;
+                }
+              }
+            }, { threshold: 0.01 });
+            observer.observe(canvas);
+
+            function animate() {
+              window.auroraAnimID = requestAnimationFrame(animate);
+              draw();
+            }
           }
 
           /* ============================================================
@@ -5831,28 +5983,144 @@
              CUSTOM CURSOR (mouse follower + distortion on hover)
              ============================================================ */
           function initCursor() {
-            if (window.matchMedia("(hover:none), (pointer:coarse)").matches) return;
             const dot = document.querySelector(".cursor-dot");
             const ring = document.querySelector(".cursor-ring");
-            if (!dot || !ring) return; // Safety check added
+            if (!dot || !ring) return;
+
+            // Strict touchscreen safeguard check
+            if (!window.matchMedia("(hover: hover)").matches) {
+              dot.style.display = "none";
+              ring.style.display = "none";
+              return;
+            }
+
+            let hoveredItem = null;
+            let mouse = { x: 0, y: 0 };
+            let itemXTo = null;
+            let itemYTo = null;
+
+            gsap.set(dot, { xPercent: -50, yPercent: -50, transformOrigin: "center center" });
+            gsap.set(ring, { xPercent: -50, yPercent: -50, transformOrigin: "center center" });
+
             const dotX = gsap.quickTo(dot, "x", { duration: .12, ease: "power3" });
             const dotY = gsap.quickTo(dot, "y", { duration: .12, ease: "power3" });
             const ringX = gsap.quickTo(ring, "x", { duration: .4, ease: "power3" });
             const ringY = gsap.quickTo(ring, "y", { duration: .4, ease: "power3" });
 
             window.addEventListener("mousemove", e => {
-              dotX(e.clientX); dotY(e.clientY);
-              ringX(e.clientX); ringY(e.clientY);
+              mouse.x = e.clientX;
+              mouse.y = e.clientY;
+
+              dotX(mouse.x);
+              dotY(mouse.y);
+
+              if (hoveredItem) {
+                const rect = hoveredItem.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                const rx = centerX + (mouse.x - centerX) * 0.25;
+                const ry = centerY + (mouse.y - centerY) * 0.25;
+                
+                gsap.to(ring, {
+                  x: rx,
+                  y: ry,
+                  duration: 0.2,
+                  ease: "power2.out",
+                  overwrite: "auto"
+                });
+
+                if (itemXTo && itemYTo) {
+                  const pullX = (mouse.x - centerX) * 0.3;
+                  const pullY = (mouse.y - centerY) * 0.3;
+                  itemXTo(pullX);
+                  itemYTo(pullY);
+                }
+              } else {
+                ringX(mouse.x);
+                ringY(mouse.y);
+              }
             });
 
-            const hoverTargets = "a, button, .tilt-card, .testi-card, [data-nav]";
+            const magneticTargets = ".nav-links a, .btn, .magnetic";
+            
             document.addEventListener("mouseover", e => {
-              if (e.target.closest(hoverTargets)) ring.classList.add("is-hover");
+              const target = e.target.closest(magneticTargets);
+              if (target) {
+                hoveredItem = target;
+                ring.classList.add("is-hover");
+                
+                itemXTo = gsap.quickTo(hoveredItem, "x", { duration: 0.3, ease: "power2.out" });
+                itemYTo = gsap.quickTo(hoveredItem, "y", { duration: 0.3, ease: "power2.out" });
+
+                const rect = target.getBoundingClientRect();
+                const style = window.getComputedStyle(target);
+                
+                const targetScaleX = (rect.width + 12) / 38;
+                const targetScaleY = (rect.height + 12) / 38;
+
+                gsap.to(ring, {
+                  scaleX: targetScaleX,
+                  scaleY: targetScaleY,
+                  borderRadius: style.borderRadius || "8px",
+                  "--cursor-color": "var(--primary)",
+                  "--blur-radius": "12px",
+                  duration: 0.3,
+                  ease: "power2.out",
+                  overwrite: "auto"
+                });
+              } else if (e.target.closest("a, button, .tilt-card, .testi-card")) {
+                ring.classList.add("is-hover");
+                gsap.to(ring, {
+                  scaleX: 1.8,
+                  scaleY: 1.8,
+                  "--cursor-color": "var(--primary)",
+                  duration: 0.3,
+                  ease: "power2.out",
+                  overwrite: "auto"
+                });
+              }
             });
+
             document.addEventListener("mouseout", e => {
-              if (e.target.closest(hoverTargets)) ring.classList.remove("is-hover");
+              const target = e.target.closest(magneticTargets);
+              if (target && hoveredItem === target) {
+                gsap.to(hoveredItem, {
+                  x: 0,
+                  y: 0,
+                  duration: 0.4,
+                  ease: "power3.out",
+                  overwrite: "auto"
+                });
+                hoveredItem = null;
+                itemXTo = null;
+                itemYTo = null;
+                ring.classList.remove("is-hover");
+                
+                gsap.to(ring, {
+                  scaleX: 1,
+                  scaleY: 1,
+                  borderRadius: "50%",
+                  "--cursor-color": "rgba(255, 255, 255, .3)",
+                  "--blur-radius": "8px",
+                  duration: 0.3,
+                  ease: "power2.out",
+                  overwrite: "auto"
+                });
+              } else if (e.target.closest("a, button, .tilt-card, .testi-card")) {
+                ring.classList.remove("is-hover");
+                gsap.to(ring, {
+                  scaleX: 1,
+                  scaleY: 1,
+                  "--cursor-color": "rgba(255, 255, 255, .3)",
+                  duration: 0.3,
+                  overwrite: "auto"
+                });
+              }
             });
           }
+
+
 
           /* ============================================================
              NAVBAR — blur, hide on scroll down / reveal on scroll up,
@@ -6013,18 +6281,30 @@
           function initHero() {
             const heading = document.getElementById("heroHeading");
 
-            let split;
-            try {
-              split = SplitText.create(".hero-heading .word", { type: "chars", charsClass: "char" });
-            } catch (e) {
-              split = null;
+            let split = null;
+            const words = document.querySelectorAll(".hero-heading .word");
+            if (words.length > 0) {
+              let allChars = [];
+              words.forEach(word => {
+                const text = word.textContent.trim();
+                word.innerHTML = "";
+                const chars = text.split("");
+                chars.forEach(char => {
+                  const charSpan = document.createElement("span");
+                  charSpan.className = "char";
+                  charSpan.textContent = char;
+                  charSpan.style.display = "inline-block";
+                  word.appendChild(charSpan);
+                  allChars.push(charSpan);
+                });
+              });
+              split = { chars: allChars };
             }
 
             const introTl = gsap.timeline({ delay: .2 });
             const isMobileDevice = window.matchMedia("(max-width: 768px)").matches;
 
-            if (split) {
-              gsap.set(split.chars, { display: "inline-block" });
+            if (split && split.chars.length > 0) {
               introTl
                 .to(".hero-bg-shapes", { opacity: 0.8, duration: 0.8, ease: "power2.out" }, 0)
                 .to(".particles-field", { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.2);
@@ -6239,6 +6519,62 @@
           }
 
           /* ============================================================
+             STATS SECTION — CUSTOM GSAP MOTION & PARALLAX
+             ============================================================ */
+          function initStatsGSAP() {
+            const section = document.querySelector(".stats-section");
+            const head = document.querySelector(".stats-head-custom");
+            const cards = gsap.utils.toArray(".stat-card-custom");
+            if (!section || prefersReduced) return;
+
+            // Staggered reveal for section head
+            if (head) {
+              gsap.from(head, {
+                opacity: 0,
+                y: 35,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 85%"
+                }
+              });
+            }
+
+            // Staggered scale + slide reveal for stats cards
+            if (cards.length > 0) {
+              gsap.from(cards, {
+                opacity: 0,
+                y: 50,
+                scale: 0.96,
+                rotateX: -8,
+                duration: 0.9,
+                ease: "power3.out",
+                stagger: 0.12,
+                scrollTrigger: {
+                  trigger: ".stats-grid",
+                  start: "top 85%"
+                }
+              });
+
+              // Offset scroll parallax shift (different from How It Works)
+              cards.forEach((card, idx) => {
+                const shift = (idx % 2 === 0) ? -25 : 25;
+                gsap.to(card, {
+                  y: shift,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: section,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.2
+                  }
+                });
+              });
+            }
+          }
+
+          /* ============================================================
              GENERIC SCROLL REVEALS (.reveal-up) + section titles
              ============================================================ */
           function initReveals() {
@@ -6260,7 +6596,11 @@
             });
 
             // Enhanced staggered card reveals with viewport-aware timing
-            [".stats-grid .stat-card", ".process-grid .process-step", ".workshop-grid .workshop-card", ".industries-grid .industry-card", ".benefits-list .benefit-item"].forEach(sel => {
+            const revealSelectors = [".workshop-grid .workshop-card", ".benefits-list .benefit-item"];
+            if (prefersReduced || window.innerWidth < 992) {
+              revealSelectors.push(".process-grid .process-step");
+            }
+            revealSelectors.forEach(sel => {
               const items = gsap.utils.toArray(sel);
               if (!items.length) return;
 
@@ -6843,6 +7183,82 @@
           }
 
           /* ============================================================
+             CINEMATIC BUILDINGS — SCENERY STAGE OVERLAYS (JS)
+             ============================================================ */
+          function initStageOverlay() {
+            const stage = document.getElementById("cbStage");
+            if (!stage) return;
+
+            // Create overlay container dynamically
+            const overlay = document.createElement("div");
+            overlay.className = "cb-stage-overlay";
+            overlay.innerHTML = `
+              <div class="cb-stage-overlay-inner">
+                <div class="cb-stage-chapter" id="cbStageChapter">FUTURE</div>
+                <div class="cb-stage-text" id="cbStageText">We Build the Future...</div>
+              </div>
+            `;
+            stage.appendChild(overlay);
+
+            const colors = ["#00e6a8", "#16c8ff", "#ffb347", "#a78bfa", "#ff3366", "#00e6a8"];
+            const chapters = ["FUTURE", "INNOVATION", "COLLABORATION", "EXCELLENCE", "PURPOSE", "LEGACY"];
+            const texts = [
+              "We Build the Future...",
+              "We Lead the Way...",
+              "We Work with Network...",
+              "To Build What Others...",
+              "Shape the Land...",
+              "And Define Tomorrow's..."
+            ];
+
+            ScrollTrigger.create({
+              trigger: "#cinematicBuildings",
+              start: "top top",
+              end: "+=400%",
+              scrub: true,
+              onUpdate: (self) => {
+                const progress = self.progress;
+                let activeIdx = 0;
+
+                if (progress >= 0 && progress < 0.15) {
+                  activeIdx = 0;
+                } else if (progress >= 0.15 && progress < 0.36) {
+                  activeIdx = 1;
+                } else if (progress >= 0.36 && progress < 0.52) {
+                  activeIdx = 2;
+                } else if (progress >= 0.52 && progress < 0.72) {
+                  activeIdx = 3;
+                } else if (progress >= 0.72 && progress < 0.88) {
+                  activeIdx = 4;
+                } else if (progress >= 0.88) {
+                  activeIdx = 5;
+                }
+
+                const chapterEl = document.getElementById("cbStageChapter");
+                const textEl = document.getElementById("cbStageText");
+
+                if (chapterEl && chapterEl.textContent !== chapters[activeIdx]) {
+                  gsap.to([chapterEl, textEl], {
+                    opacity: 0,
+                    y: -10,
+                    duration: 0.25,
+                    onComplete: () => {
+                      chapterEl.textContent = chapters[activeIdx];
+                      textEl.textContent = texts[activeIdx];
+                      chapterEl.style.color = colors[activeIdx];
+                      gsap.to([chapterEl, textEl], {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.25
+                      });
+                    }
+                  });
+                }
+              }
+            });
+          }
+
+          /* ============================================================
           INDUSTRIAL WORKING ZONE
           ============================================================ */
           function initIndustrialZone() {
@@ -6927,6 +7343,82 @@
           }
 
           /* ============================================================
+             INDUSTRIAL WORKING ZONE — STAGE OVERLAYS (JS)
+             ============================================================ */
+          function initIndustrialStageOverlay() {
+            const stage = document.getElementById("indStage");
+            if (!stage) return;
+
+            // Create overlay container dynamically
+            const overlay = document.createElement("div");
+            overlay.className = "cb-stage-overlay";
+            overlay.innerHTML = `
+              <div class="cb-stage-overlay-inner">
+                <div class="cb-stage-chapter" id="indStageChapter">FUTURE</div>
+                <div class="cb-stage-text" id="indStageText">We Build the Future...</div>
+              </div>
+            `;
+            stage.appendChild(overlay);
+
+            const colors = ["#00e6a8", "#16c8ff", "#ffb347", "#a78bfa", "#ff3366", "#00e6a8"];
+            const chapters = ["FUTURE", "INNOVATION", "COLLABORATION", "EXCELLENCE", "PURPOSE", "LEGACY"];
+            const texts = [
+              "We Build the Future...",
+              "We Lead the Way...",
+              "We Work with Network...",
+              "To Build What Others...",
+              "Shape the Land...",
+              "And Define Tomorrow's..."
+            ];
+
+            ScrollTrigger.create({
+              trigger: "#industrialZone",
+              start: "top top",
+              end: "+=300%",
+              scrub: true,
+              onUpdate: (self) => {
+                const progress = self.progress;
+                let activeIdx = 0;
+
+                if (progress >= 0 && progress < 0.15) {
+                  activeIdx = 0;
+                } else if (progress >= 0.15 && progress < 0.36) {
+                  activeIdx = 1;
+                } else if (progress >= 0.36 && progress < 0.52) {
+                  activeIdx = 2;
+                } else if (progress >= 0.52 && progress < 0.72) {
+                  activeIdx = 3;
+                } else if (progress >= 0.72 && progress < 0.88) {
+                  activeIdx = 4;
+                } else if (progress >= 0.88) {
+                  activeIdx = 5;
+                }
+
+                const chapterEl = document.getElementById("indStageChapter");
+                const textEl = document.getElementById("indStageText");
+
+                if (chapterEl && chapterEl.textContent !== chapters[activeIdx]) {
+                  gsap.to([chapterEl, textEl], {
+                    opacity: 0,
+                    y: -10,
+                    duration: 0.25,
+                    onComplete: () => {
+                      chapterEl.textContent = chapters[activeIdx];
+                      textEl.textContent = texts[activeIdx];
+                      chapterEl.style.color = colors[activeIdx];
+                      gsap.to([chapterEl, textEl], {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.25
+                      });
+                    }
+                  });
+                }
+              }
+            });
+          }
+
+          /* ============================================================
           FOOTER — gradient divider shimmer + link bounce
           ============================================================ */
           function initFooterHovers() {
@@ -6940,6 +7432,108 @@
               duration: 1.2,
               ease: "power3.out",
               scrollTrigger: { trigger: "#footer", start: "top 85%" }
+            });
+          }
+
+          /* ============================================================
+             NEW VECTR FLOW AESTHETIC — LAYOUT PINNING & CARD STACKING
+             ============================================================ */
+          function initProcessStacking() {
+            const steps = gsap.utils.toArray(".process-section .process-step");
+            if (!steps.length || prefersReduced || window.innerWidth < 992) return;
+
+            gsap.set(steps, { position: "absolute", top: 0, left: 0, width: "100%", height: "100%" });
+            gsap.set(steps[0], { opacity: 1, scale: 1, y: 0 });
+            steps[0].classList.add("active");
+
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: ".process-section",
+                start: "top top",
+                end: "+=300%",
+                scrub: 1,
+                pin: true,
+                anticipatePin: 1
+              }
+            });
+
+            steps.forEach((step, idx) => {
+              if (idx === 0) return;
+
+              tl.to(steps[idx - 1], {
+                opacity: 0,
+                scale: 0.95,
+                y: -60,
+                duration: 1,
+                onStart: () => steps[idx - 1].classList.remove("active"),
+                onReverseComplete: () => steps[idx - 1].classList.add("active")
+              }, idx - 1);
+
+              tl.to(step, {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 1,
+                onStart: () => step.classList.add("active"),
+                onReverseComplete: () => step.classList.remove("active")
+              }, idx - 1 + 0.15);
+            });
+          }
+
+          function initBenefitsPinning() {
+            const visual = document.querySelector(".benefits-section .benefits-visual");
+            if (!visual || prefersReduced || window.innerWidth < 992) return;
+
+            ScrollTrigger.create({
+              trigger: ".benefits-section",
+              pin: ".benefits-visual",
+              start: "top 120px",
+              end: "bottom 95%",
+              pinSpacing: false,
+              markers: false
+            });
+          }
+
+          /* ============================================================
+             BENEFITS SECTION — CUSTOM SCROLL-DRIVEN GSAP ANIMATION
+             ============================================================ */
+          function initBenefitsScrollAnim() {
+            const items = gsap.utils.toArray(".benefits-list .benefit-item-custom");
+            if (items.length === 0 || prefersReduced) return;
+
+            items.forEach((item) => {
+              const check = item.querySelector(".check-icon");
+              const title = item.querySelector("h3");
+              const text = item.querySelector("p");
+
+              const tl = gsap.timeline({
+                scrollTrigger: {
+                  trigger: item,
+                  start: "top 88%",
+                  toggleActions: "play none none reverse"
+                }
+              });
+
+              tl.from(item, {
+                opacity: 0,
+                x: -30,
+                scale: 0.97,
+                duration: 0.6,
+                ease: "power3.out"
+              })
+              .from(check, {
+                scale: 0,
+                rotate: -45,
+                duration: 0.4,
+                ease: "back.out(2)"
+              }, "-=0.3")
+              .from([title, text], {
+                opacity: 0,
+                x: 15,
+                duration: 0.4,
+                stagger: 0.1,
+                ease: "power2.out"
+              }, "-=0.25");
             });
           }
           /* ============================================================
@@ -7045,11 +7639,26 @@
               });
             });
 
+            window.processAnimID = null;
+            const observer = new IntersectionObserver((entries) => {
+              const isVisible = entries[0].isIntersecting;
+              if (isVisible) {
+                if (!window.processAnimID) {
+                  window.processAnimID = requestAnimationFrame(animate);
+                }
+              } else {
+                if (window.processAnimID) {
+                  cancelAnimationFrame(window.processAnimID);
+                  window.processAnimID = null;
+                }
+              }
+            }, { threshold: 0.05 });
+            observer.observe(container);
+
             function animate() {
-              requestAnimationFrame(animate);
+              window.processAnimID = requestAnimationFrame(animate);
               renderer.render(scene, camera);
             }
-            animate();
 
             window.addEventListener("resize", () => {
               renderer.setSize(container.clientWidth, container.clientHeight);
@@ -7177,11 +7786,26 @@
               ease: "none"
             });
 
+            window.benefitsAnimID = null;
+            const observer = new IntersectionObserver((entries) => {
+              const isVisible = entries[0].isIntersecting;
+              if (isVisible) {
+                if (!window.benefitsAnimID) {
+                  window.benefitsAnimID = requestAnimationFrame(animate);
+                }
+              } else {
+                if (window.benefitsAnimID) {
+                  cancelAnimationFrame(window.benefitsAnimID);
+                  window.benefitsAnimID = null;
+                }
+              }
+            }, { threshold: 0.05 });
+            observer.observe(container);
+
             function animate() {
-              requestAnimationFrame(animate);
+              window.benefitsAnimID = requestAnimationFrame(animate);
               renderer.render(scene, camera);
             }
-            animate();
 
             window.addEventListener("resize", () => {
               renderer.setSize(300, 300);
@@ -7242,7 +7866,7 @@
 
             scene.add(new THREE.AmbientLight(0xffffff, 0.35));
 
-            gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.5 });
+
 
             // Continuous rotation + scroll-driven tilt
             gsap.to(sphere.rotation, {
@@ -7276,16 +7900,86 @@
               ease: "none"
             });
 
+            window.industriesAnimID = null;
+            const observer = new IntersectionObserver((entries) => {
+              const isVisible = entries[0].isIntersecting;
+              if (isVisible) {
+                if (!window.industriesAnimID) {
+                  window.industriesAnimID = requestAnimationFrame(animate);
+                }
+              } else {
+                if (window.industriesAnimID) {
+                  cancelAnimationFrame(window.industriesAnimID);
+                  window.industriesAnimID = null;
+                }
+              }
+            }, { threshold: 0.05 });
+            observer.observe(container);
+
             function animate() {
-              requestAnimationFrame(animate);
+              window.industriesAnimID = requestAnimationFrame(animate);
               renderer.render(scene, camera);
             }
-            animate();
 
             window.addEventListener("resize", () => {
               renderer.setSize(280, 280);
             });
           }
+
+          /* ============================================================
+             INDUSTRIES SECTION — CUSTOM FAST REVEAL & SCROLL
+             ============================================================ */
+          function initIndustriesReveal() {
+            const section = document.getElementById("industries");
+            const cards = gsap.utils.toArray("#industries .industry-card-custom");
+            const sphere = document.getElementById("industries-3d-sphere-container");
+            const head = section ? section.querySelector(".industries-head-custom") : null;
+            if (!section) return;
+
+            // Trigger the sphere fade in earlier and faster
+            if (sphere) {
+              gsap.to(sphere, {
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 95%"
+                }
+              });
+            }
+
+            // Reveal section head text earlier and faster
+            if (head) {
+              gsap.from(head, {
+                opacity: 0,
+                y: 25,
+                duration: 0.5,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 95%"
+                }
+              });
+            }
+
+            // Reveal cards earlier and faster
+            if (cards.length > 0) {
+              gsap.from(cards, {
+                opacity: 0,
+                y: 25,
+                scale: 0.97,
+                duration: 0.5,
+                ease: "power3.out",
+                stagger: 0.08,
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 88%"
+                }
+              });
+            }
+          }
+
           function initWorkshop3DPrisms() {
             const container = document.getElementById("workshop-3d-prisms");
             if (!container || typeof THREE === "undefined") return;
@@ -7372,11 +8066,26 @@
               ease: "none"
             });
 
+            window.workshopAnimID = null;
+            const observer = new IntersectionObserver((entries) => {
+              const isVisible = entries[0].isIntersecting;
+              if (isVisible) {
+                if (!window.workshopAnimID) {
+                  window.workshopAnimID = requestAnimationFrame(animate);
+                }
+              } else {
+                if (window.workshopAnimID) {
+                  cancelAnimationFrame(window.workshopAnimID);
+                  window.workshopAnimID = null;
+                }
+              }
+            }, { threshold: 0.05 });
+            observer.observe(container);
+
             function animate() {
-              requestAnimationFrame(animate);
+              window.workshopAnimID = requestAnimationFrame(animate);
               renderer.render(scene, camera);
             }
-            animate();
 
             window.addEventListener("resize", () => {
               renderer.setSize(350, 350);
@@ -7388,26 +8097,39 @@
           document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener("click", e => {
               const id = a.getAttribute("href");
+              if (id === "#") return;
               const target = document.querySelector(id);
               if (!target) return;
               e.preventDefault();
-              if (smoother) {
-                smoother.scrollTo(target, true, "top 90px");
+              if (window.lenis) {
+                window.lenis.scrollTo(target, { offset: -90, duration: 1.2 });
               } else {
                 gsap.to(window, { duration: 1, scrollTo: { y: target, offsetY: 90 }, ease: "power3.inOut" });
               }
             });
           });
           window.addEventListener("load", async () => {
+            // Programmatically optimize inline SVG accessibility tags
+            document.querySelectorAll("svg").forEach(svg => {
+              if (!svg.hasAttribute("aria-hidden") && !svg.hasAttribute("aria-label") && !svg.hasAttribute("role")) {
+                svg.setAttribute("aria-hidden", "true");
+              }
+              svg.setAttribute("focusable", "false");
+            });
+
             if (document.fonts) {
               await document.fonts.ready;
             }
 
-            // Refresh ScrollTrigger immediately after fonts load
-            // This ensures scroll positions are accurate without blocking animations
+            // Refresh ScrollTrigger immediately after fonts and assets load
             requestAnimationFrame(() => {
               ScrollTrigger.refresh(true);
             });
+
+            // Fallback refresh after 1 second to account for dynamic WebGL initialization offsets
+            setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 1000);
           });
         });
 
@@ -7418,8 +8140,6 @@
         });
       </script>
 
-    </div>
-  </div>
 </body>
 
 </html>
