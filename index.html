@@ -2388,86 +2388,6 @@
       opacity: 0;
     }
 
-    /* MNC Gate structure in center */
-    .cb-mnc-gate {
-      position: absolute;
-      bottom: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      opacity: 0;
-      will-change: transform;
-    }
-
-    .gate-structure {
-      position: relative;
-      width: 300px;
-      height: 320px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    /* Gate frame (left and right sides) */
-    .gate-frame {
-      position: absolute;
-      bottom: 0;
-      width: 15px;
-      height: 320px;
-      background: linear-gradient(90deg, #16c8ff 0%, #00e6a8 50%, #16c8ff 100%);
-      border: 2px solid #00e6a8;
-      box-shadow: 0 0 20px rgba(22, 200, 255, 0.5);
-      z-index: 5;
-    }
-
-    .gate-frame-left {
-      left: 0;
-    }
-
-    .gate-frame-right {
-      right: 0;
-    }
-
-    /* Gate doors (opens outward) */
-    .gate-door {
-      position: absolute;
-      bottom: 0;
-      width: 150px;
-      height: 320px;
-      background: linear-gradient(90deg, #1a4d7a 0%, #2d7da8 50%, #1a4d7a 100%);
-      border: 2px solid #16c8ff;
-      box-shadow: inset 0 0 20px rgba(22, 200, 255, 0.2), 0 0 20px rgba(22, 200, 255, 0.3);
-      z-index: 4;
-      transform-origin: bottom;
-      opacity: 1;
-    }
-
-    .gate-door-left {
-      left: 0;
-      border-right: none;
-      transform-origin: bottom left;
-    }
-
-    .gate-door-right {
-      right: 0;
-      border-left: none;
-      transform-origin: bottom right;
-    }
-
-    /* Gate glow effect */
-    .gate-glow {
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 400px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(22, 200, 255, 0.4), transparent 70%);
-      filter: blur(30px);
-      border-radius: 50%;
-      opacity: 0;
-    }
-
     .cb-ground {
       position: absolute;
       bottom: 0;
@@ -2519,19 +2439,11 @@
     .cb-building-a {
       width: clamp(160px, 20vw, 280px);
       height: clamp(260px, 36vh, 480px);
-      background: linear-gradient(160deg,
-          rgba(11, 27, 41, .95) 0%,
-          rgba(7, 18, 29, .98) 100%);
-      border: 1px solid rgba(0, 230, 168, .18);
     }
 
     .cb-building-b {
       width: clamp(200px, 26vw, 360px);
       height: clamp(340px, 52vh, 640px);
-      background: linear-gradient(160deg,
-          rgba(11, 27, 41, .95) 0%,
-          rgba(7, 18, 29, .98) 100%);
-      border: 1px solid rgba(22, 200, 255, .18);
     }
 
     /* ---- Roof ---- */
@@ -2547,91 +2459,6 @@
     .cb-floor-top-b {
       background: linear-gradient(90deg, rgba(22, 200, 255, .5), rgba(77, 124, 255, .5));
       box-shadow: 0 0 20px rgba(22, 200, 255, .4);
-    }
-
-    /* ---- Window rows ---- */
-    .cb-floor-group {
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .cb-win-row {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-    }
-
-    .cb-win-row::before,
-    .cb-win-row::after,
-    .cb-win-row span {
-      content: '';
-      display: block;
-      flex: 1;
-      height: 14px;
-      border-radius: 2px;
-      background: rgba(0, 230, 168, .08);
-      border: 1px solid rgba(0, 230, 168, .12);
-      transition: background .3s, box-shadow .3s;
-    }
-
-    /* Generate window cells via pseudo trick - we use a background pattern instead */
-    .cb-win-row {
-      height: 16px;
-      background:
-        repeating-linear-gradient(90deg,
-          rgba(0, 230, 168, .10) 0px,
-          rgba(0, 230, 168, .10) 14px,
-          transparent 14px,
-          transparent 22px);
-      border-radius: 2px;
-    }
-
-    .cb-building-b .cb-win-row {
-      background:
-        repeating-linear-gradient(90deg,
-          rgba(22, 200, 255, .10) 0px,
-          rgba(22, 200, 255, .10) 14px,
-          transparent 14px,
-          transparent 22px);
-    }
-
-    /* Lit-up state triggered by JS */
-    .cb-building.is-energized .cb-win-row {
-      animation: windowFlicker .4s ease forwards;
-    }
-
-    @keyframes windowFlicker {
-      0% {
-        filter: brightness(1);
-      }
-
-      30% {
-        filter: brightness(3);
-      }
-
-      60% {
-        filter: brightness(1.5);
-      }
-
-      100% {
-        filter: brightness(2.2);
-      }
-    }
-
-    .cb-building-b.is-energized .cb-win-row {
-      animation: windowFlickerGreen .4s ease forwards;
-    }
-
-    @keyframes windowFlickerGreen {
-      0% {
-        filter: brightness(1);
-      }
-
-      100% {
-        filter: brightness(2.2) drop-shadow(0 0 6px var(--success));
-      }
     }
 
     /* ---- Entrance / Door ---- */
@@ -2725,200 +2552,6 @@
        URBAN CITY ELEMENTS
        ============================================================ */
 
-    /* Background buildings (far left and right - depth layer) */
-    .cb-building-bg {
-      position: absolute;
-      bottom: 12%;
-      display: flex;
-      gap: 20px;
-      align-items: flex-end;
-      opacity: 0.3;
-      z-index: 1;
-    }
-
-    .cb-building-bg-left {
-      left: -5%;
-    }
-
-    .cb-building-bg-right {
-      right: -5%;
-    }
-
-    .cb-bg-building {
-      border-radius: 2px;
-      border: 1px solid rgba(0, 230, 168, 0.08);
-      background: linear-gradient(180deg, rgba(11, 27, 41, 0.6), rgba(7, 18, 29, 0.8));
-      box-shadow: inset 0 0 20px rgba(0, 230, 168, 0.03);
-    }
-
-    .cb-bg-building-1 {
-      width: clamp(40px, 8vw, 120px);
-      height: clamp(80px, 15vh, 200px);
-    }
-
-    .cb-bg-building-2 {
-      width: clamp(50px, 10vw, 140px);
-      height: clamp(100px, 18vh, 240px);
-    }
-
-    .cb-bg-building-3 {
-      width: clamp(45px, 9vw, 130px);
-      height: clamp(90px, 16vh, 220px);
-    }
-
-    .cb-bg-building-4 {
-      width: clamp(55px, 11vw, 150px);
-      height: clamp(110px, 20vh, 260px);
-    }
-
-    .cb-bg-building-5 {
-      width: clamp(35px, 7vw, 100px);
-      height: clamp(70px, 13vh, 180px);
-    }
-
-    .cb-bg-building-6 {
-      width: clamp(40px, 8vw, 110px);
-      height: clamp(80px, 15vh, 200px);
-    }
-
-    /* Mid-ground buildings (closer than background, more opacity) */
-    .cb-building-mg {
-      position: absolute;
-      bottom: 13%;
-      display: flex;
-      gap: 15px;
-      align-items: flex-end;
-      opacity: 0.55;
-      z-index: 2;
-    }
-
-    .cb-building-mg-left {
-      left: 0%;
-    }
-
-    .cb-building-mg-right {
-      right: 0%;
-    }
-
-    .cb-mg-building {
-      border-radius: 2px;
-      border: 1px solid rgba(22, 200, 255, 0.12);
-      background: linear-gradient(180deg, rgba(15, 35, 55, 0.7), rgba(10, 25, 40, 0.85));
-      box-shadow: inset 0 0 15px rgba(22, 200, 255, 0.04);
-    }
-
-    .cb-mg-building-1 {
-      width: clamp(50px, 10vw, 150px);
-      height: clamp(100px, 18vh, 280px);
-    }
-
-    .cb-mg-building-2 {
-      width: clamp(60px, 12vw, 170px);
-      height: clamp(120px, 22vh, 320px);
-    }
-
-    .cb-mg-building-3 {
-      width: clamp(45px, 9vw, 130px);
-      height: clamp(90px, 16vh, 240px);
-    }
-
-    .cb-mg-building-4 {
-      width: clamp(55px, 11vw, 160px);
-      height: clamp(110px, 20vh, 300px);
-    }
-
-    .cb-mg-building-5 {
-      width: clamp(50px, 10vw, 150px);
-      height: clamp(100px, 18vh, 280px);
-    }
-
-    .cb-mg-building-6 {
-      width: clamp(60px, 12vw, 170px);
-      height: clamp(120px, 22vh, 320px);
-    }
-
-    /* Side buildings (along edges for framing) */
-    .cb-building-side {
-      position: absolute;
-      bottom: 13%;
-      display: flex;
-      gap: 10px;
-      align-items: flex-end;
-      opacity: 0.6;
-      z-index: 2;
-    }
-
-    .cb-building-side-left {
-      left: 0%;
-    }
-
-    .cb-building-side-right {
-      right: 0%;
-    }
-
-    .cb-side-building {
-      border-radius: 2px;
-      border: 1px solid rgba(77, 124, 255, 0.14);
-      background: linear-gradient(180deg, rgba(20, 40, 70, 0.75), rgba(12, 28, 48, 0.88));
-      box-shadow: inset 0 0 18px rgba(77, 124, 255, 0.05);
-    }
-
-    .cb-side-building-1 {
-      width: clamp(40px, 8vw, 120px);
-      height: clamp(80px, 14vh, 220px);
-    }
-
-    .cb-side-building-2 {
-      width: clamp(50px, 10vw, 140px);
-      height: clamp(100px, 18vh, 260px);
-    }
-
-    .cb-side-building-3 {
-      width: clamp(50px, 10vw, 140px);
-      height: clamp(100px, 18vh, 260px);
-    }
-
-    .cb-side-building-4 {
-      width: clamp(40px, 8vw, 120px);
-      height: clamp(80px, 14vh, 220px);
-    }
-
-    /* Center background buildings (skyline effect) */
-    .cb-building-center {
-      position: absolute;
-      bottom: 13%;
-      left: 30%;
-      right: 30%;
-      display: flex;
-      gap: 10px;
-      align-items: flex-end;
-      justify-content: center;
-      opacity: 0.35;
-      z-index: 0;
-    }
-
-    .cb-center-building {
-      border-radius: 1px;
-      border: 1px solid rgba(0, 230, 168, 0.06);
-      background: linear-gradient(180deg, rgba(12, 32, 52, 0.6), rgba(8, 20, 35, 0.75));
-      box-shadow: inset 0 0 12px rgba(0, 230, 168, 0.02);
-    }
-
-    .cb-center-building-1 {
-      width: clamp(30px, 6vw, 90px);
-      height: clamp(60px, 11vh, 160px);
-    }
-
-    .cb-center-building-2 {
-      width: clamp(35px, 7vw, 105px);
-      height: clamp(70px, 13vh, 190px);
-    }
-
-    .cb-center-building-3 {
-      width: clamp(30px, 6vw, 90px);
-      height: clamp(60px, 11vh, 160px);
-    }
-
     /* Street/Road */
     .cb-street {
       position: absolute;
@@ -2970,56 +2603,6 @@
           transparent 20px,
           transparent 40px);
       transform: translateY(-50%);
-    }
-
-    /* Trees */
-    .cb-trees {
-      position: absolute;
-      bottom: 13%;
-      display: flex;
-      gap: 80px;
-      z-index: 3;
-    }
-
-    .cb-trees-left {
-      left: 2%;
-    }
-
-    .cb-trees-right {
-      right: 2%;
-    }
-
-    .cb-tree {
-      position: relative;
-      width: 40px;
-      height: 80px;
-    }
-
-    /* Tree trunk */
-    .cb-tree::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 8px;
-      height: 30px;
-      background: linear-gradient(90deg, #2d1810 0%, #4a2818 50%, #2d1810 100%);
-      border-radius: 2px;
-    }
-
-    /* Tree foliage */
-    .cb-tree::after {
-      content: '';
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      height: 50px;
-      background: radial-gradient(circle at 30% 30%, rgba(34, 139, 34, 0.5), rgba(0, 100, 0, 0.6));
-      border-radius: 50%;
-      filter: blur(1px);
     }
 
     /* Street lights */
@@ -3082,189 +2665,6 @@
       border-radius: 1px;
     }
 
-    /* Vehicles */
-    .cb-vehicle {
-      position: absolute;
-      bottom: 14.5%;
-      height: 18px;
-      opacity: 0.5;
-      animation: vehicleFloat 3s ease-in-out infinite;
-      z-index: 6;
-    }
-
-    /* Gate approach cars - moving from buildings toward gate */
-    .cb-gate-car {
-      position: absolute;
-      bottom: 13%;
-      height: 20px;
-      width: 55px;
-      z-index: 5;
-      opacity: 0;
-      border-radius: 3px;
-    }
-
-    .cb-gate-car-left {
-      background: linear-gradient(90deg, #00e6a8 0%, #16c8ff 50%, #00e6a8 100%);
-      left: 15%;
-      box-shadow: 0 0 15px rgba(0, 230, 168, 0.4);
-    }
-
-    .cb-gate-car-right {
-      background: linear-gradient(90deg, #4d7cff 0%, #2d5a8c 50%, #4d7cff 100%);
-      right: 15%;
-      box-shadow: 0 0 15px rgba(77, 124, 255, 0.4);
-    }
-
-    .cb-car-1 {
-      left: 25%;
-      width: 50px;
-      background: linear-gradient(90deg, #c41e3a 0%, #e63946 50%, #c41e3a 100%);
-      border-radius: 3px;
-      animation-delay: 0s;
-    }
-
-    .cb-car-2 {
-      left: 45%;
-      width: 50px;
-      background: linear-gradient(90deg, #1a73e8 0%, #4285f4 50%, #1a73e8 100%);
-      border-radius: 3px;
-      animation-delay: 0.5s;
-    }
-
-    .cb-bus-1 {
-      left: 65%;
-      width: 70px;
-      background: linear-gradient(90deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-      border-radius: 3px;
-      animation-delay: 1s;
-    }
-
-    @keyframes vehicleFloat {
-
-      0%,
-      100% {
-        y: 0;
-        opacity: 0.4;
-      }
-
-      50% {
-        y: -2px;
-        opacity: 0.5;
-      }
-    }
-
-    /* Pedestrians */
-    .cb-person {
-      position: absolute;
-      bottom: 13.5%;
-      width: 7px;
-      height: 14px;
-      background: linear-gradient(180deg, #8B4513 0%, #666 50%, #333 100%);
-      border-radius: 2px;
-      opacity: 0.4;
-      animation: personWalk 4s ease-in-out infinite;
-      z-index: 7;
-    }
-
-    .cb-person-1 {
-      left: 28%;
-      animation-delay: 0s;
-    }
-
-    .cb-person-2 {
-      left: 42%;
-      animation-delay: 1s;
-    }
-
-    .cb-person-3 {
-      left: 55%;
-      animation-delay: 0.5s;
-    }
-
-    .cb-person-4 {
-      left: 70%;
-      animation-delay: 1.5s;
-    }
-
-    @keyframes personWalk {
-
-      0%,
-      100% {
-        opacity: 0.2;
-        x: 0;
-      }
-
-      50% {
-        opacity: 0.4;
-        x: 8px;
-      }
-    }
-
-    /* Traffic lights */
-    .cb-traffic-light {
-      position: absolute;
-      bottom: 14%;
-      right: 22%;
-      width: 11px;
-      height: 28px;
-      background: #1a1a1a;
-      border-radius: 2px;
-      box-shadow:
-        inset 0 0 3px rgba(0, 0, 0, 0.9),
-        0 0 4px rgba(255, 0, 0, 0.4);
-      z-index: 8;
-    }
-
-    .cb-traffic-light::before {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 7px;
-      height: 7px;
-      background: rgba(255, 0, 0, 0.6);
-      border-radius: 50%;
-      box-shadow: 0 0 4px rgba(255, 0, 0, 0.7);
-    }
-
-    .cb-traffic-light::after {
-      content: '';
-      position: absolute;
-      top: 11px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 7px;
-      height: 7px;
-      background: rgba(255, 200, 0, 0.4);
-      border-radius: 50%;
-    }
-
-    /* Traffic sign */
-    .cb-traffic-sign {
-      position: absolute;
-      bottom: 15.5%;
-      left: 26%;
-      width: 18px;
-      height: 22px;
-      background: linear-gradient(90deg, #c41e3a 0%, #e63946 100%);
-      border-radius: 2px;
-      opacity: 0.6;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-      z-index: 8;
-    }
-
-    .cb-traffic-sign::before {
-      content: '';
-      position: absolute;
-      bottom: -7px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2px;
-      height: 7px;
-      background: #333;
-    }
-
     /* Street elements container */
     .cb-street-elements {
       position: absolute;
@@ -3283,28 +2683,6 @@
       right: 8%;
     }
 
-    /* Vehicles container */
-    .cb-vehicles {
-      position: absolute;
-      width: 100%;
-      z-index: 2;
-    }
-
-    /* People container */
-    .cb-people {
-      position: absolute;
-      width: 100%;
-      z-index: 2;
-    }
-
-    /* Traffic elements container */
-    .cb-traffic-elements {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-    }
-
     /* ---- Mobile adjustments ---- */
     @media (max-width: 768px) {
       .cb-building-a {
@@ -3317,79 +2695,12 @@
         height: clamp(220px, 40vh, 380px);
       }
 
-      /* Hide some background elements on mobile */
-      .cb-building-bg {
-        opacity: 0.2;
-      }
-
-      .cb-trees {
-        gap: 40px;
-      }
-
       .cb-street-elements {
         gap: 25px;
       }
 
-      .cb-vehicle {
-        height: 15px;
-        opacity: 0.3;
-      }
-
-      .cb-person {
-        width: 6px;
-        height: 12px;
-        opacity: 0.2;
-      }
-
       .cb-street-light::after {
         width: 16px;
-      }
-
-      /* Mid-ground and side buildings on tablet */
-      .cb-building-mg {
-        opacity: 0.35;
-      }
-
-      .cb-building-side {
-        opacity: 0.4;
-      }
-
-      .cb-building-center {
-        opacity: 0.2;
-      }
-
-      /* Gate responsive for tablet */
-      .cb-mnc-gate {
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 10%;
-      }
-
-      .gate-structure {
-        width: 240px;
-        height: 280px;
-      }
-
-      .gate-frame {
-        width: 12px;
-        height: 280px;
-      }
-
-      .gate-door {
-        width: 120px;
-        height: 280px;
-      }
-
-      .gate-glow {
-        width: 300px;
-        height: 250px;
-      }
-
-      .gate-glow {
-        width: 400px;
-        height: 350px;
-        bottom: -30px;
-        filter: blur(30px);
       }
 
       .cb-connection-line {
@@ -3401,27 +2712,9 @@
     @media (max-width: 480px) {
 
       /* Very compact mobile view */
-      .cb-building-bg {
-        gap: 10px;
-      }
-
-      .cb-trees {
-        gap: 25px;
-        font-size: 0.8em;
-      }
-
       .cb-street {
         left: 20%;
         right: 20%;
-      }
-
-      .cb-vehicle {
-        height: 12px;
-        opacity: 0.25;
-      }
-
-      .cb-person {
-        display: none;
       }
 
       .cb-street-light {
@@ -3432,63 +2725,10 @@
         gap: 15px;
       }
 
-      .cb-traffic-light {
-        display: none;
-      }
-
-      /* Hide mid-ground and center buildings on very small mobile */
-      .cb-building-mg {
-        opacity: 0.15;
-        gap: 8px;
-      }
-
-      .cb-building-side {
-        opacity: 0.2;
-        gap: 5px;
-      }
-
-      .cb-building-center {
-        opacity: 0.1;
-        gap: 5px;
-      }
-
-      /* Red line and gate responsive */
+      /* Red line responsive */
       .cb-connection-line {
         top: 35%;
         height: 80px;
-      }
-
-      .cb-mnc-gate {
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 8%;
-      }
-
-      .gate-structure {
-        width: 220px;
-        height: 220px;
-      }
-
-      .gate-structure {
-        width: 180px;
-        height: 220px;
-      }
-
-      .gate-frame {
-        width: 10px;
-        height: 220px;
-      }
-
-      .gate-door {
-        width: 90px;
-        height: 220px;
-      }
-
-      .gate-glow {
-        width: 220px;
-        height: 180px;
-        bottom: -20px;
-        filter: blur(20px);
       }
     }
 
@@ -3544,177 +2784,30 @@
       left: 5%;
       width: 120px;
       height: 280px;
-      background: linear-gradient(90deg, #1a4d7a 0%, #2d7da8 50%, #1a4d7a 100%);
-      border: 2px solid #16c8ff;
-      box-shadow: inset 0 0 20px rgba(0, 230, 168, .1), 0 0 20px rgba(22, 200, 255, .2);
     }
 
     .ind-factory-2 {
       left: 20%;
       width: 140px;
       height: 320px;
-      background: linear-gradient(90deg, #2d5a8c 0%, #4d7cff 50%, #2d5a8c 100%);
-      border: 2px solid #4d7cff;
-      box-shadow: inset 0 0 20px rgba(77, 124, 255, .1), 0 0 30px rgba(77, 124, 255, .15);
     }
 
     .ind-factory-3 {
       right: 25%;
       width: 130px;
       height: 300px;
-      background: linear-gradient(90deg, #1a4d7a 0%, #2d7da8 50%, #1a4d7a 100%);
-      border: 2px solid #16c8ff;
-      box-shadow: inset 0 0 20px rgba(0, 230, 168, .1), 0 0 20px rgba(22, 200, 255, .2);
     }
 
     .ind-warehouse-1 {
       right: 8%;
       width: 150px;
       height: 250px;
-      background: linear-gradient(90deg, #0a6e8f 0%, #0fa3b8 50%, #0a6e8f 100%);
-      border: 2px solid #00e6a8;
-      box-shadow: 0 0 20px rgba(0, 230, 168, .25);
     }
 
     .ind-warehouse-2 {
       right: 60%;
       width: 140px;
       height: 270px;
-      background: linear-gradient(90deg, #2d5a8c 0%, #4d7cff 50%, #2d5a8c 100%);
-      border: 2px solid #4d7cff;
-      box-shadow: 0 0 25px rgba(77, 124, 255, .2);
-    }
-
-    /* Chimneys */
-    .ind-chimney {
-      position: absolute;
-      bottom: 295px;
-      width: 20px;
-      height: 200px;
-      background: linear-gradient(90deg, #0a3a4a 0%, #164d5f 50%, #0a3a4a 100%);
-      border: 1px solid #16c8ff;
-      box-shadow: 0 0 15px rgba(22, 200, 255, .3);
-      opacity: 0;
-      z-index: 3;
-    }
-
-    .ind-chimney-1 {
-      left: 12%;
-    }
-
-    .ind-chimney-2 {
-      left: 32%;
-    }
-
-    .ind-chimney-3 {
-      right: 32%;
-    }
-
-    .chimney-smoke {
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 15px;
-      height: 80px;
-      background: radial-gradient(circle at center,
-          rgba(150, 150, 150, 0.6) 0%,
-          rgba(100, 100, 100, 0.3) 50%,
-          transparent 100%);
-      border-radius: 50%;
-      filter: blur(4px);
-      animation: smokeRise 3s ease-in infinite;
-    }
-
-    .chimney-smoke.smoke-2 {
-      animation-delay: 1s;
-      opacity: 0.6;
-    }
-
-    @keyframes smokeRise {
-      0% {
-        top: -30px;
-        opacity: 0;
-      }
-
-      20% {
-        opacity: 1;
-      }
-
-      80% {
-        opacity: 0.3;
-      }
-
-      100% {
-        top: -120px;
-        opacity: 0;
-      }
-    }
-
-    /* Industrial equipment */
-    .ind-equipment {
-      position: absolute;
-      bottom: 15%;
-      opacity: 0;
-      z-index: 2;
-    }
-
-    .ind-crane-1 {
-      left: 45%;
-      width: 30px;
-      height: 250px;
-      background: linear-gradient(90deg, #164d5f 0%, #2d7da8 100%);
-      border: 1px solid #16c8ff;
-      box-shadow: 0 0 15px rgba(22, 200, 255, .25);
-    }
-
-    .ind-crane-1::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -40px;
-      width: 100px;
-      height: 15px;
-      background: linear-gradient(90deg, #164d5f 0%, #2d7da8 100%);
-      border: 1px solid #16c8ff;
-      animation: craneSwing 4s ease-in-out infinite;
-      transform-origin: right center;
-      box-shadow: 0 0 15px rgba(22, 200, 255, .2);
-    }
-
-    .ind-crane-2 {
-      right: 20%;
-      width: 28px;
-      height: 220px;
-      background: linear-gradient(90deg, #2d5a8c 0%, #4d7cff 100%);
-      border: 1px solid #4d7cff;
-      box-shadow: 0 0 15px rgba(77, 124, 255, .25);
-    }
-
-    .ind-container-stack {
-      left: 65%;
-      width: 90px;
-      height: 180px;
-      background: linear-gradient(90deg,
-          #00e6a8 0%,
-          #16c8ff 50%,
-          #00e6a8 100%);
-      border: 2px solid #00e6a8;
-      box-shadow: 0 0 25px rgba(0, 230, 168, 0.5), inset 0 0 15px rgba(22, 200, 255, 0.2);
-      opacity: 0;
-      z-index: 2;
-    }
-
-    @keyframes craneSwing {
-
-      0%,
-      100% {
-        transform: rotateZ(0deg);
-      }
-
-      50% {
-        transform: rotateZ(25deg);
-      }
     }
 
     /* Ground/Road */
@@ -3730,126 +2823,6 @@
       border-top: 2px solid rgba(200, 200, 220, 0.2);
       z-index: 1;
       opacity: 0;
-    }
-
-    /* Workers */
-    .ind-workers {
-      position: absolute;
-      bottom: 120px;
-      width: 100%;
-      height: 100px;
-      opacity: 0;
-      z-index: 4;
-    }
-
-    .ind-worker {
-      position: absolute;
-      width: 8px;
-      height: 16px;
-      background: linear-gradient(180deg, #00e6a8 0%, #16c8ff 100%);
-      border-radius: 2px;
-      bottom: 0;
-      animation: workerWalk 4s ease-in-out infinite;
-      box-shadow: 0 0 8px rgba(0, 230, 168, 0.5);
-    }
-
-    .worker-1 {
-      left: 15%;
-      animation-delay: 0s;
-    }
-
-    .worker-2 {
-      left: 25%;
-      animation-delay: 0.5s;
-    }
-
-    .worker-3 {
-      left: 35%;
-      animation-delay: 1s;
-    }
-
-    .worker-4 {
-      left: 45%;
-      animation-delay: 0.3s;
-    }
-
-    .worker-5 {
-      right: 40%;
-      animation-delay: 0.8s;
-    }
-
-    .worker-6 {
-      right: 30%;
-      animation-delay: 0.2s;
-    }
-
-    .worker-7 {
-      right: 20%;
-      animation-delay: 0.6s;
-    }
-
-    .worker-8 {
-      right: 10%;
-      animation-delay: 1s;
-    }
-
-    @keyframes workerWalk {
-
-      0%,
-      100% {
-        transform: translateX(0) scaleX(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: translateX(20px) scaleX(1.1);
-        opacity: 0.8;
-      }
-    }
-
-    /* Industrial vehicles */
-    .ind-vehicles {
-      position: absolute;
-      bottom: 120px;
-      width: 100%;
-      opacity: 0;
-      z-index: 3;
-    }
-
-    .ind-vehicle {
-      position: absolute;
-      height: 20px;
-      bottom: 0;
-      animation: vehicleMove 6s ease-in-out infinite;
-    }
-
-    .ind-forklift {
-      left: 50%;
-      width: 45px;
-      background: linear-gradient(90deg, #00e6a8 0%, #16c8ff 100%);
-      border-radius: 2px;
-      box-shadow: 0 0 15px rgba(0, 230, 168, 0.4);
-    }
-
-    .ind-truck {
-      right: 50%;
-      width: 70px;
-      background: linear-gradient(90deg, #4d7cff 0%, #2d5a8c 100%);
-      border-radius: 2px;
-      animation-delay: 2s;
-      box-shadow: 0 0 15px rgba(77, 124, 255, 0.4);
-    }
-
-    @keyframes vehicleMove {
-
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-
-      50% {
-        transform: translateX(100px);
-      }
     }
 
     /* ---- Industrial zone mobile adjustments ---- */
@@ -3878,21 +2851,7 @@
         height: clamp(150px, 26vh, 220px);
       }
 
-      .ind-chimney {
-        width: 12px;
-      }
-
-      .ind-warehouse-2,
-      .ind-crane-1,
-      .ind-crane-2,
-      .ind-container-stack {
-        display: none;
-      }
-
-      .worker-5,
-      .worker-6,
-      .worker-7,
-      .worker-8 {
+      .ind-warehouse-2 {
         display: none;
       }
     }
@@ -3912,14 +2871,6 @@
 
       .ind-warehouse-1 {
         right: 1%;
-      }
-
-      .ind-chimney-2,
-      .ind-chimney-3,
-      .ind-truck,
-      .worker-3,
-      .worker-4 {
-        display: none;
       }
     }
 
@@ -4025,21 +2976,8 @@
     }
 
     /* Hide city elements to keep scene clean and focus on the stage stages */
-    .cb-vehicles,
-    .cb-people,
     .cb-connection-line,
-    .cb-street-elements,
-    .cb-car-1,
-    .cb-car-2,
-    .cb-bus-1,
-    .cb-person-1,
-    .cb-person-2,
-    .cb-person-3,
-    .cb-person-4,
-    .cb-traffic-light,
-    .cb-traffic-sign,
-    #cbGateCarLeft,
-    #cbGateCarRight {
+    .cb-street-elements {
       display: none !important;
     }
   </style>
@@ -4192,115 +3130,8 @@
         <circle cx="700" cy="50" r="8" fill="#ff0000" opacity="0.6" />
       </svg>
 
-      <!-- Animated cars moving toward gate from both buildings -->
-      <div class="cb-gate-car cb-gate-car-left" id="cbGateCarLeft"></div>
-      <div class="cb-gate-car cb-gate-car-right" id="cbGateCarRight"></div>
-
-      <!-- Small Gate with Opening Door -->
-      <div class="cb-mnc-gate" id="cbMNCGate">
-        <div class="gate-structure">
-          <!-- Left door frame -->
-          <div class="gate-frame gate-frame-left"></div>
-          <!-- Right door frame -->
-          <div class="gate-frame gate-frame-right"></div>
-          <!-- Left door (opens outward) -->
-          <div class="gate-door gate-door-left" id="gateDoorLeft"></div>
-          <!-- Right door (opens outward) -->
-          <div class="gate-door gate-door-right" id="gateDoorRight"></div>
-          <!-- Gate glow -->
-          <div class="gate-glow"></div>
-        </div>
-      </div>
-
       <!-- Ground plane -->
       <div class="cb-ground"></div>
-
-      <!-- BACKGROUND CITY ELEMENTS -->
-      <!-- Far background buildings (left side) -->
-      <div class="cb-building-bg cb-building-bg-left">
-        <div class="cb-bg-building cb-bg-building-1"></div>
-        <div class="cb-bg-building cb-bg-building-2"></div>
-        <div class="cb-bg-building cb-bg-building-5"></div>
-      </div>
-
-      <!-- Far background buildings (right side) -->
-      <div class="cb-building-bg cb-building-bg-right">
-        <div class="cb-bg-building cb-bg-building-3"></div>
-        <div class="cb-bg-building cb-bg-building-4"></div>
-        <div class="cb-bg-building cb-bg-building-6"></div>
-      </div>
-
-      <!-- Mid-ground buildings (closer, more prominent) -->
-      <div class="cb-building-mg cb-building-mg-left">
-        <div class="cb-mg-building cb-mg-building-1"></div>
-        <div class="cb-mg-building cb-mg-building-2"></div>
-        <div class="cb-mg-building cb-mg-building-3"></div>
-      </div>
-
-      <div class="cb-building-mg cb-building-mg-right">
-        <div class="cb-mg-building cb-mg-building-4"></div>
-        <div class="cb-mg-building cb-mg-building-5"></div>
-        <div class="cb-mg-building cb-mg-building-6"></div>
-      </div>
-
-      <!-- Side buildings (edge of scene, visible between main buildings) -->
-      <div class="cb-building-side cb-building-side-left">
-        <div class="cb-side-building cb-side-building-1"></div>
-        <div class="cb-side-building cb-side-building-2"></div>
-      </div>
-
-      <div class="cb-building-side cb-building-side-right">
-        <div class="cb-side-building cb-side-building-3"></div>
-        <div class="cb-side-building cb-side-building-4"></div>
-      </div>
-
-      <!-- Center background buildings (downtown skyline) -->
-      <div class="cb-building-center">
-        <div class="cb-center-building cb-center-building-1"></div>
-        <div class="cb-center-building cb-center-building-2"></div>
-        <div class="cb-center-building cb-center-building-3"></div>
-      </div>
-
-      <!-- Additional buildings around all sides -->
-      <!-- Top side buildings (above main buildings) -->
-      <div
-        style="position: absolute; top: -400px; left: 10%; right: 10%; height: 150px; display: flex; gap: 40px; justify-content: center; z-index: 1;">
-        <div
-          style="width: 80px; height: 150px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.4;">
-        </div>
-        <div
-          style="width: 100px; height: 180px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.4;">
-        </div>
-        <div
-          style="width: 90px; height: 160px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.4;">
-        </div>
-        <div
-          style="width: 85px; height: 170px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.4;">
-        </div>
-        <div
-          style="width: 95px; height: 175px; background: linear-gradient(90deg, #1a4d7a, #2d7da8); border: 1px solid #16c8ff; opacity: 0.4;">
-        </div>
-      </div>
-
-      <!-- Bottom side buildings (below road) -->
-      <div
-        style="position: absolute; bottom: -250px; left: 10%; right: 10%; height: 120px; display: flex; gap: 40px; justify-content: center; z-index: 1;">
-        <div
-          style="width: 75px; height: 140px; background: linear-gradient(90deg, #0a1a2e, #16213e); border: 1px solid #16c8ff; opacity: 0.35;">
-        </div>
-        <div
-          style="width: 90px; height: 160px; background: linear-gradient(90deg, #0a1a2e, #16213e); border: 1px solid #16c8ff; opacity: 0.35;">
-        </div>
-        <div
-          style="width: 85px; height: 150px; background: linear-gradient(90deg, #0a1a2e, #16213e); border: 1px solid #16c8ff; opacity: 0.35;">
-        </div>
-        <div
-          style="width: 80px; height: 145px; background: linear-gradient(90deg, #0a1a2e, #16213e); border: 1px solid #16c8ff; opacity: 0.35;">
-        </div>
-        <div
-          style="width: 95px; height: 165px; background: linear-gradient(90deg, #0a1a2e, #16213e); border: 1px solid #16c8ff; opacity: 0.35;">
-        </div>
-      </div>
 
       <!-- Extended street sections (horizontal roads) -->
       <!-- Top road section -->
@@ -4318,20 +3149,6 @@
       <div class="cb-street cb-street-segment-2"></div>
       <div class="cb-street cb-street-segment-3"></div>
 
-      <!-- Trees (left side) -->
-      <div class="cb-trees cb-trees-left">
-        <div class="cb-tree cb-tree-1"></div>
-        <div class="cb-tree cb-tree-2"></div>
-        <div class="cb-tree cb-tree-3"></div>
-      </div>
-
-      <!-- Trees (right side) -->
-      <div class="cb-trees cb-trees-right">
-        <div class="cb-tree cb-tree-4"></div>
-        <div class="cb-tree cb-tree-5"></div>
-        <div class="cb-tree cb-tree-6"></div>
-      </div>
-
       <!-- Street Elements (left side) -->
       <div class="cb-street-elements cb-street-left">
         <div class="cb-street-light cb-street-light-1"></div>
@@ -4346,42 +3163,11 @@
         <div class="cb-trash cb-trash-2"></div>
       </div>
 
-      <!-- Vehicles on street -->
-      <div class="cb-vehicles">
-        <div class="cb-vehicle cb-car-1"></div>
-        <div class="cb-vehicle cb-car-2"></div>
-        <div class="cb-vehicle cb-bus-1"></div>
-      </div>
-
-      <!-- Pedestrians -->
-      <div class="cb-people">
-        <div class="cb-person cb-person-1"></div>
-        <div class="cb-person cb-person-2"></div>
-        <div class="cb-person cb-person-3"></div>
-        <div class="cb-person cb-person-4"></div>
-      </div>
-
-      <!-- Traffic Elements (signs, signals) -->
-      <div class="cb-traffic-elements">
-        <div class="cb-traffic-light cb-traffic-light-1"></div>
-        <div class="cb-traffic-sign cb-traffic-sign-1"></div>
-      </div>
-
       <!-- Building A — enters from left -->
       <div class="cb-building-wrap cb-left" id="cbBuildingA">
         <div class="cb-building cb-building-a">
           <!-- Floors -->
           <div class="cb-floor cb-floor-top"></div>
-          <div class="cb-floor-group">
-            <div class="cb-win-row" data-row="0"></div>
-            <div class="cb-win-row" data-row="1"></div>
-            <div class="cb-win-row" data-row="2"></div>
-            <div class="cb-win-row" data-row="3"></div>
-            <div class="cb-win-row" data-row="4"></div>
-            <div class="cb-win-row" data-row="5"></div>
-            <div class="cb-win-row" data-row="6"></div>
-            <div class="cb-win-row" data-row="7"></div>
-          </div>
           <div class="cb-entrance cb-entrance-a">
             <div class="cb-door"></div>
             <div class="cb-door-glow"></div>
@@ -4396,19 +3182,6 @@
       <div class="cb-building-wrap cb-right" id="cbBuildingB">
         <div class="cb-building cb-building-b">
           <div class="cb-floor cb-floor-top cb-floor-top-b"></div>
-          <div class="cb-floor-group">
-            <div class="cb-win-row" data-row="0"></div>
-            <div class="cb-win-row" data-row="1"></div>
-            <div class="cb-win-row" data-row="2"></div>
-            <div class="cb-win-row" data-row="3"></div>
-            <div class="cb-win-row" data-row="4"></div>
-            <div class="cb-win-row" data-row="5"></div>
-            <div class="cb-win-row" data-row="6"></div>
-            <div class="cb-win-row" data-row="7"></div>
-            <div class="cb-win-row" data-row="8"></div>
-            <div class="cb-win-row" data-row="9"></div>
-            <div class="cb-win-row" data-row="10"></div>
-          </div>
           <div class="cb-entrance cb-entrance-b">
             <div class="cb-door"></div>
             <div class="cb-door-glow"></div>
@@ -4443,45 +3216,8 @@
       <div class="ind-building ind-warehouse-1"></div>
       <div class="ind-building ind-warehouse-2"></div>
 
-      <!-- Chimneys with smoke -->
-      <div class="ind-chimney ind-chimney-1">
-        <div class="chimney-smoke smoke-1"></div>
-        <div class="chimney-smoke smoke-2"></div>
-      </div>
-      <div class="ind-chimney ind-chimney-2">
-        <div class="chimney-smoke smoke-1"></div>
-        <div class="chimney-smoke smoke-2"></div>
-      </div>
-      <div class="ind-chimney ind-chimney-3">
-        <div class="chimney-smoke smoke-1"></div>
-        <div class="chimney-smoke smoke-2"></div>
-      </div>
-
-      <!-- Industrial equipment -->
-      <div class="ind-equipment ind-crane-1"></div>
-      <div class="ind-equipment ind-crane-2"></div>
-      <div class="ind-equipment ind-container-stack"></div>
-
       <!-- Ground/Road -->
       <div class="ind-ground"></div>
-
-      <!-- Working people -->
-      <div class="ind-workers">
-        <div class="ind-worker worker-1"></div>
-        <div class="ind-worker worker-2"></div>
-        <div class="ind-worker worker-3"></div>
-        <div class="ind-worker worker-4"></div>
-        <div class="ind-worker worker-5"></div>
-        <div class="ind-worker worker-6"></div>
-        <div class="ind-worker worker-7"></div>
-        <div class="ind-worker worker-8"></div>
-      </div>
-
-      <!-- Vehicles -->
-      <div class="ind-vehicles">
-        <div class="ind-vehicle ind-forklift"></div>
-        <div class="ind-vehicle ind-truck"></div>
-      </div>
 
     </div><!-- /ind-stage -->
 
@@ -6270,6 +5006,526 @@
         }
       }
 
+      /* ============================================================
+         PROCEDURAL 3D BUILDING (Three.js) — shared by Cinematic
+         Buildings and Industrial Zone. Renders a real lit volumetric
+         building (window-grid canvas texture as emissive map, roof cap,
+         antenna) inside a container, replacing the flat CSS box look.
+         Uses the same canvas-texture technique already established for
+         the workshop 3D prisms elsewhere in this file.
+         ============================================================ */
+      /* Pure geometry builder — no renderer/context of its own. Returns a
+         THREE.Group (body + roof + optional antenna) sitting on y=0,
+         plus its materials so callers can drive the "energize" glow. */
+      function buildProceduralBuildingMesh(opts) {
+        opts = opts || {};
+        const floors = opts.floors || 10;
+        const cols = opts.cols || 4;
+        const baseColor = opts.baseColor != null ? opts.baseColor : 0x0b1b29;
+        const windowColor = opts.windowColor || "#00e6a8";
+        const width = opts.width || 2;
+        const depth = opts.depth || 1.4;
+        const height = opts.height || 6;
+        const hasAntenna = opts.hasAntenna !== false;
+        const litRatio = opts.litRatio != null ? opts.litRatio : 0.55;
+
+        // Window-grid canvas texture, also used as the emissive map
+        const texCanvas = document.createElement("canvas");
+        texCanvas.width = 256;
+        texCanvas.height = 512;
+        const tctx = texCanvas.getContext("2d");
+        tctx.fillStyle = "#050b12";
+        tctx.fillRect(0, 0, texCanvas.width, texCanvas.height);
+        const cellW = texCanvas.width / cols, cellH = texCanvas.height / floors;
+        for (let r = 0; r < floors; r++) {
+          for (let c = 0; c < cols; c++) {
+            const lit = Math.random() < litRatio;
+            tctx.fillStyle = lit ? windowColor : "rgba(255,255,255,0.05)";
+            const pad = cellW * 0.18;
+            tctx.fillRect(c * cellW + pad, r * cellH + pad, cellW - pad * 2, cellH - pad * 2);
+          }
+        }
+        const texture = new THREE.CanvasTexture(texCanvas);
+        texture.needsUpdate = true;
+
+        const material = new THREE.MeshStandardMaterial({
+          color: baseColor,
+          map: texture,
+          emissive: new THREE.Color(windowColor),
+          emissiveMap: texture,
+          emissiveIntensity: opts.startIntensity != null ? opts.startIntensity : 0.35,
+          metalness: 0.35,
+          roughness: 0.6
+        });
+
+        const group = new THREE.Group();
+
+        const body = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material);
+        body.position.y = height / 2;
+        body.castShadow = true;
+        body.receiveShadow = true;
+        group.add(body);
+
+        // Parapet ledge — a slightly overhanging cap reads as a real
+        // rooftop edge instead of the body just stopping abruptly.
+        const parapetMat = new THREE.MeshStandardMaterial({ color: 0x0a1621, metalness: 0.5, roughness: 0.55 });
+        const parapet = new THREE.Mesh(new THREE.BoxGeometry(width * 1.05, height * 0.035, depth * 1.05), parapetMat);
+        parapet.position.y = height + height * 0.017;
+        parapet.castShadow = true;
+        group.add(parapet);
+
+        const roofMat = new THREE.MeshStandardMaterial({
+          color: 0x0e2233,
+          metalness: 0.6,
+          roughness: 0.4,
+          emissive: new THREE.Color(windowColor),
+          emissiveIntensity: 0.5
+        });
+        const roof = new THREE.Mesh(new THREE.BoxGeometry(width * 0.98, height * 0.015, depth * 0.98), roofMat);
+        roof.position.y = height + height * 0.035 + height * 0.0075;
+        roof.receiveShadow = true;
+        group.add(roof);
+
+        // Rooftop mechanical block — small greebling detail that sells
+        // "real building" far more than a bare flat roof.
+        const mechMat = new THREE.MeshStandardMaterial({ color: 0x152736, metalness: 0.4, roughness: 0.6 });
+        const mech = new THREE.Mesh(new THREE.BoxGeometry(width * 0.3, height * 0.05, depth * 0.35), mechMat);
+        mech.position.set(-width * 0.2, height + height * 0.043 + height * 0.025, depth * 0.15);
+        mech.castShadow = true;
+        mech.receiveShadow = true;
+        group.add(mech);
+
+        if (hasAntenna) {
+          const antenna = new THREE.Mesh(
+            new THREE.CylinderGeometry(width * 0.01, width * 0.01, height * 0.18, 6),
+            new THREE.MeshStandardMaterial({ color: 0x334455, metalness: 0.7, roughness: 0.3 })
+          );
+          antenna.position.y = height + height * 0.1;
+          antenna.castShadow = true;
+          group.add(antenna);
+        }
+
+        return { group, material, roofMat, width, height, depth };
+      }
+
+      /* One shared WebGLRenderer/scene per section (not per building) —
+         creating a separate Three.js context per building (7 on this page:
+         2 cinematic + 5 industrial) exceeds practical browser WebGL
+         context limits and silently context-losses/blanks some canvases
+         once enough are created. Multiple buildings are added as groups
+         into the same shared scene instead. */
+      function createBuildingScene3D(hostEl) {
+        if (!hostEl || typeof THREE === "undefined") return null;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 200);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.domElement.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;pointer-events:none;";
+        hostEl.appendChild(renderer.domElement);
+        scene.background = null;
+        renderer.setClearColor(0x000000, 0);
+        // Soft shadows ground the props (real contact shadows instead of
+        // objects looking like they're floating) — this is the single
+        // biggest lever for "more realistic" without touching any
+        // choreography, so it's added here once and every prop below
+        // just needs castShadow/receiveShadow flags set.
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+        const key = new THREE.PointLight(0x16c8ff, 1.1, 60);
+        key.position.set(6, 10, 12);
+        scene.add(key);
+        const fill = new THREE.PointLight(0x00e6a8, 0.55, 60);
+        fill.position.set(-6, 4, -8);
+        scene.add(fill);
+
+        let sceneWidth = 16; // world-space horizontal span the camera frames
+
+        // Sun — the shadow-casting light. Shadow camera frustum is
+        // resized to sceneWidth in resize() below.
+        const sun = new THREE.DirectionalLight(0xfff4e0, 1.05);
+        sun.position.set(sceneWidth * 0.35, sceneWidth * 0.9, sceneWidth * 0.55);
+        sun.castShadow = true;
+        sun.shadow.mapSize.set(1024, 1024);
+        sun.shadow.bias = -0.0015;
+        scene.add(sun);
+        scene.add(sun.target);
+
+        // Invisible-except-for-shadows ground plane — the classic
+        // ShadowMaterial trick, no visible floor, just contact shadows.
+        const ground = new THREE.Mesh(
+          new THREE.PlaneGeometry(200, 200),
+          new THREE.ShadowMaterial({ opacity: 0.32 })
+        );
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = 0;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        function render() {
+          renderer.render(scene, camera);
+        }
+
+        function resize() {
+          const w = hostEl.clientWidth || 1, h = hostEl.clientHeight || 1;
+          renderer.setSize(w, h);
+          camera.aspect = w / h;
+          camera.fov = w > h ? 32 : 46;
+          camera.position.set(0, sceneWidth * 0.16, sceneWidth * 0.85);
+          camera.lookAt(0, sceneWidth * 0.09, 0);
+          camera.updateProjectionMatrix();
+
+          sun.position.set(sceneWidth * 0.35, sceneWidth * 0.9, sceneWidth * 0.55);
+          sun.target.position.set(0, 0, 0);
+          const sc = sun.shadow.camera;
+          sc.left = -sceneWidth * 0.65; sc.right = sceneWidth * 0.65;
+          sc.top = sceneWidth * 0.45; sc.bottom = -sceneWidth * 0.15;
+          sc.near = 1; sc.far = sceneWidth * 3;
+          sc.updateProjectionMatrix();
+
+          render();
+        }
+
+        const ro = new ResizeObserver(resize);
+        ro.observe(hostEl);
+        resize();
+        // Safety net: a container measured mid-layout (e.g. before webfonts
+        // / sibling reflow settle) can briefly read 0 width, same class of
+        // timing issue as the ScrollTrigger staleness fixed elsewhere.
+        requestAnimationFrame(resize);
+        setTimeout(resize, 400);
+
+        // Continuous render loop while the section is in view — the
+        // per-tween onUpdate:render calls above aren't reliably invoked
+        // for every scrub tick (GSAP can skip/suppress them on some
+        // scrub-jump patterns), so this guarantees the canvas always
+        // reflects current scene state, same IntersectionObserver+rAF
+        // pattern already used for the workshop 3D prisms elsewhere.
+        let rafId = null;
+        function loop() {
+          rafId = requestAnimationFrame(loop);
+          render();
+        }
+        const sectionEl = hostEl.closest("section") || hostEl;
+        const io = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            if (!rafId) loop();
+          } else if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+        }, { threshold: 0.01 });
+        io.observe(sectionEl);
+
+        return {
+          render,
+          scene,
+          camera,
+          addBuilding(group, xFrac) {
+            // xFrac: 0 = left edge, 1 = right edge, 0.5 = center
+            group.position.x = (xFrac - 0.5) * sceneWidth * 0.82;
+            scene.add(group);
+          },
+          setSceneWidth(w) { sceneWidth = w; resize(); },
+          energize(material, roofMat, intensity) {
+            gsap.to(material, {
+              emissiveIntensity: intensity != null ? intensity : 1.5,
+              duration: 0.6,
+              ease: "power2.out",
+              onUpdate: render
+            });
+            gsap.to(roofMat, {
+              emissiveIntensity: 1.2,
+              duration: 0.6,
+              ease: "power2.out",
+              onUpdate: render
+            });
+          }
+        };
+      }
+
+      /* ============================================================
+         PROCEDURAL 3D PROP LIBRARY (Three.js) — small stylized
+         low-poly objects (vehicles, people, trees, gate, chimneys,
+         cranes, containers) used to replace the flat CSS city/industrial
+         scene props, same shared-scene-per-section approach as the
+         buildings above.
+         ============================================================ */
+      function buildVehicleMesh(opts) {
+        opts = opts || {};
+        const bodyColor = opts.bodyColor || 0x16c8ff;
+        const w = opts.width || 1.6, h = opts.height || 0.5, d = opts.depth || 0.75;
+        const group = new THREE.Group();
+        const bodyMat = new THREE.MeshStandardMaterial({ color: 0x0b1b29, emissive: bodyColor, emissiveIntensity: 0.4, metalness: 0.5, roughness: 0.4 });
+        const body = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), bodyMat);
+        body.position.y = h / 2 + 0.14;
+        body.castShadow = true;
+        body.receiveShadow = true;
+        group.add(body);
+        if (opts.cabin !== false) {
+          const cabinMat = new THREE.MeshStandardMaterial({ color: 0x0e2233, emissive: bodyColor, emissiveIntensity: 0.6, metalness: 0.3, roughness: 0.5 });
+          const cabin = new THREE.Mesh(new THREE.BoxGeometry(w * 0.5, h * 0.85, d * 0.9), cabinMat);
+          cabin.position.set(-w * 0.15, h + 0.14 + h * 0.42, 0);
+          cabin.castShadow = true;
+          group.add(cabin);
+
+          // Windshield — a slightly inset, glassy angled pane reads as
+          // real glass instead of just another opaque box face.
+          const glassMat = new THREE.MeshStandardMaterial({
+            color: 0x0a2a3a, emissive: 0x9fd8ff, emissiveIntensity: 0.35,
+            metalness: 0.1, roughness: 0.15, transparent: true, opacity: 0.75
+          });
+          const windshield = new THREE.Mesh(new THREE.BoxGeometry(0.03, h * 0.62, d * 0.82), glassMat);
+          windshield.position.set(-w * 0.15 + w * 0.26, h + 0.14 + h * 0.4, 0);
+          windshield.rotation.z = Math.PI * 0.09;
+          group.add(windshield);
+        }
+
+        // Headlight / taillight — small emissive dots at each end sell
+        // vehicle "front vs back" and add a point of bright detail.
+        const headlightMat = new THREE.MeshStandardMaterial({ color: 0xfff6d8, emissive: 0xfff6d8, emissiveIntensity: 1.4 });
+        const taillightMat = new THREE.MeshStandardMaterial({ color: 0xff3344, emissive: 0xff3344, emissiveIntensity: 1.2 });
+        [[w / 2 - 0.02, headlightMat], [-w / 2 + 0.02, taillightMat]].forEach(([x, m]) => {
+          [d * 0.32, -d * 0.32].forEach(z => {
+            const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.035, 6, 6), m);
+            lamp.position.set(x, h / 2 + 0.14, z);
+            group.add(lamp);
+          });
+        });
+
+        const wheelMat = new THREE.MeshStandardMaterial({ color: 0x10161d, metalness: 0.6, roughness: 0.55 });
+        const wheelGeo = new THREE.CylinderGeometry(0.13, 0.13, 0.1, 12);
+        [-w * 0.32, w * 0.32].forEach(x => {
+          [d * 0.42, -d * 0.42].forEach(z => {
+            const wheel = new THREE.Mesh(wheelGeo, wheelMat);
+            wheel.rotation.z = Math.PI / 2;
+            wheel.position.set(x, 0.13, z);
+            wheel.castShadow = true;
+            group.add(wheel);
+          });
+        });
+        return { group, bodyMat };
+      }
+
+      function buildPersonMesh(opts) {
+        opts = opts || {};
+        const color = opts.color || 0x00e6a8;
+        const group = new THREE.Group();
+        const skinMat = new THREE.MeshStandardMaterial({ color: 0xd9a878, roughness: 0.75 });
+        const clothMat = new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.5, metalness: 0.1, roughness: 0.65 });
+
+        const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.065, 0.22, 8), clothMat);
+        torso.position.y = 0.42;
+        torso.castShadow = true;
+        group.add(torso);
+
+        const head = new THREE.Mesh(new THREE.SphereGeometry(0.075, 10, 10), skinMat);
+        head.position.y = 0.6;
+        head.castShadow = true;
+        group.add(head);
+
+        const legGeo = new THREE.CylinderGeometry(0.032, 0.028, 0.3, 6);
+        [-0.04, 0.04].forEach(x => {
+          const leg = new THREE.Mesh(legGeo, clothMat.clone());
+          leg.position.set(x, 0.15, 0);
+          leg.castShadow = true;
+          group.add(leg);
+        });
+
+        const armGeo = new THREE.CylinderGeometry(0.026, 0.022, 0.24, 6);
+        [-0.11, 0.11].forEach(x => {
+          const arm = new THREE.Mesh(armGeo, skinMat);
+          arm.position.set(x, 0.42, 0);
+          arm.rotation.z = x > 0 ? -0.12 : 0.12;
+          arm.castShadow = true;
+          group.add(arm);
+        });
+
+        return { group, mat: clothMat };
+      }
+
+      function buildTreeMesh(opts) {
+        opts = opts || {};
+        const scale = opts.scale || 1;
+        const group = new THREE.Group();
+        const trunkMat = new THREE.MeshStandardMaterial({ color: 0x3a2a1a, roughness: 0.9 });
+        const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.045 * scale, 0.07 * scale, 0.45 * scale, 6), trunkMat);
+        trunk.position.y = 0.225 * scale;
+        trunk.castShadow = true;
+        group.add(trunk);
+
+        // Layered, offset canopy clusters instead of one perfect cone —
+        // reads as an organic tree silhouette rather than a traffic cone.
+        const foliageMat = new THREE.MeshStandardMaterial({ color: 0x0d3d2a, emissive: 0x00e6a8, emissiveIntensity: 0.22, roughness: 0.85 });
+        const clusters = [
+          { r: 0.3, y: 0.68, x: 0, z: 0 },
+          { r: 0.22, y: 0.86, x: 0.1 * scale, z: 0.05 * scale },
+          { r: 0.2, y: 0.82, x: -0.12 * scale, z: -0.06 * scale },
+          { r: 0.16, y: 1.02, x: 0, z: 0.03 * scale }
+        ];
+        clusters.forEach(c => {
+          const foliage = new THREE.Mesh(new THREE.IcosahedronGeometry(c.r * scale, 1), foliageMat);
+          foliage.position.set(c.x, c.y * scale, c.z);
+          foliage.castShadow = true;
+          group.add(foliage);
+        });
+        return { group, foliageMat };
+      }
+
+      function buildTrafficPropMesh(opts) {
+        opts = opts || {};
+        const isSign = !!opts.isSign;
+        const group = new THREE.Group();
+        const poleMat = new THREE.MeshStandardMaterial({ color: 0x222933, metalness: 0.6, roughness: 0.4 });
+        const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 1.1, 8), poleMat);
+        pole.position.y = 0.55;
+        pole.castShadow = true;
+        group.add(pole);
+        if (isSign) {
+          const signMat = new THREE.MeshStandardMaterial({ color: 0x0e2233, emissive: 0x16c8ff, emissiveIntensity: 0.6, metalness: 0.4, roughness: 0.4 });
+          const sign = new THREE.Mesh(new THREE.CircleGeometry(0.16, 16), signMat);
+          sign.position.y = 1.05;
+          sign.castShadow = true;
+          group.add(sign);
+        } else {
+          const headMat = new THREE.MeshStandardMaterial({ color: 0x111820, metalness: 0.4, roughness: 0.5 });
+          const head = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.32, 0.13), headMat);
+          head.position.y = 1.15;
+          head.castShadow = true;
+          group.add(head);
+          [0xff3355, 0xffcc33, 0x00e6a8].forEach((c, i) => {
+            const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.042, 8, 8), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.95 }));
+            lamp.position.set(0, 1.15 + 0.09 - i * 0.09, 0.08);
+            group.add(lamp);
+          });
+        }
+        return { group };
+      }
+
+      function buildGateMesh(opts) {
+        opts = opts || {};
+        const w = opts.width || 3.2, h = opts.height || 2.2;
+        const group = new THREE.Group();
+        const frameMat = new THREE.MeshStandardMaterial({ color: 0x0e2233, emissive: 0x00e6a8, emissiveIntensity: 0.4, metalness: 0.6, roughness: 0.35 });
+        [-w / 2, w / 2].forEach(x => {
+          const pillar = new THREE.Mesh(new THREE.BoxGeometry(0.16, h, 0.16), frameMat);
+          pillar.position.set(x, h / 2, 0);
+          pillar.castShadow = true;
+          pillar.receiveShadow = true;
+          group.add(pillar);
+        });
+        const lintel = new THREE.Mesh(new THREE.BoxGeometry(w + 0.2, 0.18, 0.18), frameMat);
+        lintel.position.set(0, h + 0.09, 0);
+        lintel.castShadow = true;
+        group.add(lintel);
+
+        const doorMat = new THREE.MeshStandardMaterial({ color: 0x123246, emissive: 0x16c8ff, emissiveIntensity: 0.5, metalness: 0.5, roughness: 0.3 });
+        const doorLeft = new THREE.Mesh(new THREE.BoxGeometry(w / 2 - 0.1, h - 0.1, 0.06), doorMat);
+        doorLeft.position.set(-w / 4, h / 2, 0);
+        doorLeft.castShadow = true;
+        group.add(doorLeft);
+        const doorRight = new THREE.Mesh(new THREE.BoxGeometry(w / 2 - 0.1, h - 0.1, 0.06), doorMat.clone());
+        doorRight.position.set(w / 4, h / 2, 0);
+        doorRight.castShadow = true;
+        group.add(doorRight);
+
+        const glow = new THREE.PointLight(0x00e6a8, 0, 8);
+        glow.position.set(0, h * 0.55, 0.7);
+        group.add(glow);
+
+        return { group, doorLeft, doorRight, glow };
+      }
+
+      function buildChimneyMesh(opts) {
+        opts = opts || {};
+        const color = opts.color || 0x16c8ff;
+        const height = opts.height || 2.2;
+        const group = new THREE.Group();
+        const mat = new THREE.MeshStandardMaterial({ color: 0x0a3a4a, emissive: color, emissiveIntensity: 0.4, metalness: 0.5, roughness: 0.4 });
+        const stack = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.17, height, 10), mat);
+        stack.position.y = height / 2;
+        stack.castShadow = true;
+        stack.receiveShadow = true;
+        group.add(stack);
+
+        // Rim band near the top — breaks up the plain cylinder silhouette.
+        const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.08, 10), mat);
+        rim.position.y = height - 0.1;
+        rim.castShadow = true;
+        group.add(rim);
+
+        const puffs = [];
+        for (let i = 0; i < 3; i++) {
+          const puffMat = new THREE.MeshStandardMaterial({ color: 0x9aa3ad, transparent: true, opacity: 0.3, roughness: 1 });
+          const puff = new THREE.Mesh(new THREE.SphereGeometry(0.13 + i * 0.045, 8, 8), puffMat);
+          puff.position.set(0, height + 0.15, 0);
+          puffs.push(puff);
+          group.add(puff);
+        }
+        return { group, puffs, baseHeight: height };
+      }
+
+      function buildCraneMesh(opts) {
+        opts = opts || {};
+        const color = opts.color || 0x16c8ff;
+        const height = opts.height || 3.2;
+        const group = new THREE.Group();
+        const mat = new THREE.MeshStandardMaterial({ color: 0x164d5f, emissive: color, emissiveIntensity: 0.4, metalness: 0.6, roughness: 0.35 });
+        const tower = new THREE.Mesh(new THREE.BoxGeometry(0.16, height, 0.16), mat);
+        tower.position.y = height / 2;
+        tower.castShadow = true;
+        tower.receiveShadow = true;
+        group.add(tower);
+        // Base plate — grounds the tower with a visible footing instead of
+        // a thin post just touching the ground.
+        const base = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.12, 0.4), mat);
+        base.position.y = 0.06;
+        base.castShadow = true;
+        base.receiveShadow = true;
+        group.add(base);
+        const armPivot = new THREE.Group();
+        armPivot.position.set(0, height, 0);
+        const arm = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.09, 0.09), mat);
+        arm.position.set(0.7, 0, 0);
+        arm.castShadow = true;
+        armPivot.add(arm);
+        // Counterweight arm on the opposite side — real tower cranes always
+        // balance the load arm, and it reads instantly as "crane" rather
+        // than "flagpole".
+        const counter = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.11, 0.11), mat);
+        counter.position.set(-0.3, 0, 0);
+        counter.castShadow = true;
+        armPivot.add(counter);
+        group.add(armPivot);
+        return { group, armPivot };
+      }
+
+      function buildContainerStackMesh() {
+        const group = new THREE.Group();
+        const colors = [0x00e6a8, 0x16c8ff, 0x4d7cff];
+        for (let i = 0; i < 3; i++) {
+          const c = colors[i % colors.length];
+          const mat = new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.3, metalness: 0.4, roughness: 0.5 });
+          const box = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.48, 0.8), mat);
+          box.position.set((i % 2) * 0.18, 0.26 + i * 0.5, 0);
+          box.castShadow = true;
+          box.receiveShadow = true;
+          // Corrugation ribs — a few thin raised strips across the face
+          // read as real shipping-container ridges instead of a flat box.
+          const ribMat = new THREE.MeshStandardMaterial({ color: 0x000000, transparent: true, opacity: 0.12 });
+          for (let r = 0; r < 4; r++) {
+            const rib = new THREE.Mesh(new THREE.BoxGeometry(1.06, 0.02, 0.02), ribMat);
+            rib.position.set((i % 2) * 0.18, 0.26 + i * 0.5 - 0.15 + r * 0.1, 0.41);
+            group.add(rib);
+          }
+          group.add(box);
+        }
+        return { group };
+      }
+
       function initCinematicBuildings() {
         const section = document.getElementById("cinematicBuildings");
         const buildingA = document.getElementById("cbBuildingA");
@@ -6284,6 +5540,106 @@
           row.style.opacity = (0.4 + Math.random() * 0.5).toFixed(2);
         });
 
+        // Real 3D buildings (Three.js), one shared scene rendered into a
+        // single canvas overlaid on the stage — replaces the flat CSS box
+        // look for buildings A/B. The old wrapper elements keep their
+        // existing slide-in tween (harmless — their inner box is now
+        // transparent); the 3D meshes get their own synced pop-in below.
+        const cbBodyA = buildingA.querySelector(".cb-building-a");
+        const cbBodyB = buildingB.querySelector(".cb-building-b");
+        [cbBodyA, cbBodyB].forEach(body => {
+          if (!body) return;
+          body.style.background = "transparent";
+          const floorGroup = body.querySelector(".cb-floor-group");
+          if (floorGroup) floorGroup.style.display = "none";
+        });
+
+        const cbScene3D = stage ? createBuildingScene3D(stage) : null;
+        let meshA = null, meshB = null;
+        if (cbScene3D) {
+          meshA = buildProceduralBuildingMesh({
+            floors: 8, cols: 4, width: 2, depth: 1.3, height: 5.4,
+            windowColor: "#00e6a8", baseColor: 0x0b1b29
+          });
+          meshB = buildProceduralBuildingMesh({
+            floors: 11, cols: 5, width: 2.4, depth: 1.6, height: 7.2,
+            windowColor: "#16c8ff", baseColor: 0x0b1b29
+          });
+          meshA.group.scale.set(0, 0, 0);
+          meshB.group.scale.set(0, 0, 0);
+          cbScene3D.addBuilding(meshA.group, 0.2);
+          cbScene3D.addBuilding(meshB.group, 0.8);
+        }
+
+        // Full 3D city scene: background skyline, trees, pedestrians,
+        // vehicles, traffic props and the MNC gate, all added into the
+        // same shared cbScene3D scene. The old CSS/DOM versions of these
+        // (tiny translucent dots, opacity 0.4–0.8 by design) are left
+        // completely untouched — the 3D scene simply renders in front.
+        const cbCity = { buildings: [], trees: [], people: [], vehicles: [], traffic: [] };
+        let cbGate = null, cbGateCarLeft = null, cbGateCarRight = null;
+        if (cbScene3D) {
+          // Background mini-skyline (bg/mg/side/center layers → one varied field)
+          const skylineSpecs = [
+            { xFrac: 0.03, h: 2.4, c: "#16c8ff" }, { xFrac: 0.09, h: 3.0, c: "#00e6a8" },
+            { xFrac: 0.14, h: 2.0, c: "#16c8ff" }, { xFrac: 0.30, h: 2.6, c: "#4d7cff" },
+            { xFrac: 0.36, h: 2.1, c: "#16c8ff" }, { xFrac: 0.42, h: 2.9, c: "#00e6a8" },
+            { xFrac: 0.58, h: 2.7, c: "#00e6a8" }, { xFrac: 0.64, h: 2.2, c: "#16c8ff" },
+            { xFrac: 0.70, h: 3.1, c: "#4d7cff" }, { xFrac: 0.86, h: 2.3, c: "#16c8ff" },
+            { xFrac: 0.91, h: 2.8, c: "#00e6a8" }, { xFrac: 0.97, h: 2.0, c: "#16c8ff" }
+          ];
+          skylineSpecs.forEach(s => {
+            const b = buildProceduralBuildingMesh({
+              floors: 4, cols: 2, width: 0.8, depth: 0.6, height: s.h,
+              windowColor: s.c, baseColor: 0x0b1b29, hasAntenna: false, startIntensity: 0.4
+            });
+            b.group.scale.set(0, 0, 0);
+            cbScene3D.addBuilding(b.group, s.xFrac);
+            b.group.position.z = -2.2;
+            cbCity.buildings.push(b);
+          });
+
+          // Trees (left cluster + right cluster)
+          [0.06, 0.1, 0.14, 0.86, 0.9, 0.94].forEach(xFrac => {
+            const t = buildTreeMesh({ scale: 0.85 + Math.random() * 0.4 });
+            t.group.scale.multiplyScalar(0);
+            cbScene3D.addBuilding(t.group, xFrac);
+            cbCity.trees.push(t);
+          });
+
+          // Pedestrians
+          [0.38, 0.46, 0.54, 0.62].forEach((xFrac, i) => {
+            const p = buildPersonMesh({ color: i % 2 ? "#16c8ff" : "#00e6a8" });
+            p.group.scale.set(0, 0, 0);
+            cbScene3D.addBuilding(p.group, xFrac);
+            cbCity.people.push(p);
+          });
+
+          // Street vehicles: car-1, car-2, bus-1
+          const car1 = buildVehicleMesh({ bodyColor: 0x00e6a8, width: 1.3, height: 0.42, depth: 0.65 });
+          const car2 = buildVehicleMesh({ bodyColor: 0x4d7cff, width: 1.3, height: 0.42, depth: 0.65 });
+          const bus1 = buildVehicleMesh({ bodyColor: 0x16c8ff, width: 2.2, height: 0.6, depth: 0.8, cabin: false });
+          [car1, car2, bus1].forEach((v, i) => { v.group.scale.set(0, 0, 0); cbScene3D.addBuilding(v.group, [0.4, 0.5, 0.6][i]); });
+          cbCity.vehicles.push(car1, car2, bus1);
+
+          // Traffic light + sign
+          const tLight = buildTrafficPropMesh({ isSign: false });
+          const tSign = buildTrafficPropMesh({ isSign: true });
+          [tLight, tSign].forEach((t, i) => { t.group.scale.set(0, 0, 0); cbScene3D.addBuilding(t.group, [0.22, 0.78][i]); });
+          cbCity.traffic.push(tLight, tSign);
+
+          // MNC Gate (center) + the two cars that drive to meet it
+          cbGate = buildGateMesh({ width: 2.4, height: 1.7 });
+          cbGate.group.scale.set(0, 0, 0);
+          cbScene3D.addBuilding(cbGate.group, 0.5);
+
+          cbGateCarLeft = buildVehicleMesh({ bodyColor: 0x00e6a8, width: 1.1, height: 0.38, depth: 0.6 });
+          cbGateCarRight = buildVehicleMesh({ bodyColor: 0x16c8ff, width: 1.1, height: 0.38, depth: 0.6 });
+          cbGateCarLeft.group.visible = false;
+          cbGateCarRight.group.visible = false;
+          cbScene3D.addBuilding(cbGateCarLeft.group, 0.35);
+          cbScene3D.addBuilding(cbGateCarRight.group, 0.65);
+        }
 
         // Master scroll-driven timeline (reduced motion: no pin/scrub, snap straight to end state below)
         const tl = gsap.timeline(prefersReduced ? {} : {
@@ -6311,14 +5667,24 @@
           ease: "power3.out"
         }, 0.12);
 
+        // 3D buildings pop in alongside their DOM counterparts (same phases)
+        if (cbScene3D && meshA) {
+          tl.to(meshA.group.scale, { x: 1, y: 1, z: 1, duration: 0.15, ease: "back.out(1.5)", onUpdate: cbScene3D.render }, 0);
+        }
+        if (cbScene3D && meshB) {
+          tl.to(meshB.group.scale, { x: 1, y: 1, z: 1, duration: 0.15, ease: "back.out(1.5)", onUpdate: cbScene3D.render }, 0.12);
+        }
+
         // Phase 55%: Building A energizes (windows light up)
         tl.call(() => {
           buildingA.querySelector(".cb-building").classList.add("is-energized");
+          if (cbScene3D && meshA) cbScene3D.energize(meshA.material, meshA.roofMat);
         }, [], 0.26);
 
         // Phase 58%: head reaches building B → B energizes
         tl.call(() => {
           buildingB.querySelector(".cb-building").classList.add("is-energized");
+          if (cbScene3D && meshB) cbScene3D.energize(meshB.material, meshB.roofMat);
         }, [], 0.59);
 
         // Phase 65–75%: camera zoom — both buildings scale up slightly, stage scales
@@ -6335,6 +5701,47 @@
           duration: 0.18,
           ease: "none"
         }, 0.82);
+
+        // ============================================================
+        // 3D CITY SCENE SYNC — same phases as the CSS city elements
+        // below, purely additive (drives the new meshes, doesn't touch
+        // any of the existing DOM tweens).
+        // ============================================================
+        if (cbScene3D) {
+          const R = cbScene3D.render;
+          const popIn = (obj, at, dur) => tl.to(obj.scale, { x: 1, y: 1, z: 1, duration: dur || 0.25, ease: "back.out(1.5)", onUpdate: R }, at);
+          const popOut = (obj, at) => tl.to(obj.scale, { x: 0, y: 0, z: 0, duration: 0.25, ease: "power2.in", onUpdate: R }, at);
+
+          cbCity.buildings.forEach((b, i) => popIn(b.group, 0.03 + (i % 4) * 0.015, 0.3));
+          cbCity.trees.forEach((t, i) => popIn(t.group, 0.10 + i * 0.01, 0.25));
+          cbCity.people.forEach((p, i) => popIn(p.group, [0.26, 0.30, 0.32, 0.34][i], 0.2));
+          cbCity.traffic.forEach((t, i) => popIn(t.group, [0.40, 0.42][i], 0.2));
+
+          const [car1, car2, bus1] = cbCity.vehicles;
+          popIn(car1.group, 0.20, 0.3);
+          tl.to(car1.group.position, { x: "+=1.2", duration: 0.35, ease: "power1.inOut", onUpdate: R }, 0.20);
+          popIn(car2.group, 0.22, 0.3);
+          tl.to(car2.group.position, { x: "-=0.9", duration: 0.35, ease: "power1.inOut", onUpdate: R }, 0.22);
+          popIn(bus1.group, 0.24, 0.3);
+          tl.to(bus1.group.position, { x: "+=1.5", duration: 0.35, ease: "power1.inOut", onUpdate: R }, 0.24);
+
+          // Whole city scene clears out as the camera pushes toward the gate
+          [].concat(cbCity.buildings, cbCity.trees, cbCity.people, cbCity.vehicles, cbCity.traffic)
+            .forEach(o => popOut(o.group, 0.50));
+
+          if (cbGate) {
+            popIn(cbGate.group, 0.65, 0.4);
+            tl.to(cbGate.glow, { intensity: 2.2, duration: 0.3, ease: "power2.out", onUpdate: R }, 0.70);
+            tl.to(cbGate.doorLeft.position, { x: "-=0.9", duration: 0.7, ease: "power2.inOut", onUpdate: R }, 0.75);
+            tl.to(cbGate.doorRight.position, { x: "+=0.9", duration: 0.7, ease: "power2.inOut", onUpdate: R }, 0.75);
+          }
+          if (cbGateCarLeft && cbGateCarRight) {
+            tl.call(() => { cbGateCarLeft.group.visible = true; cbGateCarRight.group.visible = true; R(); }, [], 0.25);
+            tl.to(cbGateCarLeft.group.position, { x: "+=1.6", duration: 0.85, ease: "power1.inOut", onUpdate: R }, 0.25);
+            tl.to(cbGateCarRight.group.position, { x: "-=1.6", duration: 0.85, ease: "power1.inOut", onUpdate: R }, 0.25);
+            tl.call(() => { cbGateCarLeft.group.visible = false; cbGateCarRight.group.visible = false; R(); }, [], 1.05);
+          }
+        }
 
         // ============================================================
         // CITY ELEMENTS ANIMATIONS
@@ -6594,7 +6001,9 @@
           }
         });
 
-        // Gentle float on both buildings (continuous, not scroll-driven)
+        // Gentle float on both buildings (continuous, not scroll-driven).
+        // Also applied to the 3D mesh groups directly since they live in
+        // the shared stage-level scene, not inside the DOM wrappers below.
         if (!prefersReduced) {
           [buildingA, buildingB].forEach((b, i) => {
             gsap.to(b, {
@@ -6606,6 +6015,20 @@
               delay: i * 1.2
             });
           });
+          if (cbScene3D) {
+            [meshA, meshB].forEach((m, i) => {
+              if (!m) return;
+              gsap.to(m.group.position, {
+                y: 0.12,
+                duration: 3.5 + i * 0.7,
+                yoyo: true,
+                repeat: -1,
+                ease: "sine.inOut",
+                delay: i * 1.2,
+                onUpdate: cbScene3D.render
+              });
+            });
+          }
         } else {
           // No pin/scrub for reduced motion: snap straight to the scene's resting end state
           tl.progress(1);
@@ -6695,6 +6118,73 @@
         const section = document.getElementById("industrialZone");
         if (!section) return;
 
+        // Real 3D factory/warehouse buildings (Three.js), one shared scene
+        // rendered into a single canvas overlaid on the stage — replaces
+        // the flat CSS box look, keeping each one's existing border/glow
+        // frame and accent color. Same shared scene helper as Cinematic
+        // Buildings above (avoids one-WebGL-context-per-building, which
+        // exceeds the browser's practical context limit with this many
+        // buildings on one page).
+        const indStageEl = document.getElementById("indStage");
+        const ind3DConfigs = [
+          { cls: "ind-factory-1", xFrac: 0.08, floors: 7, cols: 3, width: 1.3, depth: 1.1, height: 3.0, windowColor: "#16c8ff" },
+          { cls: "ind-factory-2", xFrac: 0.26, floors: 8, cols: 3, width: 1.5, depth: 1.2, height: 3.4, windowColor: "#4d7cff" },
+          { cls: "ind-warehouse-2", xFrac: 0.48, floors: 6, cols: 3, width: 1.5, depth: 1.2, height: 2.9, windowColor: "#4d7cff", hasAntenna: false },
+          { cls: "ind-factory-3", xFrac: 0.7, floors: 7, cols: 3, width: 1.4, depth: 1.1, height: 3.2, windowColor: "#16c8ff" },
+          { cls: "ind-warehouse-1", xFrac: 0.92, floors: 5, cols: 4, width: 1.7, depth: 1.3, height: 2.6, windowColor: "#00e6a8", hasAntenna: false }
+        ];
+        const indScene3D = indStageEl ? createBuildingScene3D(indStageEl) : null;
+        const ind3DBuildings = {};
+        if (indScene3D) {
+          ind3DConfigs.forEach(cfg => {
+            const el = section.querySelector("." + cfg.cls);
+            if (!el) return;
+            el.style.background = "transparent";
+            const mesh = buildProceduralBuildingMesh(Object.assign({ baseColor: 0x0b1b29, startIntensity: 0.3 }, cfg));
+            indScene3D.addBuilding(mesh.group, cfg.xFrac);
+            ind3DBuildings[cfg.cls] = mesh;
+          });
+        }
+
+        // 3D chimneys (with smoke), cranes, container stack, workers and
+        // vehicles — same shared indScene3D scene. Old CSS/DOM versions
+        // are left untouched underneath (translucent, small).
+        const indProps = { chimneys: [], cranes: [], workers: [] };
+        let indContainerStack = null, indForklift = null, indTruck = null;
+        if (indScene3D) {
+          [0.14, 0.32, 0.66].forEach((xFrac, i) => {
+            const c = buildChimneyMesh({ height: 2.0 + i * 0.15, color: i === 2 ? "#4d7cff" : "#16c8ff" });
+            c.group.scale.set(0, 0, 0);
+            indScene3D.addBuilding(c.group, xFrac);
+            indProps.chimneys.push(c);
+          });
+
+          [0.45, 0.8].forEach((xFrac, i) => {
+            const cr = buildCraneMesh({ height: 2.8 + i * 0.3, color: i ? "#4d7cff" : "#16c8ff" });
+            cr.group.scale.set(0, 0, 0);
+            indScene3D.addBuilding(cr.group, xFrac);
+            indProps.cranes.push(cr);
+          });
+
+          indContainerStack = buildContainerStackMesh();
+          indContainerStack.group.scale.set(0, 0, 0);
+          indScene3D.addBuilding(indContainerStack.group, 0.58);
+
+          const workerXFracs = [0.15, 0.25, 0.35, 0.45, 0.6, 0.7, 0.8, 0.9];
+          workerXFracs.forEach(xFrac => {
+            const w = buildPersonMesh({ color: Math.random() > 0.5 ? "#00e6a8" : "#16c8ff" });
+            w.group.scale.set(0, 0, 0);
+            indScene3D.addBuilding(w.group, xFrac);
+            indProps.workers.push(w);
+          });
+
+          indForklift = buildVehicleMesh({ bodyColor: 0x00e6a8, width: 1.1, height: 0.42, depth: 0.6 });
+          indTruck = buildVehicleMesh({ bodyColor: 0x4d7cff, width: 1.7, height: 0.55, depth: 0.7 });
+          [indForklift, indTruck].forEach(v => v.group.scale.set(0, 0, 0));
+          indScene3D.addBuilding(indForklift.group, 0.5);
+          indScene3D.addBuilding(indTruck.group, 0.5);
+        }
+
         const tl = gsap.timeline(prefersReduced ? {} : {
           scrollTrigger: {
             trigger: section,
@@ -6726,6 +6216,17 @@
           duration: 0.35,
           ease: "power2.out"
         }, 0.10);
+
+        // 3D factory/warehouse meshes pop in alongside their CSS frames
+        if (indScene3D) {
+          Object.keys(ind3DBuildings).forEach((cls, i) => {
+            const mesh = ind3DBuildings[cls];
+            mesh.group.scale.set(0, 0, 0);
+            tl.to(mesh.group.scale, {
+              x: 1, y: 1, z: 1, duration: 0.35, ease: "back.out(1.4)", onUpdate: indScene3D.render
+            }, 0.10 + i * 0.02);
+          });
+        }
 
         // Chimneys appear with smoke
         tl.to([".ind-chimney-1", ".ind-chimney-2", ".ind-chimney-3"], {
@@ -6766,8 +6267,58 @@
         tl.to([".ind-factory-1", ".ind-factory-2", ".ind-factory-3"], {
           boxShadow: "0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(100, 120, 140, 0.2)",
           duration: 0.4,
-          ease: "power2.out"
+          ease: "power2.out",
+          onStart: () => indScene3D && Object.keys(ind3DBuildings).forEach(cls => indScene3D.energize(ind3DBuildings[cls].material, ind3DBuildings[cls].roofMat, 1.1))
         }, 0.30);
+
+        // ============================================================
+        // 3D SITE PROPS SYNC — same phases as the CSS equivalents above,
+        // purely additive.
+        // ============================================================
+        if (indScene3D) {
+          const R = indScene3D.render;
+          const popIn = (obj, at, dur) => tl.to(obj.scale, { x: 1, y: 1, z: 1, duration: dur || 0.3, ease: "back.out(1.4)", onUpdate: R }, at);
+
+          indProps.chimneys.forEach((c, i) => popIn(c.group, 0.15 + i * 0.02, 0.3));
+          indProps.cranes.forEach((c, i) => popIn(c.group, 0.18 + i * 0.02, 0.3));
+          popIn(indContainerStack.group, 0.20, 0.3);
+          indProps.workers.forEach((w, i) => popIn(w.group, 0.22 + i * 0.01, 0.2));
+          popIn(indForklift.group, 0.25, 0.3);
+          popIn(indTruck.group, 0.25, 0.3);
+
+          // Continuous ambient motion (not scroll-driven), matching the
+          // CSS smokeRise / craneSwing / workerWalk / vehicleMove keyframes
+          if (!prefersReduced) {
+            indProps.chimneys.forEach(c => {
+              c.puffs.forEach((puff, i) => {
+                gsap.fromTo(puff.position, { y: c.baseHeight + 0.15 }, {
+                  y: c.baseHeight + 0.9, duration: 3, ease: "power1.out", repeat: -1,
+                  delay: i * 1, onUpdate: R
+                });
+                gsap.fromTo(puff.material, { opacity: 0 }, {
+                  opacity: 0.35, duration: 0.6, yoyo: true, repeat: -1, repeatDelay: 2.4,
+                  delay: i * 1, ease: "power1.inOut", onUpdate: R
+                });
+              });
+            });
+            indProps.cranes.forEach((c, i) => {
+              gsap.to(c.armPivot.rotation, {
+                y: 0.4, duration: 2 + i * 0.4, yoyo: true, repeat: -1, ease: "sine.inOut", onUpdate: R
+              });
+            });
+            indProps.workers.forEach((w, i) => {
+              gsap.to(w.group.position, {
+                x: "+=0.35", duration: 2 + (i % 3) * 0.4, yoyo: true, repeat: -1,
+                delay: i * 0.15, ease: "sine.inOut", onUpdate: R
+              });
+            });
+            [indForklift, indTruck].forEach((v, i) => {
+              gsap.to(v.group.position, {
+                x: "+=1.1", duration: 3 + i, yoyo: true, repeat: -1, delay: i * 0.8, ease: "sine.inOut", onUpdate: R
+              });
+            });
+          }
+        }
 
         // No pin/scrub for reduced motion: snap straight to the fully-built scene
         if (prefersReduced) tl.progress(1);
