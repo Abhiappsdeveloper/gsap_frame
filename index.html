@@ -4971,7 +4971,7 @@
       </div>
 
       <div class="process-grid">
-        <div class="process-step tilt-card reveal-up">
+        <div class="process-step tilt-card">
           <div class="step-number">01</div>
           <div class="step-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -4983,7 +4983,7 @@
             talent profile for your team.</p>
         </div>
 
-        <div class="process-step tilt-card reveal-up">
+        <div class="process-step tilt-card">
           <div class="step-number">02</div>
           <div class="step-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -4995,7 +4995,7 @@
             shortlist of qualified professionals.</p>
         </div>
 
-        <div class="process-step tilt-card reveal-up">
+        <div class="process-step tilt-card">
           <div class="step-number">03</div>
           <div class="step-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -5008,7 +5008,7 @@
             care and precision.</p>
         </div>
 
-        <div class="process-step tilt-card reveal-up">
+        <div class="process-step tilt-card">
           <div class="step-number">04</div>
           <div class="step-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -5159,7 +5159,7 @@
       </div>
 
       <div class="workshop-grid">
-        <div class="workshop-card tilt-card reveal-up">
+        <div class="workshop-card tilt-card">
           <div class="wc-media">
             <div class="wc-num">01</div>
             <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -5177,7 +5177,7 @@
               </svg></span>
           </div>
         </div>
-        <div class="workshop-card tilt-card reveal-up">
+        <div class="workshop-card tilt-card">
           <div class="wc-media">
             <div class="wc-num">02</div>
             <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -5195,7 +5195,7 @@
               </svg></span>
           </div>
         </div>
-        <div class="workshop-card tilt-card reveal-up">
+        <div class="workshop-card tilt-card">
           <div class="wc-media">
             <div class="wc-num">03</div>
             <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -5213,7 +5213,7 @@
               </svg></span>
           </div>
         </div>
-        <div class="workshop-card tilt-card reveal-up">
+        <div class="workshop-card tilt-card">
           <div class="wc-media">
             <div class="wc-num">04</div>
             <div class="wc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -5755,12 +5755,6 @@
         /* ====== Tilt cards (service / workshop / industry) ====== */
         initTiltCards();
 
-        /* ====== Stats counters & GSAP animation ====== */
-        initCounters();
-        initStatsGSAP();
-        /* ====== Section reveal-on-scroll (generic) ====== */
-        initReveals();
-
         /* ====== About image reveal + parallax ====== */
         initAboutReveal();
 
@@ -5783,17 +5777,16 @@
 
         /* ====== Layout Pinning & Card Stacking ====== */
         initProcessStacking();
-        initBenefitsPinning();
-        initBenefitsScrollAnim();
-        initBenefitsCounters();
-        initBenefitsCinematicReveal();
         initTimelineEnhance();
 
+        /* ====== Section reveal-on-scroll (generic) ======
+           Runs after the pinned sections above so their pin-spacers are
+           already in the DOM — otherwise ScrollTrigger caches trigger
+           positions from the shorter pre-pin layout for anything below
+           them on the page. */
+        initReveals();
+
         /* ====== 3D Animations ====== */
-        initProcess3DTetrahedrons();
-        initBenefits3DCube();
-        initIndustries3DSphere();
-        initIndustriesReveal();
         initWorkshop3DPrisms();
         initWorkshop3DPrisms2();
 
@@ -6450,106 +6443,6 @@
         });
       }
       /* ============================================================
-         STATS — animated counters w/ pulse glow
-         ============================================================ */
-      function initCounters() {
-        gsap.utils.toArray(".stat-number").forEach(el => {
-          const target = parseFloat(el.dataset.count);
-          const divide = parseFloat(el.dataset.divide) || 1;
-          const suffix = el.dataset.suffix || "";
-          const obj = { val: 0 };
-          ScrollTrigger.create({
-            trigger: el,
-            start: "top 85%",
-            onEnter: () => {
-              gsap.fromTo(el.closest(".stat-card").querySelector(".stat-glow"),
-                { opacity: 0, scale: 0 },
-                { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" });
-              gsap.to(obj, {
-                val: target,
-                duration: 2.1,
-                ease: "power2.out",
-                onUpdate: () => {
-                  const display = divide > 1 ? (obj.val / divide).toFixed(0) : Math.round(obj.val);
-                  el.textContent = display + suffix;
-                  gsap.to(el.closest(".stat-card"), {
-                    scale: 1.015, duration: 0.06, yoyo: true, repeat: 1,
-                    ease: "power2.out", overwrite: "auto"
-                  });
-                },
-                onComplete: () => {
-                  gsap.fromTo(el, { filter: "drop-shadow(0 0 0px rgba(0,230,168,0))" },
-                    { filter: "drop-shadow(0 0 14px rgba(0,230,168,.6))", duration: .5, yoyo: true, repeat: 1 });
-                }
-              });
-            }
-          });
-        });
-
-        // hover expand
-        gsap.utils.toArray(".stat-card").forEach(card => {
-          card.addEventListener("mouseenter", () => gsap.to(card, { duration: .4, ease: "power3.out", scale: 1.03 }));
-          card.addEventListener("mouseleave", () => gsap.to(card, { duration: .4, ease: "power3.out", scale: 1 }));
-        });
-      }
-
-      /* ============================================================
-         STATS SECTION — CUSTOM GSAP MOTION & PARALLAX
-         ============================================================ */
-      function initStatsGSAP() {
-        const section = document.querySelector(".stats-section");
-        const head = document.querySelector(".stats-head-custom");
-        const cards = gsap.utils.toArray(".stat-card-custom");
-        if (!section || prefersReduced) return;
-
-        // Staggered reveal for section head
-        if (head) {
-          gsap.from(head, {
-            opacity: 0,
-            y: 35,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 85%"
-            }
-          });
-        }
-
-        // Staggered scale + slide reveal for stats cards
-        if (cards.length > 0) {
-          gsap.from(cards, {
-            opacity: 0,
-            y: 50,
-            scale: 0.96,
-            rotateX: -8,
-            duration: 0.9,
-            ease: "power3.out",
-            stagger: 0.12,
-            scrollTrigger: {
-              trigger: ".stats-grid",
-              start: "top 85%"
-            }
-          });
-
-          // Offset scroll parallax shift (different from How It Works)
-          cards.forEach((card, idx) => {
-            const shift = (idx % 2 === 0) ? -25 : 25;
-            gsap.to(card, {
-              y: shift,
-              ease: "none",
-              scrollTrigger: {
-                trigger: section,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1.2
-              }
-            });
-          });
-        }
-      }
-
-      /* ============================================================
          GENERIC SCROLL REVEALS (.reveal-up) + section titles
          ============================================================ */
       function initReveals() {
@@ -6563,15 +6456,8 @@
           });
         });
 
-        gsap.utils.toArray(".benefit-item").forEach(item => {
-          ScrollTrigger.create({
-            trigger: item, start: "top 85%",
-            onEnter: () => item.classList.add("is-drawn")
-          });
-        });
-
         // Enhanced staggered card reveals with viewport-aware timing
-        const revealSelectors = [".workshop-grid .workshop-card", ".benefits-list .benefit-item"];
+        const revealSelectors = [".workshop-grid .workshop-card"];
         if (prefersReduced || window.innerWidth < 992) {
           revealSelectors.push(".process-grid .process-step");
         }
@@ -6587,11 +6473,23 @@
           if (isMobile) staggerAmount = .06;  // CHANGED: .08 → .06 (faster, more dynamic)
           else if (isTablet) staggerAmount = .1;  // Tablet: medium stagger
 
-          gsap.from(items, {
+          // Explicit set()+to() (rather than from()) so the reveal's target
+          // values don't depend on GSAP capturing each item's "current"
+          // style at lazy-render time, which is unreliable for staggered
+          // scrollTrigger-linked tweens created before the trigger's pin
+          // spacers settle.
+          gsap.set(items, {
             opacity: 0,
             y: isMobile ? 30 : 60,           // CHANGED: 35 → 30 (less Y movement on mobile)
             scale: isMobile ? .94 : .96,      // CHANGED: .96 → .94 (more scale change on mobile)
-            rotateX: isMobile ? -12 : -8,     // CHANGED: -15 → -12 (subtle 3D effect)
+            rotateX: isMobile ? -12 : -8      // CHANGED: -15 → -12 (subtle 3D effect)
+          });
+
+          gsap.to(items, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotateX: 0,
             duration: isMobile ? .6 : .9,     // CHANGED: .65 → .6 (faster on mobile)
             ease: "power3.out",
             stagger: staggerAmount,
@@ -6841,8 +6739,6 @@
       }
 
       function initCinematicBuildings() {
-        if (prefersReduced) return;
-
         const section = document.getElementById("cinematicBuildings");
         const buildingA = document.getElementById("cbBuildingA");
         const buildingB = document.getElementById("cbBuildingB");
@@ -6857,8 +6753,8 @@
         });
 
 
-        // Master scroll-driven timeline
-        const tl = gsap.timeline({
+        // Master scroll-driven timeline (reduced motion: no pin/scrub, snap straight to end state below)
+        const tl = gsap.timeline(prefersReduced ? {} : {
           scrollTrigger: {
             trigger: section,
             start: "top top",
@@ -7167,16 +7063,21 @@
         });
 
         // Gentle float on both buildings (continuous, not scroll-driven)
-        [buildingA, buildingB].forEach((b, i) => {
-          gsap.to(b, {
-            y: -10,
-            duration: 3.5 + i * 0.7,
-            yoyo: true,
-            repeat: -1,
-            ease: "sine.inOut",
-            delay: i * 1.2
+        if (!prefersReduced) {
+          [buildingA, buildingB].forEach((b, i) => {
+            gsap.to(b, {
+              y: -10,
+              duration: 3.5 + i * 0.7,
+              yoyo: true,
+              repeat: -1,
+              ease: "sine.inOut",
+              delay: i * 1.2
+            });
           });
-        });
+        } else {
+          // No pin/scrub for reduced motion: snap straight to the scene's resting end state
+          tl.progress(1);
+        }
       }
 
       /* ============================================================
@@ -7259,12 +7160,10 @@
       INDUSTRIAL WORKING ZONE
       ============================================================ */
       function initIndustrialZone() {
-        if (prefersReduced) return;
-
         const section = document.getElementById("industrialZone");
         if (!section) return;
 
-        const tl = gsap.timeline({
+        const tl = gsap.timeline(prefersReduced ? {} : {
           scrollTrigger: {
             trigger: section,
             start: "top top",
@@ -7337,6 +7236,9 @@
           duration: 0.4,
           ease: "power2.out"
         }, 0.30);
+
+        // No pin/scrub for reduced motion: snap straight to the fully-built scene
+        if (prefersReduced) tl.progress(1);
       }
 
       /* ============================================================
@@ -7477,161 +7379,6 @@
         });
       }
 
-      function initBenefitsPinning() {
-        const visual = document.querySelector(".benefits-section .benefits-visual");
-        if (!visual || prefersReduced || window.innerWidth < 992) return;
-
-        ScrollTrigger.create({
-          trigger: ".benefits-section",
-          pin: ".benefits-visual",
-          start: "top 120px",
-          end: "bottom 95%",
-          pinSpacing: true,
-          markers: false
-        });
-      }
-
-      /* ============================================================
-         BENEFITS SECTION — CINEMATIC ADVANTAGE REVEAL (additive layer)
-         Layered on top of initBenefitsScrollAnim(): only animates
-         properties/elements that function doesn't already control,
-         so the two don't fight over the same opacity/transform values.
-         ============================================================ */
-      function initBenefitsCinematicReveal() {
-        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const section = document.querySelector(".benefits-section");
-        const benefitsList = document.querySelector(".benefits-list");
-        const items = gsap.utils.toArray(".benefits-list .benefit-item");
-        if (!items.length || prefersReduced || !section || !benefitsList) return;
-
-        // Container-level cinematic entrance (list itself, not the
-        // individual items — those already have their own reveal).
-        gsap.from(benefitsList, {
-          opacity: 0,
-          y: 80,
-          filter: "blur(12px)",
-          duration: 0.8,
-          ease: "power3.out",
-          clearProps: "filter,opacity,transform",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 75%",
-            once: true
-          }
-        });
-
-        // Staggered "ignition" glow per item as it enters — uses a
-        // temporary box-shadow tween with clearProps so it never
-        // lingers to block the existing :hover box-shadow.
-        items.forEach((item, idx) => {
-          ScrollTrigger.create({
-            trigger: item,
-            start: "top 85%",
-            once: true,
-            onEnter: () => {
-              gsap.delayedCall(idx * 0.12, () => {
-                gsap.fromTo(item,
-                  { boxShadow: "0 0 0px rgba(0,230,168,0)" },
-                  {
-                    boxShadow: "0 0 24px rgba(0,230,168,.25)",
-                    duration: 0.6,
-                    ease: "power2.out",
-                    onComplete: () => {
-                      gsap.to(item, {
-                        boxShadow: "0 0 0px rgba(0,230,168,0)",
-                        duration: 0.8,
-                        delay: 0.4,
-                        clearProps: "boxShadow"
-                      });
-                    }
-                  }
-                );
-              });
-            }
-          });
-        });
-
-        // Light shimmer sweep across the list for dramatic flair.
-        const bgShimmer = document.createElement("div");
-        bgShimmer.setAttribute("aria-hidden", "true");
-        bgShimmer.style.cssText = [
-          "position: absolute",
-          "top: -50%",
-          "left: -50%",
-          "width: 200%",
-          "height: 200%",
-          "background: linear-gradient(135deg, transparent 0%, rgba(0,230,168,.08) 25%, rgba(22,200,255,.08) 50%, transparent 100%)",
-          "pointer-events: none",
-          "opacity: 0",
-          "z-index: 0"
-        ].join(";");
-        if (getComputedStyle(benefitsList).position === "static") {
-          benefitsList.style.position = "relative";
-        }
-        benefitsList.insertBefore(bgShimmer, benefitsList.firstChild);
-
-        gsap.timeline({
-          scrollTrigger: { trigger: section, start: "top 70%", once: true }
-        })
-          .to(bgShimmer, { opacity: 1, x: 400, duration: 1.2, ease: "power2.inOut" })
-          .to(bgShimmer, { opacity: 0, duration: 0.8 }, "+=0.2");
-      }
-
-      /* ============================================================
-         BENEFITS VISUAL — STAT COUNT-UP
-         ============================================================ */
-      function initBenefitsCounters() {
-        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const trustedHeading = document.querySelector(".benefits-visual-content h3");
-        const countSpan = document.querySelector(".benefits-visual-content span");
-
-        if (trustedHeading) {
-          if (prefersReduced) {
-            trustedHeading.textContent = "Trusted by 5,000+";
-          } else {
-            const counter = { val: 0 };
-            ScrollTrigger.create({
-              trigger: trustedHeading,
-              start: "top 85%",
-              once: true,
-              onEnter: () => {
-                gsap.to(counter, {
-                  val: 5000,
-                  duration: 1.6,
-                  ease: "power2.out",
-                  onUpdate: () => {
-                    trustedHeading.textContent = `Trusted by ${Math.floor(counter.val).toLocaleString()}+`;
-                  }
-                });
-              }
-            });
-          }
-        }
-
-        if (countSpan) {
-          if (prefersReduced) {
-            countSpan.textContent = "+4,997";
-          } else {
-            const counter = { val: 0 };
-            ScrollTrigger.create({
-              trigger: countSpan,
-              start: "top 85%",
-              once: true,
-              onEnter: () => {
-                gsap.to(counter, {
-                  val: 4997,
-                  duration: 1.6,
-                  ease: "power2.out",
-                  onUpdate: () => {
-                    countSpan.textContent = `+${Math.floor(counter.val).toLocaleString()}`;
-                  }
-                });
-              }
-            });
-          }
-        }
-      }
-
       /* ============================================================
          HIRING TIMELINE — CONNECTING LINE + MARKER POP
          ============================================================ */
@@ -7682,48 +7429,6 @@
       }
 
       /* ============================================================
-         BENEFITS SECTION — CUSTOM SCROLL-DRIVEN GSAP ANIMATION
-         ============================================================ */
-      function initBenefitsScrollAnim() {
-        const items = gsap.utils.toArray(".benefits-list .benefit-item-custom");
-        if (items.length === 0 || prefersReduced) return;
-
-        items.forEach((item) => {
-          const check = item.querySelector(".check-icon");
-          const title = item.querySelector("h3");
-          const text = item.querySelector("p");
-
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: item,
-              start: "top 88%",
-              toggleActions: "play none none reverse"
-            }
-          });
-
-          tl.from(item, {
-            opacity: 0,
-            x: -30,
-            scale: 0.97,
-            duration: 0.6,
-            ease: "power3.out"
-          })
-            .from(check, {
-              scale: 0,
-              rotate: -45,
-              duration: 0.4,
-              ease: "back.out(2)"
-            }, "-=0.3")
-            .from([title, text], {
-              opacity: 0,
-              x: 15,
-              duration: 0.4,
-              stagger: 0.1,
-              ease: "power2.out"
-            }, "-=0.25");
-        });
-      }
-      /* ============================================================
       RESPONSIVE BEHAVIOR ADAPTATION via matchMedia
       ============================================================ */
       mm.add("(max-width:820px)", () => {
@@ -7745,434 +7450,11 @@
                 3D ANIMATIONS
                 ============================================================ */
 
-      function initProcess3DTetrahedrons() {
-        const container = document.getElementById("process-3d-tetrahedrons");
-        if (!container || typeof THREE === "undefined") return;
-
-        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReduced) return;
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(
-          75,
-          container.clientWidth / container.clientHeight,
-          0.1,
-          1000
-        );
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-        container.appendChild(renderer.domElement);
-        scene.background = null;
-        renderer.setClearColor(0x000000, 0);
-        camera.position.z = 5;
-
-        // Create 4 tetrahedrons (one for each step)
-        const tetrahedrons = [];
-        const positions = [
-          { x: -4, y: 0, color: 0x00e6a8 },
-          { x: -1.3, y: 0, color: 0x16c8ff },
-          { x: 1.3, y: 0, color: 0x4d7cff },
-          { x: 4, y: 0, color: 0x00e6a8 }
-        ];
-
-        positions.forEach((pos, idx) => {
-          const geo = new THREE.TetrahedronGeometry(0.4, 0);
-          const mat = new THREE.MeshStandardMaterial({
-            color: pos.color,
-            metalness: 0.6,
-            roughness: 0.3,
-            emissive: pos.color,
-            emissiveIntensity: 0.3,
-            wireframe: false
-          });
-          const mesh = new THREE.Mesh(geo, mat);
-          mesh.position.x = pos.x;
-          mesh.position.y = pos.y;
-          mesh.userData = { baseY: pos.y, index: idx };
-          scene.add(mesh);
-          tetrahedrons.push(mesh);
-        });
-
-        // Lighting
-        scene.add(new THREE.PointLight(0x00e6a8, 1.5, 100));
-        scene.add(new THREE.PointLight(0x4d7cff, 1, 100));
-        scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-
-        // Scroll-driven wave animation
-        gsap.to(tetrahedrons, {
-          y: (i) => 1.2 * Math.sin((i * Math.PI) / tetrahedrons.length),
-          scrollTrigger: {
-            trigger: ".process-section",
-            start: "top center",
-            end: "bottom center",
-            scrub: 1.5,
-            markers: false
-          },
-          duration: 0,
-          ease: "none"
-        });
-
-        // Continuous rotation
-        tetrahedrons.forEach((tet, idx) => {
-          gsap.to(tet.rotation, {
-            x: Math.PI * 2,
-            y: Math.PI * 2,
-            z: Math.PI,
-            duration: 6 + idx * 0.5,
-            repeat: -1,
-            ease: "none"
-          });
-        });
-
-        window.processAnimID = null;
-        const observer = new IntersectionObserver((entries) => {
-          const isVisible = entries[0].isIntersecting;
-          if (isVisible) {
-            if (!window.processAnimID) {
-              window.processAnimID = requestAnimationFrame(animate);
-            }
-          } else {
-            if (window.processAnimID) {
-              cancelAnimationFrame(window.processAnimID);
-              window.processAnimID = null;
-            }
-          }
-        }, { threshold: 0.05 });
-        observer.observe(container);
-
-        function animate() {
-          window.processAnimID = requestAnimationFrame(animate);
-          renderer.render(scene, camera);
-        }
-
-        window.addEventListener("resize", () => {
-          renderer.setSize(container.clientWidth, container.clientHeight);
-          camera.aspect = container.clientWidth / container.clientHeight;
-          camera.updateProjectionMatrix();
-        });
-      }
-
-      function initBenefits3DCube() {
-        const container = document.getElementById("benefits-3d-cube-container");
-        if (!container || typeof THREE === "undefined") return;
-
-        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReduced) return;
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-        camera.position.z = 2.5;
-        renderer.setSize(300, 300);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-        container.appendChild(renderer.domElement);
-        scene.background = null;
-        renderer.setClearColor(0x000000, 0);
-
-        // Create cube geometry
-        const geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2);
-
-        // Create canvas texture for each face
-        const createFaceTexture = (icon, color) => {
-          const canvas = document.createElement("canvas");
-          canvas.width = 256;
-          canvas.height = 256;
-          const ctx = canvas.getContext("2d");
-
-          // Background gradient
-          const grad = ctx.createRadialGradient(128, 128, 0, 128, 128, 180);
-          grad.addColorStop(0, color + "40");
-          grad.addColorStop(1, color + "10");
-          ctx.fillStyle = grad;
-          ctx.fillRect(0, 0, 256, 256);
-
-          // Border
-          ctx.strokeStyle = color + "80";
-          ctx.lineWidth = 3;
-          ctx.strokeRect(10, 10, 236, 236);
-
-          // Center text/icon placeholder
-          ctx.fillStyle = color + "cc";
-          ctx.font = "bold 48px Arial";
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.fillText(icon, 128, 128);
-
-          return new THREE.CanvasTexture(canvas);
-        };
-
-        const materials = [
-          new THREE.MeshStandardMaterial({
-            map: createFaceTexture("⚡", "#00E6A8"),
-            metalness: 0.6, roughness: 0.3, emissive: 0x00e6a8, emissiveIntensity: 0.3
-          }),
-          new THREE.MeshStandardMaterial({
-            map: createFaceTexture("✓", "#16C8FF"),
-            metalness: 0.6, roughness: 0.3, emissive: 0x16c8ff, emissiveIntensity: 0.3
-          }),
-          new THREE.MeshStandardMaterial({
-            map: createFaceTexture("🎯", "#4D7CFF"),
-            metalness: 0.6, roughness: 0.3, emissive: 0x4d7cff, emissiveIntensity: 0.3
-          }),
-          new THREE.MeshStandardMaterial({
-            map: createFaceTexture("💼", "#00E6A8"),
-            metalness: 0.6, roughness: 0.3, emissive: 0x00e6a8, emissiveIntensity: 0.3
-          }),
-          new THREE.MeshStandardMaterial({
-            map: createFaceTexture("📊", "#16C8FF"),
-            metalness: 0.6, roughness: 0.3, emissive: 0x16c8ff, emissiveIntensity: 0.3
-          }),
-          new THREE.MeshStandardMaterial({
-            map: createFaceTexture("🔐", "#4D7CFF"),
-            metalness: 0.6, roughness: 0.3, emissive: 0x4d7cff, emissiveIntensity: 0.3
-          })
-        ];
-
-        const cube = new THREE.Mesh(geometry, materials);
-        scene.add(cube);
-
-        // Main key light (green)
-        const light1 = new THREE.PointLight(0x00e6a8, 2.5, 150);
-        light1.position.set(3, 3, 4);
-        scene.add(light1);
-
-        // Secondary rim light (cyan)
-        const light2 = new THREE.PointLight(0x16c8ff, 1.8, 120);
-        light2.position.set(-3, 2, -3);
-        scene.add(light2);
-
-        // Fill light (subtle purple for depth)
-        const light3 = new THREE.PointLight(0x8b5cf6, 1.2, 100);
-        light3.position.set(1, -2, 2);
-        scene.add(light3);
-
-        // Ambient light (stronger)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-        scene.add(ambientLight);
-
-        scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-
-        // Fade in
-        gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.5 });
-
-        // Scroll-driven rotation
-        gsap.to(cube.rotation, {
-          x: Math.PI * 2,
-          y: Math.PI * 2.5,
-          z: Math.PI,
-          scrollTrigger: {
-            trigger: ".benefits-section",
-            start: "top center",
-            end: "bottom center",
-            scrub: 1.5,
-            markers: false
-          },
-          ease: "none"
-        });
-
-        window.benefitsAnimID = null;
-        const observer = new IntersectionObserver((entries) => {
-          const isVisible = entries[0].isIntersecting;
-          if (isVisible) {
-            if (!window.benefitsAnimID) {
-              window.benefitsAnimID = requestAnimationFrame(animate);
-            }
-          } else {
-            if (window.benefitsAnimID) {
-              cancelAnimationFrame(window.benefitsAnimID);
-              window.benefitsAnimID = null;
-            }
-          }
-        }, { threshold: 0.05 });
-        observer.observe(container);
-
-        function animate() {
-          window.benefitsAnimID = requestAnimationFrame(animate);
-          renderer.render(scene, camera);
-        }
-
-        window.addEventListener("resize", () => {
-          renderer.setSize(300, 300);
-        });
-      }
-
-      function initIndustries3DSphere() {
-        const container = document.getElementById("industries-3d-sphere-container");
-        if (!container || typeof THREE === "undefined") return;
-
-        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReduced) return;
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-        camera.position.z = 2.8;
-        renderer.setSize(280, 280);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-        container.appendChild(renderer.domElement);
-        scene.background = null;
-        renderer.setClearColor(0x000000, 0);
-
-        // Create icosphere (more interesting than basic sphere)
-        const geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2);
-        const material = new THREE.MeshStandardMaterial({
-          color: 0x00e6a8,
-          metalness: 0.85,       // 0.7 → 0.85 (more shiny)
-          roughness: 0.12,       // 0.2 → 0.12 (smoother surface)
-          emissive: 0x16c8ff,
-          emissiveIntensity: 0.4 // 0.2 → 0.4 (stronger glow)
-        });
-
-        const sphere = new THREE.Mesh(geometry, material);
-        scene.add(sphere);
-
-        const wireGeometry = new THREE.OctahedronGeometry(0.6, 2);
-        const wireMaterial = new THREE.MeshStandardMaterial({
-          color: 0x16c8ff,
-          wireframe: true,
-          emissive: 0x16c8ff,
-          emissiveIntensity: 0.6,
-          transparent: true,
-          opacity: 0.5
-        });
-        const wireframe = new THREE.Mesh(wireGeometry, wireMaterial);
-        scene.add(wireframe);
-
-        // Lighting
-        const light1 = new THREE.PointLight(0x16c8ff, 2, 100);
-        light1.position.set(4, 4, 4);
-        scene.add(light1);
-
-        const light2 = new THREE.PointLight(0x00e6a8, 1.5, 100);
-        light2.position.set(-4, -4, 4);
-        scene.add(light2);
-
-        scene.add(new THREE.AmbientLight(0xffffff, 0.35));
-
-
-
-        // Continuous rotation + scroll-driven tilt
-        gsap.to(sphere.rotation, {
-          x: Math.PI * 2,
-          y: Math.PI * 2.5,
-          z: Math.PI * 1.2,
-          duration: 12,
-          repeat: -1,
-          ease: "none"
-        });
-
-        gsap.to(wireframe.rotation, {
-          x: Math.PI * 3,
-          y: Math.PI * 2,
-          z: Math.PI * 4,
-          duration: 14,
-          repeat: -1,
-          ease: "none"
-        });
-
-        // Scroll influence
-        gsap.to(sphere.rotation, {
-          z: Math.PI * 2,
-          scrollTrigger: {
-            trigger: ".industries-section",
-            start: "top center",
-            end: "bottom center",
-            scrub: 2,
-            markers: false
-          },
-          ease: "none"
-        });
-
-        window.industriesAnimID = null;
-        const observer = new IntersectionObserver((entries) => {
-          const isVisible = entries[0].isIntersecting;
-          if (isVisible) {
-            if (!window.industriesAnimID) {
-              window.industriesAnimID = requestAnimationFrame(animate);
-            }
-          } else {
-            if (window.industriesAnimID) {
-              cancelAnimationFrame(window.industriesAnimID);
-              window.industriesAnimID = null;
-            }
-          }
-        }, { threshold: 0.05 });
-        observer.observe(container);
-
-        function animate() {
-          window.industriesAnimID = requestAnimationFrame(animate);
-          renderer.render(scene, camera);
-        }
-
-        window.addEventListener("resize", () => {
-          renderer.setSize(280, 280);
-        });
-      }
-
-      /* ============================================================
-         INDUSTRIES SECTION — CUSTOM FAST REVEAL & SCROLL
-         ============================================================ */
-      function initIndustriesReveal() {
-        const section = document.getElementById("industries");
-        const cards = gsap.utils.toArray("#industries .industry-card-custom");
-        const sphere = document.getElementById("industries-3d-sphere-container");
-        const head = section ? section.querySelector(".industries-head-custom") : null;
-        if (!section) return;
-
-        // Trigger the sphere fade in earlier and faster
-        if (sphere) {
-          gsap.to(sphere, {
-            opacity: 1,
-            duration: 0.5,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 95%"
-            }
-          });
-        }
-
-        // Reveal section head text earlier and faster
-        if (head) {
-          gsap.from(head, {
-            opacity: 0,
-            y: 25,
-            duration: 0.5,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 95%"
-            }
-          });
-        }
-
-        // Reveal cards earlier and faster
-        if (cards.length > 0) {
-          gsap.from(cards, {
-            opacity: 0,
-            y: 25,
-            scale: 0.97,
-            duration: 0.5,
-            ease: "power3.out",
-            stagger: 0.08,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 88%"
-            }
-          });
-        }
-      }
-
       function initWorkshop3DPrisms() {
         const container = document.getElementById("workshop-3d-prisms");
         if (!container || typeof THREE === "undefined") return;
 
         const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReduced) return;
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
@@ -8222,56 +7504,62 @@
         scene.add(new THREE.PointLight(0x00e6a8, 1.2, 100));
         scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 
-        gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.6 });
-
-        // Scroll-driven primary rotation
-        gsap.to(prism.rotation, {
-          y: Math.PI * 2.5,
-          x: Math.PI * 0.8,
-          scrollTrigger: {
-            trigger: ".workshop-section",
-            start: "top center",
-            end: "bottom center",
-            scrub: 1.8,
-            markers: false
-          },
-          ease: "none"
-        });
-
-        // Continuous ring rotation (opposite direction)
-        gsap.to(ring1.rotation, {
-          z: Math.PI * 4,
-          duration: 8,
-          repeat: -1,
-          ease: "none"
-        });
-
-        gsap.to(ring2.rotation, {
-          z: -Math.PI * 4,
-          duration: 10,
-          repeat: -1,
-          ease: "none"
-        });
-
-        window.workshopAnimID = null;
-        const observer = new IntersectionObserver((entries) => {
-          const isVisible = entries[0].isIntersecting;
-          if (isVisible) {
-            if (!window.workshopAnimID) {
-              window.workshopAnimID = requestAnimationFrame(animate);
-            }
-          } else {
-            if (window.workshopAnimID) {
-              cancelAnimationFrame(window.workshopAnimID);
-              window.workshopAnimID = null;
-            }
-          }
-        }, { threshold: 0.05 });
-        observer.observe(container);
-
-        function animate() {
-          window.workshopAnimID = requestAnimationFrame(animate);
+        if (prefersReduced) {
+          // Static frame only: no scroll-linked or continuous rotation for reduced motion
+          gsap.set(container, { opacity: 1 });
           renderer.render(scene, camera);
+        } else {
+          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.6 });
+
+          // Scroll-driven primary rotation
+          gsap.to(prism.rotation, {
+            y: Math.PI * 2.5,
+            x: Math.PI * 0.8,
+            scrollTrigger: {
+              trigger: ".workshop-section",
+              start: "top center",
+              end: "bottom center",
+              scrub: 1.8,
+              markers: false
+            },
+            ease: "none"
+          });
+
+          // Continuous ring rotation (opposite direction)
+          gsap.to(ring1.rotation, {
+            z: Math.PI * 4,
+            duration: 8,
+            repeat: -1,
+            ease: "none"
+          });
+
+          gsap.to(ring2.rotation, {
+            z: -Math.PI * 4,
+            duration: 10,
+            repeat: -1,
+            ease: "none"
+          });
+
+          window.workshopAnimID = null;
+          const observer = new IntersectionObserver((entries) => {
+            const isVisible = entries[0].isIntersecting;
+            if (isVisible) {
+              if (!window.workshopAnimID) {
+                window.workshopAnimID = requestAnimationFrame(animate);
+              }
+            } else {
+              if (window.workshopAnimID) {
+                cancelAnimationFrame(window.workshopAnimID);
+                window.workshopAnimID = null;
+              }
+            }
+          }, { threshold: 0.05 });
+          observer.observe(container);
+
+          function animate() {
+            window.workshopAnimID = requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+          }
         }
 
         window.addEventListener("resize", () => {
@@ -8290,7 +7578,6 @@
         if (!container || typeof THREE === "undefined") return;
 
         const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReduced) return;
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
@@ -8340,60 +7627,66 @@
         scene.add(new THREE.PointLight(0x00e6a8, 1.2, 100));
         scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 
-        gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.6 });
-
-        // Scroll-driven primary rotation — trigger by this section's own
-        // id, not the shared ".workshop-section" class (which now
-        // matches two sections).
-        gsap.to(prism.rotation, {
-          y: Math.PI * 2.5,
-          x: Math.PI * 0.8,
-          scrollTrigger: {
-            trigger: container,
-            start: "top center",
-            end: "bottom center",
-            scrub: 1.8,
-            markers: false
-          },
-          ease: "none"
-        });
-
-        // Continuous ring rotation (opposite direction)
-        gsap.to(ring1.rotation, {
-          z: Math.PI * 4,
-          duration: 8,
-          repeat: -1,
-          ease: "none"
-        });
-
-        gsap.to(ring2.rotation, {
-          z: -Math.PI * 4,
-          duration: 10,
-          repeat: -1,
-          ease: "none"
-        });
-
-        // Local anim-id (not window.workshopAnimID) so this instance's
-        // IntersectionObserver never cancels the first prism's loop.
-        let anim2ID = null;
-        const observer2 = new IntersectionObserver((entries) => {
-          const isVisible = entries[0].isIntersecting;
-          if (isVisible) {
-            if (!anim2ID) {
-              anim2ID = requestAnimationFrame(animate2);
-            }
-          } else {
-            if (anim2ID) {
-              cancelAnimationFrame(anim2ID);
-              anim2ID = null;
-            }
-          }
-        }, { threshold: 0.05 });
-        observer2.observe(container);
-
-        function animate2() {
-          anim2ID = requestAnimationFrame(animate2);
+        if (prefersReduced) {
+          // Static frame only: no scroll-linked or continuous rotation for reduced motion
+          gsap.set(container, { opacity: 1 });
           renderer.render(scene, camera);
+        } else {
+          gsap.to(container, { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.6 });
+
+          // Scroll-driven primary rotation — trigger by this section's own
+          // id, not the shared ".workshop-section" class (which now
+          // matches two sections).
+          gsap.to(prism.rotation, {
+            y: Math.PI * 2.5,
+            x: Math.PI * 0.8,
+            scrollTrigger: {
+              trigger: container,
+              start: "top center",
+              end: "bottom center",
+              scrub: 1.8,
+              markers: false
+            },
+            ease: "none"
+          });
+
+          // Continuous ring rotation (opposite direction)
+          gsap.to(ring1.rotation, {
+            z: Math.PI * 4,
+            duration: 8,
+            repeat: -1,
+            ease: "none"
+          });
+
+          gsap.to(ring2.rotation, {
+            z: -Math.PI * 4,
+            duration: 10,
+            repeat: -1,
+            ease: "none"
+          });
+
+          // Local anim-id (not window.workshopAnimID) so this instance's
+          // IntersectionObserver never cancels the first prism's loop.
+          let anim2ID = null;
+          const observer2 = new IntersectionObserver((entries) => {
+            const isVisible = entries[0].isIntersecting;
+            if (isVisible) {
+              if (!anim2ID) {
+                anim2ID = requestAnimationFrame(animate2);
+              }
+            } else {
+              if (anim2ID) {
+                cancelAnimationFrame(anim2ID);
+                anim2ID = null;
+              }
+            }
+          }, { threshold: 0.05 });
+          observer2.observe(container);
+
+          function animate2() {
+            anim2ID = requestAnimationFrame(animate2);
+            renderer.render(scene, camera);
+          }
         }
 
         window.addEventListener("resize", () => {
