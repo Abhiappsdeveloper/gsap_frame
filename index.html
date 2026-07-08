@@ -1204,118 +1204,6 @@
     }
 
     /* ============================================================
-   STATS SECTION — ANIMATED COUNTERS
-   ============================================================ */
-    .stats-section {
-      position: relative;
-      padding: 120px 0;
-    }
-
-
-    .stats-grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-    }
-
-    .stat-card {
-      padding: 40px 28px;
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(0, 230, 168, .04), rgba(22, 200, 255, .02));
-      backdrop-filter: blur(10px);
-      text-align: left;
-      position: relative;
-      overflow: hidden;
-      transition: all .45s var(--ease-out);
-      will-change: transform;
-    }
-
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 22px;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(0, 230, 168, .5), transparent 40%, rgba(77, 124, 255, .4));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity .4s ease;
-      pointer-events: none;
-    }
-
-    .stat-card:hover {
-      background: linear-gradient(135deg, rgba(0, 230, 168, .08), rgba(22, 200, 255, .05));
-      transform: translateY(-12px) scale(1.02);
-      border-color: var(--primary);
-      box-shadow: 0 16px 56px rgba(0, 230, 168, .2);
-    }
-
-    .stat-card:hover::before {
-      opacity: 1;
-    }
-
-    .stat-card .stat-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      margin-bottom: 24px;
-      background: linear-gradient(135deg, rgba(0, 230, 168, .2), rgba(77, 124, 255, .18));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border-strong);
-      transition: all .35s var(--ease-out);
-    }
-
-    .stat-card:hover .stat-icon {
-      transform: scale(1.12) rotate(-8deg);
-      background: linear-gradient(135deg, rgba(0, 230, 168, .35), rgba(77, 124, 255, .3));
-      border-color: var(--primary);
-    }
-
-    .stat-number {
-      font-family: var(--font-numbers);
-      font-weight: 800;
-      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, #ffffff 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.02em;
-      line-height: 1;
-    }
-
-    .stat-label {
-      margin-top: 12px;
-      color: var(--muted-enhanced);
-      font-size: .9rem;
-      font-weight: 500;
-    }
-
-    .stat-card .stat-glow {
-      position: absolute;
-      bottom: -40px;
-      right: -40px;
-      width: 140px;
-      height: 140px;
-      background: radial-gradient(circle, rgba(0, 230, 168, .35), transparent 70%);
-      opacity: 0;
-      transition: opacity .4s ease;
-      pointer-events: none;
-      filter: blur(12px);
-    }
-
-    .stat-card:hover .stat-glow {
-      opacity: 1;
-    }
-
-    /* ============================================================
    PROCESS / HOW IT WORKS — TIMELINE
    ============================================================ */
     .process-section {
@@ -1407,169 +1295,6 @@
       font-size: .9rem;
       color: var(--muted-enhanced);
       line-height: 1.7;
-    }
-
-    /* ============================================================
-   BENEFITS SECTION — PREMIUM LAYOUT
-   ============================================================ */
-    .benefits-section {
-      position: relative;
-    }
-
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .benefits-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    .benefit-item {
-      position: relative;
-      padding: 28px;
-      padding-left: 72px;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(0, 230, 168, .04), rgba(22, 200, 255, .02));
-      backdrop-filter: blur(10px);
-      transition: all .4s var(--ease-out);
-      overflow: hidden;
-    }
-
-    .benefit-item::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 18px;
-      background: radial-gradient(circle at top right, rgba(0, 230, 168, .15), transparent 70%);
-      opacity: 0;
-      transition: opacity .4s ease;
-    }
-
-    .benefit-item:hover {
-      background: linear-gradient(135deg, rgba(0, 230, 168, .08), rgba(22, 200, 255, .05));
-      transform: translateX(12px);
-      border-color: var(--primary);
-      box-shadow: 0 12px 40px rgba(0, 230, 168, .15);
-    }
-
-    .benefit-item:hover::before {
-      opacity: 1;
-    }
-
-    .benefit-item .check-icon {
-      position: absolute;
-      left: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #06140f;
-      font-weight: bold;
-      font-size: 1.2rem;
-      transition: all .35s var(--ease-out);
-    }
-
-    .benefit-item.is-drawn .check-icon {
-      animation: drawCheck 0.5s ease-out forwards;
-    }
-
-    @keyframes drawCheck {
-      from {
-        clip-path: inset(0 100% 0 0);
-      }
-
-      to {
-        clip-path: inset(0 0% 0 0);
-      }
-    }
-
-    .benefit-item:hover .check-icon {
-      transform: translateY(-50%) scale(1.15) rotate(15deg);
-      box-shadow: 0 8px 24px rgba(0, 230, 168, .35);
-    }
-
-    .benefit-item h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .benefit-item p {
-      font-size: .92rem;
-      color: var(--muted-enhanced);
-      line-height: 1.7;
-      position: relative;
-      z-index: 2;
-    }
-
-    .benefits-visual {
-      position: relative;
-      border-radius: 28px;
-      overflow: hidden;
-      aspect-ratio: 1;
-      border: 1px solid var(--border-strong);
-      background: linear-gradient(135deg, rgba(0, 230, 168, .12), rgba(22, 200, 255, .08));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(10px);
-    }
-
-    .benefits-visual::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 28px;
-      background: radial-gradient(circle at 30% 30%, rgba(0, 230, 168, .2), transparent 50%);
-      animation: floatGlow 4s ease-in-out infinite;
-    }
-
-    @keyframes floatGlow {
-
-      0%,
-      100% {
-        opacity: .5;
-      }
-
-      50% {
-        opacity: 1;
-      }
-    }
-
-    .benefits-visual-content {
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .benefits-visual-content h3 {
-      font-size: 2.2rem;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-weight: 700;
-    }
-
-    .benefits-visual-content p {
-      color: var(--muted);
-      max-width: 280px;
-      margin: 0 auto;
-      font-size: .95rem;
     }
 
     /* ============================================================
@@ -1807,156 +1532,6 @@
 
     .workshop-card:hover .wc-btn svg {
       transform: translateX(6px);
-    }
-
-    /* ============================================================
-   INDUSTRIES — INTERACTIVE CARDS
-   ============================================================ */
-    .industries-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .industry-card {
-      position: relative;
-      padding: 40px 32px;
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(0, 230, 168, .04), rgba(22, 200, 255, .02));
-      backdrop-filter: blur(10px);
-      overflow: hidden;
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      transform-style: preserve-3d;
-      will-change: transform;
-      transition: all .45s var(--ease-out);
-    }
-
-    .industry-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 24px;
-      padding: 1px;
-      background: linear-gradient(160deg, rgba(0, 230, 168, .5), transparent 40%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity .45s ease;
-      pointer-events: none;
-    }
-
-    .industry-card:hover {
-      background: linear-gradient(135deg, rgba(0, 230, 168, .1), rgba(22, 200, 255, .06));
-      transform: translateY(-12px) scale(1.02);
-      border-color: var(--primary);
-      box-shadow: 0 16px 56px rgba(0, 230, 168, .2);
-    }
-
-    .industry-card:hover::before {
-      opacity: 1;
-    }
-
-    .industry-card .ind-icon {
-      position: absolute;
-      top: 32px;
-      left: 32px;
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(0, 230, 168, .2), rgba(77, 124, 255, .16));
-      border: 1px solid var(--border-strong);
-      transition: all .45s var(--ease-out);
-      color: var(--primary);
-    }
-
-    .industry-card:hover .ind-icon {
-      transform: translateY(-8px) rotate(12deg) scale(1.15);
-      background: linear-gradient(135deg, rgba(0, 230, 168, .35), rgba(77, 124, 255, .25));
-      border-color: var(--primary);
-    }
-
-    .industry-card h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: -0.01em;
-      position: relative;
-      z-index: 2;
-    }
-
-    .industry-card p {
-      font-size: .92rem;
-      color: var(--muted-enhanced);
-      line-height: 1.7;
-      position: relative;
-      z-index: 2;
-    }
-
-    .industry-card .ind-bg-light {
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 230, 168, .35), transparent 70%);
-      top: -80px;
-      right: -80px;
-      opacity: 0;
-      filter: blur(12px);
-      transition: opacity .5s ease;
-      pointer-events: none;
-    }
-
-    .industry-card:hover .ind-bg-light {
-      opacity: 1;
-    }
-
-    .industry-card:nth-child(1)::after,
-    .industry-card:nth-child(2)::after,
-    .industry-card:nth-child(3)::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-      border-radius: 24px;
-    }
-
-    .industry-card:nth-child(1)::after {
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><g fill='none' stroke='%2300E6A8' stroke-width='1'><path d='M0 20h40M20 0v40'/><circle cx='20' cy='20' r='3'/></g></svg>");
-      background-size: 40px 40px;
-    }
-
-    .industry-card:nth-child(1):hover::after {
-      opacity: 0.06;
-    }
-
-    .industry-card:nth-child(2)::after {
-      background: repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(0, 230, 168, 0.04) 18px, rgba(0, 230, 168, 0.04) 20px);
-    }
-
-    .industry-card:nth-child(2):hover::after {
-      opacity: 1;
-    }
-
-    .industry-card:nth-child(3)::after {
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='40'><path d='M0 20 Q15 0 30 20 T60 20 T90 20 T120 20' fill='none' stroke='%2300E6A8' stroke-width='1.5'/></svg>");
-      background-size: 120px 40px;
-      background-repeat: repeat-x;
-      background-position: center;
-    }
-
-    .industry-card:nth-child(3):hover::after {
-      opacity: 1;
     }
 
     /* ============================================================
@@ -2510,10 +2085,6 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
       .process-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -2522,17 +2093,9 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .industries-grid {
-        grid-template-columns: 1fr;
-      }
-
       .about-grid {
         grid-template-columns: 1fr;
         gap: 48px;
-      }
-
-      .benefits-grid {
-        grid-template-columns: 1fr;
       }
 
       .timeline-event:nth-child(even) .event-content {
@@ -2591,10 +2154,6 @@
         grid-template-columns: 1fr;
       }
 
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-
       .process-grid {
         grid-template-columns: 1fr;
       }
@@ -2616,11 +2175,6 @@
         padding: 60px 32px;
       }
 
-      .benefits-visual {
-        aspect-ratio: auto;
-        min-height: 400px;
-      }
-
       .about-grid {
         gap: 32px;
       }
@@ -2638,10 +2192,7 @@
       .service-card,
       .testi-card,
       .workshop-card,
-      .process-step,
-      .stat-card,
-      .benefit-item,
-      .industry-card {
+      .process-step {
         transition: all .25s var(--ease-out);
         /* Faster on mobile */
         will-change: transform, opacity;
@@ -2660,7 +2211,6 @@
         box-shadow: 0 4px 12px rgba(0, 230, 168, .15) !important;
       }
 
-      .stat-card:hover,
       .service-card:hover,
       .process-step:hover {
         box-shadow: 0 6px 16px rgba(0, 230, 168, .08) !important;
@@ -2689,10 +2239,8 @@
         gap: 12px;
       }
 
-      .stats-grid,
       .process-grid,
-      .workshop-grid,
-      .industries-grid {
+      .workshop-grid {
         gap: 16px;
       }
 
@@ -2748,11 +2296,8 @@
       }
 
       .service-card,
-      .stat-card,
       .process-step,
-      .benefit-item,
-      .workshop-card,
-      .industry-card {
+      .workshop-card {
         transition: all .15s var(--ease-out) !important;
       }
 
@@ -3953,13 +3498,6 @@
       z-index: 5;
     }
 
-    /* Buffer so pinned hero doesn't crush first stats section */
-    .stats-section {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* DELETE: Remove any duplicate @media (max-width:480px) block below */
     /* ============================================================
    INDUSTRIAL WORKING ZONE
    ============================================================ */
@@ -4431,14 +3969,6 @@
         pointer-events: auto;
       }
 
-      .benefits-grid {
-        align-items: start;
-      }
-
-      .benefits-visual {
-        position: sticky;
-        top: 140px;
-      }
     }
 
 
@@ -5093,7 +4623,7 @@
         <div class="about-media reveal-up">
           <div class="img-wrap">
             <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop"
-              alt="Ukonnect team collaborating in a modern office" loading="lazy" class="reveal-up">
+              alt="Ukonnect team collaborating in a modern office" loading="lazy">
           </div>
           <div class="reveal-panel" aria-hidden="true"></div>
           <div class="about-floating-card">
@@ -5742,9 +5272,6 @@
         /* ====== Custom Cursor ====== */
         initCursor();
 
-        /* ====== Navbar behaviors ====== */
-        initNavbar();
-
         /* ====== Magnetic buttons + ripple ====== */
         initMagnetic();
         initRipple();
@@ -5754,15 +5281,6 @@
 
         /* ====== Tilt cards (service / workshop / industry) ====== */
         initTiltCards();
-
-        /* ====== About image reveal + parallax ====== */
-        initAboutReveal();
-
-        /* ====== Testimonials draggable loop ====== */
-        initTestimonials();
-
-        /* ====== CTA banner background particles ====== */
-        initCtaParticles();
 
         /* ====== Cinematic Building Scene ====== */
         initCinematicBuildings();
@@ -5779,16 +5297,30 @@
         initProcessStacking();
         initTimelineEnhance();
 
-        /* ====== Section reveal-on-scroll (generic) ======
-           Runs after the pinned sections above so their pin-spacers are
-           already in the DOM — otherwise ScrollTrigger caches trigger
-           positions from the shorter pre-pin layout for anything below
-           them on the page. */
+        /* ====== Navbar behaviors (incl. scroll-spy across all sections) /
+           About image reveal + parallax / Testimonials / CTA particles ======
+           These (and the generic reveal below) run after the pinned
+           sections above so their pin-spacers are already in the DOM —
+           otherwise ScrollTrigger caches trigger positions from the
+           shorter pre-pin layout for anything below them on the page. */
+        initNavbar();
+        initAboutReveal();
+        initTestimonials();
+        initCtaParticles();
+
+        /* ====== Section reveal-on-scroll (generic) ====== */
         initReveals();
 
         /* ====== 3D Animations ====== */
         initWorkshop3DPrisms();
         initWorkshop3DPrisms2();
+
+        /* Final safety-net refresh: GSAP's automatic post-load measurement
+           can occasionally land mid-layout-shift (webfonts, canvas/WebGL
+           init) and cache a wildly wrong pin/trigger range — a same-frame
+           rAF isn't always late enough to catch this, so use a short
+           delay to let async setup (fonts, Three.js canvases) settle. */
+        setTimeout(() => ScrollTrigger.refresh(true), 400);
 
       });
 
@@ -7339,43 +6871,54 @@
          ============================================================ */
       function initProcessStacking() {
         const steps = gsap.utils.toArray(".process-section .process-step");
-        if (!steps.length || prefersReduced || window.innerWidth < 992) return;
+        if (!steps.length || prefersReduced) return;
 
-        gsap.set(steps, { position: "absolute", top: 0, left: 0, width: "100%", height: "100%" });
-        gsap.set(steps[0], { opacity: 1, scale: 1, y: 0 });
-        steps[0].classList.add("active");
+        // Wrapped in matchMedia so resizing across the 992px breakpoint
+        // (without a reload) properly reverts the inline absolute-position
+        // styles below instead of leaving the cards stuck stacked once the
+        // CSS layout switches back to the mobile flow.
+        mm.add("(min-width: 992px)", () => {
+          gsap.set(steps, { position: "absolute", top: 0, left: 0, width: "100%", height: "100%" });
+          gsap.set(steps[0], { opacity: 1, scale: 1, y: 0 });
+          steps[0].classList.add("active");
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: ".process-section",
-            start: "top top",
-            end: "+=300%",
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1
-          }
-        });
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".process-section",
+              start: "top top",
+              end: "+=300%",
+              scrub: 1,
+              pin: true,
+              anticipatePin: 1
+            }
+          });
 
-        steps.forEach((step, idx) => {
-          if (idx === 0) return;
+          steps.forEach((step, idx) => {
+            if (idx === 0) return;
 
-          tl.to(steps[idx - 1], {
-            opacity: 0,
-            scale: 0.95,
-            y: -60,
-            duration: 1,
-            onStart: () => steps[idx - 1].classList.remove("active"),
-            onReverseComplete: () => steps[idx - 1].classList.add("active")
-          }, idx - 1);
+            tl.to(steps[idx - 1], {
+              opacity: 0,
+              scale: 0.95,
+              y: -60,
+              duration: 1,
+              onStart: () => steps[idx - 1].classList.remove("active"),
+              onReverseComplete: () => steps[idx - 1].classList.add("active")
+            }, idx - 1);
 
-          tl.to(step, {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 1,
-            onStart: () => step.classList.add("active"),
-            onReverseComplete: () => step.classList.remove("active")
-          }, idx - 1 + 0.15);
+            tl.to(step, {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              duration: 1,
+              onStart: () => step.classList.add("active"),
+              onReverseComplete: () => step.classList.remove("active")
+            }, idx - 1 + 0.15);
+          });
+
+          return () => {
+            steps.forEach(s => s.classList.remove("active"));
+            gsap.set(steps, { clearProps: "position,top,left,width,height,opacity,scale,transform" });
+          };
         });
       }
 
@@ -7759,20 +7302,9 @@
         var statEls = document.querySelectorAll(".about-stats-mini > div");
         if (!statEls.length || prefersReduced) return;
 
-        gsap.from(statEls, {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-          ease: "power2.out",
-          stagger: 0.2,
-          clearProps: "opacity,transform",
-          scrollTrigger: {
-            trigger: ".about-stats-mini",
-            start: "top 85%",
-            once: true
-          }
-        });
-
+        // Note: no separate opacity/y fade here — .about-stats-mini already
+        // gets one via its ancestor .about-copy.reveal-up, so this only
+        // owns the distinct count-up behavior.
         statEls.forEach(function (el, i) {
           var strongEl = el.querySelector("strong");
           if (!strongEl) return;
@@ -7801,32 +7333,7 @@
         });
       }
 
-      /* ---- Hiring journey timeline cards: alternating stagger ---- */
-      function animateTimelineCards() {
-        var cards = document.querySelectorAll(".hiring-timeline .event-content");
-        if (!cards.length || prefersReduced) return;
-
-        gsap.from(cards, {
-          x: function (index, target) {
-            var event = target.closest(".timeline-event");
-            var siblingIndex = Array.prototype.indexOf.call(event.parentElement.children, event);
-            return siblingIndex % 2 === 1 ? 60 : -60;
-          },
-          opacity: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          stagger: 0.2,
-          clearProps: "transform,opacity",
-          scrollTrigger: {
-            trigger: ".hiring-timeline .timeline-events",
-            start: "top 80%",
-            once: true
-          }
-        });
-      }
-
       animateAboutStats();
-      animateTimelineCards();
     })();
   </script>
 
